@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import Sidebar from '../components/Sidebar'
-import Searchbox from '../components/Searchbox'
+import Sidebar from '../../components/Sidebar'
+import Searchbox from '../../components/Searchbox'
 import { useNavigate } from 'react-router-dom'
 
 const Residents = () => {

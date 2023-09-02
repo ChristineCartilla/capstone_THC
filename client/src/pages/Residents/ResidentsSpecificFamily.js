@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import Sidebar from '../components/Sidebar'
-import Searchbox from '../components/Searchbox'
+import Sidebar from '../../components/Sidebar'
+import Searchbox from '../../components/Searchbox'
 import { useNavigate, useParams } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
@@ -34,7 +34,7 @@ const ResidentsSpecificFamily = () => {
     }
 
     const handleBack = () => {
-        navigate('/resident');
+        window.history.back()
     }
 
     return (

@@ -12,13 +12,14 @@ import Login from './pages/Login';
 import Registration from './pages/Registration';
 import Sidebar from './components/Sidebar';
 
-import Dental from './pages/Dental';
-import Residents from './pages/Residents';
+import Dental from './pages/Dental/Dental';
+
 import MedicalCheckUp from './pages/MedicalCheckUp/MedicalCheckUp';
 import MedicalCheckUpSpecificResident from './pages/MedicalCheckUp/MedicalCheckUpSpecificResident';
 import MedicalCheckUpSpecificRecord from './pages/MedicalCheckUp/MedicalCheckUpSpecificRecord';
-import ResidentsSpecificFamily from './pages/ResidentsSpecificFamily';
-import ResidentsSpecificResident from './pages/ResidentsSpecificResident';
+import Residents from './pages/Residents/Residents';
+import ResidentsSpecificFamily from './pages/Residents/ResidentsSpecificFamily';
+import ResidentsSpecificResident from './pages/Residents/ResidentsSpecificResident';
 
 function App() {
   return (

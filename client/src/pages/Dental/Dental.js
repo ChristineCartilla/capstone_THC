@@ -1,6 +1,6 @@
 import React from 'react'
-import Sidebar from '../components/Sidebar'
-import Searchbox from '../components/Searchbox'
+import Sidebar from '../../components/Sidebar'
+import Searchbox from '../../components/Searchbox'
 
 const Dental = () => {
     return (
