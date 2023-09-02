@@ -1,0 +1,32 @@
+/* SERVICES MAIN PAGES */
+
+.sp1-pageHeader{
+    margin-top: 100px;
+}
+
+.sp1-pageHeader h1{
+    color: #8EC3B0;
+}
+
+.sp1-pageBody{
+    margin-top: 50px;
+}
+
+
+.sp1-pageBody .list-group li{
+    margin-bottom: 20px;
+    border-top: none;
+    border-left: none;
+    background-color: #FAFAFA;
+    color: #8EC3B0;
+}
+
+.sp1-pageBody .list-group li h6{
+    margin-bottom: 0;
+    font-size: 22px;
+}
+
+.sp1-pageBody .list-group li .viewBtn{
+    background-color: #8EC3B0;
+    color: #FFF;
+}

@@ -1,0 +1,30 @@
+
+.sp3-pageHeader{
+    margin-top: 100px;
+}
+
+.sp3-pageHeader h1{
+    color: #8EC3B0;
+}
+
+.sp3-pageBody{
+    margin-top: 50px;
+}
+
+.sp3-personalInfoDiv{
+    margin-bottom: 50px;
+    text-align: start;
+    width: 700px;
+}
+
+.sp3-servicesBacRecskBtn{
+    margin-right: 20px;
+    height: 50px;
+    width: 50px;
+    background-color: transparent;
+    color: #8EC3B0;
+    border:  2px solid #8EC3B0;
+    border-radius: 50%;
+    font-size: 25px;
+    text-align: center;
+}

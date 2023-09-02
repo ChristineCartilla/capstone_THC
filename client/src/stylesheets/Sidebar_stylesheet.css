@@ -1,0 +1,56 @@
+/* SIDE BAR */
+
+.mainSideBarDiv{
+    background-color: #F1EFEF;
+    min-height: 100vh;
+    text-align: start;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .mainSideBarDiv .thcLogo{
+    margin: auto;
+  }
+
+  .mainSideBarDiv .mainSideBarDiv_list li{
+    margin: auto;
+    padding-left: 30px;
+    font-size: 20px;
+  }
+  
+  .mainSideBarDiv .mainSideBarDiv_list li .btn{
+    font-size: 20px;
+    color: #8EC3B0;
+  }
+  .mainSideBarDiv .mainSideBarDiv_list li .btn:hover{
+    padding-left: 50px;
+    transition: 0.5s;
+  }
+  
+  .mainSideBarDiv .mainSideBarDiv_list .servicesMainLi{
+    padding-left: 0;
+  }
+  
+  .mainSideBarDiv .mainSideBarDiv_list li .servicesUl{
+    padding: 10px 0 10px 30px;
+    color: #8EC3B0;
+    background-color: #474747;
+  }
+  
+  .mainSideBarDiv .mainSideBarDiv_list li .servicesUl li {
+    margin-bottom: 10px;
+  }
+  
+  .mainSideBarDiv .mainSideBarDiv_list li .servicesUl li:hover {
+    padding-left: 50px;
+    transition: 0.5s;
+  }
+  
+  .mainSideBarDiv .mainSideBarDiv_list li .servicesUl li a{
+    color: #8EC3B0;
+  }
+
+  .mainSideBarDiv .bottomBtn{
+    position: absolute;
+    bottom: 0;
+  }

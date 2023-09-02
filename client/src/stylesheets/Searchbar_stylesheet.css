@@ -1,0 +1,34 @@
+/* SEARCH BAR */
+
+.searchInput-wrapper{
+    background-color: #FAFAFA;
+    width: 300px;
+    border-radius: 10px;
+    height: 2.5rem;
+    padding: 0 15px;
+    box-shadow: 0 0 8px #ddd;
+    display: flex;
+    align-items: center;
+}
+
+
+.searchInput-wrapper input{
+    background-color: transparent;
+    border: none;
+    height: 100%;
+    width: 100%;
+    font-size: 1.25rem;
+    margin-left: 5px;
+    color: #8EC3B0;
+}
+
+.searchInput-wrapper input:focus{
+    outline: none;
+    border: none;
+}
+
+.searchIcon{
+    color: #8EC3B0;
+    height: 15px;
+    cursor: pointer;
+}

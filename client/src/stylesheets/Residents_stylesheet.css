@@ -1,0 +1,94 @@
+/* RESIDENTS MAIN PAGE */
+
+.pageHeader{
+    margin-top: 100px;
+}
+
+.resident_pageBody{
+    margin-top: 100px;
+}
+
+.resident_pageBody .ResidentFamilyTable {
+    border-collapse: separate;
+    border-spacing: 0 20px;
+}
+
+.resident_pageBody .ResidentFamilyTable tr th,
+.resident_pageBody .ResidentFamilyTable tr td{
+    margin-bottom: 20px;
+    border-top: none;
+    border-left: none;
+    background-color: #FAFAFA;
+    color: #8EC3B0;
+}
+
+.resident_pageBody .ResidentFamilyTable tr th:last-child,
+.resident_pageBody .ResidentFamilyTable tr td:last-child{
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.resident_pageBody .ResidentFamilyTable tr th:first-child,
+.resident_pageBody .ResidentFamilyTable tr td:first-child{
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.resident_pageBody .ResidentFamilyTable tr{
+    margin-bottom: 10px;
+    font-size: 22px;
+
+}
+
+.resident_pageBody .viewBtn{
+    background-color: #8EC3B0;
+    color: #FFF;
+    border: 1px solid #8EC3B0;
+}
+
+.resident_pageBody .viewBtn:hover{
+    color: #8EC3B0;
+    border: 1px solid #8EC3B0;
+}
+
+/* SECOND PAGE */
+
+.resident_viewFamilyBtn{
+    padding: 5px 10px;
+    background-color: #71B8FA;
+    color: #FFF;
+    font-size: 16px;
+    border: 1px solid #71B8FA;
+    border-radius: 10px;
+}
+
+.residentBackBtn{
+    margin: 50px 100px;
+    padding: 10px 20px;
+    background-color: #8EC3B0;
+    color: #FFF;
+    border: 1px solid #8EC3B0;
+    border-radius: 10px;
+}
+
+/* THIRD PAGE */
+.tableHeading h3{
+    width: 100%; 
+    margin: auto;
+    text-align: center; 
+    border-bottom: 1px solid #000; 
+    line-height: 0.1em;
+    margin: 10px 0 20px; 
+    font-weight: 100;
+}
+
+.tableHeading h3 span{
+    background:#fff; 
+    padding:0 10px; 
+}
+
+.resident_familyTable .resident_familyTableRow td{
+    color: #8EC3B0;
+}
+
+/* FORTH PAGE */
