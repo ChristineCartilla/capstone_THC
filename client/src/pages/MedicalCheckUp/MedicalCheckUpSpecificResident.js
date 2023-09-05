@@ -28,13 +28,14 @@ const MedicalCheckUpSpecificResident = () => {
                 if(fetchMR.status === 200 && fetchMCR.status === 200){
                     
                     const record = (fetchMR.data).find((rec) => {
-                        return rec.profile_id === residentid
+                        return rec.profileId === residentid
                     })
-
-                    const checkUpRec = (fetchMCR.data).filter((rec) => {
-                        return rec.mr_id === record.id;
-                    })
-                    setRecords(checkUpRec);
+                    if(record){
+                        const checkUpRec = (fetchMCR.data).filter((rec) => {
+                            return rec.medical_recordId === record.id;
+                        })
+                        setRecords(checkUpRec);
+                    }
                 }
             } catch (error) {
                 console.log(error);
@@ -43,10 +44,11 @@ const MedicalCheckUpSpecificResident = () => {
         
         patientInformation();
         recordsList();
+        console.log(records);
     }, [])
 
 
-    const navigateRecord = (recordid, recordNum) => {
+    const navigateRecord = (recordid) => {
         navigate(recordid);
     }
     const handleBack = () => {
@@ -112,7 +114,7 @@ const MedicalCheckUpSpecificResident = () => {
                                             </thead>
                                             <tbody>
                                                 {
-                                                    records.map((rec,idx) => {
+                                                    records && records.map((rec,idx) => {
                                                         return (
                                                         <tr 
                                                             className='sp2-clickableMCRRow' 
@@ -124,6 +126,15 @@ const MedicalCheckUpSpecificResident = () => {
                                                             <td>{rec.date}</td>
                                                         </tr>
                                                     )})
+                                                }
+                                                {
+                                                    records.length == 0 && (
+                                                        <tr className='sp2-clickableMCRRow'>
+                                                            <td></td>
+                                                            <td><p >NO RECORDS FOUND</p></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    )
                                                 }
                                             
                                             </tbody>
