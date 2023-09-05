@@ -1,25 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import Sidebar from '../../components/Sidebar'
-import Searchbox from '../../components/Services_Searchbox'
+import Resident_Searchbox from '../../components/Resident_Searchbox'
 import { useNavigate } from 'react-router-dom'
 
 const Residents = () => {
     const [family, setFamily] = useState([]);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchFamily =  () => {
-            fetch("http://localhost:8000/accounts").then((res) => {
-                return res.json();
-            }).then((response) => {
-                setFamily(response);
-            }).catch((error) => {
-                console.log(error.message);
-            })
-        };
-
-        fetchFamily();
-    },[])
     const handleViewFam = (famId) => {
         navigate(`/resident/${famId}`);
     }
@@ -29,9 +16,9 @@ const Residents = () => {
             <div className='row'>
                 <Sidebar />
                 <div className='col p-0'>
-                    <div className="pageHeader d-flex justify-content-around">
+                    <div className="resident_pageHeader d-flex justify-content-around">
                         <h1>Residents</h1>  
-                        <Searchbox />
+                        <Resident_Searchbox setSearchResults={setFamily} />
                     </div>
                     <div className='resident_pageBody'>
                         <div className='container table-responsive'>
@@ -49,7 +36,7 @@ const Residents = () => {
                                         family && family.map((fam,idx) => (
                                             <tr className='px-5' key={idx}>
                                                 <td>Family {idx+1}</td>
-                                                <td>Doe</td>
+                                                <td>{fam.profiles[0].last_name}</td>
                                                 <td>{fam.status}</td>
                                                 <td>
                                                     <button 

@@ -17,7 +17,7 @@ const ResidentsSpecificFamily = () => {
                 return res.json();
             }).then((response) => {
                 const fam = response.filter((member) => {
-                    return member.group_id === familyid;
+                    return member.accountId === familyid;
                 })
                 setFamilyMembers(fam);
                 // console.log(fam);
@@ -43,9 +43,9 @@ const ResidentsSpecificFamily = () => {
             <div className='row'>
                 <Sidebar />
                 <div className='col p-0'>
-                    <div className="pageHeader d-flex justify-content-around">
+                    <div className="resident_pageHeader d-flex justify-content-around">
                         <h1>Family Profile 02</h1>  
-                        <Searchbox />
+                        <span></span>
                     </div>
                     <div className='container'>
                         <div className='verifiedProfileDiv my-5'>

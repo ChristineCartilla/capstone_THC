@@ -1,7 +1,11 @@
 /* RESIDENTS MAIN PAGE */
 
-.pageHeader{
+.resident_pageHeader{
     margin-top: 100px;
+}
+
+.resident_pageHeader h1{
+    color: #8EC3B0;
 }
 
 .resident_pageBody{
