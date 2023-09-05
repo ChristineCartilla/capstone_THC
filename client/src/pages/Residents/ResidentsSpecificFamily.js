@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Sidebar from '../../components/Sidebar'
-import Searchbox from '../../components/Searchbox'
+import Searchbox from '../../components/Services_Searchbox'
 import { useNavigate, useParams } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
@@ -17,7 +17,7 @@ const ResidentsSpecificFamily = () => {
                 return res.json();
             }).then((response) => {
                 const fam = response.filter((member) => {
-                    return member.group_id == familyid;
+                    return member.group_id === familyid;
                 })
                 setFamilyMembers(fam);
                 // console.log(fam);
@@ -29,8 +29,9 @@ const ResidentsSpecificFamily = () => {
         fetchFamily();
     },[])
 
-    const handleViewResident = () => {
-        navigate('/resident/specfam/resident');
+    const handleViewResident = (id) => {
+        navigate(id);
+        // console.log(window.location.href);
     }
 
     const handleBack = () => {
@@ -77,7 +78,7 @@ const ResidentsSpecificFamily = () => {
                                                     <button 
                                                         type="button" 
                                                         className="resident_viewFamilyBtn"
-                                                        onClick={() => handleViewResident()}
+                                                        onClick={() => handleViewResident(fam.id)}
                                                         style={{width: "100px"}}>
                                                             View
                                                     </button>

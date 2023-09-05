@@ -1,23 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Sidebar from '../../components/Sidebar.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
 
-const MedicalCheckUpSpecificRecord = (props) => {
-    const loc = useLocation();
-    console.log(loc)
-    const navigate = useNavigate();
-    const patient = 
-    {
-        fname: "John",
-        lname: "Doe",
-        mname: "Smith",
-        age: 24,
-        birthdate: "09-10-1999",
-        occupation: "N/A",
-        address: "Minoza St. Tigbao, Talamban, Cebu City"
-    };
+const MedicalCheckUpSpecificRecord = () => {
+    const { residentid, recordid } = useParams();
+    const [patientinfo, setPatientInfo] = useState([]);
+    const [medicalCheckupInfo, setMedicalCheckupInfo] = useState([]);
+
+    useEffect(() => {
+        const patientInformation = async () => {
+            await axios.get("http://localhost:8000/profiles/"+ residentid)
+            .then((response) => {
+                setPatientInfo(response.data) 
+            })
+        }
+        const getMedicalCheckupDetails = async () => {
+            await axios.get("http://localhost:8000/medical_checkup_record/"+ recordid)
+            .then((response) => {
+                setMedicalCheckupInfo(response.data) 
+            })
+        }
+        patientInformation();
+        getMedicalCheckupDetails();
+    }, [residentid, recordid])
 
     const handleBack = () => {
         window.history.back()
@@ -38,6 +46,7 @@ const MedicalCheckUpSpecificRecord = (props) => {
                             onClick={() => handleBack()}>
                                 <FontAwesomeIcon icon={faAngleLeft}/>
                         </button>
+                            {/* ILISANAN: SPECIFIC RECORD NUMBER */}
                             <h1 className='text-start'>Medical Checkup 1</h1>  
                         </div>
                         <div className='sp3-pageBody'>
@@ -49,23 +58,23 @@ const MedicalCheckUpSpecificRecord = (props) => {
                                             <tbody>
                                                 <tr>
                                                     <th scope="row">Name:</th>
-                                                    <td>{patient.fname + " "+ patient.mname + " " + patient.lname}</td>
+                                                    <td>{patientinfo.first_name + " "+ patientinfo.middle_name + " " + patientinfo.last_name}</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Age:</th>
-                                                    <td>{patient.age} Years Old</td>
+                                                    <td>{patientinfo.age} Years Old</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Birth Date:</th>
-                                                    <td>{patient.birthdate}</td>
+                                                    <td>{patientinfo.birthDate}</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Occupation:</th>
-                                                    <td>{patient.occupation}</td>
+                                                    <td>{patientinfo.occupation}</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Address:</th>
-                                                    <td>{patient.address}</td>
+                                                    <td>{patientinfo.street + " "+ patientinfo.barangay + " " + patientinfo.municipality+ " " + patientinfo.zipCode}</td>
                                                 </tr>
                                             </tbody>
                                         </table>    
@@ -74,30 +83,23 @@ const MedicalCheckUpSpecificRecord = (props) => {
                                 <div className='buttomDiv'>
                                     <div>
                                         <h4 className="text-start">Findings</h4>
-                                        <p>
-                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                                            when an unknown printer took a galley of type and scrambled it to make a type 
-                                            specimen book. It has survived not only five centuries, but also the leap into 
-                                            electronic typesetting, remaining essentially unchanged. It was popularised in 
-                                            the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
-                                            and more recently with desktop publishing software like Aldus PageMaker including 
-                                            versions of Lorem Ipsum.
+                                        <p className='text-start px-5'>
+                                            {medicalCheckupInfo.findings}
                                         </p>
                                     </div>
 
                                     <div>
                                         <h4 className="text-start">Medical Prescription</h4>
-                                        <p>
-                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                                            when an unknown printer took a galley of type and scrambled it to make a type 
-                                            specimen book. It has survived not only five centuries, but also the leap into 
-                                            electronic typesetting, remaining essentially unchanged. It was popularised in 
-                                            the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
-                                            and more recently with desktop publishing software like Aldus PageMaker including 
-                                            versions of Lorem Ipsum.
+                                        <p className='text-start px-5'>
+                                            {medicalCheckupInfo.prescription}
                                         </p>
+                                    </div>
+
+                                    <div >
+                                        <h4 className="text-start">Medical Service Provider</h4>
+                                        <h5 className='text-start px-5'>
+                                            {medicalCheckupInfo.serviceprovider}
+                                        </h5>
                                     </div>
                                 </div>
                             </div>

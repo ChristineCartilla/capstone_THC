@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Sidebar from '../../components/Sidebar.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import AdditionMedicalCheckup from '../../components/AdditionMedicalCheckup'
 
@@ -10,50 +10,44 @@ import AdditionMedicalCheckup from '../../components/AdditionMedicalCheckup'
 const MedicalCheckUpSpecificResident = () => {
     const { residentid } = useParams();
     const [patientinfo, setPatientInfo] = useState([]);
+    const [records, setRecords] = useState([]);
+    const navigate = useNavigate();
+    var recLength = records.length;
     
     useEffect(() => {
         const patientInformation = async () => {
-            const data = 
-                await axios.get("http://localhost:8000/profiles")
-                .then((response) => {
-                    const list = response.data
-                    setPatientInfo(list.find((res) => res.profile_id == residentid));
-                    // console.log(response)
-                })
-                console.log(patientinfo)
+            await axios.get("http://localhost:8000/profiles/"+ residentid)
+            .then((response) => {
+                setPatientInfo(response.data) 
+            })
         }
-        patientInformation();
+        const recordsList = async () => {
+            try {
+                const fetchMR = await axios.get("http://localhost:8000/medical_record");
+                const fetchMCR = await axios.get("http://localhost:8000/medical_checkup_record");
+                if(fetchMR.status === 200 && fetchMCR.status === 200){
+                    
+                    const record = (fetchMR.data).find((rec) => {
+                        return rec.profile_id === residentid
+                    })
+
+                    const checkUpRec = (fetchMCR.data).filter((rec) => {
+                        return rec.mr_id === record.id;
+                    })
+                    setRecords(checkUpRec);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
         
+        patientInformation();
+        recordsList();
     }, [])
 
-    const navigate = useNavigate();
 
-    const record = 
-    [
-        {
-            record: "Medical Checkup Record 4",
-            doctor: "Dr. Doe",
-            date: "04-07-2023",
-        },  
-        {
-            record: "Medical Checkup Record 3",
-            doctor: "Dr. Doe",
-            date: "03-20-2023",
-        },   
-        {
-            record: "Medical Checkup Record 2",
-            doctor: "Dr. Doe",
-            date: "02-14-2023",
-        },   
-        {
-            record: "Medical Checkup Record 1",
-            doctor: "Dr. Doe",
-            date: "01-04-2023",
-        },   
-    ];
-
-    const navigateRecord = () => {
-        navigate('/medicalcheckup/specres/record', {state:{data:"HELLO"}});
+    const navigateRecord = (recordid, recordNum) => {
+        navigate(recordid);
     }
     const handleBack = () => {
         window.history.back()
@@ -113,22 +107,23 @@ const MedicalCheckUpSpecificResident = () => {
                                                 <tr>
                                                     <th>Medical Checkup Records</th>
                                                     <th>Doctor</th>
-                                                    <th>Date of Record</th>
+                                                    <th>Date of Record</th> 
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {
-                                                    record.map((rec,idx) => (
+                                                    records.map((rec,idx) => {
+                                                        return (
                                                         <tr 
                                                             className='sp2-clickableMCRRow' 
                                                             key={idx}
-                                                            onClick={() => navigateRecord()}
+                                                            onClick={() => navigateRecord(rec.id)}
                                                             >
-                                                            <td>{rec.record}</td>
-                                                            <td>{rec.doctor}</td>
+                                                            <td>{"Medical Checkup "+ (recLength--)}</td>
+                                                            <td>{rec.serviceprovider}</td>
                                                             <td>{rec.date}</td>
                                                         </tr>
-                                                    ))
+                                                    )})
                                                 }
                                             
                                             </tbody>

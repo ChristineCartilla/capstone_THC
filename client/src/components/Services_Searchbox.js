@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
-const Searchbox = ({setSearchResults}) => {
+const Services_Searchbox = ({setSearchResults}) => {
     const [filterData, setFilterData] = useState([]);
 
     useEffect(() => {
@@ -44,4 +44,4 @@ const Searchbox = ({setSearchResults}) => {
   )
 }
 
-export default Searchbox
+export default Services_Searchbox

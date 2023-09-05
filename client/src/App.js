@@ -32,11 +32,11 @@ function App() {
           <Route path="/sidebar" element={<Sidebar />} />
           <Route path="/medicalcheckup" element={<MedicalCheckUp />} />
           <Route path="/medicalcheckup/:residentid" element={<MedicalCheckUpSpecificResident />} />
-          <Route path="/medicalcheckup/specres/record" element={<MedicalCheckUpSpecificRecord />} />
+          <Route path="/medicalcheckup/:residentid/:recordid" element={<MedicalCheckUpSpecificRecord />} />
           <Route path="/dental" element={<Dental />} />
           <Route path="/resident" element={<Residents />} />
           <Route path="/resident/:familyid" element={<ResidentsSpecificFamily />} />
-          <Route path="/resident/specfam/resident" element={<ResidentsSpecificResident />} />
+          <Route path="/resident/:familyid/:profile_id" element={<ResidentsSpecificResident />} />
         </Routes>
       </Router>
     </div>

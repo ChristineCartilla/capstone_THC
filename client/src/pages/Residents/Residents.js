@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Sidebar from '../../components/Sidebar'
-import Searchbox from '../../components/Searchbox'
+import Searchbox from '../../components/Services_Searchbox'
 import { useNavigate } from 'react-router-dom'
 
 const Residents = () => {
@@ -55,7 +55,7 @@ const Residents = () => {
                                                     <button 
                                                         type="button" 
                                                         className="resident_viewFamilyBtn"
-                                                        onClick={() => handleViewFam(fam.acc_id)}>
+                                                        onClick={() => handleViewFam(fam.id)}>
                                                             View Family Profiles
                                                     </button>
                                                 </td>
