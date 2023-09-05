@@ -67,6 +67,8 @@
 }
 
 .residentBackBtn{
+    width: 100px;
+    height: 50px;
     margin: 50px 100px;
     padding: 10px 20px;
     background-color: #8EC3B0;
@@ -96,3 +98,49 @@
 }
 
 /* FORTH PAGE */
+
+.residentDetail_table{
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    font-size: 18px;
+}
+
+.residentDetail_table tbody tr td{
+    color: #8EC3B0;
+}
+
+.residentEditBtn{
+    margin: 3px 100px;
+    padding: 10px 20px;
+    background-color: #8EC3B0;
+    color: #FFF;
+    border: 1px solid #8EC3B0;
+    border-radius: 10px;
+}
+
+.residentProfile_footer{
+    height: 200px;
+}
+
+.residentViewMedHisBtn{
+    margin: 3px 100px;
+    padding: 10px 20px;
+    background-color: #8EC3B0;
+    color: #FFF;
+    border: 1px solid #8EC3B0;
+    border-radius: 10px;
+}
+
+/* EDIT MODAL */
+#editResidentProfileModal .modal-title{
+    color: #8EC3B0;
+}
+
+.residentSubmitEditBtn{
+    margin: 50px 100px;
+    padding: 7px 20px;
+    background-color: #8EC3B0;
+    color: #FFF;
+    border: 1px solid #8EC3B0;
+    border-radius: 6px;
+}
