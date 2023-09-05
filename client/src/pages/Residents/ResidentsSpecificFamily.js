@@ -8,7 +8,8 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 const ResidentsSpecificFamily = () => {
     const {familyid} = useParams()
-    const [familyMembers, setFamilyMembers] = useState();
+    const [activeFamilyMembers, setActiveFamilyMembers] = useState();
+    const [pendingFamilyMembers, setPendingFamilyMembers] = useState();
     const navigate = useNavigate();
     
     useEffect(() => {
@@ -16,22 +17,25 @@ const ResidentsSpecificFamily = () => {
             fetch("http://localhost:8000/profiles").then((res) => {
                 return res.json();
             }).then((response) => {
-                const fam = response.filter((member) => {
-                    return member.accountId === familyid;
+                const afam = response.filter((member) => {
+                    return member.accountId === familyid && member.status === "active";
                 })
-                setFamilyMembers(fam);
-                // console.log(fam);
+                setActiveFamilyMembers(afam);
+                const bfam = response.filter((member) => {
+                    return member.accountId === familyid && member.status !== "active";
+                })
+                setPendingFamilyMembers(bfam);
             }).catch((error) => {
                 console.log(error.message);
             })
         };
-        console.log(familyid)
+        
         fetchFamily();
+        // console.log(familyMembers)
     },[])
 
     const handleViewResident = (id) => {
         navigate(id);
-        // console.log(window.location.href);
     }
 
     const handleBack = () => {
@@ -64,7 +68,7 @@ const ResidentsSpecificFamily = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                        familyMembers && familyMembers.map((fam,idx) => (
+                                        activeFamilyMembers && activeFamilyMembers.map((fam,idx) => (
                                             <tr 
                                                 className='resident_familyTableRow' 
                                                 key={idx}
@@ -105,7 +109,7 @@ const ResidentsSpecificFamily = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                        familyMembers && familyMembers.map((fam,idx) => (
+                                        pendingFamilyMembers && pendingFamilyMembers.map((fam,idx) => (
                                             <tr 
                                                 className='resident_familyTableRow' 
                                                 key={idx}
