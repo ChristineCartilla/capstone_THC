@@ -20,6 +20,9 @@ import MedicalCheckUpSpecificRecord from './pages/MedicalCheckUp/MedicalCheckUpS
 import Residents from './pages/Residents/Residents';
 import ResidentsSpecificFamily from './pages/Residents/ResidentsSpecificFamily';
 import ResidentsSpecificResident from './pages/Residents/ResidentsSpecificResident';
+import FamilyPlanning from './pages/FamilyPlanning/familyPlanning';
+import FamilyPlanningSpecificResident from './pages/FamilyPlanning/familyPlanningSpecificResident';
+import FamilyPlanningAllRecords from './pages/FamilyPlanning/familyPlanningAllRecords';
 
 function App() {
   return (
@@ -37,6 +40,9 @@ function App() {
           <Route path="/resident" element={<Residents />} />
           <Route path="/resident/:familyid" element={<ResidentsSpecificFamily />} />
           <Route path="/resident/:familyid/:profile_id" element={<ResidentsSpecificResident />} />
+          <Route path="/familyplanning" element={<FamilyPlanning />} />
+          <Route path="/familyplanning/:residentid" element={<FamilyPlanningSpecificResident />} />
+          <Route path="/familyplanningallrecords/:residentid" element={<FamilyPlanningAllRecords />} />
         </Routes>
       </Router>
     </div>

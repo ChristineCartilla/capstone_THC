@@ -42,7 +42,7 @@ const Sidebar = () => {
                         <li><a href="#" className="d-inline-flex text-decoration-none rounded">Immunization</a></li>
                         <li><a href="/dental" className="d-inline-flex text-decoration-none rounded">Dental</a></li>
                         <li><a href="/medicalcheckup" className="d-inline-flex text-decoration-none rounded">Medical Check-up</a></li>
-                        <li><a href="#" className="d-inline-flex text-decoration-none rounded">Family Planning</a></li>
+                        <li><a href="/familyplanning" className="d-inline-flex text-decoration-none rounded">Family Planning</a></li>
                         <li>
                         <button className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed px-0" data-bs-toggle="collapse" data-bs-target="#laboratory-collapse" aria-expanded="false">
                         Laboratory
