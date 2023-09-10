@@ -2,44 +2,17 @@ import React, { useEffect, useState } from 'react'
 import Sidebar from '../../components/Sidebar.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons'
-import { useNavigate, useParams } from 'react-router-dom'
+import {  useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
-import AdditionMedicalCheckup from '../../components/AdditionMedicalCheckup'
+import AdditionImmunization from '../../components/AdditionImmunization.js'
 
 
-const MedicalCheckUpSpecificResident = () => {
+const ImmunizationSpecificResident = () => {
     const { residentid } = useParams();
     const [patientinfo, setPatientInfo] = useState([]);
-    const [records, setRecords] = useState([]);
-    const navigate = useNavigate();
-    var recLength = records.length;
     
     useEffect(() => {
         const patientInformation = async () => {
-            await axios.get("http://localhost:8000/profiles/"+ residentid)
-            .then((response) => {
-                setPatientInfo(response.data) 
-            })
-        }
-        const recordsList = async () => {
-            try {
-                const fetchMR = await axios.get("http://localhost:8000/medical_record");
-                const fetchMCR = await axios.get("http://localhost:8000/medical_checkup_record");
-                if(fetchMR.status === 200 && fetchMCR.status === 200){
-                    
-                    const record = (fetchMR.data).find((rec) => {
-                        return rec.profileId === residentid
-                    })
-                    if(record){
-                        const checkUpRec = (fetchMCR.data).filter((rec) => {
-                            return rec.medical_recordId === record.id;
-                        })
-                        setRecords(checkUpRec);
-                    }
-                }
-            } catch (error) {
-                console.log(error);
-            }
             const data = 
                 await axios.get("http://localhost:8000/profiles")
                 .then((response) => {
@@ -49,15 +22,38 @@ const MedicalCheckUpSpecificResident = () => {
                 })
                 console.log(patientinfo)
         }
-        
         patientInformation();
-        recordsList();
-        console.log(records);
+        
     }, [])
 
+    const navigate = useNavigate();
 
-    const navigateRecord = (recordid) => {
-        navigate(recordid);
+    const record = 
+    [
+        {
+            record: "Immunization Record 4",
+            doctor: "Dr. Doe",
+            date: "04-07-2023",
+        },  
+        {
+            record: "Immunization Record 3",
+            doctor: "Dr. Doe",
+            date: "03-20-2023",
+        },   
+        {
+            record: "Immunization Record 2",
+            doctor: "Dr. Doe",
+            date: "02-14-2023",
+        },   
+        {
+            record: "Immunization Record 1",
+            doctor: "Dr. Doe",
+            date: "01-04-2023",
+        },   
+    ];
+
+    const navigateRecord = () => {
+        navigate('/immunization/specres/record', {state:{data:"HELLO"}});
     }
     const handleBack = () => {
         window.history.back()
@@ -72,7 +68,7 @@ const MedicalCheckUpSpecificResident = () => {
                     </div>
                     <div className='col p-0'>
                         <div className="sp2-pageHeader container">
-                            <h1 className='text-start'>Medical Checkup Records</h1>  
+                            <h1 className='text-start'>Immunization Records</h1>  
                         </div>
                         <div className='sp2-pageBody'>
                             <div className='container'>
@@ -107,42 +103,32 @@ const MedicalCheckUpSpecificResident = () => {
                                 </div>
                                 <div className='sp2-bottomDiv'>
                                     <div className='sp2-bottomDivHeader d-flex justify-content-between'>
-                                        <h4 className="text-start">Medical Checkup Records</h4>    
+                                        <h4 className="text-start">Immunization Records</h4>    
                                         {/* Button trigger modal  */}
-                                        <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#MCAddition"><FontAwesomeIcon icon={faPlus}/></button>
+                                        <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#IAddition"><FontAwesomeIcon icon={faPlus}/></button>
                                     </div>
                                     <div className='sp2-MCRecordsDiv'>
                                         <table className="table sp2-MCRecordsTable">
                                             <thead>
                                                 <tr>
-                                                    <th>Medical Checkup Records</th>
+                                                    <th>Immunization Records</th>
                                                     <th>Doctor</th>
-                                                    <th>Date of Record</th> 
+                                                    <th>Date of Record</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {
-                                                    records && records.map((rec,idx) => {
-                                                        return (
+                                                    record.map((rec,idx) => (
                                                         <tr 
                                                             className='sp2-clickableMCRRow' 
                                                             key={idx}
-                                                            onClick={() => navigateRecord(rec.id)}
+                                                            onClick={() => navigateRecord()}
                                                             >
-                                                            <td>{"Medical Checkup "+ (recLength--)}</td>
-                                                            <td>{rec.serviceprovider}</td>
+                                                            <td>{rec.record}</td>
+                                                            <td>{rec.doctor}</td>
                                                             <td>{rec.date}</td>
                                                         </tr>
-                                                    )})
-                                                }
-                                                {
-                                                    records.length == 0 && (
-                                                        <tr className='sp2-clickableMCRRow'>
-                                                            <td></td>
-                                                            <td><p >NO RECORDS FOUND</p></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    )
+                                                    ))
                                                 }
                                             
                                             </tbody>
@@ -162,15 +148,15 @@ const MedicalCheckUpSpecificResident = () => {
             </div>
 
              {/* Modal  */}
-            <div className="modal fade" id="MCAddition" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="IAddition" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-lg">
                     <div className="modal-content">
                     <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel">Medical Checkup Form</h1>
+                        <h1 className="modal-title fs-5" id="exampleModalLabel">Immunization Form</h1>
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
-                        <AdditionMedicalCheckup />
+                        <AdditionImmunization/>
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
@@ -183,4 +169,4 @@ const MedicalCheckUpSpecificResident = () => {
     )
 }
 
-export default MedicalCheckUpSpecificResident
+export default ImmunizationSpecificResident

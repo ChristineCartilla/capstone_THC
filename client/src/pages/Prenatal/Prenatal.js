@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 import Sidebar from '../../components/Sidebar.js'
-import Searchbox from '../../components/Services_Searchbox.js'
+import Searchbox from '../../components/Services_Searchbox'
 import { useNavigate } from 'react-router-dom'
 
-const Dental = () => {
+const Prenatal = () => {
     const [patient, setPatient] = useState([]);
     const navigate = useNavigate();
 
-    const handleViewMedHis = (pateint) => {
-        navigate(`/dental/${pateint.profile_id}`, 
+    const handleViewMedHis = (patient) => {
+        navigate(`/prenatal/${patient.id}`, 
             {state:
-                {patientdata: pateint}
+                {patientdata: patient}
             });
     }
     return (
@@ -21,7 +21,7 @@ const Dental = () => {
                 </div>
                 <div className='container mainLayout-right p-0'>
                     <div className="sp1-pageHeader d-flex justify-content-around">
-                        <h1>Dental</h1>  
+                        <h1>Prenatal</h1>  
                         <Searchbox setSearchResults={setPatient} />
                     </div>
                     <div className='sp1-pageBody'>
@@ -63,4 +63,4 @@ const Dental = () => {
     )
 }
 
-export default Dental
+export default Prenatal

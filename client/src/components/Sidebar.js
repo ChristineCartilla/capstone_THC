@@ -38,8 +38,8 @@ const Sidebar = () => {
                     </button>
                     <div className="collapse" id="service-collapse">
                     <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small servicesUl">
-                        <li><a href="#" className="d-inline-flex text-decoration-none rounded">Prenatal</a></li>
-                        <li><a href="#" className="d-inline-flex text-decoration-none rounded">Immunization</a></li>
+                        <li><a href="/prenatal" className="d-inline-flex text-decoration-none rounded">Prenatal</a></li>
+                        <li><a href="/immunization" className="d-inline-flex text-decoration-none rounded">Immunization</a></li>
                         <li><a href="/dental" className="d-inline-flex text-decoration-none rounded">Dental</a></li>
                         <li><a href="/medicalcheckup" className="d-inline-flex text-decoration-none rounded">Medical Check-up</a></li>
                         <li><a href="/familyplanning" className="d-inline-flex text-decoration-none rounded">Family Planning</a></li>
