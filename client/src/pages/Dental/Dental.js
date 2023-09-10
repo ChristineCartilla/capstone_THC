@@ -7,11 +7,12 @@ const Dental = () => {
     const [patient, setPatient] = useState([]);
     const navigate = useNavigate();
 
-    const handleViewMedHis = (pateint) => {
-        navigate(`/dental/${pateint.profile_id}`, 
+    const handleViewMedHis = (patient) => {
+        navigate(`/dental/${patient.id}`, 
             {state:
-                {patientdata: pateint}
-            });
+                {patientdata: patient}
+            }); 
+        
     }
     return (
         <div className=''>

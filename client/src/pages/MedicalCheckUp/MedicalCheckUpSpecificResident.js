@@ -40,14 +40,7 @@ const MedicalCheckUpSpecificResident = () => {
             } catch (error) {
                 console.log(error);
             }
-            const data = 
-                await axios.get("http://localhost:8000/profiles")
-                .then((response) => {
-                    const list = response.data
-                    setPatientInfo(list.find((res) => res.profile_id == residentid));
-                    console.log(response)
-                })
-                console.log(patientinfo)
+           
         }
         
         patientInformation();

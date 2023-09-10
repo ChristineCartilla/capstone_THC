@@ -13,14 +13,11 @@ const PrenatalSpecificResident = () => {
     
     useEffect(() => {
         const patientInformation = async () => {
-            const data = 
-                await axios.get("http://localhost:8000/profiles")
-                .then((response) => {
-                    const list = response.data
-                    setPatientInfo(list.find((res) => res.profiles_id === residentid));
-                    console.log(response)
-                })
-                console.log(patientinfo)
+            await axios.get("http://localhost:8000/profiles/"+ residentid)
+            .then((response) => {
+                setPatientInfo(response.data) 
+            })
+        
         }
         patientInformation();
         

@@ -10,15 +10,15 @@ const AdditionDental = () => {
                 <input type="text"  className="form-control" disabled id="exampleFormControlTextarea1" style={{backgroundColor: "#CCE8DE"}}/>
             </div>
             <div className="col text-start">
-            <div class=" form-check form-check-inline  form-control-lg ">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                <label class="form-check-label" for="flexCheckDefault">
+            <div className=" form-check form-check-inline  form-control-lg ">
+                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                <label className="form-check-label" for="flexCheckDefault">
                     Cleaning
                 </label>
                 </div>
-                <div class=" form-check form-check-inline  form-control-lg ">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                <label class="form-check-label" for="flexCheckDefault">
+                <div className=" form-check form-check-inline  form-control-lg ">
+                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                <label className="form-check-label" for="flexCheckDefault">
                     Extraction
                 </label>
                 </div>
@@ -27,33 +27,33 @@ const AdditionDental = () => {
         <h5 className="text-start" id="">A. Check (/) if present (x) if absent</h5>
         <div className="row mb-5">
            <div className="col text-start">
-                <div class=" form-check form-check-inline ">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                <label class="form-check-label" for="flexCheckDefault">
+                <div className=" form-check form-check-inline ">
+                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                <label className="form-check-label" for="flexCheckDefault">
                     Dental Carries
                 </label>
                 </div>
-                <div class=" form-check form-check-inline   ">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                <label class="form-check-label" for="flexCheckDefault">
+                <div className=" form-check form-check-inline   ">
+                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                <label className="form-check-label" for="flexCheckDefault">
                     Gingivitis
                 </label>
                 </div>
-                <div class=" form-check form-check-inline   ">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                <label class="form-check-label" for="flexCheckDefault">
+                <div className=" form-check form-check-inline   ">
+                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                <label className="form-check-label" for="flexCheckDefault">
                     Periodontal Disease
                 </label>
                 </div>
-                <div class=" form-check form-check-inline ">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                <label class="form-check-label" for="flexCheckDefault">
+                <div className=" form-check form-check-inline ">
+                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                <label className="form-check-label" for="flexCheckDefault">
                     Debris
                 </label>
                 </div>
-                <div class=" form-check form-check-inline   ">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                <label class="form-check-label" for="flexCheckDefault">
+                <div className=" form-check form-check-inline   ">
+                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                <label className="form-check-label" for="flexCheckDefault">
                     Calculus
                 </label>
                 </div>
@@ -62,21 +62,21 @@ const AdditionDental = () => {
         </div>
         <div className="row mb-5">
            <div className="col text-start">
-           <div class=" form-check form-check-inline   ">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                <label class="form-check-label" for="flexCheckDefault">
+           <div className=" form-check form-check-inline   ">
+                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                <label className="form-check-label" for="flexCheckDefault">
                     Abnormal Growth
                 </label>
                 </div>
-                <div class=" form-check form-check-inline   ">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                <label class="form-check-label" for="flexCheckDefault">
+                <div className=" form-check form-check-inline   ">
+                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                <label className="form-check-label" for="flexCheckDefault">
                     Cleft Up/Palate
                 </label>
                 </div>
-                <div class=" form-check form-check-inline   ">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                <label class="form-check-label" for="flexCheckDefault">
+                <div className=" form-check form-check-inline   ">
+                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                <label className="form-check-label" for="flexCheckDefault">
                     Others
                 </label>
                 </div>
@@ -159,13 +159,13 @@ const AdditionDental = () => {
                
             </div>
         </div>
-        <hr class="hr" />
+        <hr className="hr" />
         <h3 className="pre-pageHeader text-start" id="">Dietary Habits / Social History</h3>
         <div className="row mb-5">
             <div className="col text-start">
-                <div class=" form-check form-check-inline  form-control-lg ">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                <label class="form-check-label" for="flexCheckDefault">
+                <div className=" form-check form-check-inline  form-control-lg ">
+                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                <label className="form-check-label" for="flexCheckDefault">
                     Cleaning
                 </label>
                 </div>

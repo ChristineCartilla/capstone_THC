@@ -7,10 +7,10 @@ const Immunization = () => {
     const [patient, setPatient] = useState([]);
     const navigate = useNavigate();
 
-    const handleViewMedHis = (pateint) => {
-        navigate(`/immunization/${pateint.profile_id}`, 
+    const handleViewMedHis = (patient) => {
+        navigate(`/immunization/${patient.id}`, 
             {state:
-                {patientdata: pateint}
+                {patientdata: patient}
             });
     }
     return (

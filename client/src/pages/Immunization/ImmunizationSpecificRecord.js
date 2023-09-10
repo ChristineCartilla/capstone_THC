@@ -101,138 +101,138 @@ const ImmunizationSpecificRecord = (props) => {
                                 <div className='topDiv'>
                                     <h4 className="text-start">Personal Information</h4>
                                     <div className='sp3-personalInfoDiv'>
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col itembox ">
+                                    <div className="container">
+                                        <div className="row">
+                                            <div className="col itembox ">
                                             <label className="fw-bold">Name :  </label>
                                             <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span>
                                             </div>
-                                            <div class="col itembox ">
+                                            <div className="col itembox ">
                                             <label className="fw-bold ">Address :  </label>
                                             <span> {patient.address} </span>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col itembox ">
+                                        <div className="row">
+                                            <div className="col itembox ">
                                             <label className="fw-bold">Sex :  </label>
                                             <span> {patient.sex} </span>
                                             </div>
-                                            <div class="col itembox ">
+                                            <div className="col itembox ">
                                             <label className="fw-bold">Birth Date :  </label>
                                             <span> {patient.birthdate} </span>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col itembox ">
+                                        <div className="row">
+                                            <div className="col itembox ">
                                             <label className="fw-bold ">Mother's Name:  </label>
                                             <span> {patient.motName} </span>
                                             </div>
-                                            <div class="col itembox ">
+                                            <div className="col itembox ">
                                             <label className="fw-bold ">Father's Name:  </label>
                                             <span> {patient.fatName} </span>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col itembox ">
+                                        <div className="row">
+                                            <div className="col itembox ">
                                             <label className="fw-bold">Mother's Age: </label>
                                             <span> {patient.motAge} </span>
                                             </div>
-                                            <div class="col itembox ">
+                                            <div className="col itembox ">
                                             <label className="fw-bold">Father's Age: </label>
                                             <span> {patient.fatAge} </span>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col itembox ">
+                                        <div className="row">
+                                            <div className="col itembox ">
                                             <label className="fw-bold ">Mother's Occupation: </label>
                                             <span > {patient.motOcc} </span>
                                             </div>
-                                            <div class="col itembox ">
+                                            <div className="col itembox ">
                                             <label className="fw-bold ">Father's Occupation: </label>
                                             <span > {patient.fatOcc} </span>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col itembox ">
+                                        <div className="row">
+                                            <div className="col itembox ">
                                             <label className="fw-bold ">Mother's Contact Number: </label>
                                             <span > {patient.motCon} </span>
                                             </div>
-                                            <div class="col itembox ">
+                                            <div className="col itembox ">
                                             <label className="fw-bold ">Father's Contact Number: </label>
                                             <span > {patient.fatCon} </span>
                                             </div>
                                         </div>
-                                        <div class="row ">
-                                            <div class="col itembox ">
+                                        <div className="row ">
+                                            <div className="col itembox ">
                                             <label className="fw-bold ">Place of Delivery: </label>
                                             <span > {patient.POD} </span>
                                             </div>
-                                            <div class="col itembox ">
+                                            <div className="col itembox ">
                                             <label className="fw-bold">Birth Weight : </label>
                                             <span> {patient.bw} </span>
                                             </div>
-                                            <div class="col itembox">
+                                            <div className="col itembox">
                                             <label className="fw-bold">Type of Feeding: </label>
                                             <span> {patient.tof} </span>
                                             </div>
-                                            <div class="col itembox">
+                                            <div className="col itembox">
                                             <label className="fw-bold">Date of Newborn Screening: </label>
                                             <span> {patient.donbs} </span>
                                             </div>
                                         </div>
-                                        <div class="row-start">
-                                            <div class="col itembox ">
+                                        <div className="row-start">
+                                            <div className="col itembox ">
                                             <label className="fw-bold col-sm-12">Vaccine</label>
                                             <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#IAddition"><FontAwesomeIcon icon={faPlus}/></button>
-                                                <div class="row  itembox flex-nowrap">
+                                                <div className="row  itembox flex-nowrap">
                                                 <label className="fw-bold ">BCG :</label> 
                                                 <span > {patient.Vac.BCG} </span>  
                                                 </div>
-                                                <div class="row  itembox flex-nowrap">
+                                                <div className="row  itembox flex-nowrap">
                                                 <label className="fw-bold ">HEP BV:</label> 
                                                 <span > {patient.Vac.HEPBV} </span>  
                                                 </div>
-                                                <div class="row  itembox flex-nowrap">
+                                                <div className="row  itembox flex-nowrap">
                                                 <label className="fw-bold ">PCV 1:</label> 
                                                 <span > {patient.Vac.PCV1} </span>  
                                                 </div>
-                                                <div class="row  itembox flex-nowrap">
+                                                <div className="row  itembox flex-nowrap">
                                                 <label className="fw-bold ">PCV 2:</label> 
                                                 <span > {patient.Vac.PCV2} </span>  
                                                 </div>
-                                                <div class="row  itembox flex-nowrap">
+                                                <div className="row  itembox flex-nowrap">
                                                 <label className="fw-bold ">PCV 3:</label> 
                                                 <span > {patient.Vac.PCV3} </span>  
                                                 </div>
-                                                <div class="row  itembox flex-nowrap">
+                                                <div className="row  itembox flex-nowrap">
                                                 <label className="fw-bold ">OPV 1:</label> 
                                                 <span > {patient.Vac.OPV1} </span>  
                                                 </div>
-                                                <div class="row  itembox flex-nowrap">
+                                                <div className="row  itembox flex-nowrap">
                                                 <label className="fw-bold ">OPV 2:</label> 
                                                 <span > {patient.Vac.OPV2} </span>  
                                                 </div>
-                                                <div class="row  itembox flex-nowrap">
+                                                <div className="row  itembox flex-nowrap">
                                                 <label className="fw-bold ">OPV 3:</label> 
                                                 <span > {patient.Vac.OPV3} </span>  
                                                 </div>
-                                                <div class="row  itembox flex-nowrap">
+                                                <div className="row  itembox flex-nowrap">
                                                 <label className="fw-bold ">AMV:</label> 
                                                 <span > {patient.Vac.AMV} </span>  
                                                 </div>
-                                                <div class="row  itembox flex-nowrap">
+                                                <div className="row  itembox flex-nowrap">
                                                 <label className="fw-bold ">PENTA1:</label> 
                                                 <span > {patient.Vac.PENTA1} </span>  
                                                 </div>
-                                                <div class="row  itembox flex-nowrap">
+                                                <div className="row  itembox flex-nowrap">
                                                 <label className="fw-bold ">PENTA2:</label> 
                                                 <span > {patient.Vac.PENTA2} </span>  
                                                 </div>
-                                                <div class="row  itembox flex-nowrap">
+                                                <div className="row  itembox flex-nowrap">
                                                 <label className="fw-bold ">PENTA3:</label> 
                                                 <span > {patient.Vac.PENTA3} </span>  
                                                 </div>
-                                                <div class="row  itembox flex-nowrap">
+                                                <div className="row  itembox flex-nowrap">
                                                 <label className="fw-bold ">MMR:</label> 
                                                 <span > {patient.Vac.MMR} </span>  
                                                 </div>

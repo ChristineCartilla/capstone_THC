@@ -14,7 +14,7 @@ const EditResidentProfile = () => {
                 <div className="row mb-3">
                     <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Email</label>
                     <div className="col-sm-10">
-                        <select class="form-select w-50" id="autoSizingSelect">
+                        <select className="form-select w-50" id="autoSizingSelect">
                             <option selected disabled>Choose...</option>
                             <option value="1">Active</option>
                             <option value="2">UnActive</option>

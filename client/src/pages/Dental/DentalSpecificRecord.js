@@ -90,98 +90,98 @@ const DentalSpecificRecord = (props) => {
                                             </tbody>
                                         </table>    
                                     </div>
-                                    <hr class="hr" />
+                                    <hr className="hr" />
                                     <h3 className="text-start">Oral Health Condition</h3>
-                                    <div class="row-start tb">
-                                            <div class="col-6 text-start itembox ">
+                                    <div className="row-start tb">
+                                            <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">Date of Oral Examination:  </label>
                                             <span> {patient.doe} </span>
                                             </div>
-                                            <div class="col-6 text-start itembox ">
+                                            <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of Permanent Teeth Present:  </label>
                                             <span> {patient.nptp} </span>
                                             </div>
                                     </div>
-                                    <div class="row-start tb">
-                                            <div class="col-6 text-start itembox ">
+                                    <div className="row-start tb">
+                                            <div className="col-6 text-start itembox ">
                                             <label className="fw-bold" >Dental Caries:  </label>
-                                            <input class="form-check-input" type="checkbox"  disabled style={{backgroundColor:"#D3D3D3"}}/>
+                                            <input className="form-check-input" type="checkbox"  disabled style={{backgroundColor:"#D3D3D3"}}/>
                                             </div>
-                                            <div class="col-6 text-start itembox ">
+                                            <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of Permanent Sound Teeth:  </label>
                                             <span> {patient.npst} </span>
                                             </div>
                                     </div>
-                                    <div class="row-start tb">
-                                            <div class="col-6 text-start itembox ">
+                                    <div className="row-start tb">
+                                            <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">Gingivitis:  </label>
-                                            <input class="form-check-input" type="checkbox"  checked/>
+                                            <input className="form-check-input" type="checkbox"  checked/>
                                             </div>
-                                            <div class="col-6 text-start itembox ">
+                                            <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of Decayed Teeth :  </label>
                                             <span> {patient.ndt} </span>
                                             </div>
                                     </div>
-                                    <div class="row-start tb">
-                                            <div class="col-6 text-start itembox ">
+                                    <div className="row-start tb">
+                                            <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">Peiodontal Disease:  </label>
-                                            <input class="form-check-input" type="checkbox"  checked/>
+                                            <input className="form-check-input" type="checkbox"  checked/>
                                             </div>
-                                            <div class="col-6 text-start itembox ">
+                                            <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of Missing Teeth :  </label>
                                             <span> {patient.nmt} </span>
                                             </div>
                                     </div>
-                                    <div class="row-start tb">
-                                            <div class="col-6 text-start itembox ">
+                                    <div className="row-start tb">
+                                            <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">Debris:  </label>
-                                            <input class="form-check-input" type="checkbox"  checked/>
+                                            <input className="form-check-input" type="checkbox"  checked/>
                                             </div>
-                                            <div class="col-6 text-start itembox ">
+                                            <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of Filled Teeth :  </label>
                                             <span> {patient.nft} </span>
                                             </div>
                                     </div>
-                                    <div class="row-start tb">
-                                            <div class="col-6 text-start itembox ">
+                                    <div className="row-start tb">
+                                            <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">Calculus:  </label>
-                                            <input class="form-check-input" type="checkbox"  disabled style={{backgroundColor:"#D3D3D3"}}/>
+                                            <input className="form-check-input" type="checkbox"  disabled style={{backgroundColor:"#D3D3D3"}}/>
                                             </div>
-                                            <div class="col-6 text-start itembox ">
+                                            <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of DMF Teeth:  </label>
                                             <span> {patient.tdmft} </span>
                                             </div>
                                     </div>
-                                    <div class="row-start tb">
-                                            <div class="col-6 text-start itembox ">
+                                    <div className="row-start tb">
+                                            <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">Abnormal Growth:  </label>
-                                            <input class="form-check-input" type="checkbox"  disabled style={{backgroundColor:"#D3D3D3"}}/>
+                                            <input className="form-check-input" type="checkbox"  disabled style={{backgroundColor:"#D3D3D3"}}/>
                                             </div>
-                                            <div class="col-6 text-start itembox ">
+                                            <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of Temporary Teeth Present:  </label>
                                             <span> {patient.nttp} </span>
                                             </div>
                                     </div>
-                                    <div class="row-start tb">
-                                            <div class="col-6 text-start itembox ">
+                                    <div className="row-start tb">
+                                            <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">Cleft Lip/Palate:  </label>
-                                            <input class="form-check-input" type="checkbox"  disabled style={{backgroundColor:"#D3D3D3"}}/>
+                                            <input className="form-check-input" type="checkbox"  disabled style={{backgroundColor:"#D3D3D3"}}/>
                                             </div>
-                                            <div class="col-6 text-start itembox ">
+                                            <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of Temporary Sound Teeth :  </label>
                                             <span> {patient.ntst} </span>
                                             </div>
                                     </div>
-                                    <div class="row-start tb">
-                                            <div class="col-6 text-start itembox ">
+                                    <div className="row-start tb">
+                                            <div className="col-6 text-start itembox ">
                                             
                                             </div>
-                                            <div class="col-6 text-start itembox ">
+                                            <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of Teeth:  </label>
                                             <span> {patient.tot} </span>
                                             </div>
                                     </div>
-                                    <hr class="hr" />
+                                    <hr className="hr" />
                                     <h3 className="text-start">Medical History</h3>
                                     <table className="table table-borderless tb">
                                             <tbody>
@@ -204,7 +204,7 @@ const DentalSpecificRecord = (props) => {
                                             <tbody>
                                                 <tr>
                                                     <th scope="row"> Sugar Sweetened Beverages/Food:</th>
-                                                    <td><input class="form-check-input" type="checkbox"  checked/></td>
+                                                    <td><input className="form-check-input" type="checkbox"  checked/></td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Frequency of Taking Alcohol:</th>
