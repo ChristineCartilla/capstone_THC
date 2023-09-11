@@ -25,6 +25,7 @@ import ResidentsSpecificResident from './pages/Residents/ResidentsSpecificReside
 import FamilyPlanning from './pages/FamilyPlanning/familyPlanning';
 import FamilyPlanningSpecificResident from './pages/FamilyPlanning/familyPlanningSpecificResident';
 import FamilyPlanningAllRecords from './pages/FamilyPlanning/familyPlanningAllRecords';
+import FamilyPlanningSpecificResidentRecord from './pages/FamilyPlanning/familyPlanningSpecificResidentRecord';
 import Prenatal from './pages/Prenatal/Prenatal';
 import PrenatalSpecificResident from './pages/Prenatal/PrenatalSpecificResident';
 import PrenatalSpecificRecord from './pages/Prenatal/PrenatalSpecificRecord';
@@ -60,6 +61,7 @@ function App() {
           <Route path="/familyplanning" element={<FamilyPlanning />} />
           <Route path="/familyplanning/:residentid" element={<FamilyPlanningSpecificResident />} />
           <Route path="/familyplanningallrecords/:residentid" element={<FamilyPlanningAllRecords />} />
+          <Route path="/familyplanningspecificresidentrecord/:residentid" element={<FamilyPlanningSpecificResidentRecord />} />
         </Routes>
       </Router>
     </div>

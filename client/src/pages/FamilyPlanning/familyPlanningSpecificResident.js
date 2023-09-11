@@ -3,11 +3,13 @@ import Sidebar from '../../components/Sidebar.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate, useParams } from 'react-router-dom'
+import AdditionalFamilyPlanning from '../../components/AdditionalFamilyPlanning.js'
 import axios from 'axios'
 
 
 const FamilyPlanningSpecificResident = () => {
     const { residentid } = useParams();
+    const [patient, setPatient] = useState([]);
     const [patientinfo, setPatientInfo] = useState([]);
     const [records, setRecords] = useState([]);
     const navigate = useNavigate();
@@ -53,6 +55,16 @@ const FamilyPlanningSpecificResident = () => {
         window.history.back()
     }
 
+    const handleViewRecord = (patient) => {
+        navigate(`/familyplanningspecificresidentrecord/${patient.id})`,
+        {
+            state:
+            {
+                patientdata: patient
+            }
+        });
+    }
+
     return (
         <>
             <div className=''>
@@ -73,23 +85,33 @@ const FamilyPlanningSpecificResident = () => {
                                             <tbody>
                                                 <tr>
                                                     <th scope="row">Name:</th>
-                                                    <td>{patientinfo.first_name + " "+ patientinfo.middle_name + " " + patientinfo.last_name}</td>
+                                                    {/* <td>{patientinfo.first_name + " "+ patientinfo.middle_name + " " + patientinfo.last_name}</td> */}
+                                                    <td>John Smith Doe</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Age:</th>
-                                                    <td>{patientinfo.age} Years Old</td>
+                                                    {/* <td>{patientinfo.age} Years Old</td> */}
+                                                    <td>24 years old</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Birth Date:</th>
-                                                    <td>{patientinfo.birthDate}</td>
+                                                    {/* <td>{patientinfo.birthDate}</td> */}
+                                                    <td>08-10-1998</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Educational Attainment:</th>
+                                                    {/* <td>{patientinfo.educaAttain}</td> */}
+                                                    <td>N/A</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Occupation:</th>
-                                                    <td>{patientinfo.occupation}</td>
+                                                    {/* <td>{patientinfo.occupation}</td> */}
+                                                    <td>N/A</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Address:</th>
-                                                    <td>{patientinfo.street + " "+ patientinfo.barangay + " " + patientinfo.municipality+ " " + patientinfo.zipCode}</td>
+                                                    {/* <td>{patientinfo.street + " "+ patientinfo.barangay + " " + patientinfo.municipality+ " " + patientinfo.zipCode}</td> */}
+                                                    <td>Minoza St., Tigbao, Talamban, Cebu City</td>
                                                 </tr>
                                             </tbody>
                                         </table>    
@@ -97,15 +119,15 @@ const FamilyPlanningSpecificResident = () => {
                                 </div>
                                 <div className='sp2-bottomDiv'>
                                     <div className='sp2-bottomDivHeader d-flex justify-content-between'>
-                                        <h4 className="text-start">Medical Checkup Records</h4>    
+                                        <h4 className="text-start">Family Planning Records</h4>    
                                         {/* Button trigger modal  */}
-                                        <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#MCAddition"><FontAwesomeIcon icon={faPlus}/></button>
+                                        <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#FPAddition"><FontAwesomeIcon icon={faPlus}/></button>
                                     </div>
                                     <div className='sp2-MCRecordsDiv'>
                                         <table className="table sp2-MCRecordsTable">
                                             <thead>
                                                 <tr>
-                                                    <th>Medical Checkup Records</th>
+                                                    <th>Family Planning Number</th>
                                                 
                                                     <th>Date of Record</th> 
                                                 </tr>
@@ -127,12 +149,12 @@ const FamilyPlanningSpecificResident = () => {
                                                 }
                                                 {
                                                     records.length == 0 && (
-                                                        <tr className='sp2-clickableMCRRow'>
-                            
-                                                            <td></td>
-                                                            <td><p className='text-center'>NO RECORDS FOUND</p></td>
-                                                            <td></td>
-                                                            
+                                                        <tr className='sp2-clickableMCRRow'
+                                                            onClick={() => handleViewRecord(patient)}
+                                                        >
+                                                            <td>Family Planning 1</td>
+                                                            {/* <td><p className='text-center'>NO RECORDS FOUND</p></td> */}
+                                                            <td>03-20-23</td>
                                                         </tr>
                                                     )
                                                 }
@@ -154,15 +176,15 @@ const FamilyPlanningSpecificResident = () => {
             </div>
 
              {/* Modal  */}
-            <div className="modal fade" id="MCAddition" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="FPAddition" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-lg">
                     <div className="modal-content">
                     <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel">Medical Checkup Form</h1>
+                        <h1 className="modal-title fs-5" id="exampleModalLabel">Family Planning Form</h1>
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
-                    
+                        <AdditionalFamilyPlanning />
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
