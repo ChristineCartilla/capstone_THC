@@ -44,12 +44,12 @@ const Sidebar = () => {
                         <li><a href="/medicalcheckup" className="d-inline-flex text-decoration-none rounded">Medical Check-up</a></li>
                         <li><a href="/familyplanning" className="d-inline-flex text-decoration-none rounded">Family Planning</a></li>
                         <li>
-                        <button className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed px-0" data-bs-toggle="collapse" data-bs-target="#laboratory-collapse" aria-expanded="false">
+                      <button className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed px-0" data-bs-toggle="collapse" data-bs-target="#laboratory-collapse" aria-expanded="false">
                         Laboratory
                         </button>
                             <ul className="collapse" id="laboratory-collapse">
-                                <li><a href="#" className="d-inline-flex text-decoration-none rounded">Hematology Test</a></li>
-                                <li><a href="#" className="d-inline-flex text-decoration-none rounded">Urinalysis Test</a></li>
+                                <li><a href="/hematology" className="d-inline-flex text-decoration-none rounded">Hematology Test</a></li>
+                                <li><a href="/urinalysis" className="d-inline-flex text-decoration-none rounded">Urinalysis Test</a></li>
                             </ul>
                         </li>
                     </ul>

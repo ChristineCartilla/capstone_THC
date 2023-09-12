@@ -3,12 +3,12 @@ import Sidebar from '../../components/Sidebar.js'
 import Services_Searchbox from '../../components/Services_Searchbox.js'
 import { useNavigate} from 'react-router-dom'
 
-const FamilyPlanning = () => {
+const Urinalysis = () => {
     const [patient, setPatient] = useState([]);
     const navigate = useNavigate();
 
     const handleViewExaminations = (patient) => {
-        navigate(`/familyplanningallrecords/${patient.id})`,
+        navigate(`/urinalysis/${patient.id})`,
             {
                 state:   
                 {
@@ -16,13 +16,14 @@ const FamilyPlanning = () => {
                 }
             });
     }
+
     return (
-        <div className='container-fluid '>
+         <div className='container-fluid '>
             <div className='row'>
                 <Sidebar />
                 <div className='col p-0'>
                     <div className="sp1-pageHeader d-flex justify-content-around">
-                        <h1 className="">Family Planning</h1>  
+                        <h1 className="">Urinalysis</h1>  
                         <Services_Searchbox setSearchResults={setPatient}  />
                     </div>
                     <div className='sp1-pageBody mt-5'>
@@ -57,4 +58,4 @@ const FamilyPlanning = () => {
     )
 }
 
-export default FamilyPlanning
+export default Urinalysis

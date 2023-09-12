@@ -6,7 +6,7 @@ const AdditionalFamilyPlanning = () => {
 
         return (
             <form className='px-3'>
-                <h5 className="pre-pageHeader text-start mb-3" id="">Medical Checkup</h5>
+                <h6 className="pre-pageHeader text-start mb-3" id="">Medical Checkup</h6>
 
                 {/* MEDICAL CHECKUP */}
                 <div  className="row mb-5">
@@ -150,7 +150,7 @@ const AdditionalFamilyPlanning = () => {
                             </div>
                     </div>
                     <div  className="col text-start">
-                        <label htmlFor="exampleFormControlTextarea1"  className="form-label fw-bold">Average Monthly Income</label>
+                        <label htmlFor="exampleFormControlTextarea1"  className="form-label">Average Monthly Income</label>
                         <input type="text"   className="form-control " 
                             id="exampleFormControlTextarea1" 
                             style={{backgroundColor: "#CCE8DE"}}/>
@@ -160,7 +160,7 @@ const AdditionalFamilyPlanning = () => {
                 <hr className="hr" />
 
                 {/* MEDICAL HISTORY */}
-                <h5 className="pre-pageHeader text-start mb-3" id=''>Medical History</h5>
+                <h6 className="pre-pageHeader text-start mb-3" id=''>Medical History</h6>
                 <div  className="row mb-5">
                     <div  className="col-md-6 text-start">
                         <label htmlFor="exampleFormControlTextarea1"  className="form-label fw-bold">Does the client have any of the following?</label>
@@ -256,7 +256,7 @@ const AdditionalFamilyPlanning = () => {
                 <hr className="hr" />
 
                 {/* OBSTESTRICAL HISTORY */}
-                <h5 className="pre-pageHeader text-start mb-3" id=''>Obstetrical History</h5>
+                <h6 className="pre-pageHeader text-start mb-3" id=''>Obstetrical History</h6>
 
                 <div  className="row mb-5">
                     <div  className="col text-start">
@@ -388,7 +388,7 @@ const AdditionalFamilyPlanning = () => {
             <hr className="hr" />  
 
             {/* PHYSICAL EXAMINATION*/}
-            <h5 className="pre-pageHeader text-start mb-3" id=''>Physical Examination</h5>
+            <h6 className="pre-pageHeader text-start mb-3" id=''>Physical Examination</h6>
             <div  className="row mb-5">
                 <div  className="col text-start">
                     <label htmlFor="exampleFormControlTextarea1"  className="form-label">Weight</label>

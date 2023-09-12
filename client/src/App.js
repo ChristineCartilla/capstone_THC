@@ -32,7 +32,13 @@ import PrenatalSpecificRecord from './pages/Prenatal/PrenatalSpecificRecord';
 import Immunization from './pages/Immunization/Immunization';
 import ImmunizationSpecificResident from './pages/Immunization/ImmunizationSpecificResident';
 import ImmunizationSpecificRecord from './pages/Immunization/ImmunizationSpecificRecord';
-
+import Laboratory from './pages/Laboratory/Laboratory';
+import Hematology from './pages/Laboratory/Hematology';
+import HematologySpecificResident from './pages/Laboratory/HematologySpecificResident';
+import HematologySpecificRecord from './pages/Laboratory/HematologySpecificRecord';
+import Urinalysis from './pages/Laboratory/Urinalysis';
+import UrinalysisSpecificResident from './pages/Laboratory/UrinalysisSpecificResident';
+import UrinalysisSpecificRecord from './pages/Laboratory/UrinalysisSpecificRecord';
 
 function App() {
   return (
@@ -62,6 +68,13 @@ function App() {
           <Route path="/familyplanning/:residentid" element={<FamilyPlanningSpecificResident />} />
           <Route path="/familyplanningallrecords/:residentid" element={<FamilyPlanningAllRecords />} />
           <Route path="/familyplanningspecificresidentrecord/:residentid" element={<FamilyPlanningSpecificResidentRecord />} />
+          <Route path="/laboratory" element={<Laboratory />} />
+          <Route path="/hematology" element={<Hematology />} />
+          <Route path="/hematology/:residentid" element={<HematologySpecificResident />} />
+          <Route path="/hematology/:residentid/:recordid" element={<HematologySpecificRecord />} />
+          <Route path="/urinalysis" element={<Urinalysis />} />
+          <Route path="/urinalysis/:residentid" element={<UrinalysisSpecificResident />} />
+          <Route path="/urinalysis/:residentid/:recordid" element={<UrinalysisSpecificRecord />} />
         </Routes>
       </Router>
     </div>
