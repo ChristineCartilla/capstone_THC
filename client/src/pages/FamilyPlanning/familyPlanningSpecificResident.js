@@ -56,7 +56,7 @@ const FamilyPlanningSpecificResident = () => {
     }
 
     const handleViewRecord = (patient) => {
-        navigate(`/familyplanningspecificresidentrecord/${patient.id})`,
+        navigate(`/familyplanningspecificresidentrecord/${patient.id}`,
         {
             state:
             {

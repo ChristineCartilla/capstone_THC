@@ -8,7 +8,7 @@ const Urinalysis = () => {
     const navigate = useNavigate();
 
     const handleViewExaminations = (patient) => {
-        navigate(`/urinalysis/${patient.id})`,
+        navigate(`/urinalysis/${patient.id}`,
             {
                 state:   
                 {
