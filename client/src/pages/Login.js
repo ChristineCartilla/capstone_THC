@@ -26,6 +26,7 @@ const Login = () => {
             const isPasswordValid = response.password === loginPassword;
 
             if(isPasswordValid){
+                localStorage.setItem("user_id", response.id);
                 navigate("/medicalcheckup/");
             } else {
                 alert("PASSWORD DID NOT MATCH, TRY LOGGING IN AGAIN...");

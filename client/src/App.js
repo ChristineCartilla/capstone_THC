@@ -42,6 +42,7 @@ import UrinalysisSpecificResident from './pages/Laboratory/UrinalysisSpecificRes
 import UrinalysisSpecificRecord from './pages/Laboratory/UrinalysisSpecificRecord';
 import Workers from './pages/Workers/Workers';
 import SpecificWorkers from './pages/Workers/SpecificWorkers'
+import Profile from './pages/Profile/Profile';
 
 function App() {
   return (
@@ -80,6 +81,7 @@ function App() {
           <Route path="/urinalysis/:residentid/:recordid" element={<UrinalysisSpecificRecord />} />
           <Route path="/workers" element={<Workers />}/>
           <Route path="/workers/:worker_id" element={<SpecificWorkers/>}/>
+          <Route path="/profile/:profile_id" element={<Profile />} />
         </Routes>
       </Router>
     </div>
