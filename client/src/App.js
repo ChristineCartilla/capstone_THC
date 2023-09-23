@@ -7,6 +7,7 @@ import './stylesheets/ServicesMainPage_stylesheet.css';
 import './stylesheets/ServicesSecondPage_stylesheet.css';
 import './stylesheets/ServicesThirdPage_stylesheet.css';
 import './stylesheets/ServicesPnInD_stylesheet.css';
+import './stylesheets/Workers_stylesheet.css';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Login from './pages/Login';
@@ -39,6 +40,8 @@ import HematologySpecificRecord from './pages/Laboratory/HematologySpecificRecor
 import Urinalysis from './pages/Laboratory/Urinalysis';
 import UrinalysisSpecificResident from './pages/Laboratory/UrinalysisSpecificResident';
 import UrinalysisSpecificRecord from './pages/Laboratory/UrinalysisSpecificRecord';
+import Workers from './pages/Workers/Workers';
+import SpecificWorkers from './pages/Workers/SpecificWorkers'
 
 function App() {
   return (
@@ -75,6 +78,8 @@ function App() {
           <Route path="/urinalysis" element={<Urinalysis />} />
           <Route path="/urinalysis/:residentid" element={<UrinalysisSpecificResident />} />
           <Route path="/urinalysis/:residentid/:recordid" element={<UrinalysisSpecificRecord />} />
+          <Route path="/workers" element={<Workers />}/>
+          <Route path="/workers/:worker_id" element={<SpecificWorkers/>}/>
         </Routes>
       </Router>
     </div>
