@@ -34,15 +34,15 @@ const MedicalCheckUpSpecificRecord = () => {
     return (
         <>
             <div className=''>
-                <div className='mainLayout'>
+                <div className='mainLayout '>
                     <div className='mainLayout-left'>
                         <Sidebar />    
                     </div>
-                    <div className='container mainLayout-right p-0'>
+                    <div className='container mainLayout-right p-0 sp3-mainContainer'>
                         <div className="sp3-pageHeader container d-flex">
                             <button 
                             type="button"
-                            className="sp3-servicesBacRecskBtn align-items-center"
+                            className="sp3-servicesBacRecBtn align-items-center"
                             onClick={() => handleBack()}>
                                 <FontAwesomeIcon icon={faAngleLeft}/>
                         </button>
@@ -52,33 +52,47 @@ const MedicalCheckUpSpecificRecord = () => {
                         <div className='sp3-pageBody'>
                             <div className='container'>
                                 <div className='topDiv'>
-                                    <h4 className="text-start">Personal Information</h4>
-                                    <div className='sp3-personalInfoDiv'>
-                                        <table className="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <th scope="row">Name:</th>
-                                                    <td>{patientinfo.first_name + " "+ patientinfo.middle_name + " " + patientinfo.last_name}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Age:</th>
-                                                    <td>{patientinfo.age} Years Old</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Birth Date:</th>
-                                                    <td>{patientinfo.birthDate}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Occupation:</th>
-                                                    <td>{patientinfo.occupation}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Address:</th>
-                                                    <td>{patientinfo.street + " "+ patientinfo.barangay + " " + patientinfo.municipality+ " " + patientinfo.zipCode}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>    
+                                    <div className='row'>
+                                        <div className='col-md-4 col-sm-12'>
+                                            <h4 className="text-start">Personal Information</h4>
+                                            <div className='sp3-personalInfoDiv'>
+                                                <table className="">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">Name:</th>
+                                                            <td>{patientinfo.first_name + " "+ patientinfo.middle_name + " " + patientinfo.last_name}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Age:</th>
+                                                            <td>{patientinfo.age} Years Old</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Birth Date:</th>
+                                                            <td>{patientinfo.birthDate}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Occupation:</th>
+                                                            <td>{patientinfo.occupation}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Address:</th>
+                                                            <td>{patientinfo.street + " "+ patientinfo.barangay + " " + patientinfo.municipality+ " " + patientinfo.zipCode}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>    
+                                            </div>
+                                        </div>
+                                        <div className='col-md-4 col-sm-12'>
+                                            <div >
+                                                <h4 className="text-start">Medical Service Provider</h4>
+                                                <h5 className='text-start px-5'>
+                                                    {medicalCheckupInfo.serviceprovider}
+                                                </h5>
+                                            </div>
+                                        </div>
                                     </div>
+                                    
+                                    
                                 </div>
                                 <div className='buttomDiv'>
                                     <div>
@@ -93,13 +107,6 @@ const MedicalCheckUpSpecificRecord = () => {
                                         <p className='text-start px-5'>
                                             {medicalCheckupInfo.prescription}
                                         </p>
-                                    </div>
-
-                                    <div >
-                                        <h4 className="text-start">Medical Service Provider</h4>
-                                        <h5 className='text-start px-5'>
-                                            {medicalCheckupInfo.serviceprovider}
-                                        </h5>
                                     </div>
                                 </div>
                             </div>

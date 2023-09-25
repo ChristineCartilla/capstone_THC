@@ -1,7 +1,7 @@
 /* SIDE BAR */
 
 .mainSideBarDiv{
-    background-color: #F1EFEF;
+
     min-height: 100vh;
     text-align: start;
     padding: 0;
@@ -20,7 +20,7 @@
   
   .mainSideBarDiv .mainSideBarDiv_list li .btn{
     font-size: 20px;
-    color: #8EC3B0;
+    color: #15876C;
   }
   .mainSideBarDiv .mainSideBarDiv_list li .btn:hover{
     padding-left: 50px;
@@ -33,8 +33,8 @@
   
   .mainSideBarDiv .mainSideBarDiv_list li .servicesUl{
     padding: 10px 0 10px 30px;
-    color: #8EC3B0;
-    background-color: #474747;
+    color: #15876C;
+    background-color: #9EFFE8;
   }
   
   .mainSideBarDiv .mainSideBarDiv_list li .servicesUl li {
@@ -42,12 +42,24 @@
   }
   
   .mainSideBarDiv .mainSideBarDiv_list li .servicesUl li:hover {
-    padding-left: 50px;
+    padding-left: 40px;
     transition: 0.5s;
   }
   
   .mainSideBarDiv .mainSideBarDiv_list li .servicesUl li a{
     color: #8EC3B0;
+  }
+
+  .mainSideBarDiv .mainSideBarDiv_list li .servicesUl li a:hover{
+    color: #15876C;
+  }
+
+  .mainSideBarDiv .mainSideBarDiv_list li .servicesUl button {
+    color: #8EC3B0;
+  }
+  
+  .mainSideBarDiv .mainSideBarDiv_list li .servicesUl button:hover {
+    color: #15876C;
   }
 
   .mainSideBarDiv .bottomBtn{

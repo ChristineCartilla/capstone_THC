@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&family=Heebo:wght@300;400;500&family=Poppins:wght@400;900&family=Roboto+Condensed&display=swap');
+
 .App {
   text-align: center;
   max-width: 100vw;
+  font-family: 'Heebo', sans-serif;
 }
 
 .App-logo {
@@ -32,15 +35,26 @@
 .mainLayout{
   width: 100%;
   display: flex;
+  background: linear-gradient(
+    to bottom,
+    #44AA92 0px,
+    #44AA92 150px,
+    #f5f4f7 150px,
+    #f5f4f7 100%
+  );
+  
 }
 
 .mainLayout-left{
   min-width: 280px;
   padding: 0;
+  background-color: #DDFFF7;
 }
 
 .mainLayout-right{
   min-width: 400px;
+  margin: 50px 0 50px 0;
+  font-family: 'Poppins', sans-serif;
 }
 
 

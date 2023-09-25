@@ -1,6 +1,12 @@
 
+.sp3-mainContainer{
+    background-color: #f2f5f4;
+    border-radius: 8px;
+    box-shadow: 1px 1px 10px #dad8d8;
+}
+
 .sp3-pageHeader{
-    margin-top: 100px;
+    margin-top: 40px;
 }
 
 .sp3-pageHeader h1{
@@ -9,16 +15,28 @@
 
 .sp3-pageBody{
     margin-top: 50px;
+    padding: 0 100px;
 }
 
 .sp3-personalInfoDiv{
     margin-bottom: 50px;
     text-align: start;
-    width: 700px;
 }
 
-.sp3-servicesBacRecskBtn{
-    margin-right: 20px;
+.sp3-personalInfoDiv table{
+    margin: 20px 0 0 20px;
+    background-color: transparent;
+    border-spacing: 30px;
+
+}
+
+.sp3-personalInfoDiv table tbody tr th{
+    padding: 0 15px 9px 0;
+    
+}
+
+.sp3-servicesBacRecBtn{
+    margin: 0 20px;
     height: 50px;
     width: 50px;
     background-color: transparent;
