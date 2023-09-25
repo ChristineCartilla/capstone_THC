@@ -1,0 +1,155 @@
+/* WORKERS MAIN PAGE */
+
+.worker_pageHeader{
+    margin-top: 100px;
+}
+
+.worker_pageHeader h1{
+    color: #8EC3B0;
+}
+
+.worker_pageBody{
+    margin-top: 10px;
+}
+
+.worker_addButton {
+    text-align: left; /* Align the button to the left within its container */
+    margin-top: 20px; /* Add margin to separate it from the header */
+    padding-left: 150px; /* Add left padding to create space between the button and the container edge */
+}
+
+.worker_addButton button {
+    background-color: transparent; /* Change the button's background color */
+    color: #8EC3B0; /* Change the text color */
+    border: none; /* Remove the button border */
+    padding: 10px 20px; /* Adjust padding for button size */
+    cursor: pointer; /* Add a pointer cursor on hover */
+    font-weight: bold; /* Make the text bold */
+    font-size: 30px;
+}
+
+
+.worker_pageBody .WorkerTable {
+    border-collapse: separate;
+    border-spacing: 0 20px;
+}
+
+.worker_pageBody .WorkerTable tr th,
+.worker_pageBody .WorkerTable tr td{
+    margin-bottom: 20px;
+    border-top: none;
+    border-left: none;
+    background-color: #FAFAFA;
+    color: #8EC3B0;
+}
+
+.worker_pageBody .WorkerTable tr th:last-child,
+.worker_pageBody .WorkerTable tr td:last-child{
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.worker_pageBody .WorkerTable tr th:first-child,
+.worker_pageBody .WorkerTable tr td:first-child{
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.worker_pageBody .WorkerTable tr{
+    margin-bottom: 10px;
+    font-size: 22px;
+
+}
+
+.worker_pageBody .viewBtn{
+    background-color: #8EC3B0;
+    color: #FFF;
+    border: 1px solid #8EC3B0;
+}
+
+.worker_pageBody .viewBtn:hover{
+    color: #8EC3B0;
+    border: 1px solid #8EC3B0;
+}
+
+/* SECOND PAGE */
+
+.worker_viewBtn{
+    padding: 5px 10px;
+    background-color: #71B8FA;
+    color: #FFF;
+    font-size: 16px;
+    border: 1px solid #71B8FA;
+    border-radius: 10px;
+}
+
+.workerBackBtn{
+    width: 100px;
+    height: 50px;
+    margin: 50px 100px;
+    padding: 10px 20px;
+    background-color: #8EC3B0;
+    color: #FFF;
+    border: 1px solid #8EC3B0;
+    border-radius: 10px;
+}
+
+/* THIRD PAGE */
+/* .tableHeading h3{
+    width: 100%; 
+    margin: auto;
+    text-align: center; 
+    border-bottom: 1px solid #000; 
+    line-height: 0.1em;
+    margin: 10px 0 20px; 
+    font-weight: 100;
+}
+
+.tableHeading h3 span{
+    background:#fff; 
+    padding:0 10px; 
+} */
+
+/* .worker_Table .worker_TableRow td{
+    color: #8EC3B0;
+} */
+
+/* FORTH PAGE */
+
+.workerDetail_table{
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    font-size: 18px;
+}
+
+.workerDetail_table tbody tr td{
+    color: #8EC3B0;
+}
+
+.workerEditBtn{
+    margin: 3px 100px;
+    padding: 10px 20px;
+    background-color: #8EC3B0;
+    color: #FFF;
+    border: 1px solid #8EC3B0;
+    border-radius: 10px;
+}
+
+.workerProfile_footer{
+    height: 200px;
+}
+
+
+/* EDIT MODAL */
+#editWorkerProfileModal .modal-title{
+    color: #8EC3B0;
+}
+
+.workerSubmitEditBtn{
+    margin: 50px 100px;
+    padding: 7px 20px;
+    background-color: #8EC3B0;
+    color: #FFF;
+    border: 1px solid #8EC3B0;
+    border-radius: 6px;
+}

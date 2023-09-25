@@ -10,6 +10,15 @@ const Sidebar = () => {
     const viewResidents = () => {
         navigate('/resident');
     }
+
+    const viewWorkers = () =>{
+        navigate('/workers');
+    }
+
+    const viewProfile = () => {
+        navigate(`/profile/${localStorage.getItem("user_id")}`);
+    }
+
     return (
         <div className="mainSideBarDiv sticky-top" style={{width: "280px", padding:"0"}}>
             <a href="/" className="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none">
@@ -62,13 +71,17 @@ const Sidebar = () => {
                     </button>
                 </li>
                 <li className="mb-1">
-                    <button className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed">
+                    <button 
+                        className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                        onClick={()=>viewWorkers()}>
                     <FontAwesomeIcon icon={faUserNurse} style={{marginRight: "13px"}} />
                     Workers
                     </button>
                 </li>
                 <li className="mb-1">
-                    <button className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed">
+                    <button 
+                        className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                        onClick={()=>viewProfile()}>
                     <FontAwesomeIcon icon={faUser} style={{marginRight: "13px"}} />
                     Profile
                     </button>
