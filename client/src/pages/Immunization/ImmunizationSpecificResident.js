@@ -6,6 +6,7 @@ import {  useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import AdditionImmunization from '../../components/AdditionImmunization.js'
 
+import THCDefaultPatientLogo from '../../images/default_image.png'
 
 const ImmunizationSpecificResident = () => {
     const { residentid } = useParams();
@@ -68,67 +69,70 @@ const ImmunizationSpecificResident = () => {
                         </div>
                         <div className='sp2-pageBody'>
                             <div className='container'>
-                                <div className='sp2-topDiv'>
-                                    <h4 className="text-start">Personal Information</h4>
-                                    <div className='sp2-personalInfoDiv'>
-                                        <table className="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <th scope="row">Name:</th>
-                                                    <td>{patientinfo.first_name + " "+ patientinfo.middle_name + " " + patientinfo.last_name}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Age:</th>
-                                                    <td>{patientinfo.age} Years Old</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Birth Date:</th>
-                                                    <td>{patientinfo.birthDate}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Occupation:</th>
-                                                    <td>{patientinfo.occupation}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Address:</th>
-                                                    <td>{patientinfo.street + " "+ patientinfo.barangay + " " + patientinfo.municipality+ " " + patientinfo.zipCode}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>    
+                                <div className='row'>
+                                    <div className='col-md-3 col-sm-12 sp2-topDiv'>
+                                        <h4 className="text-start">Personal Information</h4>
+                                        <div className='sp2-personalInfoDiv'>
+                                        <img src={THCDefaultPatientLogo} height="150px" width="150px" alt="default_image.png" style={{marginTop:5}}/>
+                                            <table className="table table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">Name:</th>
+                                                        <td>{patientinfo.first_name + " "+ patientinfo.middle_name + " " + patientinfo.last_name}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Age:</th>
+                                                        <td>{patientinfo.age} Years Old</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Birth Date:</th>
+                                                        <td>{patientinfo.birthDate}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Occupation:</th>
+                                                        <td>{patientinfo.occupation}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Address:</th>
+                                                        <td>{patientinfo.street + " "+ patientinfo.barangay + " " + patientinfo.municipality+ " " + patientinfo.zipCode}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>    
+                                        </div>
                                     </div>
-                                </div>
-                                <div className='sp2-bottomDiv'>
-                                    <div className='sp2-bottomDivHeader d-flex justify-content-between'>
-                                        <h4 className="text-start">Immunization Records</h4>    
-                                        {/* Button trigger modal  */}
-                                        <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#IAddition"><FontAwesomeIcon icon={faPlus}/></button>
-                                    </div>
-                                    <div className='sp2-MCRecordsDiv'>
-                                        <table className="table sp2-MCRecordsTable">
-                                            <thead>
-                                                <tr>
-                                                    <th>Immunization Records</th>
-                                                    <th>Doctor</th>
-                                                    <th>Date of Record</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {
-                                                    record.map((rec,idx) => (
-                                                        <tr 
-                                                            className='sp2-clickableMCRRow' 
-                                                            key={idx}
-                                                            onClick={() => navigateRecord()}
-                                                            >
-                                                            <td>{rec.record}</td>
-                                                            <td>{rec.doctor}</td>
-                                                            <td>{rec.date}</td>
-                                                        </tr>
-                                                    ))
-                                                }
-                                            
-                                            </tbody>
-                                        </table>    
+                                    <div className='col-md-9 col-sm-12 sp2-bottomDiv'>
+                                        <div className='sp2-bottomDivHeader d-flex justify-content-between'>
+                                            <h4 className="text-start">Immunization Records</h4>    
+                                            {/* Button trigger modal  */}
+                                            <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#IAddition"><FontAwesomeIcon icon={faPlus}/></button>
+                                        </div>
+                                        <div className='sp2-MCRecordsDiv'>
+                                            <table className="table sp2-MCRecordsTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Immunization Records</th>
+                                                        <th>Doctor</th>
+                                                        <th>Date of Record</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {
+                                                        record.map((rec,idx) => (
+                                                            <tr 
+                                                                className='sp2-clickableMCRRow' 
+                                                                key={idx}
+                                                                onClick={() => navigateRecord()}
+                                                                >
+                                                                <td>{rec.record}</td>
+                                                                <td>{rec.doctor}</td>
+                                                                <td>{rec.date}</td>
+                                                            </tr>
+                                                        ))
+                                                    }
+                                                
+                                                </tbody>
+                                            </table>    
+                                        </div>
                                     </div>
                                 </div>
                             </div>

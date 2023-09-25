@@ -40,9 +40,18 @@
 
 }
 
+.sp2-personalInfoDiv table tbody tr{
+    padding-bottom: 20px;
+    vertical-align: text-top;
+}
+
 .sp2-personalInfoDiv table tbody tr td:first-child{
-    padding: 0 20px 9px 0;
-    
+    font-weight: 600;
+}
+
+.sp2-personalInfoDiv table tbody tr td:nth-child(2){
+    padding-left: 20px;
+    padding-bottom: 5px;
 }
 
 .sp2-addMedRecBtn{
