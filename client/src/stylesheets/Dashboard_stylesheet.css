@@ -1,0 +1,347 @@
+/*Dashboard Main Page*/
+
+.dashboardHeader {
+    margin-top: 100px;
+    margin-left: 100px;
+    justify-content: space-between;
+}
+
+.dashboardHeader h1 {
+    color: #8EC3B0;
+}
+
+.dashboardBody {
+    margin-top: 20px;
+    margin-left: 100px;
+    width: auto;
+}
+
+
+/*make dashboardbody_container1 have a background color*/
+.dashboardBody .dashboardBody_container1 {
+    background-color: #8EC3B0;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.dashboardBody .dashboardBody_container1 .vl {
+    border-left: 2px solid white;
+    height: 100%;
+    margin-left: 20px;
+}
+/*style the hr in dashboardBody_container1_header*/
+.dashboardBody .dashboardBody_container1_header .hr {
+    border-bottom: 2px solid white;
+    width: 100%;
+}
+
+/*make the header in the first dashboardbody container move to the left and have a font color of white*/
+.dashboardBody .dashboardBody_container1_header {
+    background-color: transparent;
+    border: none;
+    color: #FFF;
+    text-align: left;
+}
+
+.dashboardBody .dashboardBody_container1_header h1{
+    font-size: xx-large;
+}
+
+.dashboardBody .dashboardBody_container1 .dashboardBody_container1_body {
+    margin-top: 20px;
+}
+
+.dashboardBody .dashboardBody_container1 .dashboardBody_container1_body .card {
+    background-color: transparent;
+    border: none;
+    color: #FFF;
+    flex: 1;
+}
+
+
+.dashboardBody .dashboardBody_container1 .dashboardBody_container1_body .card .cardheader h5 {
+    font-size: 25px;
+}
+
+.dashboardBody_container2{
+    margin-top: 20px;
+    background-color: #8EC3B0;
+    border-radius: 15px;
+    padding: 20px;
+    margin-right: 20px;
+}
+
+.dashboardBody .dashboardBody_container2 .card .vl {
+    border-left: 2px solid white;
+    height: 100%;
+    margin-left: 20px;
+}
+
+
+.dashboardBody_container2 .dashboardBody_container2_body .card{
+    background-color: transparent;
+    border: none;
+    color: #FFF;
+    flex: 1;
+}
+
+.dashboardBody_container2 .dashboardBody_container2_body .card .cardheader h5{
+    font-size: 25px;
+}
+
+.dashboardBody_container3{
+    margin-top: 20px;
+    background-color: #8EC3B0;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+
+.dashboardBody_container3 .dashboardBody_container3_body .card .vl{
+    border-left: 2px solid white;
+    height: 100%;
+    margin-left: 20px;
+}
+
+
+
+.dashboardBody_container3 .dashboardBody_container3_body .card{
+    background-color: transparent;
+    border: none;
+    color: #FFF;
+    flex: 1;
+}
+
+.dashboardBody_container3 .dashboardBody_container3_body .card .cardheader h5{
+    font-size: 25px;
+}
+
+.dashboardBody_container4{
+    margin-top: 50px;
+    background-color: transparent;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+
+.dashboardBody_container4 .card{
+    background-color: #FAFAFA;
+    border: none;
+    color: #8EC3B0;
+    flex: 1;
+    margin-right: 20px;
+    border-radius: 15px;
+    padding: 20px;
+    
+}
+
+.dashboardBody_container4 .card .cardheader h5{
+    font-size: 25px;
+}
+
+.dashboardBody_container4 .card .card-body .card-title{
+    font-size:25px;
+    color: #8EC3B0;
+    display: flex;
+    justify-content: left;
+    text-align: center;
+}
+
+.dashboardBody_container4 .card .card-body .card-text{
+    font-size:15px;
+    color: #8EC3B0;
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+}
+
+.dashboardBody_container5{
+    margin-top: 50px;
+    background-color: transparent;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+
+.dashboardBody_container5 .card{
+    background-color: #FAFAFA;
+    border: none;
+    color: #8EC3B0;
+    flex: 1;
+    margin-right: 20px;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.dashboardBody_container5 .card .cardheader h5{
+    font-size: 25px;
+}
+
+.dashboardBody_container5 .card .card-body .card-title{
+    font-size:25px;
+    color: #8EC3B0;
+    display: flex;
+    justify-content: left;
+    text-align: center;
+}
+
+.dashboardBody_container5 .card .card-body .card-text{
+    font-size:15px;
+    color: #8EC3B0;
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+
+}
+
+.dashboardBody_container6{
+    margin-top: 50px;
+    background-color: transparent;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+
+.dashboardBody_container6 .card{
+    background-color: #FAFAFA;
+    border: none;
+    color: #8EC3B0;
+    flex: 1;
+    margin-right: 20px;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.dashboardBody_container6 .card .cardheader h5{
+    font-size: 25px;
+}
+
+.dashboardBody_container6 .card .card-body .card-title{
+    font-size:25px;
+    color: #8EC3B0;
+    display: flex;
+    justify-content: left;
+    text-align: center;
+}
+
+.dashboardBody_container6 .card .card-body .card-text{
+    font-size:15px;
+    color: #8EC3B0;
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+}
+
+.dispensing{
+    margin-top: 50px;
+}
+
+.dispensingHeadercont{
+    background-color: #474747;
+    border-radius: 15px;
+    padding: 20px;
+    margin-right: 40px;
+    margin-left: 20px;
+}
+
+.dispensing_pageHeader{
+    margin-top: 20px;
+    color: #FAFAFA;
+    text-align: center;
+}
+
+.dispensing_addButton button{
+    background-color: #8EC3B0;
+    color: #FAFAFA;
+    border: 1px solid #8EC3B0;
+    border-radius: 15px;
+    margin-right: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 30px;
+    width: 80px
+}
+
+.dispensing_medInfo{
+    color: #FAFAFA;
+    margin-bottom: 15px;
+}
+
+.dispensing_medInfo h4{
+    font-size: 40px;
+}
+
+.dispensingSearchcont{
+    border-radius: 15px;
+    padding: 20px;
+    margin-right: 40px;
+    margin-left: 20px;
+}
+
+.dispensing_Searchbox{
+    margin-top: 20px;
+}
+
+.dispensingBodycont{
+    border-radius: 15px;
+    padding: 20px;
+    margin-right: 40px;
+    margin-left: 20px;
+}
+
+.dispensing_pageBody .dispensingTable {
+    border-collapse: separate;
+    border-spacing: 0 20px;
+}
+
+.dispensing_pageBody .dispensingTable tr th{
+    margin-bottom: 20px;
+    border-top: none;
+    border-left: none;
+    background-color: transparent;
+    color: #000000;
+}
+.dispensing_pageBody .dispensingTable tr td{
+    margin-bottom: 20px;
+    border-top: none;
+    border-left: none;
+    background-color: transparent;
+    color: #8EC3B0;
+}
+
+
+.dispensing_pageBody .dispensingTable tr td:last-child{
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+
+.dispensing_pageBody .dispensingTable tr td:first-child{
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.dispensing_pageBody .dispensingTable tr{
+    margin-bottom: 10px;
+    font-size: 22px;
+
+}
+
+.dispensing_editBtn{
+    padding: 5px 10px;
+    background-color: #71B8FA;
+    color: #FFF;
+    font-size: 16px;
+    border: 1px solid #71B8FA;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+.dispensing_remBtn{
+    padding: 5px 10px;
+    background-color: #F16060;
+    color: #FFF;
+    font-size: 16px;
+    border: 1px solid #F16060;
+    border-radius: 10px;
+}

@@ -8,6 +8,7 @@ import './stylesheets/ServicesSecondPage_stylesheet.css';
 import './stylesheets/ServicesThirdPage_stylesheet.css';
 import './stylesheets/ServicesPnInD_stylesheet.css';
 import './stylesheets/Workers_stylesheet.css';
+import './stylesheets/Dashboard_stylesheet.css';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Login from './pages/Login';
@@ -43,6 +44,7 @@ import UrinalysisSpecificRecord from './pages/Laboratory/UrinalysisSpecificRecor
 import Workers from './pages/Workers/Workers';
 import SpecificWorkers from './pages/Workers/SpecificWorkers'
 import Profile from './pages/Profile/Profile';
+import Dashboard from './pages/Dashboard/Dashboard';
 
 function App() {
   return (
@@ -53,6 +55,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Registration />} />
           <Route path="/sidebar" element={<Sidebar />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/prenatal" element={<Prenatal />} />
           <Route path="/prenatal/:residentid" element={<PrenatalSpecificResident />} />
           <Route path="/prenatal/specres/record" element={<PrenatalSpecificRecord />} />

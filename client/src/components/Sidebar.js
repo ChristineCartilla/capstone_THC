@@ -7,6 +7,10 @@ import { useNavigate } from 'react-router-dom'
 const Sidebar = () => {
     const navigate = useNavigate();
     
+    const viewDashboard = () => {
+        navigate('/dashboard');
+    }
+
     const viewResidents = () => {
         navigate('/resident');
     }
@@ -27,7 +31,9 @@ const Sidebar = () => {
             <hr className='mx-2' style={{color: "#8EC3B0"}}/>
             <ul className="list-unstyled ps-0 mainSideBarDiv_list">
                 <li className="mb-1">
-                    <button className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed">
+                    <button 
+                    className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                    onClick={()=> viewDashboard()}>
                     <FontAwesomeIcon icon={faTableCellsLarge} style={{marginRight: "13px"}} />
                     Dashboard
                     </button>
