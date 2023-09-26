@@ -15,6 +15,10 @@ const Sidebar = () => {
         navigate('/resident');
     }
 
+    const viewQueue = () => {
+        navigate('/queue');
+    }
+
     const viewWorkers = () =>{
         navigate('/workers');
     }
@@ -71,7 +75,8 @@ const Sidebar = () => {
                     </div>
                 </li>
                 <li className="mb-1">
-                    <button className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed">
+                    <button className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                        onClick={()=>viewQueue()}>
                     <FontAwesomeIcon icon={faListOl} style={{marginRight: "13px"}} />
                     Queue
                     </button>

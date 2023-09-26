@@ -1,0 +1,23 @@
+.QueueCount .card {
+    width: 160px;
+    height: 160px;
+    background-color: #8EC3B0;
+    color: #fafafa
+  }
+  
+  .QueueCount .card .card-body {
+    padding: 0.5rem
+  }
+  
+  .QueueCount .card .card-body .card-text{
+    font-size: 3.5rem;
+    font-weight: 700
+  }
+  
+  .queuingContent{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  

@@ -6,10 +6,12 @@ import ViewDispensing from '../../components/ViewDispensing.js';
 const Dashboard = () => {
     return ( 
         //create a div that will contain the sidebar and the body of the page
-        <div className="container-fluid">
-            <div className="row">
-                <Sidebar />
-                <div className="col p-0">
+        <div className="">
+            <div className="mainLayout">
+                <div className="mainLayout-left">
+                    <Sidebar />
+                </div>
+                <div className="container mainLayout-right p-0">
                     <div className="dashboardHeader d-flex justify-content-left">
                         <h1>Barangay Talamban Health Statistics</h1>
                         <span></span>

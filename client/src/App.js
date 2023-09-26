@@ -9,6 +9,7 @@ import './stylesheets/ServicesThirdPage_stylesheet.css';
 import './stylesheets/ServicesPnInD_stylesheet.css';
 import './stylesheets/Workers_stylesheet.css';
 import './stylesheets/Dashboard_stylesheet.css';
+import './stylesheets/Queue_stylesheet.css';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Login from './pages/Login';
@@ -45,6 +46,7 @@ import Workers from './pages/Workers/Workers';
 import SpecificWorkers from './pages/Workers/SpecificWorkers'
 import Profile from './pages/Profile/Profile';
 import Dashboard from './pages/Dashboard/Dashboard';
+import QueueBHW from './pages/Queue/QueueBHW';
 
 function App() {
   return (
@@ -82,6 +84,7 @@ function App() {
           <Route path="/urinalysis" element={<Urinalysis />} />
           <Route path="/urinalysis/:residentid" element={<UrinalysisSpecificResident />} />
           <Route path="/urinalysis/:residentid/:recordid" element={<UrinalysisSpecificRecord />} />
+          <Route path="/queue" element={<QueueBHW />} />
           <Route path="/workers" element={<Workers />}/>
           <Route path="/workers/:worker_id" element={<SpecificWorkers/>}/>
           <Route path="/profile/:profile_id" element={<Profile />} />
