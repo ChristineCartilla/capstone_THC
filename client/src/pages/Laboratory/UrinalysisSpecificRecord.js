@@ -23,11 +23,11 @@ const UrinalysisSpecificRecord = () => {
                 <div className='mainLayout-left'>
                     <Sidebar />    
                 </div>
-                <div className='container mainLayout-right p-0'>
+                <div className='container mainLayout-right p-0 sp3-mainContainer'>
                     <div className="sp3-pageHeader container d-flex">
                         <button 
                         type="button"
-                        className="sp3-servicesBacRecskBtn -center"
+                        className="sp3-servicesBacRecBtn align-items-center"
                         onClick={() => handleBack()}>
                             <FontAwesomeIcon icon={faAngleLeft}/>
                     </button>

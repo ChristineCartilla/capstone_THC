@@ -48,7 +48,7 @@ const DentalSpecificResident = () => {
             date: "01-04-2023",
         },   
     ];
-
+    var recLength = record.length;
     const navigateRecord = () => {
         navigate('/dental/specres/record', {state:{data:"HELLO"}});
     }
@@ -68,18 +68,28 @@ const DentalSpecificResident = () => {
                             <h1 className='text-start'>Dental Records</h1>  
                         </div>
                         <div className='sp2-pageBody'>
-                            <div className='container'>
+                            <div className='container-fluid p-5'>
                                 <div className='row'>
-                                    <div className='col-md-3 col-sm-12 sp2-topDiv'>
-                                        <h4 className="text-start">Personal Information</h4>
+                                    <div className='col-md-4 col-sm-12 sp2-topDiv'>
+                                        <h5 className="text-start">Personal Information</h5>
                                         <div className='sp2-personalInfoDiv'>
-                                        <img src={THCDefaultPatientLogo} height="150px" width="150px" alt="default_image.png" style={{marginTop:5}}/>
+                                            <div class="mb-3" style={{maxWidth: "540px;"}}>
+                                                <div className="row g-0">
+                                                    <div className="col-md-4">
+                                                        <img src={THCDefaultPatientLogo} height="80px" width="80px" alt="default_image.png" style={{marginTop:5}}/>
+                                                    </div>
+                                                    <div className="col-md-8">
+                                                    <div className="card-body">
+                                                        <h5 className="card-title">{patientinfo.first_name + " "+ patientinfo.middle_name + " " + patientinfo.last_name}</h5>
+                                                        <p className="card-text">{patientinfo.gender + ", "+ patientinfo.civilStatus}</p>
+                                                        <p className="card-text"><small className="text-body-secondary">Last updated 3 mins ago</small></p>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr />
                                             <table className="">
                                                 <tbody>
-                                                    <tr>
-                                                        <td scope="row">Name:</td>
-                                                        <td>{patientinfo.first_name + " "+ patientinfo.middle_name + " " + patientinfo.last_name}</td>
-                                                    </tr>
                                                     <tr>
                                                         <td scope="row">Age:</td>
                                                         <td>{patientinfo.age} Years Old</td>
@@ -87,6 +97,10 @@ const DentalSpecificResident = () => {
                                                     <tr>
                                                         <td scope="row">Birth Date:</td>
                                                         <td>{patientinfo.birthDate}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td scope="row">Birth Place:</td>
+                                                        <td>{patientinfo.birthPlace}</td>
                                                     </tr>
                                                     <tr>
                                                         <td scope="row">Occupation:</td>
@@ -100,34 +114,50 @@ const DentalSpecificResident = () => {
                                             </table>    
                                         </div>
                                     </div>
-                                    <div className='col-md-9 col-sm-12 sp2-bottomDiv'>
-                                        <div className='sp2-bottomDivHeader d-flex justify-content-between'>
-                                            <h4 className="text-start">Dental Records</h4>    
-                                            {/* Button trigger modal  */}
-                                            <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#DenAddition"><FontAwesomeIcon icon={faPlus}/></button>
-                                        </div>
+                                    <div className='col-md-8 col-sm-12 sp2-bottomDiv'>
+
                                         <div className='sp2-MCRecordsDiv'>
                                             <table className="table sp2-MCRecordsTable">
                                                 <thead>
                                                     <tr>
-                                                        <th>Dental Records</th>
-                                                        <th>Doctor</th>
-                                                        <th>Date of Record</th>
+                                                        <th></th>
+                                                        <th style={{width:"400px"}}>List of Dental Records</th>
+                                                        <th></th> 
+                                                        <th style={{textAlign:"end"}}><button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#DenAddition"><FontAwesomeIcon icon={faPlus}/></button></th> 
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>Record Number</td>
+                                                        <td>Doctor</td>
+                                                        <td>Date of Record</td> 
+                                                    </tr>
                                                     {
-                                                        record.map((rec,idx) => (
+                                                        record && record.map((rec,idx) => {
+                                                            return (
                                                             <tr 
                                                                 className='sp2-clickableMCRRow' 
                                                                 key={idx}
-                                                                onClick={() => navigateRecord()}
+                                                                onClick={() => navigateRecord(rec.id)}
                                                                 >
-                                                                <td>{rec.record}</td>
+                                                                <td></td>
+                                                                <td>{"Dental THC00"+ (recLength--)}</td>
                                                                 <td>{rec.doctor}</td>
                                                                 <td>{rec.date}</td>
                                                             </tr>
-                                                        ))
+                                                        )})
+                                                    }
+                                                    {
+                                                        record.length == 0 && (
+                                                            <tr className='sp2-clickableMCRRow'>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td><p >NO RECORDS FOUND</p></td>
+                                                                <td></td>
+                                                                
+                                                            </tr>
+                                                        )
                                                     }
                                                 
                                                 </tbody>

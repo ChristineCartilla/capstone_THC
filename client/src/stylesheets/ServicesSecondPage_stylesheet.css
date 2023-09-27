@@ -46,7 +46,8 @@
 }
 
 .sp2-personalInfoDiv table tbody tr td:first-child{
-    font-weight: 600;
+    font-weight: 400;
+    color: #b3b3b3;
 }
 
 .sp2-personalInfoDiv table tbody tr td:nth-child(2){
@@ -56,14 +57,14 @@
 
 .sp2-addMedRecBtn{
     margin-right: 20px;
-    color: #8EC3B0;
+    color: #fafafa;
     border: none;
     background-color: transparent;
     font-size: 30px;
 }
 
 .sp2-bottomDiv{
-    padding-top: 15px;
+    /* padding-top: 15px; */
     
 }
 
@@ -72,45 +73,55 @@
 }
 
 .sp2-MCRecordsDiv{
-    padding: 30px;
     background-color: #FAFAFA;
     border: 1px solid #e7e5e5;
-    border-radius: 8px;
+    border-radius: 5px;
     box-shadow: 2px 2px 20px #e7e5e5;
 }
 
 .sp2-MCRecordsTable{
-    border-collapse: separate;
-    border-spacing: 0 5px;
+    /* border-collapse: separate;
+    border-spacing: 0 1px; */
 }
 
 .sp2-MCRecordsTable tr th{
     background-color: #44AA92;
-    color: #FFF;
+    height: 60px;
+    color: #fafafa;
+    font-size: 20px;
+    text-align: start;
+    vertical-align: middle;
+    /* padding-left: 50px; */
 }
 
 .sp2-MCRecordsTable tr td{
     color: #15896C;
+    height: 50px;
+    vertical-align: middle;
+    text-align: start;
 }
 
-.sp2-pageBody .sp2-MCRecordsTable tr th:first-child,
-.sp2-pageBody .sp2-MCRecordsTable tr td:first-child{
+.sp2-pageBody .sp2-MCRecordsTable tr th:first-child{
     border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+
 }
 
 .sp2-pageBody .sp2-MCRecordsTable tr td:first-child{
     border-left: 1px solid #dee2e6;
 }
 
-.sp2-pageBody .sp2-MCRecordsTable tr th:last-child,
-.sp2-pageBody .sp2-MCRecordsTable tr td:last-child{
+.sp2-pageBody .sp2-MCRecordsTable tr th:last-child{
     border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+
 }
 
 .sp2-pageBody .sp2-MCRecordsTable tr:hover{
     color: #8EC3B0;
+}
+
+.sp2-clickableMCRRow td{
+    text-align: start;
+    padding-left: 100px;
 }
 
 .sp2-clickableMCRRow:hover{

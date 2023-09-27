@@ -141,11 +141,11 @@ const AdditionalFamilyPlanning = () => {
                             <div className='text-center'>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input " type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"/>
-                                <label class="form-check-label" for="inlineRadio1">1</label>
+                                <label class="form-check-label" htmlFor="inlineRadio1">1</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
-                                <label class="form-check-label" for="inlineRadio2">2</label>
+                                <label class="form-check-label" htmlFor="inlineRadio2">2</label>
                             </div>
                             </div>
                     </div>
@@ -165,39 +165,39 @@ const AdditionalFamilyPlanning = () => {
                     <div  className="col-md-6 text-start">
                         <label htmlFor="exampleFormControlTextarea1"  className="form-label fw-bold">Does the client have any of the following?</label>
                         <div className='mx-3'>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                                <label class="form-check-label" for="flexCheckDefault">
+                            <div className="form-check mb-2">
+                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                                <label className="form-check-label" htmlFor="flexCheckDefault">
                                     Severe headaches / Migraine
                                 </label>
                             </div>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                                <label class="form-check-label" for="flexCheckDefault">
+                            <div className="form-check mb-2">
+                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                                <label className="form-check-label" htmlFor="flexCheckDefault">
                                     History of Stroke / Heart attack / Hypertensions
                                 </label>
                             </div>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                                <label class="form-check-label" for="flexCheckDefault">
+                            <div className="form-check mb-2">
+                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                                <label className="form-check-label" htmlFor="flexCheckDefault">
                                     Non-traumatic Hematoma / Frequent bruising or gum bleeding
                                 </label>
                             </div>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                                <label class="form-check-label" for="flexCheckDefault">
+                            <div className="form-check mb-2">
+                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                                <label className="form-check-label" htmlFor="flexCheckDefault">
                                     Current or history of breast cancer / breast mass
                                 </label>
                             </div>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                                <label class="form-check-label" for="flexCheckDefault">
+                            <div className="form-check mb-2">
+                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                                <label className="form-check-label" htmlFor="flexCheckDefault">
                                     Severe chest pain
                                 </label>
                             </div>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                                <label class="form-check-label" for="flexCheckDefault">
+                            <div className="form-check mb-2">
+                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                                <label className="form-check-label" htmlFor="flexCheckDefault">
                                     Cough for more than 14 days
                                 </label>
                             </div>
@@ -207,41 +207,41 @@ const AdditionalFamilyPlanning = () => {
                     <div  className="col-md-6 text-start">
                         <label htmlFor="exampleFormControlTextarea1"  className="form-label"></label>
                             <div className='mx-3'>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                                    <label class="form-check-label" for="flexCheckDefault">
+                                <div className="form-check mb-2">
+                                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <label className="form-check-label" htmlFor="flexCheckDefault">
                                         Jaundice
                                     </label>
                                 </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                                    <label class="form-check-label" for="flexCheckDefault">
+                                <div className="form-check mb-2">
+                                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <label className="form-check-label" htmlFor="flexCheckDefault">
                                         Unexplained vaginal bleeding
                                     </label>
                                 </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                                    <label class="form-check-label" for="flexCheckDefault">
+                                <div className="form-check mb-2">
+                                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <label className="form-check-label" htmlFor="flexCheckDefault">
                                         Abnormal vaginal discharge
                                     </label>
                                 </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                                    <label class="form-check-label" for="flexCheckDefault">
+                                <div className="form-check mb-2">
+                                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <label className="form-check-label" htmlFor="flexCheckDefault">
                                         Intake of phenobarbital (anti-seizure) or rifampicin (anti-TB)
                                     </label>
                                 </div>
-                                <div class="form-check mb-2">
-                                    <label class="form-check-label" for="flexCheckDefault">
+                                <div className="form-check mb-2">
+                                    <label className="form-check-label" htmlFor="flexCheckDefault">
                                         Is the client SMOKER?
                                     </label>
                                 </div>
-                                <div class="form-check mb-2">
+                                <div className="form-check mb-2">
                                 <label>
-                                    <label class="form-check-label" for="flexCheckDefault">
+                                    <label className="form-check-label" htmlFor="flexCheckDefault">
                                         With disability?
                                     </label>
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onChange={() => setChecked(!checked)} checked={checked}/>
+                                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" onChange={() => setChecked(!checked)} checked={checked}/>
                                     {
                                             checked ? (
                                             <input className="inputRequest formContentElement border border-0 border-bottom" name="token" type="text" placeholder="  If yes, please specify"/>
@@ -353,7 +353,7 @@ const AdditionalFamilyPlanning = () => {
                     <div  className="row">
                         <div className="form-check">
                             <input  className="form-check-input" type="checkbox" value="" id="flexCheckDefault "></input>
-                            <label className="form-check-label" for="flexCheckDefault">
+                            <label className="form-check-label" htmlFor="flexCheckDefault">
                                 Dysmenorrhea
                             </label>
                         </div>
@@ -361,7 +361,7 @@ const AdditionalFamilyPlanning = () => {
                     <div  className="row">
                         <div className="form-check">
                             <input  className="form-check-input" type="checkbox" value="" id="flexCheckDefault" ></input>
-                            <label className="form-check-label" for="flexCheckDefault">
+                            <label className="form-check-label" htmlFor="flexCheckDefault">
                             Hydatidiform mole (within the last 12 months)
                             </label>
                         </div>
@@ -369,7 +369,7 @@ const AdditionalFamilyPlanning = () => {
                     <div  className="row">
                         <div className="form-check">
                             <input  className="form-check-input" type="checkbox" value="" id="flexCheckDefault" ></input>
-                            <label className="form-check-label" for="flexCheckDefault">
+                            <label className="form-check-label" htmlFor="flexCheckDefault">
                             History of ectopic pregnancy
                             </label>
                         </div>
@@ -377,7 +377,7 @@ const AdditionalFamilyPlanning = () => {
                     <div  className="row">
                         <div className="form-check">
                             <input  className="form-check-input" type="checkbox" value="" id="flexCheckDefault" ></input>
-                            <label className="form-check-label" for="flexCheckDefault">
+                            <label className="form-check-label" htmlFor="flexCheckDefault">
                                 Diabetes
                             </label>
                         </div>
@@ -419,27 +419,27 @@ const AdditionalFamilyPlanning = () => {
             <div className="row mb-5">
                 <div  className="col-md-3 text-start">
                     <label htmlFor="exampleFormControlTextarea1"  className="form-label fw-bold">Skin</label>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Normal
                         </label>
                     </div>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Pale
                         </label>
                     </div>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Yellowish
                         </label>
                     </div>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Hematoma
                         </label>
                     </div>
@@ -447,21 +447,21 @@ const AdditionalFamilyPlanning = () => {
 
                 <div  className="col-md-3 text-start">
                     <label htmlFor="exampleFormControlTextarea1"  className="form-label fw-bold">Extremities</label>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Normal
                         </label>
                     </div>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Edema
                         </label>
                     </div>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Varicosities
                         </label>
                     </div>
@@ -469,21 +469,21 @@ const AdditionalFamilyPlanning = () => {
                    
                 <div  className="col-md-3 text-start">
                     <label htmlFor="exampleFormControlTextarea1"  className="form-label fw-bold">Conjunctiva</label>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Normal
                         </label>
                     </div>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Pale
                         </label>
                     </div>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Yellowish
                         </label>
                     </div>
@@ -491,21 +491,21 @@ const AdditionalFamilyPlanning = () => {
 
                 <div  className="col-md-3 text-start">
                     <label htmlFor="exampleFormControlTextarea1"  className="form-label fw-bold">Breast</label>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Normal
                         </label>
                     </div>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Mass
                         </label>
                     </div>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Nipple Discharge
                         </label>
                     </div>
@@ -515,21 +515,21 @@ const AdditionalFamilyPlanning = () => {
             <div className="row mb-5">
                 <div  className="col-md-3 text-start">
                     <label htmlFor="exampleFormControlTextarea1"  className="form-label fw-bold">Neck</label>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Normal
                         </label>
                     </div>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Neck Mas
                         </label>
                     </div>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Enlarged Lymph Nodes
                         </label>
                     </div>
@@ -537,21 +537,21 @@ const AdditionalFamilyPlanning = () => {
 
                 <div  className="col-md-3 text-start">
                     <label htmlFor="exampleFormControlTextarea1"  className="form-label fw-bold">Abdomen</label>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Normal
                         </label>
                     </div>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Abdominal Mass
                         </label>
                     </div>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Varicosities
                         </label>
                     </div>
@@ -559,34 +559,34 @@ const AdditionalFamilyPlanning = () => {
                    
                 <div  className="col-md-3 text-start">
                     <label htmlFor="exampleFormControlTextarea1"  className="form-label fw-bold">Pelvic Examination</label>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Normal
                         </label>
                     </div>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Mass
                         </label>
                     </div>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Abnormal Discharge
                         </label>
                     </div>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Cervical Abnormalities
                         </label>            
                         {/* <label>
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <label className="form-check-label" htmlFor="flexCheckDefault">
                                 Cervical Abnormalities
                             </label>
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onChange={() => setChecked(!checked)} checked={checked}/>
+                            <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" onChange={() => setChecked(!checked)} checked={checked}/>
                                 {
                                     checked ? (
                                     <input className="inputRequest formContentElement border border-0 border-bottom" name="token" type="checkbox"/> 
@@ -594,27 +594,27 @@ const AdditionalFamilyPlanning = () => {
                                 }
                         </label> */}
                     </div>
-                    <div class="form-check mb-2 mx-4 ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label text-secondary" for="flexCheckDefault">
+                    <div className="form-check mb-2 mx-4 ">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label text-secondary" htmlFor="flexCheckDefault">
                             Warts
                         </label>
                     </div>
-                    <div class="form-check mb-2 mx-4 ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label text-secondary" for="flexCheckDefault">
+                    <div className="form-check mb-2 mx-4 ">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label text-secondary" htmlFor="flexCheckDefault">
                             Polyp or Cysts
                         </label>
                     </div>
-                    <div class="form-check mb-2 mx-4 ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label text-secondary" for="flexCheckDefault">
+                    <div className="form-check mb-2 mx-4 ">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label text-secondary" htmlFor="flexCheckDefault">
                             Inflammation or Erosion
                         </label>
                     </div>
-                    <div class="form-check mb-2 mx-4 ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label text-secondary" for="flexCheckDefault">
+                    <div className="form-check mb-2 mx-4 ">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label text-secondary" htmlFor="flexCheckDefault">
                             Bloody Discharge
                         </label>
                     </div>
@@ -622,59 +622,59 @@ const AdditionalFamilyPlanning = () => {
 
                 <div  className="col-md-3 text-start">
                     <label htmlFor="exampleFormControlTextarea1"  className="form-label fw-bold"></label>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Cervical Consistency
                         </label>
                     </div>
-                    <div class="form-check mb-2 mx-4 ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label text-secondary" for="flexCheckDefault">
+                    <div className="form-check mb-2 mx-4 ">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label text-secondary" htmlFor="flexCheckDefault">
                             Firm
                         </label>
                     </div>
-                    <div class="form-check mb-2 mx-4 ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label text-secondary" for="flexCheckDefault">
+                    <div className="form-check mb-2 mx-4 ">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label text-secondary" htmlFor="flexCheckDefault">
                           Soft
                         </label>
                     </div>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                             Adnexal Mass / Tenderness
                         </label>
                     </div>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                            Uterine Position
                         </label>
                     </div>
-                    <div class="form-check mb-2 mx-4 ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label text-secondary" for="flexCheckDefault">
+                    <div className="form-check mb-2 mx-4 ">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label text-secondary" htmlFor="flexCheckDefault">
                            Mid
                         </label>
                     </div>
-                    <div class="form-check mb-2 mx-4 ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label text-secondary" for="flexCheckDefault">
+                    <div className="form-check mb-2 mx-4 ">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label text-secondary" htmlFor="flexCheckDefault">
                           Anteflexed
                         </label>
                     </div>
-                    <div class="form-check mb-2 mx-4 ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-                        <label class="form-check-label text-secondary" for="flexCheckDefault">
+                    <div className="form-check mb-2 mx-4 ">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                        <label className="form-check-label text-secondary" htmlFor="flexCheckDefault">
                           Retroflexed
                         </label>
                     </div>
-                    <div class="form-check mb-2">
-                        <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check mb-2">
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
                           Uterine Depth
                         </label>
-                        <input class="form-control border border-0 border-bottom" type="text" placeholder="cm" aria-label="default input example"></input>
+                        <input className="form-control border border-0 border-bottom" type="text" placeholder="cm" aria-label="default input example"></input>
                     </div>
                 </div>
             </div>
