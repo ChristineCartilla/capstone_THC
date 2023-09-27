@@ -1,23 +1,41 @@
 .QueueCount .card {
-    width: 160px;
-    height: 160px;
-    background-color: #8EC3B0;
-    color: #fafafa
-  }
-  
-  .QueueCount .card .card-body {
-    padding: 0.5rem
-  }
-  
-  .QueueCount .card .card-body .card-text{
-    font-size: 3.5rem;
-    font-weight: 700
-  }
-  
-  .queuingContent{
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  
-  
+  width: 160px;
+  height: 160px;
+  background-color: #8EC3B0;
+  color: #fafafa
+}
+
+.QueueCount .card .card-body {
+  padding: 0.5rem
+}
+
+.QueueCount .card .card-body .card-text{
+  font-size: 3.5rem;
+  font-weight: 700
+}
+
+.queuingContent{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.queuingNav{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  width: 1000px;
+}
+
+
+.queuingContentHeader button{
+  background-color: #8EC3B0;
+    color: #FAFAFA;
+    border: 1px solid #8EC3B0;
+    border-radius: 15px;
+    margin-right: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 30px;
+    width: 80px
+}
