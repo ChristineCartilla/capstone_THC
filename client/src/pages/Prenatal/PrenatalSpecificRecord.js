@@ -190,7 +190,7 @@ const PrenatalSpecificRecord = (props) => {
                                             <span > {patient.HEP} </span>
                                             </div>
                                         </div>
-                                        <div class="row -start">
+                                        <div class="row-start">
                                             <div class="col itembox ">
                                             <label className="fw-bold ">Previous Hospitalization: </label>
                                             <span > {patient.PH} </span>
@@ -198,23 +198,23 @@ const PrenatalSpecificRecord = (props) => {
                                             <div class="col itembox ">
                                             <label className="fw-bold col-sm-12">Tetanus Toxoid Status</label>
                                             <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#PAddition"><FontAwesomeIcon icon={faPlus}/></button>
-                                                <div class="row  itembox flex-nowrap">
+                                                <div class="d-flex">
                                                 <label className="fw-bold ">Tetanus Toxoid 1 :</label> 
                                                 <span > {patient.TTS.TT1} </span>  
                                                 </div>
-                                                <div class="row  itembox flex-nowrap">
+                                                <div class="d-flex">
                                                 <label className="fw-bold ">Tetanus Toxoid 2 :</label> 
                                                 <span > {patient.TTS.TT2} </span>  
                                                 </div>
-                                                <div class="row  itembox flex-nowrap">
+                                                <div class="d-flex">
                                                 <label className="fw-bold ">Tetanus Toxoid 3 :</label> 
                                                 <span > {patient.TTS.TT3} </span>  
                                                 </div>
-                                                <div class="row  itembox flex-nowrap">
+                                                <div class="d-flex">
                                                 <label className="fw-bold ">Tetanus Toxoid 4 :</label> 
                                                 <span > {patient.TTS.TT4} </span>  
                                                 </div>
-                                                <div class="row  itembox flex-nowrap">
+                                                <div class="d-flex">
                                                 <label className="fw-bold ">Tetanus Toxoid 5 :</label> 
                                                 <span > {patient.TTS.TT5} </span>  
                                                 </div>
