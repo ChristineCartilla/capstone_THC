@@ -15,6 +15,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Login from './pages/Login';
 import Registration from './pages/Registration';
 import Sidebar from './components/Sidebar';
+import $ from 'jquery';
+import "jquery-ui-dist/jquery-ui";
+import { useEffect } from 'react';
 
 import Dental from './pages/Dental/Dental';
 import DentalSpecificResident from './pages/Dental/DentalSpecificResident';
@@ -49,6 +52,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import QueueBHW from './pages/Queue/QueueBHW';
 
 function App() {
+
   return (
     <div className="App ">
       

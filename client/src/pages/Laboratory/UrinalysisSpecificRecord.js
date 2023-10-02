@@ -6,6 +6,7 @@ import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { useLocation, useNavigate } from 'react-router-dom'
 import AdditionVitalSigns from '../../components/AdditionVitalSigns.js'
 import ViewVitalSigns from '../../components/ViewVitalSigns.js'
+import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 
 const UrinalysisSpecificRecord = () => {
     const [patient, setPatient] = useState([]);
@@ -19,6 +20,7 @@ const UrinalysisSpecificRecord = () => {
     return (
            <>
         <div className=''>
+            <SidebarOpenBtn />
             <div className='mainLayout'>
                 <div className='mainLayout-left'>
                     <Sidebar />    

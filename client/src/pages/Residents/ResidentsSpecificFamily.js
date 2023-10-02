@@ -4,6 +4,7 @@ import Searchbox from '../../components/Services_Searchbox'
 import { useNavigate, useParams } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import SidebarOpenBtn from '../../components/SidebarOpenBtn'
 
 
 const ResidentsSpecificFamily = () => {
@@ -43,10 +44,14 @@ const ResidentsSpecificFamily = () => {
     }
 
     return (
-        <div className='container-fluid '>
-            <div className='row'>
-                <Sidebar />
-                <div className='col p-0'>
+        <div className=''>
+            <SidebarOpenBtn />
+            <div className='mainLayout'>
+                <div className='mainLayout-left'>
+                    <Sidebar />    
+                </div>
+                
+                <div className='container mainLayout-right residentLayout'>
                     <div className="resident_pageHeader d-flex justify-content-around">
                         <h1>Family Profile 02</h1>  
                         <span></span>
@@ -56,7 +61,7 @@ const ResidentsSpecificFamily = () => {
                             <div className="tableHeading">
                                 <h3><span>Verified Profiles</span></h3>
                             </div>
-                            <table className="table table-borderless resident_familyTable">
+                            <table className="table table-borderless resident_familyTable" style={{ backgroundColor: '#000 !important'}}>
                                 <thead>
                                     <tr>
                                         <th>Last Name</th>

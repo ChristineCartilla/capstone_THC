@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Sidebar from '../../components/Sidebar.js'
 import Services_Searchbox from '../../components/Services_Searchbox.js'
 import { useNavigate} from 'react-router-dom'
+import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 
 const Urinalysis = () => {
     const [patient, setPatient] = useState([]);
@@ -19,6 +20,7 @@ const Urinalysis = () => {
 
     return (
     <div className=''>
+        <SidebarOpenBtn />
         <div className='mainLayout'>
             <div className='mainLayout-left'>
                 <Sidebar />

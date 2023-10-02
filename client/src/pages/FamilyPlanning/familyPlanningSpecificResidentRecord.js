@@ -8,6 +8,7 @@ import AdditionVitalSigns from '../../components/AdditionVitalSigns.js'
 import ViewVitalSigns from '../../components/ViewVitalSigns.js'
 import AdditionFamilyPlanningAssessment from '../../components/AdditionFamilyPlanningAssessment.js'
 import ViewFamilyPlanningAssessment from '../../components/ViewFamilyPlanningAssessment.js'
+import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 
 const FamilyPlanningSpecificResidentRecord = () => {
     const [patient, setPatient] = useState([]);
@@ -21,6 +22,7 @@ const FamilyPlanningSpecificResidentRecord = () => {
     return (
         <>
             <div className=''>
+                <SidebarOpenBtn />
                 <div className='mainLayout'>
                     <div className='mainLayout-left'>
                         <Sidebar />    

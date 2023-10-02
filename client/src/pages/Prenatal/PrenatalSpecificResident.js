@@ -7,6 +7,7 @@ import axios from 'axios'
 import AdditionPrenatal from '../../components/AdditionPrenatal.js'
 
 import THCDefaultPatientLogo from '../../images/default_image.png'
+import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 
 const PrenatalSpecificResident = () => {
     const { residentid } = useParams();
@@ -61,6 +62,7 @@ const PrenatalSpecificResident = () => {
     return (
         <>
             <div className=''>
+                <SidebarOpenBtn />
                 <div className='mainLayout'>
                     <div className='mainLayout-left'>
                         <Sidebar />    

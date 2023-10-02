@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import AdditionalHematology from '../../components/AdditionalHematology.js'
 import axios from 'axios'
 import THCDefaultPatientLogo from '../../images/default_image.png'
+import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 
 
 const HematologySpecificResident = () => {
@@ -76,6 +77,7 @@ const HematologySpecificResident = () => {
     return (
         <>
         <div className=''>
+            <SidebarOpenBtn />
             <div className='mainLayout'>
                 <div className='mainLayout-left'>
                     <Sidebar />    

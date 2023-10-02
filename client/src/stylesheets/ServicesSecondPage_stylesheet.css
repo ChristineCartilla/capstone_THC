@@ -6,7 +6,7 @@
 }
 
 .sp2-pageHeader h1{
-    font-size: 60px;
+    font-size: clamp(31px, 5vw, 50px);
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 900;
     color: #8EC3B0;
@@ -150,9 +150,9 @@
 
 }
 
-@media only screen and (max-width: 1200px) {
+/* @media only screen and (max-width: 1200px) {
     .sp2-pageHeader h1{
-        font-size: 40px;
+        font-size: 3vw;
     }
 }
 
@@ -160,4 +160,4 @@
     .sp2-pageHeader h1{
         font-size: 32px;
     }
-}
+} */
