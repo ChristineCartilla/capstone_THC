@@ -4,6 +4,7 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import EditUserProfile from '../../components/EditUserProfile';
+import SidebarOpenBtn from '../../components/SidebarOpenBtn';
 
 
 const Profile = () => {
@@ -34,10 +35,14 @@ const Profile = () => {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <Sidebar />
-        <div className="col p-0">
+    <div className="">
+      <SidebarOpenBtn />
+      <div className="mainLayout">
+        <div className='mainLayout-left' >
+          <Sidebar />  
+        </div>
+        
+        <div className="container mainLayout-right" style={{backgroundColor: '#fff', borderRadius: '10px'}}>
           <div className="worker_pageHeader d-flex justify-content-around">
             <h1>Profile</h1>
             <span></span>

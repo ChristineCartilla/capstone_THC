@@ -7,6 +7,7 @@ import axios from 'axios'
 import AdditionMedicalCheckup from '../../components/AdditionMedicalCheckup'
 
 import THCDefaultPatientLogo from '../../images/default_image.png'
+import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 
 const MedicalCheckUpSpecificResident = () => {
     const { residentid } = useParams();
@@ -60,6 +61,7 @@ const MedicalCheckUpSpecificResident = () => {
     return (
         <>
             <div className=''>
+                <SidebarOpenBtn />
                 <div className='mainLayout'>
                     <div className='mainLayout-left'>
                         <Sidebar />    

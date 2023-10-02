@@ -3,6 +3,7 @@ import Sidebar from "../../components/Sidebar.js";
 import { useNavigate} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
+import SidebarOpenBtn from "../../components/SidebarOpenBtn.js";
 
 const FamilyPlanningAllRecords = () => {
     const [patient, setPatient] = useState([]);
@@ -25,6 +26,7 @@ const FamilyPlanningAllRecords = () => {
 
     return (
         <div>
+            <SidebarOpenBtn />
             <div className='mainLayout'>
                 <div className='mainLayout-left'>
                     <Sidebar />

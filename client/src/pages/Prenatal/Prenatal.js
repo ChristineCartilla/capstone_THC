@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Sidebar from '../../components/Sidebar.js'
 import Searchbox from '../../components/Services_Searchbox'
 import { useNavigate } from 'react-router-dom'
+import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 
 const Prenatal = () => {
     const [patient, setPatient] = useState([]);
@@ -15,6 +16,7 @@ const Prenatal = () => {
     }
     return (
         <div className=''>
+            <SidebarOpenBtn />
             <div className='mainLayout'>
                 
                 <div className='mainLayout-left'>

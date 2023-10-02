@@ -9,6 +9,7 @@ import ViewVitalSigns from '../../components/ViewVitalSigns.js'
 import AdditionImmunizationAssessment from '../../components/AdditionImmunizationAssessment.js'
 import ViewImmunizationAssessment from '../../components/ViewImmunizationAssessment.js'
 import AdditionVaccine from '../../components/AdditionVaccine.js'
+import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 
 const ImmunizationSpecificRecord = (props) => {
     const loc = useLocation();
@@ -82,6 +83,7 @@ const ImmunizationSpecificRecord = (props) => {
     return (
         <>
             <div className=''>
+                <SidebarOpenBtn />
                 <div className='mainLayout'>
                     <div className='mainLayout-left'>
                         <Sidebar />    

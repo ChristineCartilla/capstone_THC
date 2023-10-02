@@ -7,6 +7,7 @@ import AdditionalUrinalysis from '../../components/AdditionalUrinalysis.js'
 import axios from 'axios'
 
 import THCDefaultPatientLogo from '../../images/default_image.png'
+import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 
 const UrinalysisSpecificResident = () => {
     const { residentid } = useParams();
@@ -65,6 +66,7 @@ const UrinalysisSpecificResident = () => {
     return (
         <>
         <div className=''>
+            <SidebarOpenBtn />
             <div className='mainLayout'>
                 <div className='mainLayout-left'>
                     <Sidebar />    

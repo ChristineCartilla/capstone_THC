@@ -9,6 +9,7 @@ import AdditionVitalSigns from '../../components/AdditionVitalSigns.js'
 import ViewVitalSigns from '../../components/ViewVitalSigns.js'
 import AdditionPrenatalAssesment from '../../components/AdditionPrenatalAssesment.js'
 import ViewPrenatalAssessment from '../../components/ViewPrenatalAssessment.js'
+import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 
 const PrenatalSpecificRecord = (props) => {
     const loc = useLocation();
@@ -80,6 +81,7 @@ const PrenatalSpecificRecord = (props) => {
     return (
         <>
             <div className=''>
+                <SidebarOpenBtn />
                 <div className='mainLayout'>
                     <div className='mainLayout-left'>
                         <Sidebar />    

@@ -5,6 +5,7 @@ import Sidebar from '../../components/Sidebar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import EditResidentProfile from '../../components/EditResidentProfile';
+import SidebarOpenBtn from '../../components/SidebarOpenBtn';
 
 const ResidentsSpecificResident = () => {
   const { profile_id } = useParams();
@@ -27,10 +28,14 @@ const ResidentsSpecificResident = () => {
 }
 
   return (
-    <div className='container-fluid'>
-      <div className='row'>
-        <Sidebar />
-        <div className='col p-0'>
+    <div className=''>
+      <SidebarOpenBtn />
+      <div className='mainLayout'>
+        <div className='mainLayout-left'>
+          <Sidebar />  
+        </div>
+
+        <div className='container mainLayout-right residentLayout'>
           <div className="resident_pageHeader d-flex justify-content-around">
               <h1>Resident Profile</h1>  
               <span></span>
@@ -39,7 +44,7 @@ const ResidentsSpecificResident = () => {
             <div className="container text-center">
               <div className="row">
                 <div className="col">
-                  <table class="residentDetail_table table table-borderless text-start w-75">
+                  <table class="residentDetail_table table-borderless text-start w-75">
                     <tbody>
                       <tr>
                         <th scope="row">First Name:</th>
@@ -87,7 +92,7 @@ const ResidentsSpecificResident = () => {
                   </table>
                 </div>
                 <div className="col">
-                  <table class="residentDetail_table table table-borderless text-start w-75">
+                  <table class="residentDetail_table table-borderless text-start w-75">
                     <tbody>
                       <tr>
                         <th scope="row">Status:</th>

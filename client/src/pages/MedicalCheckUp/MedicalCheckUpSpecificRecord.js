@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
+import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 
 const MedicalCheckUpSpecificRecord = () => {
     const { residentid, recordid } = useParams();
@@ -34,6 +35,7 @@ const MedicalCheckUpSpecificRecord = () => {
     return (
         <>
             <div className=''>
+                <SidebarOpenBtn />
                 <div className='mainLayout '>
                     <div className='mainLayout-left'>
                         <Sidebar />    
