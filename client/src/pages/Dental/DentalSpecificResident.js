@@ -7,6 +7,7 @@ import axios from 'axios'
 import AdditionDental from '../../components/AdditionDental.js'
 
 import THCDefaultPatientLogo from '../../images/default_image.png'
+import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 
 const DentalSpecificResident = () => {
     const { residentid } = useParams();
@@ -59,6 +60,7 @@ const DentalSpecificResident = () => {
     return (
         <>
             <div className=''>
+                <SidebarOpenBtn />
                 <div className='mainLayout'>
                     <div className='mainLayout-left'>
                         <Sidebar />    

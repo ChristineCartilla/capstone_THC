@@ -7,6 +7,7 @@ import AdditionalFamilyPlanning from '../../components/AdditionalFamilyPlanning.
 import axios from 'axios'
 
 import THCDefaultPatientLogo from '../../images/default_image.png'
+import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 
 const FamilyPlanningSpecificResident = () => {
     const { residentid } = useParams();
@@ -71,6 +72,7 @@ const FamilyPlanningSpecificResident = () => {
     return (
         <>
             <div className=''>
+                <SidebarOpenBtn />
                 <div className='mainLayout'>
                     <div className='mainLayout-left'>
                         <Sidebar />    

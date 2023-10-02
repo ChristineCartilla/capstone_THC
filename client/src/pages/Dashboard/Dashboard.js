@@ -1,12 +1,14 @@
 import React from 'react';
 import Sidebar from '../../components/Sidebar.js';
 import ViewDispensing from '../../components/ViewDispensing.js';
+import SidebarOpenBtn from '../../components/SidebarOpenBtn.js';
 
 
 const Dashboard = () => {
     return ( 
         //create a div that will contain the sidebar and the body of the page
         <div className="">
+            <SidebarOpenBtn />
             <div className="mainLayout">
                 <div className="mainLayout-left">
                     <Sidebar />

@@ -1,7 +1,12 @@
 /* RESIDENTS MAIN PAGE */
 
+.mainLayout-right.residentLayout{
+    background-color: #FFF;
+    border-radius: 10px;
+}
+
 .resident_pageHeader{
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .resident_pageHeader h1{

@@ -3,6 +3,7 @@ import Sidebar from '../../components/Sidebar.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { useLocation, useNavigate } from 'react-router-dom'
+import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 
 const DentalSpecificRecord = (props) => {
     const loc = useLocation();
@@ -42,6 +43,7 @@ const DentalSpecificRecord = (props) => {
     return (
         <>
             <div className=''>
+                <SidebarOpenBtn />
                 <div className='mainLayout'>
                     <div className='mainLayout-left'>
                         <Sidebar />    

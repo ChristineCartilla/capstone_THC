@@ -1,8 +1,11 @@
 import React from 'react'
 import THCLogo from '../images/THC_Logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserGroup, faBriefcaseMedical, faListOl, faRightFromBracket, faTableCellsLarge, faUserNurse, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faUserGroup, faBriefcaseMedical, faListOl, faRightFromBracket, faTableCellsLarge, faUserNurse, faUser, faBars } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
+import $ from 'jquery';
+import "jquery-ui-dist/jquery-ui";
+import { useEffect } from 'react';
 
 const Sidebar = () => {
     const navigate = useNavigate();
@@ -27,8 +30,18 @@ const Sidebar = () => {
         navigate(`/profile/${localStorage.getItem("user_id")}`);
     }
 
+    useEffect(() => {
+        $(document).ready(function(){
+          $('#sidebarCloseToggle').on('click', function(){
+            $('.mainLayout-left').removeClass('mainLayout-left-active');
+          })
+        })
+      },[]);
     return (
         <div className="mainSideBarDiv sticky-top" style={{width: "280px", padding:"0"}}>
+            <button className="btn btn-toggle d-inline-flex align-items-center justify-content-center rounded" id="sidebarCloseToggle" style={{margin: "10px 0 0 220px"}}>
+                <FontAwesomeIcon icon={faBars} />
+            </button>
             <a href="/" className="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none">
             <img src={THCLogo} alt='THC LOGO' width='225px' className='thcLogo'/>
             </a>
