@@ -65,4 +65,42 @@ router.get("/getrecord/:recid", async (req, res) => {
         res.json(error);
     }
 })
+
+// HARD DELETE RECORD
+router.delete("/delete/:profid/:recid", async (req, res) => {
+    const profid = req.params.profid;
+    const recid = req.params.recid;
+
+    try {
+        const findRec = await VitalSignModel.findById({ _id: recid });
+        const findRes = await ProfileModel.findById({ _id: profid });
+        if(!findRec && !findRes){
+            return res.json("Error Occured in Deleting Record.");
+        } else if(findRec && !findRes){
+            return res.json("Deletion Error... Resident Not Found.");
+        } else if(!findRec && findRes){
+            return res.json("Deletion Error... Record Not Found.");
+        } else {
+            const delRec = await VitalSignModel.findByIdAndDelete({_id: recid});
+            const delRecRes = await ProfileModel.findByIdAndUpdate(
+                {_id : profid},
+                {
+                    $pull: {
+                        vital_signs: recid
+                    }
+                }
+            )
+
+            if(delRec && delRecRes){
+                return res.json("Record Deleted Successfully");
+            } else {
+                return res.json("Record Deleted Unsuccessful");
+            }
+
+        }
+    } catch (error) {
+        res.json(error);
+    }
+})
+
 export { router as vitalSignRouter };

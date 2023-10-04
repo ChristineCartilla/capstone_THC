@@ -75,4 +75,43 @@ router.get("/getrecord/:profid/:recid", async (req, res) => {
     }
 })
 
+// HARD DELETE RECORD
+router.delete("/delete/:profid/:recid", async (req, res) => {
+    const profid = req.params.profid;
+    const recid = req.params.recid;
+
+    try {
+        let returnResponseVal;
+        const findRec = await HematologyModel.findById({ _id: recid });
+        const findRes = await ProfileModel.findById({ _id: profid });
+        if(!findRec && !findRes){
+            returnResponseVal = "Error Occured in Deleting Record.";
+        } else if(findRec && !findRes){
+            returnResponseVal = "Deletion Error... Resident Not Found.";
+        } else if(!findRec && findRes){
+            returnResponseVal = "Deletion Error... Record Not Found.";
+        } else {
+            const delRec = await HematologyModel.findByIdAndDelete({_id: recid});
+            const delMedRec = await MedicalRecordModel.findOneAndDelete({service_id: delRec._id});
+            const delRecRes = await ProfileModel.findByIdAndUpdate(
+                {_id : profid},
+                {
+                    $pull: {
+                        medical_records: delMedRec._id
+                    }
+                }
+            )
+            if(delRec._id && delMedRec._id && delRecRes._id){
+                returnResponseVal = "Record Deleted Successfully";
+            } else {
+                returnResponseVal ="Record Deleted Unsuccessful";
+            }
+
+        }
+        return res.json(returnResponseVal)
+    } catch (error) {
+        res.json(error);
+    }
+})
+
 export {router as hematologyRouter}
