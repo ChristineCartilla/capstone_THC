@@ -33,4 +33,36 @@ router.post("/add/:id", async (req, res) => {
     
 })
 
+// FETCH SPECIFIC RESIDENT WITH MEDICAL RECORDS
+router.get("/:profid", async (req, res) => {
+    const profid = req.params.profid;
+
+    try {      
+        const fetchprofiles = await ProfileModel
+            .findById({_id: profid})
+            .populate('vital_signs')
+            .exec();
+
+        // console.log(fetchprofiles)
+        res.json(fetchprofiles);
+    } catch (error) {
+        res.json(error);
+    }
+})
+
+// FETCH SPECIFIC RECORD OF SPECIFIC RESIDENT
+router.get("/getrecord/:recid", async (req, res) => {
+    const recid = req.params.recid;
+
+    try {      
+        const getrec = await VitalSignModel
+            .findById({_id: recid})
+            .exec();
+
+        // console.log(fetchprofiles)
+        res.json(getrec);
+    } catch (error) {
+        res.json(error);
+    }
+})
 export { router as vitalSignRouter };

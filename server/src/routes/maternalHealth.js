@@ -4,6 +4,7 @@ import { MedicalRecordModel } from "../models/MedicalRecord.js";
 import { MaternalHealthModel } from "../models/MaternalHealth.js";
 import { ObstetricalHistoryModel } from "../models/ObstetricalHistory.js";
 import { MedicalHistoryModel } from "../models/MedicalHistory.js";
+import { MaternalHealthAssessmentModel } from "../models/MaternalHealthAssessment.js";
 
 const router = express.Router();
 
@@ -30,15 +31,16 @@ router.post("/add/:id", async (req, res) => {
                 }
             )
 
-            const hemRec = await MedicalRecordModel.create({
+            const matRec = await MedicalRecordModel.create({
                 service_id: serviceInstance._id,
-                service_name: "Prenatal"
+                service_name: "Prenatal",
+                reference: "maternal_health_record"
             })
 
             const profile = await ProfileModel.findOneAndUpdate(
                 { _id: profId },
                 {
-                    $push: { medical_records: hemRec._id }
+                    $push: { medical_records: matRec._id }
                 }
             )
             if(profile){
@@ -54,7 +56,7 @@ router.post("/add/:id", async (req, res) => {
 })
 
 // ADD OBSTETRICAL HISTORY TO THE SPECIFIC INSTANCE (not final)
-router.post("/addobstetrical/:recordid", async (req, res) => {
+router.post("/add/obstetrical/:recordid", async (req, res) => {
     const recordid = req.params.recordid;
     const profId = "091wasd2";
 
@@ -77,6 +79,83 @@ router.post("/addobstetrical/:recordid", async (req, res) => {
             }
         } else {
             return res.json("Cannot Add Child Health Assessment Record, Profile Not Found");
+        }
+    } catch (error) {
+        res.json(error);
+    }
+})
+
+router.post("/add/assessment/:recordid", async (req, res) => {
+    const recordid = req.params.recordid;
+
+    try {
+        const findRecord = MaternalHealthModel.findById({_id: recordid});
+        if(findRecord){
+            const assessment = new MaternalHealthAssessmentModel(req.body);
+            await assessment.save();
+
+            const matHealthRec = await MaternalHealthModel.findByIdAndUpdate(
+                {_id: recordid},
+                {
+                    $push: { maternalHealthAssessment: assessment._id }
+                }
+            )
+            if(matHealthRec){
+                return res.json("Maternal Health Assessment Record Successfully Added");
+            } else {
+                return res.json("Error Occurred when adding to Profile");
+            }
+        }
+        return res.json("Cannot Add Maternal Health Assessment Record, Profile Not Found");
+    } catch (error) {
+        res.json(error);
+    }
+})
+
+// FETCH SPECIFIC RESIDENT WITH MATERNAL HEALTH RECORDS
+router.get("/:profid", async (req, res) => {
+    const profid = req.params.profid;
+
+    try {      
+        const fetchprofiles = await ProfileModel
+            .findById({_id: profid})
+            .populate({
+                path: "medical_records",
+                populate: ({ 
+                    path: "service_id", 
+                    model: "maternal_health_record",
+                    populate: { path: "obstetricalHistory", model: "obstetrical_history" },
+
+                }),
+            })
+            .populate({
+                path: "medical_records",
+                populate: ({ 
+                    path: "service_id", 
+                    model: "maternal_health_record",
+                    populate: { path: "medicalHistory", model: "medical_history" },
+
+                }),
+            })
+            .exec();
+
+        // console.log(fetchprofiles)
+        res.json(fetchprofiles);
+    } catch (error) {
+        res.json(error);
+    }
+})
+
+// FETCH SPECIFIC RECORD OF SPECIFIC RESIDENT
+router.get("/getrecord/:profid/:recid", async (req, res) => {
+    const profid = req.params.profid;
+    const recid = req.params.recid;
+
+    try {
+        if(profid && recid){
+            const resident = await ProfileModel.findById({_id: profid});
+            const record = await MaternalHealthModel.findOne({_id: recid});
+            res.json({resident, record});
         }
     } catch (error) {
         res.json(error);

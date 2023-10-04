@@ -8,7 +8,8 @@ const MaternalHealthSchema = new mongoose.Schema({
     placeOfDelivery: { type: String },
     attendedBy: { type: String },
     obstetricalHistory: { type: mongoose.SchemaTypes.ObjectId, ref:"obstetrical_history" },
-    medicalHistory: { type: mongoose.SchemaTypes.ObjectId, ref:"medical_history" }
+    medicalHistory: { type: mongoose.SchemaTypes.ObjectId, ref:"medical_history" },
+    maternalHealthAssessment: [{ type: mongoose.SchemaTypes.ObjectId, ref:"maternal_health_assessment" }]
 },{
     timestamps:true
 })

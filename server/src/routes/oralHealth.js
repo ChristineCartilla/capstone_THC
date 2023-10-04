@@ -17,7 +17,8 @@ router.post("/add/:id", async (req, res) => {
 
             const oralHealthRec = await MedicalRecordModel.create({
                 service_id: serviceInstance._id,
-                service_name: "OralHealth"
+                service_name: "OralHealth",
+                reference: "oral_health"
             })
 
             const profile = await ProfileModel.findOneAndUpdate(
@@ -37,5 +38,42 @@ router.post("/add/:id", async (req, res) => {
         console.log(error);
     }
 })
+
+// FETCH SPECIFIC RESIDENT WITH ORAL HEALTH RECORDS
+router.get("/:profid", async (req, res) => {
+    const profid = req.params.profid;
+
+    try {      
+        const fetchprofiles = await ProfileModel
+            .findById({_id: profid})
+            .populate({
+                path: "medical_records",
+                populate: { path: "service_id", model: "oral_health" }
+            })
+            .exec();
+
+        // console.log(fetchprofiles)
+        res.json(fetchprofiles);
+    } catch (error) {
+        res.json(error);
+    }
+})
+
+// FETCH SPECIFIC RECORD OF SPECIFIC RESIDENT
+router.get("/getrecord/:profid/:recid", async (req, res) => {
+    const profid = req.params.profid;
+    const recid = req.params.recid;
+
+    try {
+        if(profid && recid){
+            const resident = await ProfileModel.findById({_id: profid});
+            const record = await OralHealthModel.findOne({_id: recid});
+            res.json({resident, record});
+        }
+    } catch (error) {
+        res.json(error);
+    }
+})
+
 
 export {router as oralHealthRouter}
