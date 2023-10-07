@@ -56,5 +56,32 @@ router.post("/register", async (req, res) => {
     }
 })
 
+// LOGIN ACCOUNT
+router.post("/login", async (req, res) => {
+    const {loginEmail, loginPassword} = req.body;
+    let retValMsg;
+
+    try {
+        const user = await AccountModel.findOne({email: loginEmail}).populate("profile");
+        if(!user){
+            retValMsg = "Account Not Found";
+        } else{
+            if(user.acc_type === "Worker"){
+                const isPasswordValid = user.password == loginPassword;
+                if(!isPasswordValid){
+                    retValMsg = "Incorrect Password... Try Again";
+                } else{
+                    return res.json({accountId: user._id, profileId: user.profile[0]._id});    
+                }
+            } else {
+                retValMsg = "Unauthorized Account";
+            }
+        }
+        return res.json(retValMsg);
+    } catch (error) {
+        res.json(error);
+    }
+})
+
 
 export { router as accountRouter };
