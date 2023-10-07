@@ -17,43 +17,32 @@ const MedicalCheckUpSpecificResident = () => {
     var recLength = records.length;
     
     useEffect(() => {
-        const patientInformation = async () => {
-            await axios.get("http://localhost:8000/profiles/"+ residentid)
-            .then((response) => {
-                setPatientInfo(response.data) 
-            })
-        }
-        const recordsList = async () => {
-            try {
-                const fetchMR = await axios.get("http://localhost:8000/medical_record");
-                const fetchMCR = await axios.get("http://localhost:8000/medical_checkup_record");
-                if(fetchMR.status === 200 && fetchMCR.status === 200){
-                    
-                    const record = (fetchMR.data).find((rec) => {
-                        return rec.profileId === residentid
-                    })
-                    if(record){
-                        const checkUpRec = (fetchMCR.data).filter((rec) => {
-                            return rec.medical_recordId === record.id;
-                        })
-                        setRecords(checkUpRec);
-                    }
-                }
-            } catch (error) {
-                console.log(error);
-            }
-           
-        }
-        
         patientInformation();
         recordsList();
-        console.log(records);
+        // console.log(residentid);
     }, [])
 
+    const patientInformation = async () => {
+        await axios.get("/profile/"+ residentid)
+        .then((response) => {
+            setPatientInfo(response.data) 
+        })
+    }
+    const recordsList = async () => {
+        try {
+            const fetchMR = await axios.get(`/medicalcheckup/${residentid}`);
+            setRecords(fetchMR.data.medical_records);
+            console.log(fetchMR);
+        } catch (error) {
+            console.log(error);
+        }
+       
+    }
 
     const navigateRecord = (recordid) => {
         navigate(recordid);
     }
+
     const handleBack = () => {
         window.history.back()
     }
@@ -76,7 +65,7 @@ const MedicalCheckUpSpecificResident = () => {
                                     <div className='col-md-4 col-sm-12 sp2-topDiv'>
                                         <h5 className="text-start">Personal Information</h5>
                                         <div className='sp2-personalInfoDiv'>
-                                            <div class="mb-3" style={{maxWidth: "540px;"}}>
+                                            <div className="mb-3" style={{maxWidth: "540px"}}>
                                                 <div className="row g-0">
                                                     <div className="col-md-4">
                                                         <img src={THCDefaultPatientLogo} height="80px" width="80px" alt="default_image.png" style={{marginTop:5}}/>
@@ -137,17 +126,21 @@ const MedicalCheckUpSpecificResident = () => {
                                                     </tr>
                                                     {
                                                         records && records.map((rec,idx) => {
-                                                            return (
-                                                            <tr 
-                                                                className='sp2-clickableMCRRow' 
-                                                                key={idx}
-                                                                onClick={() => navigateRecord(rec.id)}
-                                                                >
-                                                                <td>{"Medical Checkup 000"+ (recLength--)}</td>
-                                                                <td>{rec.serviceprovider}</td>
-                                                                <td>{rec.date}</td>
-                                                            </tr>
-                                                        )})
+                                                            if(rec.service_id != null){
+                                                                return (
+                                                                    <tr 
+                                                                        className='sp2-clickableMCRRow' 
+                                                                        key={idx}
+                                                                        onClick={() => navigateRecord(rec.service_id._id)}
+                                                                        >
+                                                                        <td></td>
+                                                                        <td>{rec.service_id._id}</td>
+                                                                        <td>{rec.service_id.serviceProvider}</td>
+                                                                        <td>{rec.service_id.createdAt}</td>
+                                                                    </tr>
+                                                                )
+                                                            }
+                                                        })
                                                     }
                                                     {
                                                         records.length == 0 && (

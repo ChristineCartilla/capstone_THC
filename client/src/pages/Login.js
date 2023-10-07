@@ -13,27 +13,14 @@ const Login = () => {
         event.preventDefault();
 
         try {
-            const response = await axios.get("http://localhost:8000/accounts")
-            .then((res) => {
-                return res.data.find((patient) => patient.email == loginEmail);
-            })
-
-            if(!response){
-                alert("USER INPUT ERROR, TRY LOGGING IN AGAIN...");
-                window.location.reload();
+            const response = await axios.post("/account/login", {loginEmail, loginPassword});
+            if(response.data.accountId){
+                sessionStorage.setItem("accoundId", response.data.accountId);
+                sessionStorage.setItem("profileId", response.data.profileId);
+                navigate("/dashboard")
+            } else{
+                alert(response.data);
             }
-
-            const isPasswordValid = response.password === loginPassword;
-
-            if(isPasswordValid){
-                localStorage.setItem("user_id", response.id);
-                navigate("/medicalcheckup/");
-            } else {
-                alert("PASSWORD DID NOT MATCH, TRY LOGGING IN AGAIN...");
-                window.location.reload();
-            }
-            console.log(isPasswordValid);
-            
         } catch (error) {   
             console.log(error);
         }

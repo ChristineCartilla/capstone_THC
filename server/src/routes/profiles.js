@@ -38,11 +38,21 @@ router.post("/addprofile/:id", async (req, res) => {
     
 })
 
+// GET ALL PROFILE
+router.get("/", async (req, res) => {
+    try {
+        const data = await ProfileModel.find({});
+        res.json(data);
+    } catch (error) {
+        res.json(error);
+    }
+})
+
 // GET SPECIFIC PROFILE
 router.get("/:id", async (req, res) => {
     const profId = req.params.id;
     try {
-        const data = await ProfileModel.find({_id: profId});
+        const data = await ProfileModel.findOne({_id: profId});
         res.json(data);
     } catch (error) {
         res.json(error);

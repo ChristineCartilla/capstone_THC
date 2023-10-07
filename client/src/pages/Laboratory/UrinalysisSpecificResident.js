@@ -22,23 +22,26 @@ const UrinalysisSpecificResident = () => {
             await axios.get("http://localhost:8000/profiles/"+ residentid)  
             .then((response) => {
                 setPatientInfo(response.data)   
+                // console.log(response.data) //"64e05faa6a831feeb9a8c678" 64e05fbb6a831feeb9a8c678
             })  
         }
 
         const recordsList = async () => {
             try {
                 const fetchMR = await axios.get("http://localhost:8000/medical_record");
-                const fetchFPR = await axios.get("http://localhost:8000/family_planning_record");
+                const fetchFPR = await axios.get("http://localhost:8000/urinalysis_lab");
                 if(fetchMR.status === 200 && fetchFPR.status === 200){
 
                     const record = (fetchMR.data).find((rec) => {
-                        return rec.profile_id === residentid
+                        return rec.profileId === residentid && rec.mr_name === "Urinalysis"
                     })
                     const familyPlanRec = (fetchFPR.data).filter((rec) => {
-                        return rec.medical_recordID === record.id;
+                        return rec.medical_recordId === record.id;
                      })
                     
                     setRecords(familyPlanRec)
+                    console.log(records)
+                    // console.log(fetchFPR)
             }
             } catch (error) {
                 console.log(error);
@@ -81,7 +84,7 @@ const UrinalysisSpecificResident = () => {
                                 <div className='col-md-4 col-sm-12 sp2-topDiv'>
                                     <h5 className="text-start">Personal Information</h5>
                                     <div className='sp2-personalInfoDiv'>
-                                        <div class="mb-3" style={{maxWidth: "540px;"}}>
+                                        <div className="mb-3" style={{maxWidth: "540px"}}>
                                             <div className="row g-0">
                                                 <div className="col-md-4">
                                                     <img src={THCDefaultPatientLogo} height="80px" width="80px" alt="default_image.png" style={{marginTop:5}}/>
@@ -123,11 +126,6 @@ const UrinalysisSpecificResident = () => {
                                     </div>
                                 </div>
                                 <div className='col-md-8 col-sm-12 sp2-bottomDiv'>
-                                    <div className='sp2-bottomDivHeader d-flex justify-content-between'>
-                                        <h4 className="text-start">Hematology Records</h4>    
-                                        {/* Button trigger modal  */}
-                                        <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#FPAddition"><FontAwesomeIcon icon={faPlus}/></button>
-                                    </div>
                                     <div className='sp2-MCRecordsDiv'>
                                         <table className="table sp2-MCRecordsTable">
                                             <thead>
@@ -143,7 +141,7 @@ const UrinalysisSpecificResident = () => {
                                                     <td></td>
                                                     <td>Record Number</td>
                                                     <td>Doctor</td>
-                                                    <td>Date of Record</td> 
+                                                    <td>Remarks</td> 
                                                 </tr>
                                                 {
                                                     records && records.map((rec,idx) => {
@@ -154,9 +152,10 @@ const UrinalysisSpecificResident = () => {
                                                             onClick={() => navigateRecord(rec.id)}
                                                             
                                                             >
-                                                            <td>{"Medical Checkup "+ (recLength--)}</td>
-                                                            <td>{rec.serviceprovider}</td>
-                                                            <td>{rec.date}</td>
+                                                            <td></td>
+                                                            <td>{"Urinalysis00"+ (recLength--)}</td>
+                                                            <td>{rec.serviceProvider}</td>
+                                                            <td>{rec.remarks}</td>
                                                         </tr>
                                                     )})
                                                 }
@@ -199,7 +198,7 @@ const UrinalysisSpecificResident = () => {
                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div className="modal-body">
-                    <AdditionalUrinalysis />
+                    {/* <AdditionalUrinalysis /> */}
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>

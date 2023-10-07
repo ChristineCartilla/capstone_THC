@@ -9,7 +9,7 @@ const MedicalCheckUp = () => {
     const navigate = useNavigate();
 
     const handleViewMedHis = (patient) => {
-        navigate(`/medicalcheckup/${patient.id}`, 
+        navigate(`/medicalcheckup/${patient._id}`, 
             {state:
                 {patientdata: patient}
             });

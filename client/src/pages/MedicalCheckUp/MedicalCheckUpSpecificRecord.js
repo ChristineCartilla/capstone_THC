@@ -12,21 +12,22 @@ const MedicalCheckUpSpecificRecord = () => {
     const [medicalCheckupInfo, setMedicalCheckupInfo] = useState([]);
 
     useEffect(() => {
-        const patientInformation = async () => {
-            await axios.get("http://localhost:8000/profiles/"+ residentid)
-            .then((response) => {
-                setPatientInfo(response.data) 
-            })
-        }
-        const getMedicalCheckupDetails = async () => {
-            await axios.get("http://localhost:8000/medical_checkup_record/"+ recordid)
-            .then((response) => {
-                setMedicalCheckupInfo(response.data) 
-            })
-        }
         patientInformation();
         getMedicalCheckupDetails();
-    }, [residentid, recordid])
+    }, [])
+
+    const patientInformation = async () => {
+        await axios.get("/profile/"+ residentid)
+        .then((response) => {
+            setPatientInfo(response.data) 
+        })
+    }
+    const getMedicalCheckupDetails = async () => {
+        await axios.get(`medicalcheckup/getrecord/${residentid}/${recordid}`)
+        .then((response) => {
+            setMedicalCheckupInfo(response.data.record) 
+        })
+    }
 
     const handleBack = () => {
         window.history.back()
@@ -88,7 +89,7 @@ const MedicalCheckUpSpecificRecord = () => {
                                             <div >
                                                 <h4 className="text-start">Medical Service Provider</h4>
                                                 <h5 className='text-start px-5'>
-                                                    {medicalCheckupInfo.serviceprovider}
+                                                    {medicalCheckupInfo.serviceProvider}
                                                 </h5>
                                             </div>
                                         </div>
@@ -107,7 +108,7 @@ const MedicalCheckUpSpecificRecord = () => {
                                     <div>
                                         <h4 className="text-start">Medical Prescription</h4>
                                         <p className='text-start px-5'>
-                                            {medicalCheckupInfo.prescription}
+                                            {medicalCheckupInfo.recommendation}
                                         </p>
                                     </div>
                                 </div>
