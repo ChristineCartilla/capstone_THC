@@ -47,6 +47,21 @@ const MedicalCheckUpSpecificResident = () => {
         window.history.back()
     }
 
+    function formatDateToWords(dateString) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const date = new Date(dateString);
+        return date.toLocaleDateString(undefined, options);
+    }
+
+    const handleDate = (date) => {
+        const dateTimeString = date;
+        const dateTime = new Date(dateTimeString);
+        const dateString = dateTime.toISOString().split('T')[0];
+        const readableDate = formatDateToWords(dateString);
+
+        return readableDate;
+    }
+
     return (
         <>
             <div className=''>
@@ -136,7 +151,8 @@ const MedicalCheckUpSpecificResident = () => {
                                                                         <td></td>
                                                                         <td>{rec.service_id._id}</td>
                                                                         <td>{rec.service_id.serviceProvider}</td>
-                                                                        <td>{rec.service_id.createdAt}</td>
+                                                                        <td>{handleDate(rec.service_id.createdAt)}
+                                                                        </td>
                                                                     </tr>
                                                                 )
                                                             }
