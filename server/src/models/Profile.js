@@ -79,7 +79,9 @@ const ProfileSchema = new mongoose.Schema({
         required: true
     },
     vital_signs:[{type: mongoose.SchemaTypes.ObjectId, ref:"vital_signs"}],
-    medical_records: [{type: mongoose.SchemaTypes.ObjectId}]
+    medical_records: [{type: mongoose.SchemaTypes.ObjectId, ref: "medical_record"}],
+}, {
+    timestamps: true
 })
 
 export const ProfileModel = mongoose.model("profiles", ProfileSchema)

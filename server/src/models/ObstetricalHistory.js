@@ -14,10 +14,12 @@ const ObstetricalHistorySchema = new mongoose.Schema({
     typeOfLastDelivery: { type: String },
     dateOfLastDelivery: { type: String },
     numberOfLargeBabies: { type: Number },
-    diabetes: { type: String },
-    dysmenorrhea: { type: String },
-    hydatidiformMole: { type: String },
-    ectopicPregnancy: { type: String },
+    diabetes: { type: Boolean },
+    dysmenorrhea: { type: Boolean },
+    hydatidiformMole: { type: Boolean },
+    ectopicPregnancy: { type: Boolean },
+},{
+    timestamps: true
 })
 
 export const ObstetricalHistoryModel = mongoose.model("obstetrical_history", ObstetricalHistorySchema);

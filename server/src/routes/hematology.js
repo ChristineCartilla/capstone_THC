@@ -17,7 +17,8 @@ router.post("/add/:id", async (req, res) => {
 
             const hemRec = await MedicalRecordModel.create({
                 service_id: serviceInstance._id,
-                service_name: "Hematology"
+                service_name: "Hematology",
+                reference: "hematology_lab"
             })
 
             const profile = await ProfileModel.findOneAndUpdate(
@@ -35,6 +36,81 @@ router.post("/add/:id", async (req, res) => {
         return res.json("Cannot Add Hematology Record, Profile Not Found");
     } catch (error) {
         console.log(error);
+    }
+})
+
+// FETCH SPECIFIC RESIDENT WITH HEMATOLOGY RECORDS
+router.get("/:profid", async (req, res) => {
+    const profid = req.params.profid;
+
+    try {      
+        const fetchprofiles = await ProfileModel
+            .findById({_id: profid})
+            .populate({
+                path: "medical_records",
+                populate: { path: "service_id", model: "hematology_lab" }
+            })
+            .exec();
+
+        // console.log(fetchprofiles)
+        res.json(fetchprofiles);
+    } catch (error) {
+        res.json(error);
+    }
+})
+
+// FETCH SPECIFIC RECORD OF SPECIFIC RESIDENT
+router.get("/getrecord/:profid/:recid", async (req, res) => {
+    const profid = req.params.profid;
+    const recid = req.params.recid;
+
+    try {
+        if(profid && recid){
+            const resident = await ProfileModel.findById({_id: profid});
+            const record = await HematologyModel.findOne({_id: recid});
+            res.json({resident, record});
+        }
+    } catch (error) {
+        res.json(error);
+    }
+})
+
+// HARD DELETE RECORD
+router.delete("/delete/:profid/:recid", async (req, res) => {
+    const profid = req.params.profid;
+    const recid = req.params.recid;
+
+    try {
+        let returnResponseVal;
+        const findRec = await HematologyModel.findById({ _id: recid });
+        const findRes = await ProfileModel.findById({ _id: profid });
+        if(!findRec && !findRes){
+            returnResponseVal = "Error Occured in Deleting Record.";
+        } else if(findRec && !findRes){
+            returnResponseVal = "Deletion Error... Resident Not Found.";
+        } else if(!findRec && findRes){
+            returnResponseVal = "Deletion Error... Record Not Found.";
+        } else {
+            const delRec = await HematologyModel.findByIdAndDelete({_id: recid});
+            const delMedRec = await MedicalRecordModel.findOneAndDelete({service_id: delRec._id});
+            const delRecRes = await ProfileModel.findByIdAndUpdate(
+                {_id : profid},
+                {
+                    $pull: {
+                        medical_records: delMedRec._id
+                    }
+                }
+            )
+            if(delRec._id && delMedRec._id && delRecRes._id){
+                returnResponseVal = "Record Deleted Successfully";
+            } else {
+                returnResponseVal ="Record Deleted Unsuccessful";
+            }
+
+        }
+        return res.json(returnResponseVal)
+    } catch (error) {
+        res.json(error);
     }
 })
 

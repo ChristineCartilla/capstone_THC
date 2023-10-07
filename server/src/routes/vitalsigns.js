@@ -33,4 +33,74 @@ router.post("/add/:id", async (req, res) => {
     
 })
 
+// FETCH SPECIFIC RESIDENT WITH MEDICAL RECORDS
+router.get("/:profid", async (req, res) => {
+    const profid = req.params.profid;
+
+    try {      
+        const fetchprofiles = await ProfileModel
+            .findById({_id: profid})
+            .populate('vital_signs')
+            .exec();
+
+        // console.log(fetchprofiles)
+        res.json(fetchprofiles);
+    } catch (error) {
+        res.json(error);
+    }
+})
+
+// FETCH SPECIFIC RECORD OF SPECIFIC RESIDENT
+router.get("/getrecord/:recid", async (req, res) => {
+    const recid = req.params.recid;
+
+    try {      
+        const getrec = await VitalSignModel
+            .findById({_id: recid})
+            .exec();
+
+        // console.log(fetchprofiles)
+        res.json(getrec);
+    } catch (error) {
+        res.json(error);
+    }
+})
+
+// HARD DELETE RECORD
+router.delete("/delete/:profid/:recid", async (req, res) => {
+    const profid = req.params.profid;
+    const recid = req.params.recid;
+
+    try {
+        const findRec = await VitalSignModel.findById({ _id: recid });
+        const findRes = await ProfileModel.findById({ _id: profid });
+        if(!findRec && !findRes){
+            return res.json("Error Occured in Deleting Record.");
+        } else if(findRec && !findRes){
+            return res.json("Deletion Error... Resident Not Found.");
+        } else if(!findRec && findRes){
+            return res.json("Deletion Error... Record Not Found.");
+        } else {
+            const delRec = await VitalSignModel.findByIdAndDelete({_id: recid});
+            const delRecRes = await ProfileModel.findByIdAndUpdate(
+                {_id : profid},
+                {
+                    $pull: {
+                        vital_signs: recid
+                    }
+                }
+            )
+
+            if(delRec && delRecRes){
+                return res.json("Record Deleted Successfully");
+            } else {
+                return res.json("Record Deleted Unsuccessful");
+            }
+
+        }
+    } catch (error) {
+        res.json(error);
+    }
+})
+
 export { router as vitalSignRouter };

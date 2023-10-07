@@ -1,14 +1,16 @@
 import mongoose from "mongoose";
 
 const MaternalHealthAssessmentSchema = new mongoose.Schema({
-    dateOfVisitation: { type: String },
-    aog: { type: String },
-    fundalHeart: { type: String },
-    fetalHeartBeat: { type: String },
+    dateOfVisitation: { type: Date },
+    aog: { type: Number },
+    fundalHeart: { type: Number },
+    fetalHeartBeat: { type: Number },
     findings: { type: String },
     nuresesNotes: { type: String },
     serviceProvider: { type: String },
 
+},{
+    timestamps: true
 })
 
-export const MaternalHealthAssessmentModel = mongoose.model("maternal_health_Assessment", MaternalHealthAssessmentSchema);
+export const MaternalHealthAssessmentModel = mongoose.model("maternal_health_assessment", MaternalHealthAssessmentSchema);

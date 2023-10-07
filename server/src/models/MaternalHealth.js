@@ -7,7 +7,11 @@ const MaternalHealthSchema = new mongoose.Schema({
     childBirthWeight: { type: Number },
     placeOfDelivery: { type: String },
     attendedBy: { type: String },
-    obstetricalHistory: { type: mongoose.SchemaTypes.ObjectId }
+    obstetricalHistory: { type: mongoose.SchemaTypes.ObjectId, ref:"obstetrical_history" },
+    medicalHistory: { type: mongoose.SchemaTypes.ObjectId, ref:"medical_history" },
+    maternalHealthAssessment: [{ type: mongoose.SchemaTypes.ObjectId, ref:"maternal_health_assessment" }]
+},{
+    timestamps:true
 })
 
 export const MaternalHealthModel = mongoose.model("maternal_health_record", MaternalHealthSchema);
