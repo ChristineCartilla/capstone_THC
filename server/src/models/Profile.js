@@ -3,6 +3,8 @@ import mongoose from "mongoose"
 const ProfileSchema = new mongoose.Schema({
     prof_status: {
         type: String,
+        enum: ["Pending", "Active", "Inactive", "Disapproved"],
+        default: "Pending",
         required: true
     },
     relationship: {

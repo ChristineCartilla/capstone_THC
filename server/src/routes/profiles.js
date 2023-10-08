@@ -48,6 +48,16 @@ router.get("/", async (req, res) => {
     }
 })
 
+// GET ALL WORKER PROFILE
+router.get("/fetchworker", async (req, res) => {
+    try {
+        const data = await ProfileModel.find({relationship: "Worker"});
+        res.json(data);
+    } catch (error) {
+        res.json(error);
+    }
+})
+
 // GET SPECIFIC PROFILE
 router.get("/:id", async (req, res) => {
     const profId = req.params.id;
@@ -66,6 +76,18 @@ router.patch("/updateprofile/:id", async (req, res) => {
         const data = await ProfileModel.findOneAndUpdate({_id: profId}, req.body, {new:true});
         res.json({data, message: "Profile Successfuly Updated"});
     } catch (error) {  
+        res.json(error);
+    }
+})
+
+// UPDATE SPECIFIC WORKER STATUS
+router.patch("/worker/edit/:profid", async (req, res) => {
+    const profId = req.params.profid;
+
+    try {
+        const data = await ProfileModel.findOneAndUpdate({_id: profId, prof_status: req.body.prof_status});
+        res.json({message: "Worker Successfuly Updated"})
+    } catch (error) {
         res.json(error);
     }
 })

@@ -1,39 +1,29 @@
 import React, { useEffect, useState } from 'react'
-import Sidebar from '../../components/Sidebar'
-import Searchbox from '../../components/Services_Searchbox'
 import { useNavigate, useParams } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import Sidebar from '../../components/Sidebar'
 import SidebarOpenBtn from '../../components/SidebarOpenBtn'
+import axios from 'axios'
 
 
 const ResidentsSpecificFamily = () => {
     const {familyid} = useParams()
-    const [activeFamilyMembers, setActiveFamilyMembers] = useState();
-    const [pendingFamilyMembers, setPendingFamilyMembers] = useState();
+    const [familyMembers, setFamilyMembers] = useState();
     const navigate = useNavigate();
     
     useEffect(() => {
-        const fetchFamily =  () => {
-            fetch("http://localhost:8000/profiles").then((res) => {
-                return res.json();
-            }).then((response) => {
-                const afam = response.filter((member) => {
-                    return member.accountId === familyid && member.status === "active";
-                })
-                setActiveFamilyMembers(afam);
-                const bfam = response.filter((member) => {
-                    return member.accountId === familyid && member.status !== "active";
-                })
-                setPendingFamilyMembers(bfam);
-            }).catch((error) => {
-                console.log(error.message);
-            })
-        };
-        
         fetchFamily();
-        // console.log(familyMembers)
-    },[])
+    },[familyid])
+
+    const fetchFamily = async () => {
+        try {
+            const fetchMembers = await axios.get(`/account/fetchmember/${familyid}`);
+            setFamilyMembers(fetchMembers.data.profile);
+        } catch (error) {
+            console.log(error)
+        }
+    };
 
     const handleViewResident = (id) => {
         navigate(id);
@@ -53,7 +43,7 @@ const ResidentsSpecificFamily = () => {
                 
                 <div className='container mainLayout-right residentLayout'>
                     <div className="resident_pageHeader d-flex justify-content-around">
-                        <h1>Family Profile 02</h1>  
+                        <h1>Family Profile: </h1>  
                         <span></span>
                     </div>
                     <div className='container'>
@@ -73,7 +63,7 @@ const ResidentsSpecificFamily = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                        activeFamilyMembers && activeFamilyMembers.map((fam,idx) => (
+                                        familyMembers && familyMembers.filter((fam) => fam.prof_status === "Active").map((fam,idx) => (
                                             <tr 
                                                 className='resident_familyTableRow' 
                                                 key={idx}
@@ -82,7 +72,7 @@ const ResidentsSpecificFamily = () => {
                                                 <td>{fam.last_name}</td>
                                                 <td>{fam.first_name}</td>
                                                 <td>{fam.middle_name}</td>
-                                                <td>{fam.status}</td>
+                                                <td>{fam.prof_status}</td>
                                                 <td>
                                                     <button 
                                                         type="button" 
@@ -114,7 +104,7 @@ const ResidentsSpecificFamily = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                        pendingFamilyMembers && pendingFamilyMembers.map((fam,idx) => (
+                                        familyMembers && familyMembers.filter((fam) => fam.prof_status === "Pending").map((fam,idx) => (
                                             <tr 
                                                 className='resident_familyTableRow' 
                                                 key={idx}

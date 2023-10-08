@@ -23,7 +23,8 @@ const AccountSchema = new mongoose.Schema({
     },
     acc_status: {
         type: String,
-        enum: ["Active", "Pending", "InActive"],
+        enum: ["Active", "Pending", "InActive", "Disapproved"],
+        default: "Pending",
         required: true
     },
     profile: [{

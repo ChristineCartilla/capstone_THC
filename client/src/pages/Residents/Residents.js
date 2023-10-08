@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Sidebar from '../../components/Sidebar'
 import Resident_Searchbox from '../../components/Resident_Searchbox'
 import { useNavigate } from 'react-router-dom'
@@ -32,7 +32,7 @@ const Residents = () => {
                                     <thead>
                                         <tr>
                                             <th scope="col">Family #</th>
-                                            <th scope="col">Family Name</th>
+                                            <th scope="col"  className='text-start'>Family Name</th>
                                             <th scope="col">Status</th>
                                             <th scope="col"></th>
                                         </tr>
@@ -41,14 +41,14 @@ const Residents = () => {
                                         {
                                             family && family.map((fam,idx) => (
                                                 <tr className='px-5' key={idx}>
-                                                    <td>Family {idx+1}</td>
-                                                    <td>{fam.profiles[0].last_name}</td>
-                                                    <td>{fam.status}</td>
+                                                    <td>{"FAMLY"+fam._id+"THC"}</td>
+                                                    <td className='text-start'>{fam.profile[0].last_name}</td>
+                                                    <td>{fam.acc_status}</td>
                                                     <td>
                                                         <button 
                                                             type="button" 
                                                             className="resident_viewFamilyBtn"
-                                                            onClick={() => handleViewFam(fam.id)}>
+                                                            onClick={() => handleViewFam(fam._id)}>
                                                                 View Family Profiles
                                                         </button>
                                                     </td>
