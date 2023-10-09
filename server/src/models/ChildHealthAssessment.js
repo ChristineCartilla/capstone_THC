@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 const ChildHealthAssessmentSchema = new mongoose.Schema({
     findings: { type: String },
     notes: { type: String },
-    serviceProvider: { type: String }
+    serviceProvider: { type: String },
+    recordStat : { type: Boolean, default: true }
 },{
     timestamps: true
 })

@@ -15,7 +15,8 @@ const ChildHealthRecordSchema = new mongoose.Schema({
     childHealthAssessment: [{ 
         type: mongoose.SchemaTypes.ObjectId,
         ref: "child_health_assessments" 
-    }]
+    }],
+    recordStat : { type: Boolean, default: true }
 },{
     timestamps: true
 })

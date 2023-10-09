@@ -23,7 +23,8 @@ const OralHealthSchema = new mongoose.Schema({
     freq_alcohol: { type: Number },
     freq_tobacco: { type: Number }, 
     serviceProvider: { type: String },
-    //add medical history
+    medicalHistory: { type: mongoose.SchemaTypes.ObjectId, ref:"medical_history" },
+    recordStat : { type: Boolean, default: true }
 },{
     timestamps: true
 })

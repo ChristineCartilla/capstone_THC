@@ -12,9 +12,10 @@ const MedicalRecordSchema = new mongoose.Schema({
     },
     reference:{
         type: String,
-        enum: ["maternal_health_record","child_health_records","oral_health", "medical_checkup", "FamilyPlanning", "hematology_lab", "urinalysis_lab", "vital_signs"],
+        enum: ["maternal_health_record","child_health_records","oral_health", "medical_checkup", "family_planning", "hematology_lab", "urinalysis_lab", "vital_signs"],
         required: true
-    }
+    },
+    recordStat : { type: Boolean, default: true }
 },{
     timestamps: true
 });

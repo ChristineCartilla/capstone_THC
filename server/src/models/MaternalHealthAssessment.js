@@ -8,7 +8,7 @@ const MaternalHealthAssessmentSchema = new mongoose.Schema({
     findings: { type: String },
     nuresesNotes: { type: String },
     serviceProvider: { type: String },
-
+    recordStat : { type: Boolean, default: true }
 },{
     timestamps: true
 })

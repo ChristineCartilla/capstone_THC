@@ -10,7 +10,8 @@ const MedicalCheckupSchema = new mongoose.Schema({
     serviceProvider: {
         type: String,
         required:true
-    }
+    },
+    recordStat : { type: Boolean, default: true }
 },{
     timestamps: true
 })

@@ -14,7 +14,8 @@ const HematologySchema = new mongoose.Schema({
     thrombocyteNumConc: { type: Number },
     retlculocyteNumFrac: { type: Number },
     remarks: { type: String },
-    serviceProvider: { type: String }
+    serviceProvider: { type: String },
+    recordStat : { type: Boolean, default: true }
 },{
     timestamps: true
 })

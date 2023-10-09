@@ -18,6 +18,7 @@ const ObstetricalHistorySchema = new mongoose.Schema({
     dysmenorrhea: { type: Boolean },
     hydatidiformMole: { type: Boolean },
     ectopicPregnancy: { type: Boolean },
+    recordStat : { type: Boolean, default: true }
 },{
     timestamps: true
 })

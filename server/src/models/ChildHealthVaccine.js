@@ -5,7 +5,8 @@ const ChildHealthVaccineSchema = new mongoose.Schema({
         type: String,
         enum: ["BCG", "HEP BV", "PCV 1", "PCV 2", "PCV 3", "OPV 1", "OPV 2", "OPV 3", "AMV", "PENTA 1", "PENTA 2", "PENTA 3", "MMR"],
     },
-    dateGiven: { type: Date }
+    dateGiven: { type: Date },
+    recordStat : { type: Boolean, default: true }
 },{
     timestamps: true
 })
