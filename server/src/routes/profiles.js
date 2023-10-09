@@ -115,7 +115,7 @@ router.patch("/resident/approve/:profid", async (req, res) => {
 })
 
 // UPDATE SPECIFIC RESIDENT STATUS: DISAPPROVE
-router.patch("/resident/approve/:profid", async (req, res) => {
+router.patch("/resident/disapprove/:profid", async (req, res) => {
     const profid = req.params.profid
 
     try {

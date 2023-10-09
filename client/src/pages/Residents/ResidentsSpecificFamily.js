@@ -33,6 +33,30 @@ const ResidentsSpecificFamily = () => {
         window.history.back()
     }
 
+    const handleResidentApprove = async (id) => {
+        try {
+            const approveRes = await axios.patch(`/profile/resident/approve/${id}`);
+            if(approveRes.status === 200){
+                alert("Resident Profile Successfully Activated")
+                window.location.reload();
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleResidentDisapprove = async (id) => {
+        try {
+            const approveRes = await axios.patch(`/profile/resident/disapprove/${id}`);
+            if(approveRes.status === 200){
+                alert("Resident Profile Rejected")
+                window.location.reload();
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <div className=''>
             <SidebarOpenBtn />
@@ -115,8 +139,14 @@ const ResidentsSpecificFamily = () => {
                                                 <td>{fam.middle_name}</td>
                                                 <td>
                                                     <button type="button" className="btn btn-primary mx-2">View</button>
-                                                    <button type="button" className="btn btn-success mx-2">Approve</button>
-                                                    <button type="button" className="btn btn-danger mx-2">Reject</button>
+                                                    <button 
+                                                        type="button" 
+                                                        className="btn btn-success mx-2"
+                                                        onClick={() => handleResidentApprove(fam._id)}>Approve</button>
+                                                    <button 
+                                                        type="button" 
+                                                        className="btn btn-danger mx-2"
+                                                        onClick={() => handleResidentDisapprove(fam._id)}>Reject</button>
                                                 </td>
                                             </tr>
                                         ))
