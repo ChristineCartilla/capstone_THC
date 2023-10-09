@@ -55,10 +55,10 @@ router.post("/add/:id", async (req, res) => {
     }
 })
 
-// ADD OBSTETRICAL HISTORY TO THE SPECIFIC INSTANCE (not final)
-router.post("/add/obstetrical/:recordid", async (req, res) => {
+// ADD OBSTETRICAL HISTORY TO THE SPECIFIC INSTANCE
+router.post("/add/obstetrical/:profid/:recordid", async (req, res) => {
     const recordid = req.params.recordid;
-    const profId = "091wasd2";
+    const profId = req.params.profid;
 
     try {
         const findRec = await MaternalHealthModel.findById({_id: recordid});
@@ -85,13 +85,17 @@ router.post("/add/obstetrical/:recordid", async (req, res) => {
     }
 })
 
-router.post("/add/assessment/:recordid", async (req, res) => {
+// ADD ASSESSMENT TO THE SPECIFIC INSTANCE
+router.post("/add/assessment/:profid/:recordid", async (req, res) => {
     const recordid = req.params.recordid;
+    const profid = req.params.profid;
 
     try {
         const findRecord = MaternalHealthModel.findById({_id: recordid});
         if(findRecord){
-            const assessment = new MaternalHealthAssessmentModel(req.body);
+            const latestVS = await ProfileModel.findById({_id: profid}).populate("vital_signs");
+
+            const assessment = new MaternalHealthAssessmentModel({...req.body, vitalSign: latestVS.vital_signs[0]});
             await assessment.save();
 
             const matHealthRec = await MaternalHealthModel.findByIdAndUpdate(
@@ -103,10 +107,10 @@ router.post("/add/assessment/:recordid", async (req, res) => {
             if(matHealthRec){
                 return res.json("Maternal Health Assessment Record Successfully Added");
             } else {
-                return res.json("Error Occurred when adding to Profile");
+                return res.json("Error Occurred when adding to Record");
             }
         }
-        return res.json("Cannot Add Maternal Health Assessment Record, Profile Not Found");
+        return res.json("Cannot Add Maternal Health Assessment Record, Record Not Found");
     } catch (error) {
         res.json(error);
     }
@@ -162,4 +166,15 @@ router.get("/getrecord/:profid/:recid", async (req, res) => {
     }
 })
 
+// FETCH SPECIFIC ASSESSMENT
+router.get("/assessment/:recid", async (req, res) => {
+    const recid = req.params.recid
+
+    try {
+        const assessmentInstance = await MaternalHealthAssessmentModel.findById({_id: recid}).populate("vitalSign");
+        res.json(assessmentInstance)
+    } catch (error) {
+        res.json(error)
+    }
+})
 export {router as maternalHealthRouter}

@@ -48,6 +48,16 @@ router.get("/", async (req, res) => {
     }
 })
 
+// GET ALL RESIDENT PROFILE
+router.get("/fetchresident", async (req, res) => {
+    try {
+        const data = await ProfileModel.find({relationship: "Resident"});
+        res.json(data);
+    } catch (error) {
+        res.json(error);
+    }
+})
+
 // GET ALL WORKER PROFILE
 router.get("/fetchworker", async (req, res) => {
     try {
@@ -89,6 +99,30 @@ router.patch("/worker/edit/:profid", async (req, res) => {
         res.json({message: "Worker Successfuly Updated"})
     } catch (error) {
         res.json(error);
+    }
+})
+
+// UPDATE SPECIFIC RESIDENT STATUS: APPROVE
+router.patch("/resident/approve/:profid", async (req, res) => {
+    const profid = req.params.profid
+
+    try {
+        const data = await ProfileModel.findByIdAndUpdate({_id: profid},{prof_status: "Active"});
+        res.json({message: "Resident Successfuly Activated"})
+    } catch (error) {
+        res.json(error)
+    }
+})
+
+// UPDATE SPECIFIC RESIDENT STATUS: DISAPPROVE
+router.patch("/resident/approve/:profid", async (req, res) => {
+    const profid = req.params.profid
+
+    try {
+        const data = await ProfileModel.findByIdAndUpdate({_id: profid},{prof_status: "Inactive"});
+        res.json({message: "Resident Successfuly Disapproved/Inactivated"})
+    } catch (error) {
+        res.json(error)
     }
 })
 

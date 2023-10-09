@@ -5,6 +5,7 @@ const FamilyPlanningAssessmentSchema = new mongoose.Schema({
     methodAccepted: { type: String },
     serviceProvider: { type: String },
     dateOfFollowUpVisit: { type: String },
+    vitalSign: { type: mongoose.SchemaTypes.ObjectId, ref: "vital_signs" },
     recordStat : { type: Boolean, default: true }
 },{
     timestamps: true
