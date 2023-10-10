@@ -9,7 +9,7 @@ const Dental = () => {
     const navigate = useNavigate();
 
     const handleViewMedHis = (patient) => {
-        navigate(`/dental/${patient.id}`, 
+        navigate(`/dental/${patient._id}`, 
             {state:
                 {patientdata: patient}
             }); 

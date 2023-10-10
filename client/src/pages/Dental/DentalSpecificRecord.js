@@ -1,40 +1,34 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import Sidebar from '../../components/Sidebar.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
 import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 
-const DentalSpecificRecord = (props) => {
-    const loc = useLocation();
-    console.log(loc)
-    const navigate = useNavigate();
-    const patient = 
-    {
-        fname: "John",
-        lname: "Doe",
-        mname: "Smith",
-        age: 24,
-        birthdate: "09-10-1999",
-        occupation: "N/A",
-        address: "Minoza St. Tigbao, Talamban, Cebu City",
-        pod:"Cebu City",
-        doe:"07-14-2021",
-        nptp:"28",
-        npst:"2",
-        ndt:"0",
-        nmt:"2",
-        nft:"5",
-        tdmft:"5",
-        nttp:"2",
-        ntst:"0",
-        tot:"30",
-        ill:"N/A",
-        all:"N/A",
-        hos:"N/A",
-        fta:"Sometimes",
-        ftt:"Never"
-    };
+const DentalSpecificRecord = () => {
+    const {residentid, recordid} = useParams();
+    const [patientinfo, setPatientinfo] = useState([]);
+    const [oralHealthInfo, setOralHealthInfo] = useState([]);
+
+    useEffect(()=> {
+        patientInformation();
+        getOralHealthDetails();
+    }, [])
+
+    const patientInformation = async () => {
+        await axios.get("/profile/" + residentid)
+        .then((response) => {
+            setPatientinfo(response.data)
+        })
+    }
+
+    const getOralHealthDetails = async () => {
+        await axios.get(`oralhealth/getrecord/${residentid}/${recordid}`)
+        .then((response) => {
+            setOralHealthInfo(response.data.record)
+        })
+    }
 
     const handleBack = () => {
         window.history.back()
@@ -67,27 +61,27 @@ const DentalSpecificRecord = (props) => {
                                             <tbody>
                                                 <tr>
                                                     <th scope="row">Name:</th>
-                                                    <td>{patient.fname + " "+ patient.mname + " " + patient.lname}</td>
+                                                    <td>{patientinfo.first_name + " "+ patientinfo.midlle_name + " " + patientinfo.last_name}</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Age:</th>
-                                                    <td>{patient.age} Years Old</td>
+                                                    <td>{patientinfo.age} Years Old</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Birth Date:</th>
-                                                    <td>{patient.birthdate}</td>
+                                                    <td>{patientinfo.birthDate}</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Place of Birth:</th>
-                                                    <td>{patient.pod}</td>
+                                                    <td>{patientinfo.birthPlace}</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Occupation:</th>
-                                                    <td>{patient.occupation}</td>
+                                                    <td>{patientinfo.occupation}</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Address:</th>
-                                                    <td>{patient.address}</td>
+                                                    <td>{patientinfo.street + " " + patientinfo.barangay + " " + patientinfo.municipality + " " + patientinfo.zipCode}</td>
                                                 </tr>
                                             </tbody>
                                         </table>    
@@ -97,11 +91,11 @@ const DentalSpecificRecord = (props) => {
                                     <div className="row-start tb">
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">Date of Oral Examination:  </label>
-                                            <span> {patient.doe} </span>
+                                            {/* <span> {patient.doe} </span> */}
                                             </div>
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of Permanent Teeth Present:  </label>
-                                            <span> {patient.nptp} </span>
+                                            <span> {oralHealthInfo.no_permTeethPres} </span>
                                             </div>
                                     </div>
                                     <div className="row-start tb">
@@ -111,7 +105,7 @@ const DentalSpecificRecord = (props) => {
                                             </div>
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of Permanent Sound Teeth:  </label>
-                                            <span> {patient.npst} </span>
+                                            <span> {oralHealthInfo.no_permSoundTeeth} </span>
                                             </div>
                                     </div>
                                     <div className="row-start tb">
@@ -121,7 +115,7 @@ const DentalSpecificRecord = (props) => {
                                             </div>
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of Decayed Teeth :  </label>
-                                            <span> {patient.ndt} </span>
+                                            <span> {oralHealthInfo.no_permDecayedTeeth} </span>
                                             </div>
                                     </div>
                                     <div className="row-start tb">
@@ -131,7 +125,7 @@ const DentalSpecificRecord = (props) => {
                                             </div>
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of Missing Teeth :  </label>
-                                            <span> {patient.nmt} </span>
+                                            <span> {oralHealthInfo.no_permMissingTeeth} </span>
                                             </div>
                                     </div>
                                     <div className="row-start tb">
@@ -141,7 +135,7 @@ const DentalSpecificRecord = (props) => {
                                             </div>
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of Filled Teeth :  </label>
-                                            <span> {patient.nft} </span>
+                                            <span> {oralHealthInfo.no_permFilledTeeth} </span>
                                             </div>
                                     </div>
                                     <div className="row-start tb">
@@ -151,7 +145,7 @@ const DentalSpecificRecord = (props) => {
                                             </div>
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of DMF Teeth:  </label>
-                                            <span> {patient.tdmft} </span>
+                                            <span> {oralHealthInfo.totalDMFTeeth} </span>
                                             </div>
                                     </div>
                                     <div className="row-start tb">
@@ -161,7 +155,7 @@ const DentalSpecificRecord = (props) => {
                                             </div>
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of Temporary Teeth Present:  </label>
-                                            <span> {patient.nttp} </span>
+                                            <span> {oralHealthInfo.no_tempTeethPres} </span>
                                             </div>
                                     </div>
                                     <div className="row-start tb">
@@ -171,7 +165,7 @@ const DentalSpecificRecord = (props) => {
                                             </div>
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of Temporary Sound Teeth :  </label>
-                                            <span> {patient.ntst} </span>
+                                            <span> {oralHealthInfo.no_tempSoundTeeth} </span>
                                             </div>
                                     </div>
                                     <div className="row-start tb">
@@ -180,7 +174,7 @@ const DentalSpecificRecord = (props) => {
                                             </div>
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of Teeth:  </label>
-                                            <span> {patient.tot} </span>
+                                            {/* <span> {patient.tot} </span> */}
                                             </div>
                                     </div>
                                     <hr className="hr" />
@@ -189,15 +183,15 @@ const DentalSpecificRecord = (props) => {
                                             <tbody>
                                                 <tr>
                                                     <th scope="row "> Illness:</th>
-                                                    <td>{patient.ill}</td>
+                                                    {/* <td>{patient.ill}</td> */}
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Allergies:</th>
-                                                    <td>{patient.all}</td>
+                                                    {/* <td>{patient.all}</td> */}
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Hospitalization:</th>
-                                                    <td>{patient.hos}</td>
+                                                    {/* <td>{patient.hos}</td> */}
                                                 </tr>
                                             </tbody>
                                     </table>
@@ -210,11 +204,11 @@ const DentalSpecificRecord = (props) => {
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Frequency of Taking Alcohol:</th>
-                                                    <td>{patient.fta}</td>
+                                                    <td>{oralHealthInfo.freq_alcohol}</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Frequency of Taking Tobacco:</th>
-                                                    <td>{patient.ftt}</td>
+                                                    <td>{oralHealthInfo.freq_tobacco}</td>
                                                 </tr>
                                             </tbody>
                                     </table>

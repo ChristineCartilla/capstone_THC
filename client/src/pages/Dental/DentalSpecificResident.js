@@ -12,50 +12,57 @@ import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 const DentalSpecificResident = () => {
     const { residentid } = useParams();
     const [patientinfo, setPatientInfo] = useState([]);
-    
+    const [records, setRecords] = useState([]);
+    const navigate = useNavigate();
+    var recLength = records.length;
+
     useEffect(() => {
-        const patientInformation = async () => {
-            await axios.get("http://localhost:8000/profiles/"+ residentid)
-            .then((response) => {
-                setPatientInfo(response.data) 
-            })
-        }
         patientInformation();
-        
+        recordsList();
+        console.log(residentid)
     }, [])
 
-    const navigate = useNavigate();
+  const patientInformation = async () => {
+    await axios.get("/profile/"+residentid)
+    .then((response) => {
+        setPatientInfo(response.data)
+    })
+  }
 
-    const record = 
-    [
-        {
-            record: "Dental Record 4",
-            doctor: "Dr. Doe",
-            date: "04-07-2023",
-        },  
-        {
-            record: "Dental Record 3",
-            doctor: "Dr. Doe",
-            date: "03-20-2023",
-        },   
-        {
-            record: "Dental Record 2",
-            doctor: "Dr. Doe",
-            date: "02-14-2023",
-        },   
-        {
-            record: "Dental Record 1",
-            doctor: "Dr. Doe",
-            date: "01-04-2023",
-        },   
-    ];
-    var recLength = record.length;
-    const navigateRecord = () => {
-        navigate('/dental/specres/record', {state:{data:"HELLO"}});
+    const recordsList = async () => {
+        try {
+            const fetchDR = await axios.get(`/dental/${residentid}`);
+            setRecords(fetchDR.data.medical_records);
+            console.log(fetchDR);
+        } catch (error) {
+            console.log(error);
+        }
     }
+
+    const navigateRecord = (recordid) => {
+        navigate(recordid);
+    }
+
+  
     const handleBack = () => {
         window.history.back()
     }
+
+    function formatDateToWords(dateString) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const date = new Date(dateString);
+        return date.toLocaleDateString(undefined, options);
+    }
+
+    const handleDate = (date) => {
+        const dateTimeString = date;
+        const dateTime = new Date(dateTimeString);
+        const dateString = dateTime.toISOString().split('T')[0];
+        const readableDate = formatDateToWords(dateString);
+
+        return readableDate;
+    }
+
 
     return (
         <>
@@ -136,22 +143,25 @@ const DentalSpecificResident = () => {
                                                         <td>Date of Record</td> 
                                                     </tr>
                                                     {
-                                                        record && record.map((rec,idx) => {
-                                                            return (
-                                                            <tr 
-                                                                className='sp2-clickableMCRRow' 
-                                                                key={idx}
-                                                                onClick={() => navigateRecord(rec.id)}
-                                                                >
-                                                                <td></td>
-                                                                <td>{"Dental THC00"+ (recLength--)}</td>
-                                                                <td>{rec.doctor}</td>
-                                                                <td>{rec.date}</td>
-                                                            </tr>
-                                                        )})
+                                                        records && records.map((rec,idx) => {
+                                                            if(rec.service_id != null){
+                                                                return (
+                                                                    <tr 
+                                                                        className='sp2-clickableMCRRow' 
+                                                                        key={idx}
+                                                                        onClick={() => navigateRecord(rec.service_id._id)}
+                                                                        >
+                                                                        <td></td>
+                                                                        <td>{rec.service_id._id}</td>
+                                                                        <td>{rec.service_id.serviceProvider}</td>
+                                                                        <td>{handleDate(rec.service_id.createdAt)}</td>
+                                                                    </tr>
+                                                                )
+                                                            }
+                                                        })
                                                     }
                                                     {
-                                                        record.length == 0 && (
+                                                        records.length == 0 && (
                                                             <tr className='sp2-clickableMCRRow'>
                                                                 <td></td>
                                                                 <td></td>
@@ -180,23 +190,7 @@ const DentalSpecificResident = () => {
             </div>
 
              {/* Modal  */}
-            <div className="modal fade" id="DenAddition" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-lg">
-                    <div className="modal-content">
-                    <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel">Dental Form</h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                        <AdditionDental />
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" className="sp2-addMCButton">Save</button>
-                    </div>
-                    </div>
-                </div>
-            </div>
+            <AdditionDental residentid={patientinfo.id} />
         </>
     )
 }

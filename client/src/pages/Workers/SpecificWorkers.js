@@ -6,21 +6,25 @@ import Sidebar from '../../components/Sidebar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import EditWorkerProfile from '../../components/EditWorkerProfile';
+import axios from 'axios';
 
 const SpecificWorkers = () => {
-  const { worker_id } = useParams();
+  const { workerId } = useParams();
   const [worker, setWorker] = useState({});
 
-  useEffect(() => {
-    fetch(`http://localhost:8000/profiles/${worker_id}`)
-      .then((res) => res.json())
-      .then((resp) => {
-        setWorker(resp);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, [worker_id]);
+  useEffect(()=>{
+    workerInformation()
+  }, [workerId])
+
+  const workerInformation = async () => {
+    if(workerId) {
+      axios.get(`/profile/${workerId}`)
+        .then((response) => {
+            setWorker(response.data);
+        }) 
+    }
+  }
+
 
   const handleBack = () => {
     window.history.back();

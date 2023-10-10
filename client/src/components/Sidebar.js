@@ -2,13 +2,14 @@ import React from 'react'
 import THCLogo from '../images/THC_Logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserGroup, faBriefcaseMedical, faListOl, faRightFromBracket, faTableCellsLarge, faUserNurse, faUser, faBars } from '@fortawesome/free-solid-svg-icons'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import $ from 'jquery';
 import "jquery-ui-dist/jquery-ui";
 import { useEffect } from 'react';
 
 const Sidebar = () => {
     const navigate = useNavigate();
+    const profileID = sessionStorage.getItem("profileId");
     
     const viewDashboard = () => {
         navigate('/dashboard');
@@ -27,7 +28,7 @@ const Sidebar = () => {
     }
 
     const viewProfile = () => {
-        navigate(`/profile/${localStorage.getItem("user_id")}`);
+        navigate(`/profile/${profileID}`);
     }
 
     useEffect(() => {

@@ -8,27 +8,33 @@ import SidebarOpenBtn from '../../components/SidebarOpenBtn';
 
 
 const Profile = () => {
-  const accountId = localStorage.getItem("user_id");
+  const profileID = sessionStorage.getItem("profileId"); 
   const [profileData, setProfileData] = useState({});
-  // const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
-    if (accountId) {
-      axios.get(`http://localhost:8000/profiles?accountId=${accountId}`)
+    profileInformation();
+  }, [profileID]);
+
+  const profileInformation = async () => {
+    if (profileID) {
+      axios.get(`/profile/${profileID}`)
         .then((response) => {
-          if (response.data.length > 0) {
-            setProfileData(response.data[0]); // Assuming you expect a single profile per account
-           // setLoading(false); // Set loading to false when data is fetched
-          } else {
-           // setLoading(false); // Set loading to false even if no data is found
-          }
+          const birthDate = new Date(response.data.birthDate).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
+
+          response.data.birthDate = birthDate;
+
+          setProfileData(response.data);
         })
         .catch((error) => {
-          console.error("Error fetching data:", error);
-          //setLoading(false); // Set loading to false on error
+          console.error("Error fetching profile data:", error);
         });
-    } 
-  }, [accountId]);
+    }
+  }
+
 
   const handleBack = () => {
     window.history.back();
@@ -133,7 +139,7 @@ const Profile = () => {
                       </tr>
                       <tr>
                         <th scope='row'>Province:</th>
-                        <td>{profileData.province}</td>
+                        {/* <td>{profileData.province}</td> */}
                       </tr>
                       <tr>
                         <th scope='row'>Zipcode:</th>

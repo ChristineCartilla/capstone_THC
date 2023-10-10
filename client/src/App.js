@@ -75,7 +75,7 @@ function App() {
           <Route path="/medicalcheckup/:residentid/:recordid" element={<MedicalCheckUpSpecificRecord />} />
           <Route path="/dental" element={<Dental />} />
           <Route path="/dental/:residentid" element={<DentalSpecificResident />} />
-          <Route path="/dental/specres/record" element={<DentalSpecificRecord />} />
+          <Route path="/dental/:residentid/:recordid" element={<DentalSpecificRecord />} />
           <Route path="/resident" element={<Residents />} />
           <Route path="/resident/:familyid" element={<ResidentsSpecificFamily />} />
           <Route path="/resident/:familyid/:profile_id" element={<ResidentsSpecificResident />} />
@@ -92,8 +92,8 @@ function App() {
           <Route path="/urinalysis/:residentid/:recordid" element={<UrinalysisSpecificRecord />} />
           <Route path="/queue" element={<QueueBHW />} />
           <Route path="/workers" element={<Workers />}/>
-          <Route path="/workers/:worker_id" element={<SpecificWorkers/>}/>
-          <Route path="/profile/:profile_id" element={<Profile />} />
+          <Route path="/workers/:workerId" element={<SpecificWorkers/>}/>
+          <Route path="/profile/:profileId" element={<Profile />} />
         </Routes>
       </Router>
     </div>
