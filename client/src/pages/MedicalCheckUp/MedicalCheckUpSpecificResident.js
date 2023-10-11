@@ -141,7 +141,7 @@ const MedicalCheckUpSpecificResident = () => {
                                                     </tr>
                                                     {
                                                         records && records.map((rec,idx) => {
-                                                            if(rec.service_id != null){
+                                                            if(rec.service_id != null && rec.service_id.recordStat != false){
                                                                 return (
                                                                     <tr 
                                                                         className='sp2-clickableMCRRow' 

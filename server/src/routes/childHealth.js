@@ -19,7 +19,8 @@ router.post("/add/:id", async (req, res) => {
 
             const childRec = await MedicalRecordModel.create({
                 service_id: serviceInstance._id,
-                service_name: "Immunization"
+                service_name: "Immunization",
+                reference: "child_health_records"
             })
 
             const profile = await ProfileModel.findOneAndUpdate(
@@ -130,6 +131,27 @@ router.get("/:recordid", async(req, res) => {
     try {
         const childRec = await ChildHealthVaccineModel.findById({_id: recordid})
         res.json(childRec);
+    } catch (error) {
+        res.json(error);
+    }
+})
+
+// SOFT DELETE RECORD
+router.patch("/delete/:recid", async (req, res) => {
+    const recid = req.params.recid;
+
+    try {
+        const record = await ChildHealthRecordModel.findByIdAndUpdate(
+            {_id: recid},
+            {
+                recordStat: false
+            }
+            )
+        if(record){
+            res.json("Record Status: FALSE");
+        } else {
+            res.json("Updating Record Unsuccessful");
+        }
     } catch (error) {
         res.json(error);
     }

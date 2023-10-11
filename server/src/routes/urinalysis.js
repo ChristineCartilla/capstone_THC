@@ -75,8 +75,29 @@ router.get("/getrecord/:profid/:recid", async (req, res) => {
     }
 })
 
+// SOFT DELETE RECORD
+router.patch("/delete/:recid", async (req, res) => {
+    const recid = req.params.recid;
+
+    try {
+        const record = await UrinalysisModel.findByIdAndUpdate(
+            {_id: recid},
+            {
+                recordStat: false
+            }
+            )
+        if(record){
+            res.json("Record Status: FALSE");
+        } else {
+            res.json("Updating Record Unsuccessful");
+        }
+    } catch (error) {
+        res.json(error);
+    }
+})
+
 // HARD DELETE RECORD
-router.delete("/delete/:profid/:recid", async (req, res) => {
+router.delete("/hdelete/:profid/:recid", async (req, res) => {
     const profid = req.params.profid;
     const recid = req.params.recid;
 

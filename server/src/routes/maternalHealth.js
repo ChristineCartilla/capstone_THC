@@ -177,4 +177,47 @@ router.get("/assessment/:recid", async (req, res) => {
         res.json(error)
     }
 })
+
+// SOFT DELETE RECORD
+router.patch("/delete/:recid", async (req, res) => {
+    const recid = req.params.recid;
+
+    try {
+        const record = await MaternalHealthModel.findByIdAndUpdate(
+            {_id: recid},
+            {
+                recordStat: false
+            }
+            )
+        if(record){
+            res.json("Record Status: FALSE");
+        } else {
+            res.json("Updating Record Unsuccessful");
+        }
+    } catch (error) {
+        res.json(error);
+    }
+})
+
+// SOFT DELETE ASSESSMENT RECORD
+router.patch("/delete/assessment/:recid", async (req, res) => {
+    const recid = req.params.recid;
+
+    try {
+        const record = await MaternalHealthAssessmentModel.findByIdAndUpdate(
+            {_id: recid},
+            {
+                recordStat: false
+            }
+            )
+        if(record){
+            res.json("Record Status: FALSE");
+        } else {
+            res.json("Updating Record Unsuccessful");
+        }
+    } catch (error) {
+        res.json(error);
+    }
+})
+
 export {router as maternalHealthRouter}

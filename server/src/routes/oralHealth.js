@@ -2,6 +2,7 @@ import express from "express";
 import { ProfileModel } from "../models/Profile.js";
 import { MedicalRecordModel } from "../models/MedicalRecord.js";
 import { OralHealthModel } from "../models/OralHealth.js";
+import { MedicalHistoryModel } from "../models/MedicalHistory.js";
 
 const router = express.Router();
 
@@ -12,7 +13,10 @@ router.post("/add/:id", async (req, res) => {
     try {
         const findProfile = ProfileModel.findById({_id: profId});
         if(findProfile){
-            const serviceInstance = new OralHealthModel(req.body);
+            const medicalHis = new MedicalHistoryModel(req.body);
+            await medicalHis.save();
+
+            const serviceInstance = new OralHealthModel({...req.body, medicalHistory: medicalHis._id});
             await serviceInstance.save();
 
             const oralHealthRec = await MedicalRecordModel.create({
@@ -27,7 +31,7 @@ router.post("/add/:id", async (req, res) => {
                     $push: { medical_records: oralHealthRec._id }
                 }
             )
-            if(profile){
+            if(oralHealthRec){
                 return res.json("Oral Health Record Successfully Added");
             } else {
                 return res.json("Error Occurred when adding to Profile");
@@ -67,7 +71,7 @@ router.get("/getrecord/:profid/:recid", async (req, res) => {
     try {
         if(profid && recid){
             const resident = await ProfileModel.findById({_id: profid});
-            const record = await OralHealthModel.findOne({_id: recid});
+            const record = await OralHealthModel.findOne({_id: recid}).populate('medicalHistory');
             res.json({resident, record});
         }
     } catch (error) {
@@ -75,8 +79,29 @@ router.get("/getrecord/:profid/:recid", async (req, res) => {
     }
 })
 
+// SOFT DELETE RECORD
+router.patch("/delete/:recid", async (req, res) => {
+    const recid = req.params.recid;
+
+    try {
+        const record = await OralHealthModel.findByIdAndUpdate(
+            {_id: recid},
+            {
+                recordStat: false
+            }
+            )
+        if(record){
+            res.json("Record Status: FALSE");
+        } else {
+            res.json("Updating Record Unsuccessful");
+        }
+    } catch (error) {
+        res.json(error);
+    }
+})
+
 // HARD DELETE RECORD
-router.delete("/delete/:profid/:recid", async (req, res) => {
+router.delete("/hdelete/:profid/:recid", async (req, res) => {
     const profid = req.params.profid;
     const recid = req.params.recid;
 

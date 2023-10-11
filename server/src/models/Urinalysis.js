@@ -12,6 +12,7 @@ const UrinalysisSchema = new mongoose.Schema({
     phLevel: { type: Number },
     proteinLevel: { type: Number },
     urobilinogenLevel: { type: Number },
+    nitrate: { type: Number },
     leukocyteLevel: { type: String },
     redBloodCellLevel: { type: String },
     pusLevel: { type: String },
@@ -27,8 +28,9 @@ const UrinalysisSchema = new mongoose.Schema({
     yeastCells: { type: String },
     remarks: { type: String },
     serviceProvider: { type: String },
+    recordStat : { type: Boolean, default: true }
 },{
     timestamps: true
 })
 
-export const UrinalysisModel = mongoose.model("urinalysis_lab", UrinalysisSchema)
+export const UrinalysisModel = mongoose.model("urinalysis_lab", UrinalysisSchema);
