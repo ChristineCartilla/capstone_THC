@@ -13,6 +13,7 @@ const AdditionalUrinalysis = ({residentid}) => {
     const [bloodLevel, setBloodLevel] = useState('');  
     const [phLevel, setPhLevel] = useState('');
     const [proteinLevel, setProteinLevel] = useState('');
+    const [nitrate, setNitrate] = useState('');
     const [urobilinogenLevel, setUrobilinogenLevel] = useState('');
     const [leukocyteLevel, setLeukocyteLevel] = useState('');
     const [redBloodCellLevel, setRedBloodCellLevel] = useState('');
@@ -34,17 +35,6 @@ const AdditionalUrinalysis = ({residentid}) => {
         event.preventDefault();
 
         try {
-            if(color != "" && character != "" && reangentStrip != "" && 
-            glucosLevel != "" && bilirubin != "" && ketoneLevel != "" && 
-            specificGravity != "" && bloodLevel != "" && phLevel != "" && 
-            proteinLevel != "" && urobilinogenLevel != "" && 
-            leukocyteLevel != "" && redBloodCellLevel != "" && pusLevel != "" && 
-            calciumOxaletes != "" && amorphousUrates != "" && uricAcid != "" && 
-            amorphousPhosphates != "" && triplePhosphate != "" && 
-            squamousEpithelialCells != "" && roundEpithelialCells != "" && 
-            bacteria != "" && mucusThreads != "" && yeastCells != "" && 
-            remarks != "" ){
-            
             const response = await axios.post
                 (`/urinalysis/add/${residentid}`,
                     {
@@ -52,7 +42,7 @@ const AdditionalUrinalysis = ({residentid}) => {
                         bilirubin, ketoneLevel, specificGravity, bloodLevel, 
                         phLevel, proteinLevel, urobilinogenLevel, leukocyteLevel, 
                         redBloodCellLevel, pusLevel, calciumOxaletes, amorphousUrates, 
-                        uricAcid, amorphousPhosphates, triplePhosphate, 
+                        uricAcid, amorphousPhosphates, triplePhosphate, nitrate, 
                         squamousEpithelialCells, roundEpithelialCells, bacteria, 
                         mucusThreads, yeastCells, remarks, serviceProvider
                     }
@@ -61,7 +51,6 @@ const AdditionalUrinalysis = ({residentid}) => {
                     alert("Urinalysis Successfully Added");
                     window.location.reload();
                 }
-            }
         } catch (error){
             console.log(error)
         }
@@ -225,7 +214,8 @@ const AdditionalUrinalysis = ({residentid}) => {
                                 className="form-control Addition_Prenatal_textarea" 
                                 id="exampleFormControlTextarea1" 
                                 style={{backgroundColor: "#CCE8DE"}}
-                                    />
+                                value = {nitrate}
+                                onChange={e => setNitrate(e.target.value)} />
                         </div>
                     </div>
 
