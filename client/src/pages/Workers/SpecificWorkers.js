@@ -20,6 +20,14 @@ const SpecificWorkers = () => {
     if(workerId) {
       axios.get(`/profile/${workerId}`)
         .then((response) => {
+            const birthDate = new Date(response.data.birthDate).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            });
+            
+            response.data.birthDate = birthDate;
+
             setWorker(response.data);
         }) 
     }
@@ -85,7 +93,7 @@ const SpecificWorkers = () => {
                     <tbody>
                       <tr>
                         <th scope='row'>Status:</th>
-                        <td>{worker.status}</td>
+                        <td>{worker.prof_status}</td>
                       </tr>
                       <tr>
                         <th scope='row'>Gender:</th>

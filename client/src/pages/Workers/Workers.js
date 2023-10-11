@@ -48,15 +48,15 @@ const Workers = () => {
                   {workers &&
                     workers.map((worker,idx) => (
                       <tr className="px-5" key={idx} >
-                        <td>{worker.last_name}</td>
-                        <td>{worker.first_name}</td>
-                        <td>{worker.occupation}</td>
-                        <td>{worker.status}</td>
+                        <td>{worker.profile[0].last_name}</td>
+                        <td>{worker.profile[0].first_name}</td>
+                        <td>{worker.profile[0].occupation}</td>
+                        <td>{worker.profile[0].prof_status}</td>
                         <td>
                           <button
                             type="button"
                             className="worker_viewBtn"
-                            onClick={() => handleViewWorker(worker._id)}
+                            onClick={() => handleViewWorker(worker.profile[0]._id)}
                           >
                             View Worker Profile
                           </button>

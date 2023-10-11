@@ -10,7 +10,7 @@ const Worker_Searchbox = ({ setSearchResults, workers }) => {
     },[])
 
     const fetchdata = () => {
-        fetch("http://localhost:8001/profile/fetchworker")
+        fetch("http://localhost:8001/account/fetchworker")
         .then((response) => response.json())
         .then((list) => {
             setSearchResults(list)
@@ -24,9 +24,9 @@ const Worker_Searchbox = ({ setSearchResults, workers }) => {
         const res = filterData.filter((worker) => {
             return (
                 worker && 
-                (worker.first_name ||worker.last_name) && 
-                (worker.first_name.toLowerCase().includes(value) ||
-                worker.last_name.toLowerCase().includes(value))
+                (worker.profile[0].first_name ||worker.profile[0].last_name) && 
+                (worker.profile[0].first_name.toLowerCase().includes(value) ||
+                worker.profile[0].last_name.toLowerCase().includes(value))
             )
         });
         setSearchResults(res)
