@@ -30,7 +30,6 @@ import ResidentsSpecificFamily from './pages/Residents/ResidentsSpecificFamily';
 import ResidentsSpecificResident from './pages/Residents/ResidentsSpecificResident';
 import FamilyPlanning from './pages/FamilyPlanning/familyPlanning';
 import FamilyPlanningSpecificResident from './pages/FamilyPlanning/familyPlanningSpecificResident';
-import FamilyPlanningAllRecords from './pages/FamilyPlanning/familyPlanningAllRecords';
 import FamilyPlanningSpecificResidentRecord from './pages/FamilyPlanning/familyPlanningSpecificResidentRecord';
 import Prenatal from './pages/Prenatal/Prenatal';
 import PrenatalSpecificResident from './pages/Prenatal/PrenatalSpecificResident';
@@ -81,7 +80,6 @@ function App() {
           <Route path="/resident/:familyid/:profile_id" element={<ResidentsSpecificResident />} />
           <Route path="/familyplanning" element={<FamilyPlanning />} />
           <Route path="/familyplanning/:residentid" element={<FamilyPlanningSpecificResident />} />
-          <Route path="/familyplanningallrecords/:residentid" element={<FamilyPlanningAllRecords />} />
           <Route path="/familyplanningspecificresidentrecord/:residentid" element={<FamilyPlanningSpecificResidentRecord />} />
           <Route path="/laboratory" element={<Laboratory />} />
           <Route path="/hematology" element={<Hematology />} />

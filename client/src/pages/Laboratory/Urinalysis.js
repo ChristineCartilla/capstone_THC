@@ -4,32 +4,34 @@ import Services_Searchbox from '../../components/Services_Searchbox.js'
 import { useNavigate} from 'react-router-dom'
 import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 
+
 const Urinalysis = () => {
     const [patient, setPatient] = useState([]);
     const navigate = useNavigate();
 
     const handleViewExaminations = (patient) => {
-        navigate(`/urinalysis/${patient.id}`,
+        navigate(`/urinalysis/${patient._id}`,
             {
                 state:   
                 {
                     patientdata: patient
                 }
             });
+       // console.log(patient);
     }
 
     return (
-    <div className=''>
+        <div className=''>
         <SidebarOpenBtn />
         <div className='mainLayout'>
             <div className='mainLayout-left'>
                 <Sidebar />
-            </div>  
+            </div>
             <div className='container mainLayout-right'>
                 <div className='sp1-container'>
                     <div className="sp1-pageHeader d-flex justify-content-between">
                         <h1 className="">Urinalysis</h1>  
-                        <Services_Searchbox setSearchResults={setPatient}  />
+                        <Services_Searchbox setSearchResults={setPatient} />
                     </div>
                     <div className='sp1-pageBody'>
                         <div className='container'>
@@ -53,11 +55,20 @@ const Urinalysis = () => {
                                             </li>            
                                         ))
                                 }
+                                {
+                                    !patient[0] && 
+                                    (
+                                        <li className="list-group-item d-flex justify-content-center px-5 py-3 align-middle">
+                                            <p >NO RECORDS FOUND</p>
+                                        </li>    
+                                    )
+                                }
+                            
                             </ul>
                         </div>
-                    </div>         
+                    </div>
                 </div>
-            </div>
+            </div>  
         </div>
     </div>
     )
