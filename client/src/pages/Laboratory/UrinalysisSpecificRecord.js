@@ -1,24 +1,45 @@
-import React, { useState} from 'react'
+import React, { useEffect, useState} from 'react'
 import Sidebar from '../../components/Sidebar.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import AdditionVitalSigns from '../../components/AdditionVitalSigns.js'
 import ViewVitalSigns from '../../components/ViewVitalSigns.js'
 import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
+import axios from 'axios'
 
 const UrinalysisSpecificRecord = () => {
-    const [patient, setPatient] = useState([]);
-    const navigate = useNavigate();
-    const location = useLocation();
+    const { residentid, recordid } = useParams();
+    const [patientinfo, setPatientInfo] = useState([]);
+    const [urinalysisInfo, setUrinalysisInfo] = useState([]);
+
+    useEffect(() => {
+        patientInformation();
+        getUrinalysisDetails();
+    }, [])
+
+    const patientInformation = async () => {
+        await axios.get("/profile/"+ residentid)
+        .then((response) => {
+            setPatientInfo(response.data) 
+        })
+    }
+
+    const getUrinalysisDetails = async () => {
+        await axios.get(`urinalysis/getrecord/${residentid}/${recordid}`)
+        .then((response) => {
+            setUrinalysisInfo(response.data.record) 
+            console.log(response.data)
+        })
+    }
   
     const handleBack = () => {
         window.history.back()
     }
 
     return (
-           <>
+        <>
         <div className=''>
             <SidebarOpenBtn />
             <div className='mainLayout'>
@@ -45,142 +66,112 @@ const UrinalysisSpecificRecord = () => {
                                             <div className="col-md-6">
                                                 <div className='col'>
                                                     <label className='fw-bold'>PHYSICOCHEMICAL EXAMINATION: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                   
+                                                    
                                                 </div>
                                                 <div className='col mt-4 mx-4'>
                                                     <label className='fw-bold'>Color: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> Straw</span>
+                                                    <span> {urinalysisInfo.color} </span>
                                                 </div>
                                                 <div className='col mt-4 mx-4 '>
                                                     <label className='fw-bold'>Character: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> Slightly Cloudy</span>
+                                                    <span> {urinalysisInfo.character} </span>
                                                 </div>
 
                                                 <div className='col mt-5 mx-4'>
                                                     <label className='fw-bold'>Reagent Strip Used: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A </span>
+                                                    <span> {urinalysisInfo.reangentStrip}</span>
                                                 </div>
                                                 <div className='col mt-4 mx-4'>
                                                     <label className='fw-bold'>Glucose: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    <span> {urinalysisInfo.glucosLevel}</span>
                                                 </div>
                                                 <div className='col mt-4 mx-4'>
                                                     <label className='fw-bold'>Bilirubin: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    <span> {urinalysisInfo.bilirubin}</span>
                                                 </div>
                                                 <div className='col mt-4 mx-4'>
                                                     <label className='fw-bold'>Ketone: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    <span> {urinalysisInfo.ketoneLevel}</span>
                                                 </div>
                                                 <div className='col mt-4 mx-4'>
                                                     <label className='fw-bold'>Specific Gravity: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> 1.005</span>
+                                                    <span> {urinalysisInfo.specificGravity}</span>
                                                 </div>
                                                 <div className='col mt-4 mx-4'>
                                                     <label className='fw-bold'>Blood: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    <span> {urinalysisInfo.bloodLevel}</span>
                                                 </div>
                                                 <div className='col mt-4 mx-4'>
                                                     <label className='fw-bold'>PH: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> 6.0</span>
+                                                    <span> {urinalysisInfo.phLevel}</span>
                                                 </div>
                                                 <div className='col mt-4 mx-4'>
                                                     <label className='fw-bold'>Protein: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    <span> {urinalysisInfo.proteinLevel}</span>
                                                 </div>
                                                 <div className='col mt-4 mx-4'>
                                                     <label className='fw-bold'>Urobilinogen: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> 0.2</span>
+                                                    <span> {urinalysisInfo.urobilinogenLevel}</span>
                                                 </div>
                                                 <div className='col mt-4 mx-4'>
                                                     <label className='fw-bold'>Nitrite: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    {/* <span> {urinalysisInfo.nitrite}</span> */}
                                                 </div>
-                                                <div className='col mt-4 mx-4'>
+                                                <div className='col mt-4 mx-4 mb-5'>
                                                     <label className='fw-bold'>Leukocyte: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> Trace</span>
-                                                </div>
-
-                                                
-                                               
-                                                
+                                                    <span> {urinalysisInfo.leukocyteLevel}</span>
+                                                </div> 
                                             </div>
 
                                             <div className="col-md-6">
-                                            <div className='col mt-4 mx-4'>
-                                                    <label className='fw-bold'>Crystals: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                            <div className='col-md-6 mt-4 mx-4'>
+                                                    <label className='fw-bold'>CRYSTALS: </label>
+                                                    
                                                 </div>
-                                                <div className='col mt-4 mx-4'>
-                                                    <label className='fw-bold'>Calcium Oxalates: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                <div className='col mt-4 mx-5'>
+                                                    <label className='fw-bold '>Calcium Oxalates: </label>
+                                                    <span> {urinalysisInfo.calciumOxaletes}</span>
                                                 </div>
-                                                <div className='col mt-4 mx-4'>
+                                                <div className='col mt-4 mx-5'>
                                                     <label className='fw-bold'>Amorphous Urates: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    <span> {urinalysisInfo.amorphousUrates}</span>
                                                 </div>
-                                                <div className='col mt-4 mx-4'>
+                                                <div className='col mt-4 mx-5'>
                                                     <label className='fw-bold'>Uric Acid: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> 1.005</span>
+                                                    <span> {urinalysisInfo.uricAcid}</span>
                                                 </div>
-                                                <div className='col mt-4 mx-4'>
+                                                <div className='col mt-4 mx-5'>
                                                     <label className='fw-bold'>Amorphous Phosphates: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    <span> {urinalysisInfo.amorphousPhosphates}</span>
                                                 </div>
-                                                <div className='col mt-4 mx-4'>
+                                                <div className='col mt-4 mx-5'>
                                                     <label className='fw-bold'>Triple Phosphates: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> 6.0</span>
+                                                    <span> {urinalysisInfo.triplePhosphates}</span>
                                                 </div>
 
                                                 <div className='col mt-5 mx-4'>
-                                                    <label className='fw-bold'>Miscellaneous Structures: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span>  </span>
+                                                    <label className='fw-bold'>MISCELLANEOUS STRUCTURES: </label>
+                                                    
                                                 </div>
-                                                <div className='col mt-4 mx-4'>
+                                                <div className='col mt-4 mx-5'>
                                                     <label className='fw-bold'>Squamous Epithelial Cells: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> Rare</span>
+                                                    <span> {urinalysisInfo.squamousEpithelialCells}</span>
                                                 </div>
-                                                <div className='col mt-4 mx-4'>
+                                                <div className='col mt-4 mx-5'>
                                                     <label className='fw-bold'>Round Epithelial Cells: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    <span> {urinalysisInfo.roundEpithelialCells}</span>
                                                 </div>
-                                                <div className='col mt-4 mx-4'>
+                                                <div className='col mt-4 mx-5'>
                                                     <label className='fw-bold'>Bacteria: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> Few</span>
+                                                    <span> {urinalysisInfo.bacteria}</span>
                                                 </div>
-                                                <div className='col mt-4 mx-4'>
+                                                <div className='col mt-4 mx-5'>
                                                     <label className='fw-bold'>Mucus Threads: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> Few</span>
+                                                    <span> {urinalysisInfo.mucusThreads}</span>
                                                 </div>
-                                                <div className='col mt-4 mx-4'>
+                                                <div className='col mt-4 mx-5 mb-5'>
                                                     <label className='fw-bold'>Yeast Cells: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> Few</span>
+                                                    <span> {urinalysisInfo.yeastCells}</span>
                                                 </div>
                                                 
                                             </div>
@@ -188,15 +179,14 @@ const UrinalysisSpecificRecord = () => {
                                         </div>
                                 </div>
                             </div>
-                        </div> 
-                            
-                            <div className='sp2-bottomDiv mt-5'>
+                       
+                            {/* <div className='sp2-bottomDiv mt-5'>
                                 <div className='sp2-bottomDivHeader d-flex justify-content-between'>
-                                    <h4 className="text-start">Vital Signs Testing</h4>    
+                                    <h4 className="text-start">Vital Signs Testing</h4>     */}
                                     {/* Button trigger modal  */}
-                                    <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#UVitalAdd"><FontAwesomeIcon icon={faPlus}/></button>
-                                </div>
-                                <div className='sp2-MCRecordsDiv'>
+                                    {/* <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#UVitalAdd"><FontAwesomeIcon icon={faPlus}/></button>
+                                </div> */}
+                                {/* <div className='sp2-MCRecordsDiv'>
                                     <table className="table sp2-MCRecordsTable">
                                         <thead>
                                             <tr>
@@ -204,7 +194,7 @@ const UrinalysisSpecificRecord = () => {
                                                 <th>Date of Assessment</th>
                                             </tr>
                                         </thead>
-                                        <tbody >
+                                        <tbody > */}
                                             {/* {
                                                 test.map((rec,idx) => (
                                                     <tr 
@@ -218,7 +208,7 @@ const UrinalysisSpecificRecord = () => {
                                                 ))
                                             } */}
 
-                                            <tr
+                                            {/* <tr
                                                 className='sp2-clickableMCRRow'
                                                 data-bs-toggle="modal" data-bs-target="#UVitalView"
                                             >
@@ -230,7 +220,7 @@ const UrinalysisSpecificRecord = () => {
                                         
                                         </tbody>
                                     </table>    
-                                </div>
+                                </div> */}
                             </div>
                             
                         </div>

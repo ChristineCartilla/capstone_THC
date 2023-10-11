@@ -5,67 +5,62 @@ import { faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate, useParams } from 'react-router-dom'
 import AdditionalUrinalysis from '../../components/AdditionalUrinalysis.js'
 import axios from 'axios'
-
 import THCDefaultPatientLogo from '../../images/default_image.png'
 import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 
 const UrinalysisSpecificResident = () => {
     const { residentid } = useParams();
-    const [patient, setPatient] = useState([]);
     const [patientinfo, setPatientInfo] = useState([]);
     const [records, setRecords] = useState([]);
     const navigate = useNavigate();
-    var recLength = records.length;
+   // var recLength = records.length;
 
     useEffect(() => {
-        const patientInformation = async () => {
-            await axios.get("http://localhost:8000/profiles/"+ residentid)  
-            .then((response) => {
-                setPatientInfo(response.data)   
-                // console.log(response.data) //"64e05faa6a831feeb9a8c678" 64e05fbb6a831feeb9a8c678
-            })  
-        }
-
-        const recordsList = async () => {
-            try {
-                const fetchMR = await axios.get("http://localhost:8000/medical_record");
-                const fetchFPR = await axios.get("http://localhost:8000/urinalysis_lab");
-                if(fetchMR.status === 200 && fetchFPR.status === 200){
-
-                    const record = (fetchMR.data).find((rec) => {
-                        return rec.profileId === residentid && rec.mr_name === "Urinalysis"
-                    })
-                    const familyPlanRec = (fetchFPR.data).filter((rec) => {
-                        return rec.medical_recordId === record.id;
-                     })
-                    
-                    setRecords(familyPlanRec)
-                    console.log(records)
-                    // console.log(fetchFPR)
-            }
-            } catch (error) {
-                console.log(error);
-            }
-        }
-
         patientInformation();
         recordsList();
-        console.log(records);
     }, [])
 
-    const navigateRecord = () => {
-        navigate('/urinalysis/resident/record', 
-            {
-                state:
-                    {
-                        data:"HELLO"
-                    }
-            }
-        );
+    const patientInformation = async () => {
+        await axios.get("/profile/" + residentid)
+            .then((response) => {
+                setPatientInfo(response.data)
+                console.log(response.data);
+        })
     }
+
+    const recordsList = async () => {
+        try {
+            const fetchHR = await axios.get(`/urinalysis/${residentid}`);
+            setRecords(fetchHR.data.medical_records);
+            console.log(fetchHR.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const navigateRecord = (recordid) => {
+        navigate(recordid);
+    }
+
     const handleBack = () => {
         window.history.back()
     }
+
+    function formatDateToWords(dateString) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const date = new Date(dateString);
+        return date.toLocaleDateString(undefined, options);
+    }
+
+    const handleDate = (date) => {
+        const dateTimeString = date;
+        const dateTime = new Date(dateTimeString);
+        const dateString = dateTime.toISOString().split('T')[0];
+        const readableDate = formatDateToWords(dateString);
+
+        return readableDate;
+    }
+
     return (
         <>
         <div className=''>
@@ -76,7 +71,7 @@ const UrinalysisSpecificResident = () => {
                 </div>
                 <div className='col p-0'>
                     <div className="sp2-pageHeader container">
-                        <h1 className='text-start'>Urinalysis</h1>  
+                        <h1 className='text-start'>Urinalysis Records</h1>  
                     </div>
                     <div className='sp2-pageBody'>
                         <div className='container-fluid p-5'>
@@ -145,21 +140,24 @@ const UrinalysisSpecificResident = () => {
                                                 </tr>
                                                 {
                                                     records && records.map((rec,idx) => {
-                                                        return (
-                                                        <tr 
-                                                            className='sp2-clickableMCRRow' 
-                                                            key={idx}
-                                                            onClick={() => navigateRecord(rec.id)}
-                                                            
-                                                            >
-                                                            <td></td>
-                                                            <td>{"Urinalysis00"+ (recLength--)}</td>
-                                                            <td>{rec.serviceProvider}</td>
-                                                            <td>{rec.remarks}</td>
-                                                        </tr>
-                                                    )})
+                                                        if(rec.service_id != null){
+                                                            return (
+                                                                <tr 
+                                                                    className='sp2-clickableMCRRow' 
+                                                                    key={idx}
+                                                                    onClick={() => navigateRecord(rec.service_id._id)}
+                                                                >
+                                                                    <td></td>
+                                                                    <td>{rec.service_id._id}</td>
+                                                                    <td>{rec.service_id.serviceProvider}</td>
+                                                                    <td>{handleDate(rec.service_id.createdAt)}
+                                                                    </td>
+                                                                </tr>
+                                                            )
+                                                        }
+                                                    })
                                                 }
-                                                {
+                                                {/* {
                                                     records.length == 0 && (
                                                         <tr className='sp2-clickableMCRRow'
                                                             onClick={() => navigateRecord()}
@@ -170,7 +168,7 @@ const UrinalysisSpecificResident = () => {
                                                             <td></td>
                                                         </tr>
                                                     )
-                                                }
+                                                } */}
                                             
                                             </tbody>
                                         </table>    
@@ -190,23 +188,9 @@ const UrinalysisSpecificResident = () => {
         </div>
 
          {/* Modal  */}
-        <div className="modal fade" id="FPAddition" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog modal-lg">
-                <div className="modal-content">
-                <div className="modal-header">
-                    <h1 className="modal-title fs-5" id="exampleModalLabel">Urinalysis Form</h1>
-                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className="modal-body">
-                    {/* <AdditionalUrinalysis /> */}
-                </div>
-                <div className="modal-footer">
-                    <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" className="sp2-addMCButton">Save</button>
-                </div>
-                </div>
-            </div>
-        </div>
+       
+        <AdditionalUrinalysis residentid={patientinfo._id} />
+            
     </>
     );
 }

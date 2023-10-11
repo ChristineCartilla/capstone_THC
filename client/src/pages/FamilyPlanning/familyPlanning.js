@@ -9,7 +9,7 @@ const FamilyPlanning = () => {
     const navigate = useNavigate();
 
     const handleViewExaminations = (patient) => {
-        navigate(`/familyplanningallrecords/${patient.id}`,
+        navigate(`/familyplanning/${patient.id}`,
             {
                 state:   
                 {
