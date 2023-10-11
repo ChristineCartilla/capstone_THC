@@ -48,7 +48,7 @@ router.get("/", async (req, res) => {
 // FETCH ALL QUEUE FOR DOCTOR
 router.get("/fetchdoctorque", async (req, res) => {
     try {
-        const queue = await QueueModel.find({serviceProvider_type: "Doctor"}).populate("profile_id");
+        const queue = await QueueModel.find({serviceProvider_type: "Doctor", queueStat: true}).populate("profile_id");
         const todayQueue = queue.filter((queueRec) => {
             const strdata = (queueRec.createdAt).toISOString().split('T')[0];
             const dateNoew = new Date();
@@ -66,7 +66,7 @@ router.get("/fetchdoctorque", async (req, res) => {
 // FETCH ALL QUEUE FOR DENTIST
 router.get("/fetchdentistque", async (req, res) => {
     try {
-        const queue = await QueueModel.find({serviceProvider_type: "Denist"}).populate("profile_id");
+        const queue = await QueueModel.find({serviceProvider_type: "Denist", queueStat: true}).populate("profile_id");
         const todayQueue = queue.filter((queueRec) => {
             const strdata = (queueRec.createdAt).toISOString().split('T')[0];
             const dateNoew = new Date();
@@ -84,7 +84,7 @@ router.get("/fetchdentistque", async (req, res) => {
 // FETCH ALL QUEUE FOR MEDTECH
 router.get("/fetchmedtechque", async (req, res) => {
     try {
-        const queue = await QueueModel.find({serviceProvider_type: "Medtech"}).populate("profile_id");
+        const queue = await QueueModel.find({serviceProvider_type: "Medtech", queueStat: true}).populate("profile_id");
         const todayQueue = queue.filter((queueRec) => {
             const strdata = (queueRec.createdAt).toISOString().split('T')[0];
             const dateNoew = new Date();
@@ -102,7 +102,7 @@ router.get("/fetchmedtechque", async (req, res) => {
 // FETCH ALL QUEUE FOR NURSE
 router.get("/fetchnurseque", async (req, res) => {
     try {
-        const queue = await QueueModel.find({serviceProvider_type: "Nurse"}).populate("profile_id");
+        const queue = await QueueModel.find({serviceProvider_type: "Nurse", queueStat: true}).populate("profile_id");
         const todayQueue = queue.filter((queueRec) => {
             const strdata = (queueRec.createdAt).toISOString().split('T')[0];
             const dateNoew = new Date();
@@ -117,6 +117,7 @@ router.get("/fetchnurseque", async (req, res) => {
     }
 })
 
+// ADD QUEUE
 router.post("/addqueue/:profid", async (req, res) => {
     const profid = req.params.profid
 
@@ -148,6 +149,50 @@ router.post("/addqueue/:profid", async (req, res) => {
         }
     } catch (error) {
         res.json(error)
+    }
+})
+
+// UPDATE QUEUE: DONE
+router.patch("/done/:queueid", async (req, res) => {
+    const queueid = req.params.queueid;
+
+    try {
+        const markDoneQueue = await QueueModel.findByIdAndUpdate(
+            {_id: queueid},
+            {
+                status: "Done",
+                queueStat: false
+            }
+        )
+        if(markDoneQueue){
+            res.json({message: "Queue Marked as Done"})
+        } else {
+            res.json({message: "Error in Updating Queue"})
+        }
+    } catch (error) {
+        res.json(error);
+    }
+})
+
+// REUPDATE QUEUE: WAITING
+router.patch("/waiting/:queueid", async (req, res) => {
+    const queueid = req.params.queueid;
+
+    try {
+        const markDoneQueue = await QueueModel.findByIdAndUpdate(
+            {_id: queueid},
+            {
+                status: "Waiting",
+                queueStat: True
+            }
+        )
+        if(markDoneQueue){
+            res.json({message: "Queue Marked as Done"})
+        } else {
+            res.json({message: "Error in Updating Queue"})
+        }
+    } catch (error) {
+        res.json(error);
     }
 })
 
