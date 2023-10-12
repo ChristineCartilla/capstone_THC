@@ -55,9 +55,8 @@ router.post("/addprofile/:id", async (req, res) => {
 // GET ALL PROFILE
 router.get("/", async (req, res) => {
     try {
-        getAge();
-        // const data = await ProfileModel.find({});
-        // res.json(data);
+        const data = await ProfileModel.find({});
+        res.json(data);
     } catch (error) {
         res.json(error);
     }

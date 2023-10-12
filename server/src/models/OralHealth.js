@@ -18,7 +18,7 @@ const OralHealthSchema = new mongoose.Schema({
     no_tempSoundTeeth: { type: Number },
     no_tempDecayedTeeth: { type: Number },
     no_tempFilledTeeth: { type: Number },
-    totalTDFTeeth: { type: Number },
+    totalDFTeeth: { type: Number },
     sugarBvrgs: { type: Number },
     freq_alcohol: { type: Number },
     freq_tobacco: { type: Number }, 
