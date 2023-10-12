@@ -32,10 +32,9 @@ const ProfileSchema = new mongoose.Schema({
         enum: ["Male", "Female"],
         required: true
     },
-    // age:{
-    //     Type: Number,
-    //     required: true
-    // },
+    age: {
+        type: Number,
+    },
     birthDate: {
         type: Date,
         required: true

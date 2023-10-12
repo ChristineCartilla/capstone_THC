@@ -4,6 +4,19 @@ import bcrypt from "bcrypt";
 import { ProfileModel } from "../models/Profile.js";
 import { AccountModel } from "../models/Accounts.js";
 
+function getAge(date){
+    const today = new Date();
+    const birthDate = new Date(date);
+    const age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+
+    return age;  
+}
+
 const router = express.Router();
 
 // ADDING PROFILE IN AN EXISTING ACCOUNT
@@ -15,9 +28,10 @@ router.post("/addprofile/:id", async (req, res) => {
         const findAcc = await AccountModel.findById({_id: accId});
         // CHECK IF ACCOUNT EXIST
         if(findAcc != null){
-            const user = new ProfileModel(req.body);
+            const age = getAge(req.body.birthDate);
+            
+            const user = new ProfileModel({...req.body, age:age});
             await user.save();
-
             const updateAcc = await AccountModel.findOneAndUpdate(
                 { _id: accId },
                 {
@@ -41,8 +55,9 @@ router.post("/addprofile/:id", async (req, res) => {
 // GET ALL PROFILE
 router.get("/", async (req, res) => {
     try {
-        const data = await ProfileModel.find({});
-        res.json(data);
+        getAge();
+        // const data = await ProfileModel.find({});
+        // res.json(data);
     } catch (error) {
         res.json(error);
     }
