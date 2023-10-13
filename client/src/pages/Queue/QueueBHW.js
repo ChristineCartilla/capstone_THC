@@ -1,58 +1,55 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar.js";
 import Worker_Searchbox from "../../components/Worker_Searchbox.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
 import AdditionQueue from "../../components/AdditionQueue.js";
+import axios from "axios";
 
 const QueueBHW = () => {
-    const [selectedService, setSelectedService] = useState("Prenatal"); // Default selected service
-
-    // Sample data for the queue (replace with actual data)
-    const queueData = {
-        Prenatal: [
-            { name: "Person 1", date: "2021-10-01" },
-            { name: "Person 2", date: "2021-10-01" },
-            // Add more entries
-        ],
-        Checkup: [
-            
-            // Add more entries
-        ],
-        Dental: [
-            { name: "Person 3", date: "2021-10-01" },
-            { name: "Person 4", date: "2021-10-01" },
-        ],
-        FamilyPlanning: [
-            { name: "Person 3", date: "2021-10-01" },
-            { name: "Person 4", date: "2021-10-01" },
-            { name: "Person 3", date: "2021-10-01" },
-        ],
-        Immunization: [
-            { name: "Person 3", date: "2021-10-01" },
-            { name: "Person 4", date: "2021-10-01" },
-            { name: "Person 3", date: "2021-10-01" },
-            { name: "Person 4", date: "2021-10-01" },
-        ],
-        Urinalysis: [
-            { name: "Person 3", date: "2021-10-01" },
-            { name: "Person 4", date: "2021-10-01" },
-        ],
-        Hematology: [
-            { name: "Person 3", date: "2021-10-01" },
-            { name: "Person 4", date: "2021-10-01" },
-            { name: "Person 3", date: "2021-10-01" },
-            { name: "Person 4", date: "2021-10-01" },
-            { name: "Person 3", date: "2021-10-01" },
-            { name: "Person 4", date: "2021-10-01" },
-        ],
-    };
-
-    const handleServiceClick = (service) => {
-        setSelectedService(service);
-    };
+    const [doctorQueue, setDoctorQueue] = useState([]);
+    const [dentistQueue, setDentistQueue] = useState([]);
+    const [medTechQueue, setMedTechQueue] = useState([]);
+    const [nurseQueue, setNurseQueue] = useState([]);
 
 
+    useEffect(() => {
+        getDoctorQueue();
+        getDentistQueue();
+        getMedtechQueue();
+        getNurseQueue();
+    },[]);
+
+    const getDoctorQueue = async () => {
+        const getQueue = await axios.get("/queue/fetchdoctorqueue");
+        setDoctorQueue(getQueue.data);
+    }
+
+    const getDentistQueue = async () => {
+        const getQueue = await axios.get("/queue/fetchdentistqueue");
+        setDentistQueue(getQueue.data);
+    }
+
+    const getMedtechQueue = async () => {
+        const getQueue = await axios.get("/queue/fetchmedtechqueue");
+        setMedTechQueue(getQueue.data);
+    }
+
+    const getNurseQueue = async () => {
+        const getQueue = await axios.get("/queue/fetchnursequeue");
+        setNurseQueue(getQueue.data);
+    }
+
+    const doneQueueRec = async (queueRecId) => {
+        await axios.patch(`/queue/done/${queueRecId}`);
+        window.location.reload()
+    }
+
+    function formatDate(queue){
+        const date = new Date(queue);
+        const formattedDate = date.toLocaleDateString();
+        return formattedDate;
+    }
     return (
         <div className="">
             <div className="mainLayout">
@@ -63,81 +60,192 @@ const QueueBHW = () => {
                     <div className="sp1-pageHeader d-flex justify-content-start">
                         <h1>Queuing</h1>
                     </div>
-                    <div className="QueueCount row d-flex justify-content-evenly">
-                        {Object.keys(queueData).map((service) => (
-                            <div className="col p-2" key={service}>
-                                <div className="card">
-                                    <div className="card-body">
-                                        <h6 className="card-title">{service}</h6>
-                                        <br />
-                                        <h2 className="card-text">{queueData[service].length}</h2>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                    <div className="queuingContent">
-                        <div className="row">
-                            <div className="queingNav">
-                                <ul className="nav justify-content-center">
-                                    {Object.keys(queueData).map((service) => (
-                                        <li className="nav-item" key={service}>
-                                            <button
-                                                className={`nav-link btn${
-                                                    selectedService === service ? " active" : ""
-                                                }`}
-                                                onClick={() => handleServiceClick(service)}
-                                            >
-                                                {service}
-                                            </button>
-                                        </li>
-                                    ))}
-                                </ul>
-                                <div className="col">
-                                    <div className="queuingContentHeader d-flex justify-content-evenly">
-                                        <div className="col">
-                                            <h2>{selectedService} Queue</h2>
-                                        </div>
-                                        <div className="col">
-                                            <Worker_Searchbox />
-                                        </div>
-                                        <div className="col">
-                                            <button
-                                                type="button"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#AddQueue"
-                                            >
-                                                <FontAwesomeIcon icon={faPlus} />
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col">
-                                    <div className="container table-responsive">
-                                        <table className="queueTable table">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Que No.</th>
-                                                    <th scope="col">Name</th>
-                                                    <th scope="col">Date</th>
-                                                    <th scope="col">Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {queueData[selectedService].map((entry, index) => (
-                                                    <tr key={index}>
-                                                        <td>{index + 1}</td>
-                                                        <td>{entry.name}</td>
-                                                        <td>{entry.date}</td>
-                                                        <td>Pending</td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </div>
+                    <div className="QueueCount row d-flex justify-content-center">
+                        <div className="col-3 col-sm-2 p-2">
+                            <div className="card">
+                                <div className="card-body">
+                                    <h6 className="card-title">Doctor</h6>
+                                    <br />
+                                    <h2 className="card-text">{doctorQueue.length}</h2>
                                 </div>
                             </div>
                         </div>
+                        <div className="col-3 col-sm-2 p-2">
+                            <div className="card">
+                                <div className="card-body">
+                                    <h6 className="card-title">Dentist</h6>
+                                    <br />
+                                    <h2 className="card-text">{dentistQueue.length}</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-3 col-sm-2 p-2">
+                            <div className="card">
+                                <div className="card-body">
+                                    <h6 className="card-title">MedTech</h6>
+                                    <br />
+                                    <h2 className="card-text">{medTechQueue.length}</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-3 col-sm-2 p-2">
+                            <div className="card">
+                                <div className="card-body">
+                                    <h6 className="card-title">Nurse</h6>
+                                    <br />
+                                    <h2 className="card-text">{nurseQueue.length}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div className="my-5">
+                        <nav className="mx-2 d-flex justify-content-between">
+                            <div className="nav nav-tabs" id="nav-tab" role="tablist">
+                                <button className="nav-link active" id="nav-doctor-tab" data-bs-toggle="tab" data-bs-target="#nav-doctor" type="button" role="tab" aria-controls="nav-doctor" aria-selected="true">Doctor</button>
+                                <button className="nav-link" id="nav-dentist-tab" data-bs-toggle="tab" data-bs-target="#nav-dentist" type="button" role="tab" aria-controls="nav-dentist" aria-selected="false">Dentist</button>
+                                <button className="nav-link" id="nav-medtech-tab" data-bs-toggle="tab" data-bs-target="#nav-medtech" type="button" role="tab" aria-controls="nav-medtech" aria-selected="false">Medical Technologist</button>
+                                <button className="nav-link" id="nav-nurse-tab" data-bs-toggle="tab" data-bs-target="#nav-nurse" type="button" role="tab" aria-controls="nav-nurse" aria-selected="false">Nurse</button>
+                                                               
+                            </div>
+                            <button
+                                className="queuingContentHeaderBtn "
+                                type="button"
+                                data-bs-toggle="modal"
+                                data-bs-target="#AddQueue">
+                                <FontAwesomeIcon icon={faPlus} /> <span>ADD QUEUE</span>
+                            </button> 
+                        </nav>
+                        <div className="tab-content" id="nav-tabContent">
+                            <div className="tab-pane fade show active" id="nav-doctor" role="tabpanel" aria-labelledby="nav-doctor-tab" tabIndex="0">
+                                <div className="container table-responsive">
+                                    <table className="queueTable table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Que No.</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Handler</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {doctorQueue.map((entry, index) => (
+                                                <tr key={index}>
+                                                    <td>{entry.que_number}</td>
+                                                    <td>{entry.profile_id.first_name+" "+entry.profile_id.last_name}</td>
+                                                    <td>{formatDate(entry.createdAt)}</td>
+                                                    <td>{entry.status}</td>
+                                                    <td>
+                                                        <button 
+                                                            className="queueRecordHandlerApproveBtn"
+                                                            onClick={() => doneQueueRec(entry._id)}>
+                                                            <FontAwesomeIcon icon={faCheck} />
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div className="tab-pane fade" id="nav-dentist" role="tabpanel" aria-labelledby="nav-dentist-tab" tabIndex="0">
+                                <div className="container table-responsive">
+                                    <table className="queueTable table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Que No.</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Handler</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {dentistQueue.map((entry, index) => (
+                                                <tr key={index}>
+                                                    <td>{entry.que_number}</td>
+                                                    <td>{entry.profile_id.first_name+" "+entry.profile_id.last_name}</td>
+                                                    <td>{formatDate(entry.createdAt)}</td>
+                                                    <td>{entry.status}</td>
+                                                    <td>
+                                                        <button 
+                                                            className="queueRecordHandlerApproveBtn"
+                                                            onClick={() => doneQueueRec(entry._id)}>
+                                                            <FontAwesomeIcon icon={faCheck} />
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div className="tab-pane fade" id="nav-medtech" role="tabpanel" aria-labelledby="nav-medtech-tab" tabIndex="0">
+                                <div className="container table-responsive">
+                                    <table className="queueTable table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Que No.</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Handler</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {medTechQueue.map((entry, index) => (
+                                                <tr key={index}>
+                                                    <td>{entry.que_number}</td>
+                                                    <td>{entry.profile_id.first_name+" "+entry.profile_id.last_name}</td>
+                                                    <td>{formatDate(entry.createdAt)}</td>
+                                                    <td>{entry.status}</td>
+                                                    <td>
+                                                        <button 
+                                                            className="queueRecordHandlerApproveBtn"
+                                                            onClick={() => doneQueueRec(entry._id)}>
+                                                            <FontAwesomeIcon icon={faCheck} />
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div className="tab-pane fade" id="nav-nurse" role="tabpanel" aria-labelledby="nav-nurse-tab" tabIndex="0">
+                            <div className="container table-responsive">
+                                    <table className="queueTable table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Que No.</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Handler</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {nurseQueue.map((entry, index) => (
+                                                <tr key={index}>
+                                                    <td>{entry.que_number}</td>
+                                                    <td>{entry.profile_id.first_name+" "+entry.profile_id.last_name}</td>
+                                                    <td>{formatDate(entry.createdAt)}</td>
+                                                    <td>{entry.status}</td>
+                                                    <td>
+                                                        <button 
+                                                            className="queueRecordHandlerApproveBtn"
+                                                            onClick={() => doneQueueRec(entry._id)}>
+                                                            <FontAwesomeIcon icon={faCheck} />
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>              
                     </div>
                 </div>
                 <AdditionQueue />

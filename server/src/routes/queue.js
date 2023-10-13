@@ -16,10 +16,10 @@ function getServiceProvider(service){
         case "Dental":
             returnServiceProviderType = "Dentist"
             break;
-        case "Medical Checkup":
+        case "MedicalCheckup":
             returnServiceProviderType = "Doctor"
             break;
-        case "Family Planning":
+        case "FamilyPlanning":
             returnServiceProviderType = "Nurse"
             break;
         case "Hematology":
@@ -30,6 +30,19 @@ function getServiceProvider(service){
             break;
     }
     return returnServiceProviderType;
+}
+
+function getSpecificQueue(queue){
+    const specificQ = queue.filter((queueRec) => {
+        const strdata = (queueRec.createdAt).toISOString().split('T')[0];
+        const dateNow = new Date();
+        const strdDateNow = dateNow.toISOString().split('T')[0];
+        if(strdata == strdDateNow){
+            return queueRec;
+        }
+    })
+
+    return specificQ;
 }
 
 
@@ -46,17 +59,10 @@ router.get("/", async (req, res) => {
 })
 
 // FETCH ALL QUEUE FOR DOCTOR
-router.get("/fetchdoctorque", async (req, res) => {
+router.get("/fetchdoctorqueue", async (req, res) => {
     try {
         const queue = await QueueModel.find({serviceProvider_type: "Doctor", queueStat: true}).populate("profile_id");
-        const todayQueue = queue.filter((queueRec) => {
-            const strdata = (queueRec.createdAt).toISOString().split('T')[0];
-            const dateNoew = new Date();
-            const strdDateNow = dateNoew.toISOString().split('T')[0];
-            if(strdata == strdDateNow){
-                return queueRec;
-            }
-        })
+        const todayQueue = getSpecificQueue(queue)
         res.json(todayQueue);
     } catch (error) {
         res.json(error);
@@ -64,17 +70,10 @@ router.get("/fetchdoctorque", async (req, res) => {
 })
 
 // FETCH ALL QUEUE FOR DENTIST
-router.get("/fetchdentistque", async (req, res) => {
+router.get("/fetchdentistqueue", async (req, res) => {
     try {
-        const queue = await QueueModel.find({serviceProvider_type: "Denist", queueStat: true}).populate("profile_id");
-        const todayQueue = queue.filter((queueRec) => {
-            const strdata = (queueRec.createdAt).toISOString().split('T')[0];
-            const dateNoew = new Date();
-            const strdDateNow = dateNoew.toISOString().split('T')[0];
-            if(strdata == strdDateNow){
-                return queueRec;
-            }
-        })
+        const queue = await QueueModel.find({serviceProvider_type: "Dentist", queueStat: true}).populate("profile_id");
+        const todayQueue = getSpecificQueue(queue)
         res.json(todayQueue);
     } catch (error) {
         res.json(error);
@@ -82,17 +81,10 @@ router.get("/fetchdentistque", async (req, res) => {
 })
 
 // FETCH ALL QUEUE FOR MEDTECH
-router.get("/fetchmedtechque", async (req, res) => {
+router.get("/fetchmedtechqueue", async (req, res) => {
     try {
         const queue = await QueueModel.find({serviceProvider_type: "Medtech", queueStat: true}).populate("profile_id");
-        const todayQueue = queue.filter((queueRec) => {
-            const strdata = (queueRec.createdAt).toISOString().split('T')[0];
-            const dateNoew = new Date();
-            const strdDateNow = dateNoew.toISOString().split('T')[0];
-            if(strdata == strdDateNow){
-                return queueRec;
-            }
-        })
+        const todayQueue = getSpecificQueue(queue)
         res.json(todayQueue);
     } catch (error) {
         res.json(error);
@@ -100,17 +92,10 @@ router.get("/fetchmedtechque", async (req, res) => {
 })
 
 // FETCH ALL QUEUE FOR NURSE
-router.get("/fetchnurseque", async (req, res) => {
+router.get("/fetchnursequeue", async (req, res) => {
     try {
         const queue = await QueueModel.find({serviceProvider_type: "Nurse", queueStat: true}).populate("profile_id");
-        const todayQueue = queue.filter((queueRec) => {
-            const strdata = (queueRec.createdAt).toISOString().split('T')[0];
-            const dateNoew = new Date();
-            const strdDateNow = dateNoew.toISOString().split('T')[0];
-            if(strdata == strdDateNow){
-                return queueRec;
-            }
-        })
+        const todayQueue = getSpecificQueue(queue)
         res.json(todayQueue);
     } catch (error) {
         res.json(error);
@@ -127,8 +112,8 @@ router.post("/addqueue/:profid", async (req, res) => {
         const allQueue = await QueueModel.find({serviceProvider_type: serviceProvider_type});
         allQueue.filter((queueRec) => {
             const strdata = (queueRec.createdAt).toISOString().split('T')[0];
-            const dateNoew = new Date();
-            const strdDateNow = dateNoew.toISOString().split('T')[0];
+            const dateNow = new Date();
+            const strdDateNow = dateNow.toISOString().split('T')[0];
             if(strdata == strdDateNow){
                 ctr++
             }

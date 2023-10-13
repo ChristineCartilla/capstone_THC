@@ -65,7 +65,7 @@ router.get("/", async (req, res) => {
 // GET ALL RESIDENT PROFILE
 router.get("/fetchresident", async (req, res) => {
     try {
-        const data = await ProfileModel.find({relationship: "Resident"});
+        const data = await ProfileModel.find({user_type: "Resident"});
         res.json(data);
     } catch (error) {
         res.json(error);
