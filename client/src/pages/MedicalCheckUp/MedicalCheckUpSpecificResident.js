@@ -75,6 +75,7 @@ const MedicalCheckUpSpecificResident = () => {
                             <h1 className='text-start'>Medical Checkup Records</h1>  
                         </div>
                         <div className='sp2-pageBody'>
+<<<<<<< Updated upstream
                             <div className='container-fluid p-5'>
                                 <div className='row'>
                                     <div className='col-md-4 col-sm-12 sp2-topDiv'>
@@ -95,6 +96,28 @@ const MedicalCheckUpSpecificResident = () => {
                                                 </div>
                                             </div>
                                             <hr />
+=======
+                            <div className='container-fluid px-4 py-4'>
+                                <div className='row' >
+                                    <div className='col-md-3 col-sm-12 sp2-topDiv'>
+                                        <h4 className="text-start">Personal Information</h4>
+                                        <div className='sp2-personalInfoDiv'>
+                                            <div className="mb-3 mt-4" >
+                                                <div className="row">
+                                                    <div className="col-md-3">
+                                                        <img src={THCDefaultPatientLogo} height="100px" width="100px" alt="default_image.png" />
+                                                    </div>
+                                                    <div className="col-md-9">
+                                                        <div className="card-body">
+                                                            <h5 className="card-title">{patientinfo.first_name + " "+ patientinfo.middle_name + " " + patientinfo.last_name}</h5>
+                                                            <p className="card-text">{patientinfo.gender}, {patientinfo.birthDate}</p>
+                                                            <p className="card-text"><small className="text-body-secondary">Last updated 3 mins ago</small></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr/>   
+>>>>>>> Stashed changes
                                             <table className="">
                                                 <tbody>
                                                     <tr>

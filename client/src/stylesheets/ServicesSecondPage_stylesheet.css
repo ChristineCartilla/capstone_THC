@@ -30,7 +30,7 @@
 
 .sp2-personalInfoDiv{
     text-align: start;
-    padding: 20px;
+    padding: 0 20px;
 }
 
 .sp2-personalInfoDiv table{
@@ -86,12 +86,18 @@
 
 .sp2-MCRecordsTable tr th{
     background-color: #44AA92;
+<<<<<<< Updated upstream
     height: 60px;
     color: #fafafa;
     font-size: 20px;
     text-align: start;
     vertical-align: middle;
     /* padding-left: 50px; */
+=======
+    color: #FFF;
+    height: 50px;
+    vertical-align: middle;
+>>>>>>> Stashed changes
 }
 
 .sp2-MCRecordsTable tr td{
@@ -103,7 +109,10 @@
 
 .sp2-pageBody .sp2-MCRecordsTable tr th:first-child{
     border-top-left-radius: 10px;
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 }
 
 .sp2-pageBody .sp2-MCRecordsTable tr td:first-child{
@@ -112,7 +121,10 @@
 
 .sp2-pageBody .sp2-MCRecordsTable tr th:last-child{
     border-top-right-radius: 10px;
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 }
 
 .sp2-pageBody .sp2-MCRecordsTable tr:hover{

@@ -39,8 +39,8 @@
     to bottom,
     #44AA92 0px,
     #44AA92 150px,
-    #f5f4f7 150px,
-    #f5f4f7 100%
+    #EDF5F6 150px,
+    #EDF5F6 100%
   );
   
 }
@@ -53,8 +53,13 @@
 }
 
 .mainLayout-right{
+<<<<<<< Updated upstream
   min-width: 400px;
   margin: 70px 0 50px 0;
+=======
+  /* min-width: 400px; */
+  /* margin: 50px 0 50px 0; */
+>>>>>>> Stashed changes
   font-family: 'Poppins', sans-serif;
 }
 
