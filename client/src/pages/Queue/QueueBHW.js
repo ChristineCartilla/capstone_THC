@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar.js";
-import Worker_Searchbox from "../../components/Worker_Searchbox.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
 import AdditionQueue from "../../components/AdditionQueue.js";
@@ -11,13 +10,14 @@ const QueueBHW = () => {
     const [dentistQueue, setDentistQueue] = useState([]);
     const [medTechQueue, setMedTechQueue] = useState([]);
     const [nurseQueue, setNurseQueue] = useState([]);
-
+    const [midWifeQueue, setMidWifeQueue] = useState([]);
 
     useEffect(() => {
         getDoctorQueue();
         getDentistQueue();
         getMedtechQueue();
         getNurseQueue();
+        getMidWifeQueue();
     },[]);
 
     const getDoctorQueue = async () => {
@@ -38,6 +38,11 @@ const QueueBHW = () => {
     const getNurseQueue = async () => {
         const getQueue = await axios.get("/queue/fetchnursequeue");
         setNurseQueue(getQueue.data);
+    }
+
+    const getMidWifeQueue = async () => {
+        const getQueue = await axios.get("/queue/fetchmidwifequeue");
+        setMidWifeQueue(getQueue.data);
     }
 
     const doneQueueRec = async (queueRecId) => {
@@ -91,6 +96,15 @@ const QueueBHW = () => {
                         <div className="col-3 col-sm-2 p-2">
                             <div className="card">
                                 <div className="card-body">
+                                    <h6 className="card-title">MidWife</h6>
+                                    <br />
+                                    <h2 className="card-text">{midWifeQueue.length}</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-3 col-sm-2 p-2">
+                            <div className="card">
+                                <div className="card-body">
                                     <h6 className="card-title">Nurse</h6>
                                     <br />
                                     <h2 className="card-text">{nurseQueue.length}</h2>
@@ -105,8 +119,8 @@ const QueueBHW = () => {
                                 <button className="nav-link active" id="nav-doctor-tab" data-bs-toggle="tab" data-bs-target="#nav-doctor" type="button" role="tab" aria-controls="nav-doctor" aria-selected="true">Doctor</button>
                                 <button className="nav-link" id="nav-dentist-tab" data-bs-toggle="tab" data-bs-target="#nav-dentist" type="button" role="tab" aria-controls="nav-dentist" aria-selected="false">Dentist</button>
                                 <button className="nav-link" id="nav-medtech-tab" data-bs-toggle="tab" data-bs-target="#nav-medtech" type="button" role="tab" aria-controls="nav-medtech" aria-selected="false">Medical Technologist</button>
-                                <button className="nav-link" id="nav-nurse-tab" data-bs-toggle="tab" data-bs-target="#nav-nurse" type="button" role="tab" aria-controls="nav-nurse" aria-selected="false">Nurse</button>
-                                                               
+                                <button className="nav-link" id="nav-midWife-tab" data-bs-toggle="tab" data-bs-target="#nav-midWife" type="button" role="tab" aria-controls="nav-midWife" aria-selected="false">Midwife</button>
+                                <button className="nav-link" id="nav-nurse-tab" data-bs-toggle="tab" data-bs-target="#nav-nurse" type="button" role="tab" aria-controls="nav-nurse" aria-selected="false">Nurse</button>                            
                             </div>
                             <button
                                 className="queuingContentHeaderBtn "
@@ -213,8 +227,40 @@ const QueueBHW = () => {
                                     </table>
                                 </div>
                             </div>
+                            <div className="tab-pane fade" id="nav-midWife" role="tabpanel" aria-labelledby="nav-midWife-tab" tabIndex="0">
+                                <div className="container table-responsive">
+                                    <table className="queueTable table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Que No.</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Handler</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {midWifeQueue.map((entry, index) => (
+                                                <tr key={index}>
+                                                    <td>{entry.que_number}</td>
+                                                    <td>{entry.profile_id.first_name+" "+entry.profile_id.last_name}</td>
+                                                    <td>{formatDate(entry.createdAt)}</td>
+                                                    <td>{entry.status}</td>
+                                                    <td>
+                                                        <button 
+                                                            className="queueRecordHandlerApproveBtn"
+                                                            onClick={() => doneQueueRec(entry._id)}>
+                                                            <FontAwesomeIcon icon={faCheck} />
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                             <div className="tab-pane fade" id="nav-nurse" role="tabpanel" aria-labelledby="nav-nurse-tab" tabIndex="0">
-                            <div className="container table-responsive">
+                                <div className="container table-responsive">
                                     <table className="queueTable table">
                                         <thead>
                                             <tr>

@@ -27,6 +27,7 @@ const ResidentsSpecificFamily = () => {
 
     const handleViewResident = (id) => {
         navigate(id);
+        // console.log(id)
     }
 
     const handleBack = () => {
@@ -101,7 +102,7 @@ const ResidentsSpecificFamily = () => {
                                                     <button 
                                                         type="button" 
                                                         className="resident_viewFamilyBtn"
-                                                        onClick={() => handleViewResident(fam.id)}
+                                                        onClick={() => handleViewResident(fam._id)}
                                                         style={{width: "100px"}}>
                                                             View
                                                     </button>
@@ -138,7 +139,10 @@ const ResidentsSpecificFamily = () => {
                                                 <td>{fam.first_name}</td>
                                                 <td>{fam.middle_name}</td>
                                                 <td>
-                                                    <button type="button" className="btn btn-primary mx-2">View</button>
+                                                    <button 
+                                                        type="button" 
+                                                        className="resident_viewFamilyBtn mx-2"
+                                                        onClick={() => handleViewResident(fam._id)}>View</button>
                                                     <button 
                                                         type="button" 
                                                         className="btn btn-success mx-2"

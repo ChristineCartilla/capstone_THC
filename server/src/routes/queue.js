@@ -8,7 +8,7 @@ function getServiceProvider(service){
     let returnServiceProviderType;
     switch (service) {
         case "Prenatal":
-            returnServiceProviderType = "Nurse"
+            returnServiceProviderType = "Midwife"
             break;
         case "Immunization":
             returnServiceProviderType = "Nurse"
@@ -84,6 +84,17 @@ router.get("/fetchdentistqueue", async (req, res) => {
 router.get("/fetchmedtechqueue", async (req, res) => {
     try {
         const queue = await QueueModel.find({serviceProvider_type: "Medtech", queueStat: true}).populate("profile_id");
+        const todayQueue = getSpecificQueue(queue)
+        res.json(todayQueue);
+    } catch (error) {
+        res.json(error);
+    }
+})
+
+// FETCH ALL QUEUE FOR NURSE
+router.get("/fetchmidwifequeue", async (req, res) => {
+    try {
+        const queue = await QueueModel.find({serviceProvider_type: "Midwife", queueStat: true}).populate("profile_id");
         const todayQueue = getSpecificQueue(queue)
         res.json(todayQueue);
     } catch (error) {

@@ -1,6 +1,12 @@
 import mongoose from "mongoose";
 
 const FamilyPlanningSchema = new mongoose.Schema({
+    nameSpouse: {type: String },
+    spouseDoB: { type: Date },
+    spouseOccupation: { type: String },
+    noLivingChild: { type: Number},
+    planAddChild: { type: Boolean },
+    aveMonthIncome: { type: Number },
     pe_skin: { type: String },
     pe_conjunctiva: { type: String },
     pe_neck: { type: String },

@@ -143,7 +143,7 @@
 
 }
 
-/* @media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1200px) {
     .sp2-pageHeader h1{
         font-size: 3vw;
     }
@@ -153,4 +153,4 @@
     .sp2-pageHeader h1{
         font-size: 32px;
     }
-} */
+}

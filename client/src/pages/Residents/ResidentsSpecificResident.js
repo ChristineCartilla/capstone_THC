@@ -6,22 +6,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import EditResidentProfile from '../../components/EditResidentProfile';
 import SidebarOpenBtn from '../../components/SidebarOpenBtn';
+import axios from 'axios';
 
 const ResidentsSpecificResident = () => {
   const { profile_id } = useParams();
   const [resident, setResident] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/profiles/"+ profile_id).then((res) => {
-      return res.json();
-    }).then((resp) => {
-      setResident(resp);
-    }).catch((err) => {
-      console.log(err.message);
-    })
-
-
+    fetchProf();
   }, []);
+
+  const fetchProf = async () => {
+    const profDetails = await axios.get(`/profile/${profile_id}`);
+    setResident(profDetails.data)
+
+  }
 
   const handleBack = () => {
     window.history.back()
@@ -68,13 +67,7 @@ const ResidentsSpecificResident = () => {
                       </tr>
                       <tr>
                         <th scope="row">Relationship:</th>
-                        <td>
-                          {
-                            (resident.relationship === 1 && ("Father of the Family")) ||
-                            (resident.relationship === 2 && ("Mother of the Family")) ||
-                            (resident.relationship > 2 && ("Children of the Family"))
-                          }
-                        </td>
+                        <td>{resident.relationship}</td>
                       </tr>
                       <tr>
                         <th scope="row"> Nationality:</th>
@@ -96,7 +89,7 @@ const ResidentsSpecificResident = () => {
                     <tbody>
                       <tr>
                         <th scope="row">Status:</th>
-                        <td >{resident.status}</td>
+                        <td >{resident.prof_status}</td>
                       </tr>
                       <tr>
                         <th scope="row">Gender:</th>

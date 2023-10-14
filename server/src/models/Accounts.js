@@ -31,6 +31,8 @@ const AccountSchema = new mongoose.Schema({
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'profiles'
     }]
+},{
+    timestamps: true
 })
 
 export const AccountModel = mongoose.model("accounts", AccountSchema);

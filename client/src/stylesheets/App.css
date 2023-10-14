@@ -54,10 +54,7 @@
 
 .mainLayout-right{
   min-width: 400px;
-  margin: 70px 0 50px 0;
-  /* min-width: 400px; */
-  /* margin: 50px 0 50px 0; */
-
+  margin: 50px 0 50px 0;
   font-family: 'Poppins', sans-serif;
 }
 

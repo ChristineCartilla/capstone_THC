@@ -17,7 +17,7 @@ const Services_Searchbox = ({setSearchResults}) => {
         }
         
         fetchdata();
-    },[])
+    },[])   
 
 
     const handleSearchChange = (value) => {

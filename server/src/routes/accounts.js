@@ -4,6 +4,20 @@ import bcrypt from "bcrypt";
 import { AccountModel } from "../models/Accounts.js";
 import { ProfileModel } from "../models/Profile.js";
 
+
+function getAge(date){
+    const today = new Date();
+    const birthDate = new Date(date);
+    const age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+
+    return age;  
+}
+
 const router = express.Router();
 
 // GETTING ALL ACCOUNTS
@@ -53,6 +67,7 @@ router.get("/fetchmember/:accid", async (req, res) => {
 
 // ADDING NEW ACCOUNT TOGETHER WITH A FIRST PROFILE
 router.post("/register", async (req, res) => {
+    const age = getAge(req.body.birthDate);
     const {
         acc_type, email, phone, password, acc_status,
         prof_status, relationship, user_type, first_name, last_name, middle_name, gender, birthDate, birthPlace, educAttain, occupation, contactNo, civilStatus, nationality, street, barangay, municipality, zipCode
@@ -63,7 +78,7 @@ router.post("/register", async (req, res) => {
         if(user){
             return res.json({message: "Account Already exist"});
         }
-        const newProf = new ProfileModel({prof_status, relationship, user_type, first_name, last_name, middle_name, gender, birthDate, birthPlace, educAttain, occupation, contactNo, civilStatus, nationality, street, barangay, municipality, zipCode});
+        const newProf = new ProfileModel({prof_status, relationship, user_type, first_name, last_name, middle_name, gender, age, birthDate, birthPlace, educAttain, occupation, contactNo, civilStatus, nationality, street, barangay, municipality, zipCode});
         await newProf.save()
 
         const profId = newProf._id;
@@ -78,6 +93,7 @@ router.post("/register", async (req, res) => {
 
 // ADDING NEW ACCOUNT TOGETHER WITH A FIRST PROFILE FOR WORKER
 router.post("/worker/register", async (req, res) => {
+    const age = getAge(req.body.birthDate);
     const {
         acc_type, email, phone, password, acc_status,
         prof_status, relationship, user_type, first_name, last_name, middle_name, gender, birthDate, birthPlace, educAttain, occupation, contactNo, civilStatus, nationality, street, barangay, municipality, zipCode
@@ -88,7 +104,7 @@ router.post("/worker/register", async (req, res) => {
         if(user){
             return res.json({message: "Account Already exist"});
         }
-        const newProf = new ProfileModel({prof_status, relationship:"Worker", user_type, first_name, last_name, middle_name, gender, birthDate, birthPlace, educAttain, occupation, contactNo, civilStatus, nationality, street, barangay, municipality, zipCode});
+        const newProf = new ProfileModel({prof_status, relationship:"Worker", user_type, first_name, last_name, middle_name, gender, age, birthDate, birthPlace, educAttain, occupation, contactNo, civilStatus, nationality, street, barangay, municipality, zipCode});
         await newProf.save()
 
         const profId = newProf._id;
