@@ -146,7 +146,7 @@ const UrinalysisSpecificRecord = () => {
                                                 </div>
                                                 <div className='col mt-4 mx-5'>
                                                     <label className='fw-bold'>Triple Phosphates: </label>
-                                                    <span> {urinalysisInfo.triplePhosphates}</span>
+                                                    <span> {urinalysisInfo.triplePhosphate}</span>
                                                 </div>
 
                                                 <div className='col mt-5 mx-4'>

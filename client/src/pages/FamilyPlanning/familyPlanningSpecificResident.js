@@ -5,69 +5,62 @@ import { faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate, useParams } from 'react-router-dom'
 import AdditionalFamilyPlanning from '../../components/AdditionalFamilyPlanning.js'
 import axios from 'axios'
-
 import THCDefaultPatientLogo from '../../images/default_image.png'
 import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 
 const FamilyPlanningSpecificResident = () => {
     const { residentid } = useParams();
-    const [patient, setPatient] = useState([]);
     const [patientinfo, setPatientInfo] = useState([]);
     const [records, setRecords] = useState([]);
     const navigate = useNavigate();
-    var recLength = records.length;
+    // var recLength = records.length;
+
+    useEffect(() => {
+        patientInformation();
+        recordsList();
+    }, [])
 
     const patientInformation = async () => {
-        await axios.get("http://localhost:8000/profiles/"+ residentid)  
-        .then((response) => {
-            setPatientInfo(response.data)   
-        })  
+        await axios.get("/profile/" + residentid)
+            .then((response) => {
+                setPatientInfo(response.data)
+                console.log(response.data);
+        })
     }
 
     const recordsList = async () => {
         try {
-            const fetchMR = await axios.get("http://localhost:8000/medical_record");
-            const fetchFPR = await axios.get("http://localhost:8000/family_planning_record");
-            if(fetchMR.status === 200 && fetchFPR.status === 200){
-
-                const record = (fetchMR.data).find((rec) => {
-                    return rec.profile_id === residentid
-                })
-                const familyPlanRec = (fetchFPR.data).filter((rec) => {
-                    return rec.medical_recordID === record.id;
-                 })
-                
-                setRecords(familyPlanRec)
-        }
+            const fetchHR = await axios.get(`/familyplanning/${residentid}`);
+            setRecords(fetchHR.data.medical_records);
+            console.log(fetchHR.data);
         } catch (error) {
             console.log(error);
         }
     }
 
-    useEffect(() => {
-
-        // patientInformation();
-        // recordsList();
-        console.log(residentid);
-    }, [])
-
     const navigateRecord = (recordid) => {
-        console.log("Sda")
-        // navigate(recordid);
+        navigate(recordid);
     }
+
     const handleBack = () => {
         window.history.back()
     }
 
-    const handleViewRecord = (patient) => {
-        navigate(`/familyplanningspecificresidentrecord/${patient.id}`,
-        {
-            state:
-            {
-                patientdata: patient
-            }
-        });
+    function formatDateToWords(dateString) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const date = new Date(dateString);
+        return date.toLocaleDateString(undefined, options);
     }
+
+    const handleDate = (date) => {
+        const dateTimeString = date;
+        const dateTime = new Date(dateTimeString);
+        const dateString = dateTime.toISOString().split('T')[0];
+        const readableDate = formatDateToWords(dateString);
+
+        return readableDate;
+    }
+   
 
     return (
         <>
@@ -87,7 +80,7 @@ const FamilyPlanningSpecificResident = () => {
                                     <div className='col-md-4 col-sm-12 sp2-topDiv'>
                                         <h5 className="text-start">Personal Information</h5>
                                         <div className='sp2-personalInfoDiv'>
-                                            <div class="mb-3" style={{maxWidth: "540px;"}}>
+                                            <div className="mb-3" style={{maxWidth: "540px"}}>
                                                 <div className="row g-0">
                                                     <div className="col-md-4">
                                                         <img src={THCDefaultPatientLogo} height="80px" width="80px" alt="default_image.png" style={{marginTop:5}}/>
@@ -147,20 +140,25 @@ const FamilyPlanningSpecificResident = () => {
                                                         <td>Date of Record</td> 
                                                     </tr>
                                                     {
-                                                        records && records.map((rec,idx) => {
+                                                    records && records.map((rec,idx) => {
+                                                        if(rec.service_id != null){
                                                             return (
-                                                            <tr 
-                                                                className='sp2-clickableMCRRow' 
-                                                                key={idx}
-                                                                onClick={() => navigateRecord(rec.id)}
+                                                                <tr 
+                                                                    className='sp2-clickableMCRRow' 
+                                                                    key={idx}
+                                                                    onClick={() => navigateRecord(rec.service_id._id)}
                                                                 >
-                                                                <td>{"Medical Checkup "+ (recLength--)}</td>
-                                                                <td>{rec.serviceprovider}</td>
-                                                                <td>{rec.date}</td>
-                                                            </tr>
-                                                        )})
-                                                    }
-                                                    {
+                                                                    <td></td>
+                                                                    <td>{rec.service_id._id}</td>
+                                                                    <td>{rec.service_id.serviceProvider}</td>
+                                                                    <td>{handleDate(rec.service_id.createdAt)}
+                                                                    </td>
+                                                                </tr>
+                                                            )
+                                                        }
+                                                    })
+                                                }
+                                                    {/* {
                                                         records.length == 0 && (
                                                             <tr className='sp2-clickableMCRRow'
                                                                 onClick={() => handleViewRecord(patient)}
@@ -171,7 +169,7 @@ const FamilyPlanningSpecificResident = () => {
                                                                 <td></td>
                                                             </tr>
                                                         )
-                                                    }
+                                                    } */}
                                                 
                                                 </tbody>
                                             </table>    
@@ -191,23 +189,9 @@ const FamilyPlanningSpecificResident = () => {
             </div>
 
              {/* Modal  */}
-            <div className="modal fade" id="FPAddition" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-lg">
-                    <div className="modal-content">
-                    <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel">Family Planning Form</h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                        <AdditionalFamilyPlanning />
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" className="sp2-addMCButton">Save</button>
-                    </div>
-                    </div>
-                </div>
-            </div>
+           
+                        <AdditionalFamilyPlanning residentid={patientinfo._id}/>
+                    
         </>
     )
 }

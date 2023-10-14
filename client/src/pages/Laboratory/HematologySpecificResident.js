@@ -38,7 +38,6 @@ const HematologySpecificResident = () => {
         } catch (error) {
             console.log(error);
         }
-       
     }
 
     const navigateRecord = (recordid) => {
