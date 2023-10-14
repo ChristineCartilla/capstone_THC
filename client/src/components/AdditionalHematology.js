@@ -1,7 +1,7 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-const AdditionalHematology = ({residentid}) => {
+const AdditionalHematology = ({residentid, serviceProviderName}) => {
     const [hematocritLevel, setHematocritLevel] = useState("");
     const [hemoglobinMassConc, setHemoglobinMassConc] = useState("");
     const [erythrocyteNumConc, setErythrocyteNumConc] = useState("");
@@ -15,34 +15,26 @@ const AdditionalHematology = ({residentid}) => {
     const [thrombocyteNumConc, setThrombocyteNumConc] = useState("");
     const [retlculocyteNumFrac, setReticulocyteNumFrac] = useState("");
     const [remarks, setRemarks] = useState("");
-    const [serviceProvider, setServiceProvider] = useState("");
+    const serviceProvider = serviceProviderName;
 
     const addRecSubmit = async (event) => {
         event.preventDefault();
        
         try{
-            if(hematocritLevel != "" && hemoglobinMassConc != "" && 
-                erythrocyteNumConc != "" && leukocyteNumConc != "" && 
-                SegmenterNumFract != "" && lymphocyteNumFract != "" && 
-                MonocyeNumFrac != "" && EosinophileNumFract != "" && 
-                BasophileNumFract != "" && stab != "" && 
-                thrombocyteNumConc != "" && retlculocyteNumFrac != "" 
-                && remarks != "") {
-                    // const userId = sessionStorage.getItem("profileId");
-                    // const fetchServiceProvider = await axios.get(`/profile/${userId}`);
-                    // const serviceProvider = "Dr. "+ fetchServiceProvider.data.last_name;
-                    const response = await axios.post
-                        (`/hematology/add/${residentid}`,
-                            {hematocritLevel, hemoglobinMassConc, erythrocyteNumConc, leukocyteNumConc, 
-                                SegmenterNumFract, lymphocyteNumFract, MonocyeNumFrac, EosinophileNumFract, 
-                                BasophileNumFract, stab, thrombocyteNumConc, retlculocyteNumFrac, remarks, 
-                                serviceProvider
-                            }
-                        );
-                if(response.status === 200){
-                    alert("Hematology Successfully Added");
-                    window.location.reload();
-                }
+                // const userId = sessionStorage.getItem("profileId");
+                // const fetchServiceProvider = await axios.get(`/profile/${userId}`);
+                // const serviceProvider = "Dr. "+ fetchServiceProvider.data.last_name;
+                const response = await axios.post
+                    (`/hematology/add/${residentid}`,
+                        {hematocritLevel, hemoglobinMassConc, erythrocyteNumConc, leukocyteNumConc, 
+                            SegmenterNumFract, lymphocyteNumFract, MonocyeNumFrac, EosinophileNumFract, 
+                            BasophileNumFract, stab, thrombocyteNumConc, retlculocyteNumFrac, remarks, 
+                            serviceProvider
+                        }
+                    );
+            if(response.status === 200){
+                alert("Hematology Successfully Added");
+                window.location.reload();
             }
         } catch (error){
             console.log(error)
@@ -68,7 +60,7 @@ const AdditionalHematology = ({residentid}) => {
                                         id="exampleFormControlTextarea1" 
                                         style={{backgroundColor: "#CCE8DE"}}
                                         value={serviceProvider}
-                                        onChange={e => setServiceProvider(e.target.value)}/>
+                                        disabled/>
                                 </div>
                                 <div className="col text-start"> 
                                 </div>    

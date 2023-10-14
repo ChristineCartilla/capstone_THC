@@ -12,12 +12,13 @@ const UrinalysisSpecificResident = () => {
     const { residentid } = useParams();
     const [patientinfo, setPatientInfo] = useState([]);
     const [records, setRecords] = useState([]);
+    const [serviceProviderName, setServiceProviderName] = useState("");
     const navigate = useNavigate();
-   // var recLength = records.length;
-
+    
     useEffect(() => {
         patientInformation();
         recordsList();
+        getServiceProvider();
     }, [])
 
     const patientInformation = async () => {
@@ -61,6 +62,12 @@ const UrinalysisSpecificResident = () => {
         return readableDate;
     }
 
+    const getServiceProvider = async() => {
+        const userId = sessionStorage.getItem("profileId");
+        const fetchServiceProvider = await axios.get(`/profile/${userId}`);
+        const serviceProvider = fetchServiceProvider.data.first_name+" "+fetchServiceProvider.data.last_name;
+        setServiceProviderName(serviceProvider);
+    }
     return (
         <>
         <div className=''>
@@ -189,7 +196,7 @@ const UrinalysisSpecificResident = () => {
 
          {/* Modal  */}
        
-        <AdditionalUrinalysis residentid={patientinfo._id} />
+        <AdditionalUrinalysis residentid={patientinfo._id} serviceProviderName={serviceProviderName}/>
             
     </>
     );

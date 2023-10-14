@@ -13,13 +13,13 @@ const HematologySpecificResident = () => {
     const { residentid } = useParams();
     const [patientinfo, setPatientInfo] = useState([]);
     const [records, setRecords] = useState([]);
+    const [serviceProviderName, setServiceProviderName] = useState("");
     const navigate = useNavigate();
-    // var recLength = records.length;
 
     useEffect(() => {
         patientInformation();
         recordsList();
-        //  console.log(residentid);
+        getServiceProvider();
     }, [])
 
     const patientInformation = async () => {
@@ -63,6 +63,12 @@ const HematologySpecificResident = () => {
         return readableDate;
     }
 
+    const getServiceProvider = async() => {
+        const userId = sessionStorage.getItem("profileId");
+        const fetchServiceProvider = await axios.get(`/profile/${userId}`);
+        const serviceProvider = fetchServiceProvider.data.first_name+" "+fetchServiceProvider.data.last_name;
+        setServiceProviderName(serviceProvider);
+    }
     return (
         <>
         <div className=''>
@@ -190,7 +196,7 @@ const HematologySpecificResident = () => {
 
          {/* Modal  */}
   
-         <AdditionalHematology residentid={patientinfo._id} />
+         <AdditionalHematology residentid={patientinfo._id} serviceProviderName={serviceProviderName}/>
           
     </>
     )

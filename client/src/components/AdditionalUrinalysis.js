@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 
 
-const AdditionalUrinalysis = ({residentid}) => {
+const AdditionalUrinalysis = ({residentid, serviceProviderName}) => {
     const [color, setColor] = useState('');
     const [character, setCharacter] = useState('');
     const [reangentStrip, setReagentStrip] = useState('');
@@ -29,7 +29,7 @@ const AdditionalUrinalysis = ({residentid}) => {
     const [mucusThreads, setMucusThreads] = useState('');
     const [yeastCells, setYeastCells] = useState('');
     const [remarks, setRemarks] = useState('');
-    const [serviceProvider, setServiceProvider] = useState('');
+    const serviceProvider = serviceProviderName;
 
     const addRecSubmit = async (event) => {
         event.preventDefault();
@@ -76,7 +76,7 @@ const AdditionalUrinalysis = ({residentid}) => {
                                     id="exampleFormControlTextarea1" 
                                     style={{backgroundColor: "#CCE8DE"}}
                                     value = {serviceProvider}
-                                    onChange={e => setServiceProvider(e.target.value)}/>
+                                    disabled/>
                             </div>
                             <div className="col text-start"> 
                             </div>    

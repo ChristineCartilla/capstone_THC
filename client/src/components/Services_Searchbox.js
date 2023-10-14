@@ -7,7 +7,7 @@ const Services_Searchbox = ({setSearchResults}) => {
 
     useEffect(() => {
         const fetchdata = () => {
-            fetch("http://localhost:8001/profile/")
+            fetch("http://localhost:8001/profile/fetchresident")
             .then((response) => response.json())
             .then((list) => {
                 setSearchResults(list)
