@@ -23,7 +23,7 @@ const MedicalCheckUpSpecificRecord = () => {
         })
     }
     const getMedicalCheckupDetails = async () => {
-        await axios.get(`urinalysis/getrecord/${residentid}/${recordid}`)
+        await axios.get(`medicalcheckup/getrecord/${residentid}/${recordid}`)
         .then((response) => {
             setMedicalCheckupInfo(response.data.record) 
         })

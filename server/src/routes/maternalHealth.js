@@ -158,7 +158,7 @@ router.get("/getrecord/:profid/:recid", async (req, res) => {
     try {
         if(profid && recid){
             const resident = await ProfileModel.findById({_id: profid});
-            const record = await MaternalHealthModel.findOne({_id: recid});
+            const record = await MaternalHealthModel.findOne({_id: recid}).populate("medicalHistory").populate("obstetricalHistory");
             res.json({resident, record});
         }
     } catch (error) {
