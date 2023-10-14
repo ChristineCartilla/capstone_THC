@@ -79,25 +79,14 @@
     box-shadow: 2px 2px 20px #e7e5e5;
 }
 
-.sp2-MCRecordsTable{
-    /* border-collapse: separate;
-    border-spacing: 0 1px; */
-}
-
 .sp2-MCRecordsTable tr th{
     background-color: #44AA92;
-<<<<<<< Updated upstream
-    height: 60px;
-    color: #fafafa;
+    height: 50px;
+    color: #FFF;
     font-size: 20px;
     text-align: start;
     vertical-align: middle;
     /* padding-left: 50px; */
-=======
-    color: #FFF;
-    height: 50px;
-    vertical-align: middle;
->>>>>>> Stashed changes
 }
 
 .sp2-MCRecordsTable tr td{
@@ -109,10 +98,6 @@
 
 .sp2-pageBody .sp2-MCRecordsTable tr th:first-child{
     border-top-left-radius: 10px;
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 }
 
 .sp2-pageBody .sp2-MCRecordsTable tr td:first-child{
@@ -121,10 +106,6 @@
 
 .sp2-pageBody .sp2-MCRecordsTable tr th:last-child{
     border-top-right-radius: 10px;
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 }
 
 .sp2-pageBody .sp2-MCRecordsTable tr:hover{

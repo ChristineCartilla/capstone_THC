@@ -53,13 +53,11 @@
 }
 
 .mainLayout-right{
-<<<<<<< Updated upstream
   min-width: 400px;
   margin: 70px 0 50px 0;
-=======
   /* min-width: 400px; */
   /* margin: 50px 0 50px 0; */
->>>>>>> Stashed changes
+
   font-family: 'Poppins', sans-serif;
 }
 
