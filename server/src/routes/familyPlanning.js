@@ -6,6 +6,19 @@ import { FamilyPlanningModel } from "../models/FamilyPlanning.js";
 import { MedicalHistoryModel } from "../models/MedicalHistory.js";
 import { FamilyPlanningAssessmentModel } from "../models/FamilyPlanningAssessment.js";
 
+function getAge(date){
+    const today = new Date();
+    const birthDate = new Date(date);
+    const age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+
+    return age;  
+}
+
 const router = express.Router();
 
 // ADDING INSTANCE IN AN EXISTING PROFILE
@@ -15,13 +28,14 @@ router.post("/add/:id", async (req, res) => {
     try {
         const findProfile = ProfileModel.findById({_id: profId});
         if(findProfile){
+            const age = getAge(req.body.spouseDoB);
             const obstetricalInstance = new ObstetricalHistoryModel(req.body);
             await obstetricalInstance.save();
 
             const medicalHistoryInstance = new MedicalHistoryModel(req.body);
             await medicalHistoryInstance.save();
 
-            const serviceInstance = new FamilyPlanningModel(req.body);
+            const serviceInstance = new FamilyPlanningModel({...req.body, spouseAge:age});
             await serviceInstance.save();
             await FamilyPlanningModel.findOneAndUpdate(
                 { _id: serviceInstance._id },

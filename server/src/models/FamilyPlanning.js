@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const FamilyPlanningSchema = new mongoose.Schema({
     nameSpouse: {type: String },
     spouseDoB: { type: Date },
+    spouseAge: { type: Number  },
     spouseOccupation: { type: String },
     noLivingChild: { type: Number},
     planAddChild: { type: Boolean },
