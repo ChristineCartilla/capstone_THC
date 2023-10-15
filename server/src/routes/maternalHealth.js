@@ -5,6 +5,7 @@ import { MaternalHealthModel } from "../models/MaternalHealth.js";
 import { ObstetricalHistoryModel } from "../models/ObstetricalHistory.js";
 import { MedicalHistoryModel } from "../models/MedicalHistory.js";
 import { MaternalHealthAssessmentModel } from "../models/MaternalHealthAssessment.js";
+import { TetanusToxoidStatusModel } from "../models/TetanusToxoidStatus.js";
 
 const router = express.Router();
 
@@ -116,6 +117,35 @@ router.post("/add/assessment/:profid/:recordid", async (req, res) => {
     }
 })
 
+router.post("/add/tetanustoxoid/:recordid", async (req, res) => {
+    const recordid = req.params.recordid;
+
+    try{
+        const fetchRecord = await MaternalHealthModel.findById({_id: recordid});
+        if(fetchRecord){
+            const tetanusToxoid = new TetanusToxoidStatusModel(req.body);
+            await tetanusToxoid.save();
+
+            const updateRecord = await MaternalHealthModel.findByIdAndUpdate(
+                {_id: recordid},
+                {
+                    $push: { tetanusToxoidStatus: tetanusToxoid._id }
+                }
+            )
+            
+            if(updateRecord){
+                return res.json("Successfully Added Vaccine to Existing Maternal Health Record");
+            } else {
+                return res.json("Error Adding Vaccine to Existing Maternal Health Record");
+            }
+            
+        }
+        res.json("Maternal Health not Found");
+    } catch (error){
+        res.json(error);
+    }
+})
+
 // FETCH SPECIFIC RESIDENT WITH MATERNAL HEALTH RECORDS
 router.get("/:profid", async (req, res) => {
     const profid = req.params.profid;
@@ -158,7 +188,7 @@ router.get("/getrecord/:profid/:recid", async (req, res) => {
     try {
         if(profid && recid){
             const resident = await ProfileModel.findById({_id: profid});
-            const record = await MaternalHealthModel.findOne({_id: recid}).populate("medicalHistory").populate("obstetricalHistory");
+            const record = await MaternalHealthModel.findOne({_id: recid}).populate("medicalHistory").populate("obstetricalHistory").populate("tetanusToxoidStatus");
             res.json({resident, record});
         }
     } catch (error) {

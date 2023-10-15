@@ -9,6 +9,7 @@ const MaternalHealthSchema = new mongoose.Schema({
     attendedBy: { type: String },
     obstetricalHistory: { type: mongoose.SchemaTypes.ObjectId, ref:"obstetrical_history" },
     medicalHistory: { type: mongoose.SchemaTypes.ObjectId, ref:"medical_history" },
+    tetanusToxoidStatus: [{ type: mongoose.SchemaTypes.ObjectId, ref: "tetanus_toxoid_status"}],
     maternalHealthAssessment: [{ type: mongoose.SchemaTypes.ObjectId, ref:"maternal_health_assessment" }],
     recordStat : { type: Boolean, default: true }
 },{
