@@ -1,19 +1,40 @@
-import React, { useState} from 'react'
+import React, { useState, useEffect} from 'react'
 import Sidebar from '../../components/Sidebar.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import AdditionVitalSigns from '../../components/AdditionVitalSigns.js'
 import ViewVitalSigns from '../../components/ViewVitalSigns.js'
 import AdditionFamilyPlanningAssessment from '../../components/AdditionFamilyPlanningAssessment.js'
 import ViewFamilyPlanningAssessment from '../../components/ViewFamilyPlanningAssessment.js'
 import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
+import axios from 'axios'
 
 const FamilyPlanningSpecificResidentRecord = () => {
-    const [patient, setPatient] = useState([]);
-    const navigate = useNavigate();
-    const location = useLocation();
+    const { residentid, recordid } = useParams();
+    const [patientinfo, setPatientInfo] = useState([]);
+    const [familyplanningInfo, setFamilyPlanningInfo] = useState([]);
+
+    useEffect(() => {
+        patientInformation();
+        getFamilyPlanningInfo();
+    }, [])
+
+    const patientInformation = async () => {
+        await axios.get("/profile/"+ residentid)
+        .then((response) => {
+            setPatientInfo(response.data) 
+        })
+    }
+
+    const getFamilyPlanningInfo = async () => {
+        await axios.get(`familyplanning/getrecord/${residentid}/${recordid}`)
+        .then((response) => {
+            setFamilyPlanningInfo(response.data.record) 
+        })
+        console.log(familyplanningInfo)
+    }
   
     const handleBack = () => {
         window.history.back()
@@ -27,11 +48,11 @@ const FamilyPlanningSpecificResidentRecord = () => {
                     <div className='mainLayout-left'>
                         <Sidebar />    
                     </div>
-                    <div className='container mainLayout-right p-0'>
+                    <div className='container mainLayout-right p-0 sp3-mainContainer'>
                         <div className="sp3-pageHeader container d-flex">
                             <button 
                             type="button"
-                            className="sp3-servicesBacRecskBtn -center"
+                            className="sp3-servicesBacRecBtn align-items-center"
                             onClick={() => handleBack()}>
                                 <FontAwesomeIcon icon={faAngleLeft}/>
                         </button>
@@ -47,21 +68,18 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 {/* COLUMN 1 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Name: </label>
-                                                    <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span>
+                                                    <span> {patientinfo.fname + " "+ patientinfo.mname + " " + patientinfo.lname} </span>
                                                 </div>
 
                                                 {/* COLUMN 2 */}
                                                 <div className="col-md-4">
-                                                    <label className='fw-bold'>Number of pregnancies </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    
+                                                    <label className='fw-bold'>NUMBER OF PREGNANCIES </label>
                                                 </div>
 
                                                 {/* COLUMN 3 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Skin: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    <span> {familyplanningInfo.pe_skin}</span>
                                                 </div>
                                             </div>
 
@@ -69,17 +87,18 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 {/* COLUMN 1 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold text-start'>Age: </label>
-                                                    {/* <span> {patient.age} Years Old </span> */}
-                                                    <span > 24 Years Old</span>
+                                                    <span> {patientinfo.age} Years Old</span>
                                                 </div>
-
                                                 {/* COLUMN 2 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Gravida: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
+                                                        <span> {familyplanningInfo.obstetricalHistory.numGravida}</span>
+                                                    ) : (
+                                                        <span>Data not available</span>
+                                                    )}
+                                                    {/* <span> {familyplanningInfo.obstetricalHistory.numGravida}</span> */}
                                                 </div>
-
                                                 {/* COLUMN 3 */}
                                                 
                                             </div>
@@ -88,15 +107,17 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 {/* COLUMN 1 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Birth Date: </label>
-                                                    {/* <span> {patient.birthdate} </span> */}
-                                                    <span> 1997-06-01</span>
+                                                    <span> {patientinfo.birthDate}</span>
                                                 </div>
 
                                                 {/* COLUMN 2 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Para: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
+                                                        <span> {familyplanningInfo.obstetricalHistory.numPara}</span>
+                                                    ) : (
+                                                        <span>Data not available</span>
+                                                    )}
                                                 </div>
                                             </div>
 
@@ -104,22 +125,22 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 {/* COLUMN 1 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Educational Attainment: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    <span> {patientinfo.educAttain}</span>
                                                 </div>
-
                                                 {/* COLUMN 2 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>No. of Full Term: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
+                                                        <span> {familyplanningInfo.obstetricalHistory.numFullterm}</span>
+                                                    ) : (
+                                                        <span>Data not available</span>
+                                                    )}
+                                                   
                                                 </div>
-
                                                 {/* COLUMN 3 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Extremities: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    <span> {familyplanningInfo.pe_extremities}</span>
                                                 </div>
                                             </div>
 
@@ -127,36 +148,39 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 {/* COLUMN 1 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Occupation: </label>
-                                                    {/* <span> {patient.occupation} </span> */}
-                                                    <span> N/A</span>
+                                                    <span> {patientinfo.occupation}</span>
                                                 </div>
 
                                                 {/* COLUMN 2 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>No. of Abortions: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
+                                                        <span> {familyplanningInfo.obstetricalHistory.numOfAbortion}</span>
+                                                    ) : (
+                                                        <span>Data not available</span>
+                                                    )}
+                                                   
                                                 </div>
-
                                                 {/* COLUMN 3 */}
-                                                
                                             </div>
 
                                             <div className="mt-4 row text-start">
                                                 {/* COLUMN 1 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Address: </label>
-                                                    {/* <span> {patient.address} </span> */}
-                                                    <span> Minoza St., Tigbao, Talamban, Cebu City</span>
+                                                    <span> {patientinfo.street + " "+ patientinfo.barangay + " " + patientinfo.municipality+ " " + patientinfo.zipCode}</span>
                                                 </div>
 
                                                 {/* COLUMN 2 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>No. of Premature: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
+                                                        <span> {familyplanningInfo.obstetricalHistory.numPremature}</span>
+                                                    ) : (
+                                                        <span>Data not available</span>
+                                                    )}
+                                                    
                                                 </div>
-
                                                 {/* COLUMN 3 */}
                                                 
                                             </div>
@@ -165,22 +189,22 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 {/* COLUMN 1 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Contact No.: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> 09123456789</span>
+                                                    <span> {patientinfo.contactNo}</span>
                                                 </div>
-
                                                 {/* COLUMN 2 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>No. of Children Born Alive: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
+                                                        <span> {familyplanningInfo.obstetricalHistory.numBornAlive}</span>
+                                                    ) : (
+                                                        <span>Data not available</span>
+                                                    )}
+                                                  
                                                 </div>
-
                                                 {/* COLUMN 3 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Conjunctiva: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    <span> {familyplanningInfo.pe_conjunctiva}</span>
                                                 </div>
                                             </div>
 
@@ -188,36 +212,38 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 {/* COLUMN 1 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Civil Status: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> Married</span>
+                                                    <span> {patientinfo.civilStatus}</span>
                                                 </div>
 
                                                 {/* COLUMN 2 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>No. of Living Children: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
+                                                        <span> {familyplanningInfo.obstetricalHistory.numOfLivingChild}</span>
+                                                    ) : (
+                                                        <span>Data not available</span>
+                                                    )}
+                                                    
                                                 </div>
-
                                                 {/* COLUMN 3 */}
-                                                
                                             </div>
 
                                             <div className="mt-4 row text-start">
                                                 {/* COLUMN 1 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Religion: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
                                                     <span> Roman Catholic</span>
                                                 </div>
 
                                                 {/* COLUMN 2 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>No. of Stillbirths: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
+                                                        <span> {familyplanningInfo.obstetricalHistory.numOfStillBirth}</span>
+                                                    ) : (
+                                                        <span>Data not available</span>
+                                                    )}
                                                 </div>
-
                                                 {/* COLUMN 3 */}
                                             </div>
 
@@ -225,22 +251,23 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 {/* COLUMN 1 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Name of Spouse: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> Juan Dela Cruz</span>
+                                                   <span> {familyplanningInfo.nameSpouse}</span>
                                                 </div>
 
                                                 {/* COLUMN 2 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>No. of Large Babies: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
+                                                        <span> {familyplanningInfo.obstetricalHistory.numberOfLargeBabies}</span>
+                                                    ) : (
+                                                        <span>Data not available</span>
+                                                    )}
+                                               
                                                 </div>
-
                                                 {/* COLUMN 3 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Breast: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    <span> {familyplanningInfo.pe_breast}</span>
                                                 </div>
                                             </div>
 
@@ -248,17 +275,18 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 {/* COLUMN 1 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Spouse Date of Birth: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> 1997-06-01</span>
+                                                    <span> {familyplanningInfo.spouseDoB}</span>
                                                 </div>
-
                                                 {/* COLUMN 2 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>LMP: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
+                                                        <span> {familyplanningInfo.obstetricalHistory.lastMenstrualPeriod}</span>
+                                                    ) : (
+                                                        <span>Data not available</span>
+                                                    )}
+                                                   
                                                 </div>
-
                                                 {/* COLUMN 3 */}
                                             </div>
 
@@ -266,41 +294,42 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 {/* COLUMN 1 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Spouse Age: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span > 24 Years Old</span>
+                                                    <span> </span>
                                                 </div>
 
                                                 {/* COLUMN 2 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Date of Last Delivery: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
-                                                </div>
-
-                                                {/* COLUMN 3 */}
+                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
+                                                        <span> {familyplanningInfo.obstetricalHistory.dateOfLastDelivery}</span>
+                                                    ) : (
+                                                        <span>Data not available</span>
+                                                    )}
                                               
+                                                </div>
+                                                {/* COLUMN 3 */}
                                             </div>
 
                                             <div className="mt-4 row text-start">
                                                 {/* COLUMN 1 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Spouse Occupation: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span > N/A</span>
+                                                    <span> {familyplanningInfo.spouseOccupation}</span>
                                                 </div>
-
                                                 {/* COLUMN 2 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Type of Last Delivery: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
+                                                        <span> {familyplanningInfo.obstetricalHistory.typeOfLastDelivery}</span>
+                                                    ) : (
+                                                        <span>Data not available</span>
+                                                    )}
+                                                   
                                                 </div>
-
                                                 {/* COLUMN 3 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Neck: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    <span> {familyplanningInfo.pe_neck}</span>
                                                 </div>
                                             </div>
 
@@ -308,60 +337,66 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 {/* COLUMN 1 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>No. of Living Children: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span > 3</span>
+                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
+                                                        <span> {familyplanningInfo.obstetricalHistory.numOfLivingChild}</span>
+                                                    ) : (
+                                                        <span>Data not available</span>
+                                                    )}
+                                                  
                                                 </div>
 
                                                 {/* COLUMN 2 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Menstrual Flow: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
+                                                        <span> {familyplanningInfo.obstetricalHistory.menstrualFlow}</span>
+                                                    ) : (
+                                                        <span>Data not available</span>
+                                                    )}
+                                                   
                                                 </div>
-
-                                                {/* COLUMN 3 */}
-                                                
+                                                {/* COLUMN 3 */}       
                                             </div>
 
                                             <div className="mt-4 row text-start">
                                                 {/* COLUMN 1 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Plan to have more children: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span > Yes</span>
+                                                   <span> {familyplanningInfo.planAddChild}</span>
                                                 </div>
-
                                                 {/* COLUMN 2 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Dysmenorrhea: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
+                                                        <span> {familyplanningInfo.obstetricalHistory.dysmenorrhea}</span>
+                                                    ) : (
+                                                        <span>Data not available</span>
+                                                    )}
+                                                  
                                                 </div>
-
-                                                {/* COLUMN 3 */}
-                                                
+                                                {/* COLUMN 3 */}    
                                             </div>
 
                                             <div className="mt-4 row text-start">
                                                 {/* COLUMN 1 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Average Monthly Income: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> 10,000</span>
+                                                   <span> {familyplanningInfo.aveMonthIncome}</span>
                                                 </div>
-
                                                 {/* COLUMN 2 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Hydatidiform mole: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
+                                                        <span> {familyplanningInfo.obstetricalHistory.hydatidiformMole}</span>
+                                                    ) : (
+                                                        <span>Data not available</span>
+                                                    )}
+                                                   
                                                 </div>
-
                                                 {/* COLUMN 3 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Abdomen: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    <span> {familyplanningInfo.pe_abdomen}</span>
                                                 </div>
                                             </div>
 
@@ -369,17 +404,24 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 {/* COLUMN 1 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Medical History: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span>N/A</span>
+                                                    {familyplanningInfo && familyplanningInfo.medicalHistory ? (
+                                                        <span> {familyplanningInfo.medicalHistory.illness}</span>
+                                                    ) : (
+                                                        <span>Data not available</span>
+                                                    )}
+                                               
                                                 </div>
 
                                                 {/* COLUMN 2 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>History of Ectopic Pregnancy: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
+                                                        <span> {familyplanningInfo.obstetricalHistory.ectopicPregnancy}</span>
+                                                    ) : (
+                                                        <span>Data not available</span>
+                                                    )}
+                                                  
                                                 </div>
-
                                                 {/* COLUMN 3 */}
                                             </div>
 
@@ -387,22 +429,22 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 {/* COLUMN 1 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'></label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
                                                     <span> </span>
                                                 </div>
-
                                                 {/* COLUMN 2 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Diabetes: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
+                                                        <span> {familyplanningInfo.obstetricalHistory.diabetes}</span>
+                                                    ) : (
+                                                        <span>Data not available</span>
+                                                    )}
+                                                  
                                                 </div>
-
                                                 {/* COLUMN 3 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Pelvic Examination: </label>
-                                                    {/* <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span> */}
-                                                    <span> N/A</span>
+                                                    <span> {familyplanningInfo.pe_pelvicExam}</span>
                                                 </div>
                                             </div>
                                       
@@ -411,11 +453,11 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                 </div>
                             </div> 
                                 
-                                <div className='sp2-bottomDiv mt-5'>
+                                {/* <div className='sp2-bottomDiv mt-5'>
                                     <div className='sp2-bottomDivHeader d-flex justify-content-between'>
-                                        <h4 className="text-start">Vital Signs Testing</h4>    
+                                        <h4 className="text-start">Vital Signs Testing</h4>     */}
                                         {/* Button trigger modal  */}
-                                        <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#PVitalAdd"><FontAwesomeIcon icon={faPlus}/></button>
+                                        {/* <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#PVitalAdd"><FontAwesomeIcon icon={faPlus}/></button>
                                     </div>
                                     <div className='sp2-MCRecordsDiv'>
                                         <table className="table sp2-MCRecordsTable">
@@ -425,7 +467,7 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                     <th>Date of Assessment</th>
                                                 </tr>
                                             </thead>
-                                            <tbody >
+                                            <tbody > */}
                                                 {/* {
                                                     test.map((rec,idx) => (
                                                         <tr 
@@ -438,7 +480,7 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                         </tr>
                                                     ))
                                                 } */}
-
+{/* 
                                                 <tr
                                                     className='sp2-clickableMCRRow'
                                                     data-bs-toggle="modal" data-bs-target="#PVitalView"
@@ -452,12 +494,22 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                             </tbody>
                                         </table>    
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className='sp2-bottomDiv'>
-                                    <div className='sp2-bottomDivHeader d-flex justify-content-between'>
+                                    <div className='sp2-bottomDivHeader d-flex justify-content-between mt-5'>
                                         <h4 className="text-start">Family Planning Assessment</h4>    
                                         {/* Button trigger modal  */}
-                                        <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#fpAssesAdd"><FontAwesomeIcon icon={faPlus}/></button>
+                                        <button
+                                            type="button"
+                                            className="sp2-addMedRecBtn"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#fpAssesAdd"
+                                            style={{ color: '#8EC3B0' }}
+                                            >
+                                            <span>
+                                                <FontAwesomeIcon icon={faPlus} />
+                                            </span>
+                                        </button>
                                     </div>
                                     <div className='sp2-MCRecordsDiv'>
                                         <table className="table sp2-MCRecordsTable">
@@ -501,9 +553,6 @@ const FamilyPlanningSpecificResidentRecord = () => {
                         
                     </div>
                 </div>  
-           
-            
-
 
             {/*  Add Vital Signs Testing Modal  */}
             <div className="modal fade" id="PVitalAdd" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -544,42 +593,12 @@ const FamilyPlanningSpecificResidentRecord = () => {
             </div>
 
              {/* Add Family Assessment Modal  */}
-            <div className="modal fade" id="fpAssesAdd" tabIndex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-                <div className="modal-dialog modal-lg">
-                    <div className="modal-content">
-                    <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel1">Family Planning Assessment</h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                          <AdditionFamilyPlanningAssessment/>
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" className="sp2-addMCButton">Save</button>
-                    </div>
-                    </div>
-                </div>
-            </div>
-
+                <AdditionFamilyPlanningAssessment residentid={patientinfo._id}/>
+                
            {/* View Family Assessment Modal  */}
-            <div className="modal fade" id="fpAssesView" tabIndex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-                <div className="modal-dialog modal-lg">
-                    <div className="modal-content">
-                    <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel1">Family Planning Assessment</h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                        <ViewFamilyPlanningAssessment/>
-                    </div>
-                    {/* <div className="modal-footer">
-                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" className="sp2-addMCButton">Save</button>
-                    </div> */}
-                    </div>
-                </div>
-            </div>
+           
+                        <ViewFamilyPlanningAssessment residentid={patientinfo._id}/>
+                 
         </>
     )
 }

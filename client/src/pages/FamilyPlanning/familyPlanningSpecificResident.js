@@ -18,13 +18,14 @@ const FamilyPlanningSpecificResident = () => {
     useEffect(() => {
         patientInformation();
         recordsList();
+        console.log(records);
     }, [])
 
     const patientInformation = async () => {
         await axios.get("/profile/" + residentid)
             .then((response) => {
                 setPatientInfo(response.data)
-                console.log(response.data);
+                // console.log(response.data);
         })
     }
 
@@ -32,7 +33,7 @@ const FamilyPlanningSpecificResident = () => {
         try {
             const fetchHR = await axios.get(`/familyplanning/${residentid}`);
             setRecords(fetchHR.data.medical_records);
-            console.log(fetchHR.data);
+            // console.log(fetchHR.data);
         } catch (error) {
             console.log(error);
         }

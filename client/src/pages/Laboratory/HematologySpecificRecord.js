@@ -77,7 +77,7 @@ const HematologySpecificRecord = () => {
                                                 </div>
                                                 <div className="mt-4">
                                                     <label className='fw-bold'>Address: </label>
-                                                <span> {patientinfo.street + " "+ patientinfo.barangay + " " + patientinfo.municipality+ " " + patientinfo.zipCode}</span>
+                                                    <span> {patientinfo.street + " "+ patientinfo.barangay + " " + patientinfo.municipality+ " " + patientinfo.zipCode}</span>
                                                 </div>
                                                 <div className="mt-4">
                                                     <label className='fw-bold'>Hematocrit: </label>

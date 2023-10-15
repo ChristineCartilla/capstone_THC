@@ -80,7 +80,7 @@ function App() {
           <Route path="/resident/:familyid/:profile_id" element={<ResidentsSpecificResident />} />
           <Route path="/familyplanning" element={<FamilyPlanning />} />
           <Route path="/familyplanning/:residentid" element={<FamilyPlanningSpecificResident />} />
-          <Route path="/familyplanningspecificresidentrecord/:residentid" element={<FamilyPlanningSpecificResidentRecord />} />
+          <Route path="/familyplanning/:residentid/:recordid" element={<FamilyPlanningSpecificResidentRecord />} />
           <Route path="/laboratory" element={<Laboratory />} />
           <Route path="/hematology" element={<Hematology />} />
           <Route path="/hematology/:residentid" element={<HematologySpecificResident />} />
