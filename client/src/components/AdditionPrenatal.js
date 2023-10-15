@@ -15,10 +15,10 @@ const AdditionPrenatal= ({residentid}) => {
     const [dateOfLastDelivery, setdateOfLastDelivery] = useState("");
     const [typeOfLastDelivery, settypeOfLastDelivery] = useState("");
     const [menstrualFlow, setMensflow] = useState("");
-    const [dysmenorrhea, setDysmenorrhea] = useState("");
-    const [hydatidiformMole , sethydatidiformMole] = useState("");
-    const [ectopicPregnancy, setectopicPregnancy] = useState("");
-    const [diabetes, setDiabetes] = useState("");
+    const [dysmenorrhea, setDysmenorrhea] = useState(false);
+    const [hydatidiformMole , sethydatidiformMole] = useState(false);
+    const [ectopicPregnancy, setectopicPregnancy] = useState(false);
+    const [diabetes, setDiabetes] = useState(false);
     const [illness, setIllness] = useState("");
     const [allergy, setAllergy] = useState("");
     const [hospitalization, setHospitalization] = useState("");
