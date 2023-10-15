@@ -15,7 +15,7 @@ const Login = () => {
         try {
             const response = await axios.post("/account/login", {loginEmail, loginPassword});
             if(response.data.accountId){
-                sessionStorage.setItem("accoundId", response.data.accountId);
+                sessionStorage.setItem("accountId", response.data.accountId);
                 sessionStorage.setItem("profileId", response.data.profileId);
                 navigate("/dashboard")
             } else{

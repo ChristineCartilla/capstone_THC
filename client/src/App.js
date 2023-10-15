@@ -36,7 +36,6 @@ import PrenatalSpecificResident from './pages/Prenatal/PrenatalSpecificResident'
 import PrenatalSpecificRecord from './pages/Prenatal/PrenatalSpecificRecord';
 import Immunization from './pages/Immunization/Immunization';
 import ImmunizationSpecificResident from './pages/Immunization/ImmunizationSpecificResident';
-import ImmunizationSpecificRecord from './pages/Immunization/ImmunizationSpecificRecord';
 import Laboratory from './pages/Laboratory/Laboratory';
 import Hematology from './pages/Laboratory/Hematology';
 import HematologySpecificResident from './pages/Laboratory/HematologySpecificResident';
@@ -68,7 +67,6 @@ function App() {
           <Route path="/prenatal/:residentid/:recordid" element={<PrenatalSpecificRecord />} />
           <Route path="/immunization" element={<Immunization />} />
           <Route path="/immunization/:residentid" element={<ImmunizationSpecificResident />} />
-          <Route path="/immunization/:residentid/:recordid" element={<ImmunizationSpecificRecord />} />
           <Route path="/medicalcheckup" element={<MedicalCheckUp />} />
           <Route path="/medicalcheckup/:residentid" element={<MedicalCheckUpSpecificResident />} />
           <Route path="/medicalcheckup/:residentid/:recordid" element={<MedicalCheckUpSpecificRecord />} />

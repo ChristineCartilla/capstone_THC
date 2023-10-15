@@ -1,34 +1,37 @@
-import axios, { all } from 'axios';
+import axios from 'axios';
 import React, { useState ,useEffect} from 'react'
-import {useParams } from 'react-router-dom'
+
 
 const ViewPrenatalAssessment = ({recordid}) => {
-    console.log(recordid)
+
     const [assessmentinfo, setAssessmentInfo] = useState([]);
      useEffect(() => {
          getAssessmentDetails();
 
-     }, [])
+     }, [ recordid])
 
     const  getAssessmentDetails = async () => {
-        console.log(recordid)
+        await axios.get(`maternalhealth/assessment/${recordid}`)
+        .then( (response) => {
+            setAssessmentInfo(response.data)
+            
+        },)
+        .catch((error) => {
+            console.error('Error fetching data:', error);
+          });
     }
-    //     console.log(recordid)
-    //     await axios.get(`maternalhealth/assessment/${recordid}`)
-    //     .then( (response) => {
-    //         setAssessmentInfo(response.data)
-    //         console.log(response)
-    //     },)
-    //     .catch((error) => {
-    //         console.error('Error fetching data:', error);
-    //       });
-    // }
+      
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        const date = new Date(dateString);
+        return date.toLocaleDateString(undefined, options);
+      };
   return (
     <div className="modal fade" id="PAssesView" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog modal-lg">
         <div className="modal-content">
            <div className="modal-header">
-               <h1 className="modal-title fs-5" id="exampleModalLabel">Prenatal Assesment Form</h1>
+               <h1 className="modal-title fs-5" id="exampleModalLabel">Prenatal Assessment Form</h1>
                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div> 
             <div className="modal-body">
@@ -36,17 +39,18 @@ const ViewPrenatalAssessment = ({recordid}) => {
                 <div className="row mb-5">
                         <div className="col text-start">
                             <label htmlFor="exampleFormControlTextarea1" className="form-label">Date Given</label>
-                            <input type="text"  className="form-control" disabled id="exampleFormControlTextarea1" style={{backgroundColor: "#CCE8DE"}} value="03-15-23"/>
+                            <input type="text"  className="form-control" disabled id="exampleFormControlTextarea1" style={{backgroundColor: "#CCE8DE"}} value={formatDate(assessmentinfo.dateOfVisitation)}/>
                         </div>
                         <div className="col text-start">
                             <label htmlFor="exampleFormControlTextarea1" className="form-label">Gestation Age</label>
                             <input type="text"  className="form-control Addition_Prenatal_textarea" 
                                 id="exampleFormControlTextarea1" 
-                                style={{backgroundColor: "#CCE8DE"}} disabled value="18 weeks"/>
+                                disabled value={assessmentinfo.aog}
+                                style={{backgroundColor: "#CCE8DE"}} />
                         </div>        
                         <div className="col text-start">
                             <label htmlFor="exampleFormControlTextarea1" className="form-label">Weight</label>
-                            <input type="text"  className="form-control Addition_Prenatal_textarea" disabled value="56"
+                            <input type="text"  className="form-control Addition_Prenatal_textarea" disabled value={assessmentinfo?.vitalSign?.weight}
                                 id="exampleFormControlTextarea1" 
                                 style={{backgroundColor: "#CCE8DE"}}/>
                         </div>
@@ -62,7 +66,7 @@ const ViewPrenatalAssessment = ({recordid}) => {
                             <label htmlFor="exampleFormControlTextarea1" className="form-label">Fundal Height</label>
                             <input type="text"  className="form-control Addition_Prenatal_textarea" 
                                 id="exampleFormControlTextarea1" 
-                            disabled value="25"
+                                disabled value={assessmentinfo.fundalHeart}
                                 style={{backgroundColor: "#CCE8DE"}}/>
                         
                         </div>
@@ -70,7 +74,7 @@ const ViewPrenatalAssessment = ({recordid}) => {
                             <label htmlFor="exampleFormControlTextarea1" className="form-label">Fetal Heartbeat</label>
                             <input type="text"  className="form-control Addition_Prenatal_textarea" 
                                 id="exampleFormControlTextarea1" 
-                                disabled value="115"
+                                disabled value={assessmentinfo.fetalHeartBeat}
                                 style={{backgroundColor: "#CCE8DE"}}/>
                         
                         </div>
@@ -88,7 +92,7 @@ const ViewPrenatalAssessment = ({recordid}) => {
                         <textarea 
                             className="form-control Addition_Prenatal_textarea" 
                             id="exampleFormControlTextarea1" 
-                            rows="3" disabled value="Normal vital signs, including blood pressure, heart rate, and respiratory rate, indicate a healthy pregnancy"
+                            rows="3" disabled value={assessmentinfo.findings}
                             style={{backgroundColor: "#CCE8DE"}}></textarea>
                     </div>
                     <div className="mb-3 text-start">
@@ -96,7 +100,7 @@ const ViewPrenatalAssessment = ({recordid}) => {
                         <textarea 
                             className="form-control" 
                             id="exampleFormControlTextarea1" 
-                            rows="3"  disabled
+                            rows="3"  disabled value={assessmentinfo.nuresesNotes}
                             style={{backgroundColor: "#CCE8DE"}}></textarea>
                     </div>
                 

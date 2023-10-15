@@ -40,6 +40,7 @@ const PrenatalSpecificRecord = () => {
         await axios.get(`maternalhealth/getrecord/${residentid}/${recordid}`)
         .then( (response) => {
             setPrenatalInfo(response.data.record)
+            console.log(response)
         },)
     }
     
@@ -68,30 +69,10 @@ const PrenatalSpecificRecord = () => {
      
     const handleRowClick = (recordid) => {
         setSelectedRecordId(recordid);
-        //console.log(recordid)
     };
     
     
 
-    const test = 
-    [
-        {
-            test: "Test Record 4",
-            date: "04-07-2023",
-        },  
-        {
-            test: "Test Record 3",
-            date: "03-20-2023",
-        },   
-        {
-            test: "Test Record 2",
-            date: "02-14-2023",
-        },   
-        {
-            test: "Test Record 1",
-            date: "01-04-2023",
-        },   
-    ];
 
     
     const handleBack = () => {
@@ -253,36 +234,30 @@ const PrenatalSpecificRecord = () => {
                                         <div class="row-start">
                                             <div class="col itembox ">
                                             <label className="fw-bold col-sm-12">Tetanus Toxoid Status</label>
-                                            <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#PAddition"><FontAwesomeIcon icon={faPlus}/></button>
-                                                {/* <div class="d-flex">
-                                                <label className="fw-bold ">Tetanus Toxoid 1 :</label> 
-                                                <span > {patient.TTS.TT1} </span>  
-                                                </div>
-                                                <div class="d-flex">
-                                                <label className="fw-bold ">Tetanus Toxoid 2 :</label> 
-                                                <span > {patient.TTS.TT2} </span>  
-                                                </div>
-                                                <div class="d-flex">
-                                                <label className="fw-bold ">Tetanus Toxoid 3 :</label> 
-                                                <span > {patient.TTS.TT3} </span>  
-                                                </div>
-                                                <div class="d-flex">
-                                                <label className="fw-bold ">Tetanus Toxoid 4 :</label> 
-                                                <span > {patient.TTS.TT4} </span>  
-                                                </div>
-                                                <div class="d-flex">
-                                                <label className="fw-bold ">Tetanus Toxoid 5 :</label> 
-                                                <span > {patient.TTS.TT5} </span>  
-                                                </div> */}
+                                            <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#TetaAddition"><FontAwesomeIcon icon={faPlus}  style={{ color: '#44AA92' }}/></button>
+                                                {
+                                                prenatalInfo.tetanusToxoidStatus&& prenatalInfo.tetanusToxoidStatus.map((rec, idx) => {
+                                                        if (rec._id != null) {
+                                                            return (
+                                                                <div class="d-flex">
+                                                                <label className="fw-bold ">{rec.vaccine_name} : </label> 
+                                                                <span > {formatDate(rec.dateGiven)} </span>  
+                                                                </div>
+                                                            );
+                                                        }
+                                                    
+                                                    })
+                                                }
+                                              
                                             </div>
                                         </div>
                                     </div>
                                     </div> 
                                 </div>
-                                <div className='sp2-bottomDiv'>
+                                {/* <div className='sp2-bottomDiv'>
                                     <div className='sp2-bottomDivHeader d-flex justify-content-between'>
                                         <h4 className="text-start">Vital Signs Testing</h4>    
-                                        {/* Button trigger modal  */}
+                                        
                                         <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#PVitalAdd"><FontAwesomeIcon icon={faPlus}/></button>
                                     </div>
                                     <div className='sp2-MCRecordsDiv'>
@@ -310,12 +285,12 @@ const PrenatalSpecificRecord = () => {
                                             </tbody>
                                         </table>    
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className='sp2-bottomDiv'>
                                     <div className='sp2-bottomDivHeader d-flex justify-content-between'>
                                         <h4 className="text-start">Prenatal Assesment</h4>    
                                         {/* Button trigger modal  */}
-                                        <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#PAssesAdd"><FontAwesomeIcon icon={faPlus}/></button>
+                                        <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#PAssesAdd"><FontAwesomeIcon icon={faPlus}  style={{ color: '#44AA92' }} /></button>
                                     </div>
                                     <div className='sp2-MCRecordsDiv'>
                                         <table className="table sp2-MCRecordsTable">
@@ -355,27 +330,18 @@ const PrenatalSpecificRecord = () => {
                     </div>
                 </div>  
             </div>
-              {/* View Prenata Assessment Modal  */}
-            {/* <ViewPrenatalAssessment recordid={selectedRecordId}/> */}
+            
+            {/* Add Prenatal Assessment Modal  */}
+             <AdditionPrenatalAssesment residentid={patientinfo._id} recordid={prenatalInfo._id}/>
+            
+            {/* View Prenatal Assessment Modal  */}
+            <ViewPrenatalAssessment recordid={selectedRecordId}/>
 
-              {/*  Add Tetanus Toxoid Modal  */}
-            {/* <div className="modal fade" id="PAddition" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-lg">
-                    <div className="modal-content">
-                    <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel">Tetanus Toxoid Form</h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                        <AdditionTetanusToxoid />
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" className="sp2-addMCButton">Save</button>
-                    </div>
-                    </div>
-                </div>
-            </div> */}
+            {/*  Add Tetanus Toxoid Modal  */}
+             <AdditionTetanusToxoid  recordid={prenatalInfo._id}/>
+
+
+          
 
 
             {/*  Add Vital Signs Testing Modal  */}
@@ -416,8 +382,7 @@ const PrenatalSpecificRecord = () => {
                 </div>
             </div> */}
 
-             {/* Add Prenata Assessment Modal  */}
-               {/* <AdditionPrenatalAssesment/> */}
+            
                     
 
          

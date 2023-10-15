@@ -174,7 +174,7 @@ const AdditionPrenatal= ({residentid}) => {
                     </div>
                     <div  className="col text-start">
                         <label htmlFor="exampleFormControlTextarea1"  className="form-label">Type of Last Delivery</label>
-                        <select  className="form-select" value={typeOfLastDelivery} onChange={e => settypeOfLastDelivery(e.target.value)}style={{backgroundColor: "#CCE8DE"}}>
+                        <select  className="form-select" value={typeOfLastDelivery} onChange={e => settypeOfLastDelivery(e.target.value)} style={{backgroundColor: "#CCE8DE"}}>
                             <option  value="#" style={{backgroundColor: "white"}}>Choose...</option>
                             <option value="Viginal"  style={{backgroundColor: "white"}}>Viginal</option>
                             <option value="Cesarean Section" style={{backgroundColor: "white"}}>Cesarean Section</option>
