@@ -32,7 +32,7 @@ app.use("/urinalysis", urinalysisRouter);
 app.use("/familyplanning", familyPlanningRouter);
 app.use("/queue", queueRouter);
 
-mongoose.connect("mongodb+srv://18103694:thc2023@talambanhealthconnectdb.v5hhcqh.mongodb.net/TalambanHealthConnectDB?retryWrites=true&w=majority")
+mongoose.connect("mongodb+srv://20102632:thc2023@talambanhealthconnectdb.v5hhcqh.mongodb.net/TalambanHealthConnectDB?retryWrites=true&w=majority")
 .then(()=> {
     console.log("CONNECTED TO DATABASE");
     app.listen(PORT, () => {

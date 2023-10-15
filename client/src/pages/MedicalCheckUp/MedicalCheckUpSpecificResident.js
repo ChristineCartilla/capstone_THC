@@ -25,7 +25,8 @@ const MedicalCheckUpSpecificResident = () => {
     const patientInformation = async () => {
         await axios.get("/profile/"+ residentid)
         .then((response) => {
-            setPatientInfo(response.data) 
+            setPatientInfo(response.data)
+            console.log(response);
         })
     }
     const recordsList = async () => {

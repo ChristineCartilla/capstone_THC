@@ -97,6 +97,42 @@ router.post("/addvaccine/:recordid", async (req, res) => {
     }
 })
 
+
+// FETCH SPECIFIC RESIDENT WITH CHILD HEALTH RECORDS
+router.get("/:profid", async (req, res) => {
+    const profid = req.params.profid;
+
+    try {      
+        const fetchprofiles = await ProfileModel
+            .findById({_id: profid})
+            .populate({
+                path: "medical_records",
+                populate: ({ 
+                    path: "service_id", 
+                    model: "child_health_records",
+                    populate: { path: "childHealthVaccine", model: "child_health_vaccines" },
+
+                }),
+            })
+            .populate({
+                path: "medical_records",
+                populate: ({ 
+                    path: "service_id", 
+                    model: "child_health_records",
+                    populate: { path: "childHealthAssessment", model: "child_health_assessments" },
+
+                }),
+            })
+            .exec();
+
+        // console.log(fetchprofiles)
+        res.json(fetchprofiles);
+    } catch (error) {
+        res.json(error);
+    }
+})
+
+
 // FETCHING SPECIFIC RECORD WITH ASSESSMENTS AND VACINES
 router.get("/:recordid", async(req, res) => {
     const recordid = req.params.recordid;

@@ -10,52 +10,61 @@ import THCDefaultPatientLogo from '../../images/default_image.png'
 import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 
 const ImmunizationSpecificResident = () => {
-    const { residentid } = useParams();
+    const { residentid} = useParams();
     const [patientinfo, setPatientInfo] = useState([]);
+    const [records, setRecords] = useState([]);
+    const navigate = useNavigate();
+    var recLength = records.length;
     
     useEffect(() => {
-        const patientInformation = async () => {
-            await axios.get("http://localhost:8000/profiles/"+ residentid)
-            .then((response) => {
-                setPatientInfo(response.data) 
-            })
-        }
         patientInformation();
+        recordsList();
+        //console.log(residentid)
         
     }, [])
+    const patientInformation = async () => {
+        await axios.get("/profile/"+residentid)
+        .then((response) => {
+            setPatientInfo(response.data)
+        })
+      }
+    const recordsList = async () => {
+        try {
+            const fetchIR = await axios.get(`/childhealth/${residentid}`);
+            setRecords(fetchIR.data.medical_records);
+            console.log(fetchIR);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
-    const navigate = useNavigate();
-
-    const record = 
-    [
-        {
-            record: "Immunization Record 4",
-            doctor: "Dr. Doe",
-            date: "04-07-2023",
-        },  
-        {
-            record: "Immunization Record 3",
-            doctor: "Dr. Doe",
-            date: "03-20-2023",
-        },   
-        {
-            record: "Immunization Record 2",
-            doctor: "Dr. Doe",
-            date: "02-14-2023",
-        },   
-        {
-            record: "Immunization Record 1",
-            doctor: "Dr. Doe",
-            date: "01-04-2023",
-        },   
-    ];
-    var recLength = record.length;
-    const navigateRecord = () => {
-        navigate('/immunization/specres/record', {state:{data:"HELLO"}});
+    const navigateRecord = (recordid) => {
+        navigate(recordid);
     }
     const handleBack = () => {
         window.history.back()
     }
+    function formatDateToWords(dateString) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const date = new Date(dateString);
+        return date.toLocaleDateString(undefined, options);
+    }
+
+    const handleDate = (date) => {
+        const dateTimeString = date;
+        const dateTime = new Date(dateTimeString);
+        const dateString = dateTime.toISOString().split('T',1)[0];
+        const readableDate = formatDateToWords(dateString);
+
+        return readableDate;
+    }
+
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        const date = new Date(dateString);
+        return date.toLocaleDateString(undefined, options);
+      };
+
 
     return (
         <>
@@ -98,7 +107,7 @@ const ImmunizationSpecificResident = () => {
                                                     </tr>
                                                     <tr>
                                                         <td scope="row">Birth Date:</td>
-                                                        <td>{patientinfo.birthDate}</td>
+                                                        <td>{formatDate(patientinfo.birthDate)}</td>
                                                     </tr>
                                                     <tr>
                                                         <td scope="row">Birth Place:</td>
@@ -131,26 +140,27 @@ const ImmunizationSpecificResident = () => {
                                                     <tr>
                                                         <td></td>
                                                         <td>Record Number</td>
-                                                        <td>Doctor</td>
+                                                        <td></td>
                                                         <td>Date of Record</td> 
                                                     </tr>
                                                     {
-                                                        record && record.map((rec,idx) => {
+                                                        records && records.map((rec,idx) => {
+                                                            if(rec.service_id != null){
                                                             return (
                                                             <tr 
                                                                 className='sp2-clickableMCRRow' 
                                                                 key={idx}
-                                                                onClick={() => navigateRecord(rec.id)}
+                                                                onClick={() => navigateRecord(rec.service_id)}
                                                                 >
                                                                 <td></td>
-                                                                <td>{"Immunization THC00"+ (recLength--)}</td>
-                                                                <td>{rec.doctor}</td>
-                                                                <td>{rec.date}</td>
+                                                                <td>{rec.service_id._id}</td>
+                                                               <td></td>
+                                                                <td>{handleDate(rec.service_id.createdAt)}</td>
                                                             </tr>
-                                                        )})
+                                                        )}})
                                                     }
                                                     {
-                                                        record.length == 0 && (
+                                                        records.length == 0 && (
                                                             <tr className='sp2-clickableMCRRow'>
                                                                 <td></td>
                                                                 <td></td>
@@ -179,23 +189,9 @@ const ImmunizationSpecificResident = () => {
             </div>
 
              {/* Modal  */}
-            <div className="modal fade" id="IAddition" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-lg">
-                    <div className="modal-content">
-                    <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel">Immunization Form</h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                        <AdditionImmunization/>
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" className="sp2-addMCButton">Save</button>
-                    </div>
-                    </div>
-                </div>
-            </div>
+            
+              <AdditionImmunization residentid={patientinfo._id}/>
+                  
         </>
     )
 }

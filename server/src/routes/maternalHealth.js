@@ -188,7 +188,7 @@ router.get("/getrecord/:profid/:recid", async (req, res) => {
     try {
         if(profid && recid){
             const resident = await ProfileModel.findById({_id: profid});
-            const record = await MaternalHealthModel.findOne({_id: recid}).populate("medicalHistory").populate("obstetricalHistory").populate("tetanusToxoidStatus");
+            const record = await MaternalHealthModel.findOne({_id: recid}).populate("medicalHistory").populate("obstetricalHistory").populate("tetanusToxoidStatus").populate("maternalHealthAssessment");
             res.json({resident, record});
         }
     } catch (error) {
@@ -201,7 +201,7 @@ router.get("/assessment/:recid", async (req, res) => {
     const recid = req.params.recid
 
     try {
-        const assessmentInstance = await MaternalHealthAssessmentModel.findById({_id: recid}).populate("vitalSign");
+        const assessmentInstance = await MaternalHealthAssessmentModel.findById({_id: recid}).populate("vitalSign").populate("maternalHealthAssessment");
         res.json(assessmentInstance)
     } catch (error) {
         res.json(error)

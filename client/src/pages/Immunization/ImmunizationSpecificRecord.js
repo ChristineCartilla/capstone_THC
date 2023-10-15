@@ -1,58 +1,48 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Sidebar from '../../components/Sidebar.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate,useParams  } from 'react-router-dom'
 import AdditionVitalSigns from '../../components/AdditionVitalSigns.js'
 import ViewVitalSigns from '../../components/ViewVitalSigns.js'
 import AdditionImmunizationAssessment from '../../components/AdditionImmunizationAssessment.js'
 import ViewImmunizationAssessment from '../../components/ViewImmunizationAssessment.js'
 import AdditionVaccine from '../../components/AdditionVaccine.js'
 import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
+import axios from 'axios'
 
-const ImmunizationSpecificRecord = (props) => {
-    const loc = useLocation();
-    console.log(loc)
+const ImmunizationSpecificRecord = () => {
+    const { residentid, recordid } = useParams();
+    const [patientinfo, setPatientInfo] = useState([]);
+    const [immunizationInfo, setImmunizationInfo] = useState([]);
     const navigate = useNavigate();
-    const patient = 
-    {
-        fname: "John",
-        lname: "Doe",
-        mname: "Smith",
-        age: 24,
-        birthdate: "09-10-1999",
-        sex:"Male",
-        address: "Minoza St. Tigbao, Talamban, Cebu City",
-        bo:"2nd",
-        POD:"Hospital Gov't/Private",
-        motName:"Jane Smith Doe",
-        motAge:"24 years old",
-        motOcc:"N/A",
-        motCon:"09876543210",
-        fatName:"John Smith Doe",
-        fatAge:"24 years old",
-        fatOcc:"Security Guard",
-        fatCon:"09876543210",
-        bw:"2.4 kgs",
-        tof:"Breast Feeding",
-        donbs:"09-20-1999",
-        Vac:{
-            BCG:"03-04-23",
-            HEPBV:"03-04-23",
-            PCV1:"03-04-23",
-            PCV2:"03-04-23",
-            PCV3:"03-04-23",
-            OPV1:"03-04-23",
-            OPV2:"03-04-23",
-            OPV3:"03-04-23",
-            AMV:"03-04-23",
-            PENTA1:"03-04-23",
-            PENTA2:"03-04-23",
-            PENTA3:"03-04-23",
-            MMR:"03-04-23",
-        }
-    };
+   
+    useEffect(() => {
+        patientInformation();
+        getImmunizationDetails();
+       
+       
+    }, [])
+
+    const patientInformation = async () => {
+        await axios.get("/profile/"+ residentid)
+        .then((response) => {
+            setPatientInfo(response.data) 
+            
+        })
+    }
+    const getImmunizationDetails = async () => {
+        await axios.get(`childhealth/getrecord/${residentid}/${recordid}`)
+        .then( (response) => {
+            setImmunizationInfo(response.data.record)
+            console.log(response)
+          
+        },)
+    }
+
+    
+    
     
     const test = 
     [
@@ -107,24 +97,24 @@ const ImmunizationSpecificRecord = (props) => {
                                         <div className="row">
                                             <div className="col itembox ">
                                             <label className="fw-bold">Name :  </label>
-                                            <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span>
+                                            <span> {patientinfo.fname + " "+ patientinfo.mname + " " + patientinfo.lname} </span>
                                             </div>
                                             <div className="col itembox ">
                                             <label className="fw-bold ">Address :  </label>
-                                            <span> {patient.address} </span>
+                                            <span> {patientinfo.address} </span>
                                             </div>
                                         </div>
                                         <div className="row">
                                             <div className="col itembox ">
                                             <label className="fw-bold">Sex :  </label>
-                                            <span> {patient.sex} </span>
+                                            <span> {patientinfo.gender} </span>
                                             </div>
                                             <div className="col itembox ">
                                             <label className="fw-bold">Birth Date :  </label>
-                                            <span> {patient.birthdate} </span>
+                                            <span> {patientinfo.birthdate} </span>
                                             </div>
                                         </div>
-                                        <div className="row">
+                                        {/* <div className="row">
                                             <div className="col itembox ">
                                             <label className="fw-bold ">Mother's Name:  </label>
                                             <span> {patient.motName} </span>
@@ -239,7 +229,7 @@ const ImmunizationSpecificRecord = (props) => {
                                                 <span > {patient.Vac.MMR} </span>  
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                     </div> 
                                 </div>
@@ -315,100 +305,100 @@ const ImmunizationSpecificRecord = (props) => {
             </div>
 
               {/*  Add Tetanus Toxoid Modal  */}
-            <div className="modal fade" id="IAddition" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-lg">
-                    <div className="modal-content">
-                    <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel">Vaccine Form</h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                        <AdditionVaccine />
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" className="sp2-addMCButton">Save</button>
-                    </div>
-                    </div>
-                </div>
-            </div>
+        //     <div className="modal fade" id="IAddition" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        //         <div className="modal-dialog modal-lg">
+        //             <div className="modal-content">
+        //             <div className="modal-header">
+        //                 <h1 className="modal-title fs-5" id="exampleModalLabel">Vaccine Form</h1>
+        //                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        //             </div>
+        //             <div className="modal-body">
+        //                 <AdditionVaccine />
+        //             </div>
+        //             <div className="modal-footer">
+        //                 <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+        //                 <button type="button" className="sp2-addMCButton">Save</button>
+        //             </div>
+        //             </div>
+        //         </div>
+        //     </div>
 
 
-            {/*  Add Vital Signs Testing Modal  */}
-            <div className="modal fade" id="IVitalAdd" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-lg">
-                    <div className="modal-content">
-                    <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel">Vital Signs Form</h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                        <AdditionVitalSigns />
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" className="sp2-addMCButton">Save</button>
-                    </div>
-                    </div>
-                </div>
-            </div>
+        //     {/*  Add Vital Signs Testing Modal  */}
+        //     <div className="modal fade" id="IVitalAdd" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        //         <div className="modal-dialog modal-lg">
+        //             <div className="modal-content">
+        //             <div className="modal-header">
+        //                 <h1 className="modal-title fs-5" id="exampleModalLabel">Vital Signs Form</h1>
+        //                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        //             </div>
+        //             <div className="modal-body">
+        //                 <AdditionVitalSigns />
+        //             </div>
+        //             <div className="modal-footer">
+        //                 <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+        //                 <button type="button" className="sp2-addMCButton">Save</button>
+        //             </div>
+        //             </div>
+        //         </div>
+        //     </div>
             
-            {/* View Vital Signs Testing Modal  */}
-            <div className="modal fade" id="IVitalView" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-lg">
-                    <div className="modal-content">
-                    <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel">View Vital Signs</h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                        <ViewVitalSigns/>
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" className="sp2-addMCButton">Save</button>
-                    </div>
-                    </div>
-                </div>
-            </div>
+        //     {/* View Vital Signs Testing Modal  */}
+        //     <div className="modal fade" id="IVitalView" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        //         <div className="modal-dialog modal-lg">
+        //             <div className="modal-content">
+        //             <div className="modal-header">
+        //                 <h1 className="modal-title fs-5" id="exampleModalLabel">View Vital Signs</h1>
+        //                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        //             </div>
+        //             <div className="modal-body">
+        //                 <ViewVitalSigns/>
+        //             </div>
+        //             <div className="modal-footer">
+        //                 <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+        //                 <button type="button" className="sp2-addMCButton">Save</button>
+        //             </div>
+        //             </div>
+        //         </div>
+        //     </div>
 
-             {/* Add Prenata Assessment Modal  */}
-            <div className="modal fade" id="IAssesAdd" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-lg">
-                    <div className="modal-content">
-                    <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel">Immunization Assessment</h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                        <AdditionImmunizationAssessment/>
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" className="sp2-addMCButton">Save</button>
-                    </div>
-                    </div>
-                </div>
-            </div>
+        //      {/* Add Prenata Assessment Modal  */}
+        //     <div className="modal fade" id="IAssesAdd" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        //         <div className="modal-dialog modal-lg">
+        //             <div className="modal-content">
+        //             <div className="modal-header">
+        //                 <h1 className="modal-title fs-5" id="exampleModalLabel">Immunization Assessment</h1>
+        //                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        //             </div>
+        //             <div className="modal-body">
+        //                 <AdditionImmunizationAssessment/>
+        //             </div>
+        //             <div className="modal-footer">
+        //                 <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+        //                 <button type="button" className="sp2-addMCButton">Save</button>
+        //             </div>
+        //             </div>
+        //         </div>
+        //     </div>
 
-           {/* View Prenata Assessment Modal  */}
-            <div className="modal fade" id="IAssesView" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-lg">
-                    <div className="modal-content">
-                    <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel">Immunization Assessment</h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                        <ViewImmunizationAssessment/>
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" className="sp2-addMCButton">Save</button>
-                    </div>
-                    </div>
-                </div>
-            </div>
+        //    {/* View Prenata Assessment Modal  */}
+        //     <div className="modal fade" id="IAssesView" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        //         <div className="modal-dialog modal-lg">
+        //             <div className="modal-content">
+        //             <div className="modal-header">
+        //                 <h1 className="modal-title fs-5" id="exampleModalLabel">Immunization Assessment</h1>
+        //                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        //             </div>
+        //             <div className="modal-body">
+        //                 <ViewImmunizationAssessment/>
+        //             </div>
+        //             <div className="modal-footer">
+        //                 <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+        //                 <button type="button" className="sp2-addMCButton">Save</button>
+        //             </div>
+        //             </div>
+        //         </div>
+        //     </div>
         </>
     )
 }

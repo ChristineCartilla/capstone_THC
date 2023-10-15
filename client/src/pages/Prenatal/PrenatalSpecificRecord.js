@@ -1,57 +1,78 @@
-import React from 'react'
+import React, { useEffect, useState }  from 'react'
 import Sidebar from '../../components/Sidebar.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate,useParams } from 'react-router-dom'
 import AdditionTetanusToxoid from '../../components/AdditionTetanusToxoid.js'
 import AdditionVitalSigns from '../../components/AdditionVitalSigns.js'
 import ViewVitalSigns from '../../components/ViewVitalSigns.js'
 import AdditionPrenatalAssesment from '../../components/AdditionPrenatalAssesment.js'
 import ViewPrenatalAssessment from '../../components/ViewPrenatalAssessment.js'
 import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
+import axios from 'axios'
 
-const PrenatalSpecificRecord = (props) => {
-    const loc = useLocation();
-    console.log(loc)
+const PrenatalSpecificRecord = () => {
+    
     const navigate = useNavigate();
-    const patient = 
-    {
-        fname: "John",
-        lname: "Doe",
-        mname: "Smith",
-        age: 24,
-        birthdate: "09-10-1999",
-        occupation: "N/A",
-        address: "Minoza St. Tigbao, Talamban, Cebu City",
-        gravida:"N/A",
-        para:"N/A",
-        NoFT:"N/A",
-        NoAb:"N/A",
-        NoPr:"N/A",
-        NoCBA:"3",
-        NoLC:" 2",
-        NoStill:"N/A",
-        LMP:"N/A",
-        DateLD:"N/A",
-        TypeLD:"N/A",
-        mensflow:"N/A",
-        hydmole:"N/A",
-        HEP:"N/A",
-        HLP:"N/A",
-        DIA:"N/A",
-        ill:"lorems ipsum lorem",
-        algr:"lorems ipsum lorem",
-        PH:"lorems ipsum lorem",
-        TTS:{
-            TT1:"03-04-23",
-            TT2:"03-04-23",
-            TT3:"03-04-23",
-            TT4:"03-04-23",
-            TT5:"03-04-23",
+    const { residentid, recordid } = useParams();
+    const [patientinfo, setPatientInfo] = useState([]);
+    const [prenatalInfo, setPrenatalInfo] = useState([]);
+    const [assessmentinfo, setAssessmentInfo] = useState([]);
+    const [selectedRecordId, setSelectedRecordId] = useState(null);
+  
+    
+    useEffect(() => {
+        patientInformation();
+        getPrenatalDetails();
+       
+       
+    }, [])
+
+    const patientInformation = async () => {
+        await axios.get("/profile/"+ residentid)
+        .then((response) => {
+            setPatientInfo(response.data) 
+            
+        })
+    }
+    const getPrenatalDetails = async () => {
+        await axios.get(`maternalhealth/getrecord/${residentid}/${recordid}`)
+        .then( (response) => {
+            setPrenatalInfo(response.data.record)
+        },)
+    }
+    
+
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        const date = new Date(dateString);
+        return date.toLocaleDateString(undefined, options);
+      };
+
+    const formatAge = (dateString) => {
+        const dateOfBirth = new Date(dateString);
+
+        // Calculate the age
+        const now = new Date();
+        const age = now.getFullYear() - dateOfBirth.getFullYear();
+        const monthDiff = now.getMonth() - dateOfBirth.getMonth();
+
+        if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < dateOfBirth.getDate())) {
+            return age - 1;
         }
+
+        return age;
+    };
+      
+     
+    const handleRowClick = (recordid) => {
+        setSelectedRecordId(recordid);
+        //console.log(recordid)
     };
     
+    
+
     const test = 
     [
         {
@@ -105,102 +126,135 @@ const PrenatalSpecificRecord = (props) => {
                                         <div class="row -start">
                                             <div class="col itembox ">
                                             <label className="fw-bold">Name :  </label>
-                                            <span> {patient.fname + " "+ patient.mname + " " + patient.lname} </span>
+                                            <span> {patientinfo.first_name + " "+ patientinfo.middle_name + " " + patientinfo.last_name} </span>
                                             </div>
                                             <div class="col itembox ">
                                             <label className="fw-bold ">Address :  </label>
-                                            <span> {patient.address} </span>
+                                            <span> {patientinfo.street + " "+ patientinfo.barangay + " " + patientinfo.municipality+ " " + patientinfo.zipCode} </span>
                                             </div>
                                         </div>
                                         <div class="row -start">
                                             <div class="col itembox ">
                                             <label className="fw-bold">Age :  </label>
-                                            <span> {patient.age} Years Old </span>
+                                            <span> {formatAge(patientinfo.birthDate)} Years Old </span>
                                             </div>
                                             <div class="col itembox ">
                                             <label className="fw-bold">Birth Date :  </label>
-                                            <span> {patient.birthdate} </span>
+                                            <span> {formatDate(patientinfo.birthDate)} </span>
                                             </div>
                                             <div class="col itembox ">
                                             <label className="fw-bold">Occupation :  </label>
-                                            <span> {patient.occupation} </span>
+                                            <span> {patientinfo.occupation} </span>
                                             </div>
                                         </div>
                                         <div class="row -start">
                                             <div class="col itembox ">
                                             <label className="fw-bold ">No. of Full Term:  </label>
-                                            <span> {patient.NoFT} </span>
+                                                <span> {prenatalInfo?.obstetricalHistory?.numFullterm}</span>
                                             </div>
                                             <div class="col itembox ">
                                             <label className="fw-bold">No. of Abortion: </label>
-                                            <span> {patient.NoAb} </span>
+                                            <span> {prenatalInfo?.obstetricalHistory?.numOfAbortion} </span>
                                             </div>
                                             <div class="col itembox ">
                                             <label className="fw-bold ">No. of Premature: </label>
-                                            <span > {patient.NoFT} </span>
+                                            <span > {prenatalInfo?.obstetricalHistory?.numPremature} </span>
                                             </div>
                                         </div>
                                         <div class="row -start">
                                             <div class="col itembox ">
                                             <label className="fw-bold ">No. of Children Born Alive: </label>
-                                            <span > {patient.NoCBA} </span>
+                                            <span > {prenatalInfo?.obstetricalHistory?.numBornAlive} </span>
                                             </div>
                                             <div class="col itembox ">
                                             <label className="fw-bold">No. of Living Children: </label>
-                                            <span> {patient.NoLC} </span>
+                                            <span> {prenatalInfo?.obstetricalHistory?.numOfLivingChild} </span>
                                             </div>
                                             <div class="col itembox ">
                                             <label className="fw-bold ">No. of Stillbirths: </label>
-                                            <span > {patient.NoStill} </span>
+                                            <span > {prenatalInfo?.obstetricalHistory?.numOfStillBirth} </span>
                                             </div>
                                         </div>
                                         <div class="row -start">
                                             <div class="col itembox ">
-                                            <label className="fw-bold ">LMP: </label>
-                                            <span > {patient.LMP} </span>
+                                            <label className="fw-bold ">Last Menstural Period: </label>
+                                            <span > {formatDate(prenatalInfo?.obstetricalHistory?.lastMenstrualPeriod)} </span>
                                             </div>
                                             <div class="col itembox ">
                                             <label className="fw-bold">Date of Last Delivery: </label>
-                                            <span> {patient.DateLD} </span>
+                                            <span> {formatDate(prenatalInfo?.obstetricalHistory?.dateOfLastDelivery)} </span>
                                             </div>
-                                            <div class="col itembox">
-                                            <label className="fw-bold">Illness: </label>
-                                            <span> {patient.ill} </span>
-                                            </div>
-                                        </div>
-                                        <div class="row -start">
-                                        <div class="col itembox  ">
-                                            <label className="fw-bold ">Type of Last Delivery: </label>
-                                            <span > {patient.TypeLD} </span>
-                                            </div>
+                                            <div class="row -start">
                                             <div class="col itembox  ">
-                                            <label className="fw-bold ">Menstrual Flow: </label>
-                                            <span > {patient.mensflow} </span>
+                                            <label className="fw-bold ">Type of Last Delivery: </label>
+                                            <span > {prenatalInfo?.obstetricalHistory?.typeOfLastDelivery} </span>
+                                            </div>              
                                             </div>
-                                            <div class="col itembox">
-                                            <label className="fw-bold ">Allergies: </label>
-                                            <span > {patient.algr} </span>
-                                            </div> 
                                         </div>
                                         <div class="row -start">
                                             <div class="col itembox ">
+                                            <label className="fw-bold">Gravida: </label>
+                                            <span> {prenatalInfo?.obstetricalHistory?.numGravida} </span>
+                                            </div>
+                                            <div class="col itembox ">
+                                            <label className="fw-bold ">Para: </label>
+                                            <span > {prenatalInfo?.obstetricalHistory?.numPara} </span>
+                                            </div>
+                                            <div class="col itembox ">
+                                            <label className="fw-bold ">Menstrual Flow: </label>
+                                            <span > {prenatalInfo?.obstetricalHistory?.menstrualFlow}</span>
+                                            </div>  
+                                        </div>
+                                        <div class="row -start">
+                                            <div class="col itembox ">
+                                            <label className="fw-bold ">Diabetes: </label>
+                                            <span > {prenatalInfo?.obstetricalHistory?.diabetes?'Yes' : 'No'}</span>
+                                            </div>
+                                            <div class="col itembox ">
                                             <label className="fw-bold">Hydatidiform mole: </label>
-                                            <span> {patient.hydmole} </span>
+                                            <span> {prenatalInfo?.obstetricalHistory?.hydatidiformMole? 'Yes' : 'No'} </span>
                                             </div>
                                             <div class="col itembox ">
                                             <label className="fw-bold ">History of Ectopic Pregnancy: </label>
-                                            <span > {patient.HEP} </span>
+                                            <span > {prenatalInfo?.obstetricalHistory?.ectopicPregnancy? 'Yes' : 'No'} </span>
                                             </div>
                                         </div>
+                                        <div class="row -start">
+                                        <div class="col itembox ">
+                                            <label className="fw-bold ">Dysmenorrhea: </label>
+                                            <span > {prenatalInfo?.obstetricalHistory?.dysmenorrhea? 'Yes' : 'No'}</span>
+                                            </div>             
+                                        </div>
+                                        
                                         <div class="row-start">
-                                            <div class="col itembox ">
-                                            <label className="fw-bold ">Previous Hospitalization: </label>
-                                            <span > {patient.PH} </span>
+                                            <div class='col'>
+                                            <label className="fw-bold">Illness: </label>
+                                            <div className=''style={{textAlign: 'justify'}}>
+                                            <span> {prenatalInfo?.medicalHistory?.illness} </span>
                                             </div>
+                                            </div>
+                                        </div> 
+                                        <div class="row-start">
+                                            <div class='col'>
+                                            <label className="fw-bold ">Allergies: </label>
+                                            <div className=''style={{textAlign: 'justify'}}>
+                                            <span > {prenatalInfo?.medicalHistory?.allergy} </span>
+                                            </div>
+                                            </div>
+                                        </div> 
+                                        <div class="row-start">
+                                            <div class='col'>
+                                            <label className="fw-bold ">Previous Hospitalization: </label>
+                                            <div className=''style={{textAlign: 'justify'}}>
+                                                <span > {prenatalInfo?.medicalHistory?.hospitalization} </span>
+                                            </div>
+                                            </div>
+                                        </div>    
+                                        <div class="row-start">
                                             <div class="col itembox ">
                                             <label className="fw-bold col-sm-12">Tetanus Toxoid Status</label>
                                             <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#PAddition"><FontAwesomeIcon icon={faPlus}/></button>
-                                                <div class="d-flex">
+                                                {/* <div class="d-flex">
                                                 <label className="fw-bold ">Tetanus Toxoid 1 :</label> 
                                                 <span > {patient.TTS.TT1} </span>  
                                                 </div>
@@ -219,7 +273,7 @@ const PrenatalSpecificRecord = (props) => {
                                                 <div class="d-flex">
                                                 <label className="fw-bold ">Tetanus Toxoid 5 :</label> 
                                                 <span > {patient.TTS.TT5} </span>  
-                                                </div>
+                                                </div> */}
                                             </div>
                                         </div>
                                     </div>
@@ -272,18 +326,24 @@ const PrenatalSpecificRecord = (props) => {
                                                 </tr>
                                             </thead>
                                             <tbody >
-                                                {
-                                                    test.map((rec,idx) => (
-                                                        <tr 
-                                                            className='sp2-clickableMCRRow' 
-                                                            key={idx}
-                                                            data-bs-toggle="modal" data-bs-target="#PAssesView"
+                                            {
+                                               prenatalInfo.maternalHealthAssessment && prenatalInfo.maternalHealthAssessment.map((rec, idx) => {
+                                                    if (rec._id != null) {
+                                                        return (
+                                                            <tr
+                                                                className='sp2-clickableMCRRow'
+                                                                key={idx}
+                                                                data-bs-toggle="modal" data-bs-target="#PAssesView"
+                                                                onClick={() => handleRowClick(rec._id)}
                                                             >
-                                                            <td>{rec.test}</td>
-                                                            <td>{rec.date}</td>
-                                                        </tr>
-                                                    ))
-                                                }
+                                                                <td>{rec._id}</td>
+                                                                <td>{formatDate(rec.createdAt)}</td>
+                                                            </tr>
+                                                        );
+                                                    }
+                                                  
+                                                })
+                                            }
                                             
                                             </tbody>
                                         </table>    
@@ -295,9 +355,11 @@ const PrenatalSpecificRecord = (props) => {
                     </div>
                 </div>  
             </div>
+              {/* View Prenata Assessment Modal  */}
+            {/* <ViewPrenatalAssessment recordid={selectedRecordId}/> */}
 
               {/*  Add Tetanus Toxoid Modal  */}
-            <div className="modal fade" id="PAddition" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            {/* <div className="modal fade" id="PAddition" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-lg">
                     <div className="modal-content">
                     <div className="modal-header">
@@ -313,11 +375,11 @@ const PrenatalSpecificRecord = (props) => {
                     </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
 
             {/*  Add Vital Signs Testing Modal  */}
-            <div className="modal fade" id="PVitalAdd" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            {/* <div className="modal fade" id="PVitalAdd" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-lg">
                     <div className="modal-content">
                     <div className="modal-header">
@@ -333,10 +395,10 @@ const PrenatalSpecificRecord = (props) => {
                     </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             
             {/* View Vital Signs Testing Modal  */}
-            <div className="modal fade" id="PVitalView" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            {/* <div className="modal fade" id="PVitalView" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-lg">
                     <div className="modal-content">
                     <div className="modal-header">
@@ -352,45 +414,16 @@ const PrenatalSpecificRecord = (props) => {
                     </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
              {/* Add Prenata Assessment Modal  */}
-            <div className="modal fade" id="PAssesAdd" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-lg">
-                    <div className="modal-content">
-                    <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel">Prenatal Assessment</h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                        <AdditionPrenatalAssesment/>
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" className="sp2-addMCButton">Save</button>
-                    </div>
-                    </div>
-                </div>
-            </div>
+               {/* <AdditionPrenatalAssesment/> */}
+                    
 
-           {/* View Prenata Assessment Modal  */}
-            <div className="modal fade" id="PAssesView" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-lg">
-                    <div className="modal-content">
-                    <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel">Prenatal Assessment</h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                        <ViewPrenatalAssessment/>
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" className="sp2-addMCButton">Save</button>
-                    </div>
-                    </div>
-                </div>
-            </div>
+         
+           
+          
+                   
         </>
     )
 }
