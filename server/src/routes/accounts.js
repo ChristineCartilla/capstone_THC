@@ -8,7 +8,7 @@ import { ProfileModel } from "../models/Profile.js";
 function getAge(date){
     const today = new Date();
     const birthDate = new Date(date);
-    const age = today.getFullYear() - birthDate.getFullYear();
+    let age = today.getFullYear() - birthDate.getFullYear();
     const monthDiff = today.getMonth() - birthDate.getMonth();
 
     if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
@@ -104,11 +104,11 @@ router.post("/worker/register", async (req, res) => {
         if(user){
             return res.json({message: "Account Already exist"});
         }
-        const newProf = new ProfileModel({prof_status, relationship:"Worker", user_type, first_name, last_name, middle_name, gender, age, birthDate, birthPlace, educAttain, occupation, contactNo, civilStatus, nationality, street, barangay, municipality, zipCode});
+        const newProf = new ProfileModel({prof_status:"Active", relationship:"Worker", user_type, first_name, last_name, middle_name, gender, age, birthDate, birthPlace, educAttain, occupation, contactNo, civilStatus, nationality, street, barangay, municipality, zipCode});
         await newProf.save()
 
         const profId = newProf._id;
-        const newAcc = new AccountModel({acc_type, email, phone, password, acc_status, profile: profId});
+        const newAcc = new AccountModel({acc_type:"Worker", email, phone, password, acc_status:"Active", profile: profId});
         await newAcc.save();
 
         res.json({message: "Account Successfully Created"});

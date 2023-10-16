@@ -1,6 +1,59 @@
-import React from 'react'
+import React, {useState} from 'react'
+import axios from 'axios';
 
 const AdditionWorker = () => {
+
+
+    const [first_name, setFirst_Name] = useState('');
+    const [last_name, setLast_Name] = useState('');
+    const [middle_name, setMiddle_Name] = useState('');
+    const [birthDate, setBirthDate] = useState('');
+    const [birthPlace, setBirthPlace] = useState('');
+    const [civilStatus, setCivilStatus] = useState('');
+    const [gender, setGender] = useState('');
+    const [nationality, setNationality] = useState('');
+    const [contactNo, setContactNo] =useState('');
+    const [educAttain, setEducAttain] = useState('');
+    const [occupation, setOccupation] = useState('');
+    const [user_type, setUser_Type] = useState('');
+
+    const [street, setStreet] = useState('');
+    const [barangay, setBarangay] = useState('');
+    const [municipality, setMunicipality] = useState('');
+    const [zipCode, setZipCode] = useState('');
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [phone, setPhone] =useState('');
+
+
+    const addWorkerSubmit = async (event) => {
+        event.preventDefault()
+        
+        setUser_Type(occupation);
+        setPhone(contactNo);
+    
+
+        try {
+            const response = await axios.post('/account/worker/register', {
+                    email, phone, password, user_type,first_name, last_name, middle_name,
+                    gender, birthDate, birthPlace, educAttain, occupation, contactNo,civilStatus,
+                    nationality, street, barangay, municipality, zipCode
+                },
+            ); 
+
+            if(response.status === 200){
+                alert("Added New Worker Successfully");
+                window.location.reload();
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+
+
     return ( 
         <div className="modal fade" id="AddWorker" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog modal-lg">
@@ -15,54 +68,74 @@ const AdditionWorker = () => {
                             <div  className="col-md-4 text-start">
                                 <label htmlFor="exampleFormControlTextarea1"  className="form-label">First Name</label>
                                 <input type="text"   className="form-control" 
-                                    id="exampleFormControlTextarea1" 
-                                    style={{backgroundColor: "#CCE8DE"}}/>
+                                    id="exampleFormControlTextarea1"
+                                    value={first_name} 
+                                    style={{backgroundColor: "#CCE8DE"}}
+                                    onChange={(event)=>setFirst_Name(event.target.value)}/>
                             </div>
                             <div  className="col-md-4 text-start">
                                 <label htmlFor="exampleFormControlTextarea1"  className="form-label">Last Name</label>
                                 <input type="text"   className="form-control " 
                                     id="exampleFormControlTextarea1" 
-                                    style={{backgroundColor: "#CCE8DE"}}/>
+                                    value={last_name}
+                                    style={{backgroundColor: "#CCE8DE"}}
+                                    onChange={(event)=>setLast_Name(event.target.value)}/>
                             </div>
                             <div  className="col-md-4 text-start">
                                 <label htmlFor="exampleFormControlTextarea1"  className="form-label">Middle Name</label>
                                 <input type="text"   className="form-control " 
                                     id="exampleFormControlTextarea1" 
-                                    style={{backgroundColor: "#CCE8DE"}}/>
+                                    value={middle_name}
+                                    style={{backgroundColor: "#CCE8DE"}}
+                                    onChange={(event)=>setMiddle_Name(event.target.value)}/>
                             </div>
                         </div>
                         <div className="row mb-5">
-                            <div  className="col-md-3 text-start">
+                            <div  className="col-md-4 text-start">
                                 <label htmlFor="exampleFormControlTextarea1"  className="form-label">Birth Date</label>
-                                <input type="text"   className="form-control" 
+                                <input type="date"   className="form-control" 
                                     id="exampleFormControlTextarea1" 
-                                    style={{backgroundColor: "#CCE8DE"}}/>
+                                    value={birthDate}
+                                    style={{backgroundColor: "#CCE8DE"}}
+                                    onChange={(event)=>setBirthDate(event.target.value)}/>
                             </div>
                             <div  className="col-md-4 text-start">
                                 <label htmlFor="exampleFormControlTextarea1"  className="form-label">Birth Place</label>
                                 <input type="text"   className="form-control " 
                                     id="exampleFormControlTextarea1" 
-                                    style={{backgroundColor: "#CCE8DE"}}/>
+                                    value={birthPlace}
+                                    style={{backgroundColor: "#CCE8DE"}}
+                                    onChange={(event)=>setBirthPlace(event.target.value)}/>
                             </div>
-                            <div  className="col-md-3 text-start">
+                            <div  className="col-md-4 text-start">
                                 <label htmlFor="exampleFormControlTextarea1"  className="form-label">Civil Status</label>
                                 <input type="text"   className="form-control " 
                                     id="exampleFormControlTextarea1" 
-                                    style={{backgroundColor: "#CCE8DE"}}/>
+                                    value={civilStatus}
+                                    style={{backgroundColor: "#CCE8DE"}}
+                                    onChange={(event)=>setCivilStatus(event.target.value)}/>
                             </div>
-                            <div  className="col-md-2 text-start">
-                                <label htmlFor="exampleFormControlTextarea1"  className="form-label">Sex</label>
-                                <input type="text"   className="form-control " 
-                                    id="exampleFormControlTextarea1" 
-                                    style={{backgroundColor: "#CCE8DE"}}/>
-                            </div>
+                            
                         </div>
+                        
                         <div className="row mb-5">
+                            <div  className="col-md-4 text-start">
+                                    <label htmlFor="exampleFormControlTextarea1"  className="form-label">Gender</label>
+                                    <select className="form-select"  style={{backgroundColor: "#CCE8DE"}}
+                                                onChange={(event)=>setGender(event.target.value)}
+                                            >
+                                                <option value="#"  style={{backgroundColor: "white"}}>Choose...</option>
+                                                <option value="Male"  style={{backgroundColor: "white"}}>Male</option>
+                                                <option value="Female"  style={{backgroundColor: "white"}}>Female</option>
+                                    </select>
+                            </div>
                             <div  className="col-md-4 text-start">
                                 <label htmlFor="exampleFormControlTextarea1"  className="form-label">Nationality</label>
                                 <input type="text"   className="form-control" 
-                                    id="exampleFormControlTextarea1" 
-                                    style={{backgroundColor: "#CCE8DE"}}/>
+                                    id="exampleFormControlTextarea1"
+                                    value={nationality} 
+                                    style={{backgroundColor: "#CCE8DE"}}
+                                    onChange={(event)=>setNationality(event.target.value)}/>
                             </div>
                             <div  className="col-md-4 text-start">
                                 <label htmlFor="exampleFormControlTextarea1"  className="form-label">PhilHealth Number</label>
@@ -70,21 +143,37 @@ const AdditionWorker = () => {
                                     id="exampleFormControlTextarea1" 
                                     style={{backgroundColor: "#CCE8DE"}}/>
                             </div>
+                            
+                        </div>
+                        <div className="row mb-5">
+                        <div  className="col-md-4 text-start">
+                                <label htmlFor="exampleFormControlTextarea1"  className="form-label">Contact Number</label>
+                                <input type="text"   className="form-control " 
+                                    id="exampleFormControlTextarea1" 
+                                    value={contactNo}
+                                    style={{backgroundColor: "#CCE8DE"}}
+                                    onChange={(event)=>setContactNo(event.target.value)}/>
+                            </div>
                             <div  className="col-md-4 text-start">
                                 <label htmlFor="exampleFormControlTextarea1"  className="form-label">Educational Attainment</label>
                                 <input type="text"   className="form-control " 
                                     id="exampleFormControlTextarea1" 
-                                    style={{backgroundColor: "#CCE8DE"}}/>
+                                    value={educAttain}
+                                    style={{backgroundColor: "#CCE8DE"}}
+                                    onChange={(event)=>setEducAttain(event.target.value)}/>
                             </div>
-                        </div>
-                        <div className="row mb-5">
                             <div  className="col-md-4 text-start">
                                 <label htmlFor="exampleFormControlTextarea1"  className="form-label">Occupation</label>
-                                <select className="form-select w-50" id="autoSizingSelect">
-                                    <option selected disabled>Choose...</option>
-                                    <option value="1">BHW</option>
-                                    <option value="2">Doctor</option>
-                                    <option value="3">Dentist</option>
+                                <select className="form-select"  style={{backgroundColor: "#CCE8DE"}}
+                                            onChange={(event)=>setOccupation(event.target.value)}
+                                        >
+                                            <option value="#"  style={{backgroundColor: "white"}}>Choose...</option>
+                                            <option value="BHW"  style={{backgroundColor: "white"}}>BHW</option>
+                                            <option value="Doctor"  style={{backgroundColor: "white"}}>Doctor</option>
+                                            <option value="Dentist"  style={{backgroundColor: "white"}}>Dentist</option>
+                                            <option value="Midwife"  style={{backgroundColor: "white"}}>Midwife</option>
+                                            <option value="Nurse"  style={{backgroundColor: "white"}}>Nurse</option>
+                                            <option value="Medical Technologist"  style={{backgroundColor: "white"}}>Medical Technologist</option>
                                 </select>
                             </div>
                         </div>
@@ -94,19 +183,25 @@ const AdditionWorker = () => {
                                 <label htmlFor="exampleFormControlTextarea1"  className="form-label">Street</label>
                                 <input type="text"   className="form-control" 
                                     id="exampleFormControlTextarea1" 
-                                    style={{backgroundColor: "#CCE8DE"}}/>
+                                    style={{backgroundColor: "#CCE8DE"}}
+                                    value={street}
+                                    onChange={(event)=>setStreet(event.target.value)}/>
                             </div>
                             <div  className="col-md-3 text-start">
                                 <label htmlFor="exampleFormControlTextarea1"  className="form-label">Barangay</label>
                                 <input type="text"   className="form-control " 
                                     id="exampleFormControlTextarea1" 
-                                    style={{backgroundColor: "#CCE8DE"}}/>
+                                    style={{backgroundColor: "#CCE8DE"}}
+                                    value={barangay}
+                                    onChange={(event)=>setBarangay(event.target.value)}/>
                             </div>
                             <div  className="col-md-3 text-start">
                                 <label htmlFor="exampleFormControlTextarea1"  className="form-label">Municipality</label>
                                 <input type="text"   className="form-control " 
                                     id="exampleFormControlTextarea1" 
-                                    style={{backgroundColor: "#CCE8DE"}}/>
+                                    style={{backgroundColor: "#CCE8DE"}}
+                                    value={municipality}
+                                    onChange={(event)=>setMunicipality(event.target.value)}/>
                             </div>
                             <div  className="col-md-3 text-start">
                                 <label htmlFor="exampleFormControlTextarea1"  className="form-label">Province</label>
@@ -118,14 +213,35 @@ const AdditionWorker = () => {
                                 <label htmlFor="exampleFormControlTextarea1"  className="form-label">Zipcode</label>
                                 <input type="text"   className="form-control " 
                                     id="exampleFormControlTextarea1" 
-                                    style={{backgroundColor: "#CCE8DE"}}/>
+                                    style={{backgroundColor: "#CCE8DE"}}
+                                    value={zipCode}
+                                    onChange={(event)=>setZipCode(event.target.value)}/>
+                            </div>
+                        </div>
+                        <h6 className="text-start mb-3" id="">Account Credentials</h6>
+                        <div className="row mb-5">
+                            <div  className="col-md-3 text-start">
+                                <label htmlFor="exampleFormControlTextarea1"  className="form-label">Email Address</label>
+                                <input type="text"   className="form-control" 
+                                    id="exampleFormControlTextarea1" 
+                                    style={{backgroundColor: "#CCE8DE"}}
+                                    value={email}
+                                    onChange={(event)=>setEmail(event.target.value)}/>
+                            </div>
+                            <div  className="col-md-3 text-start">
+                                <label htmlFor="exampleFormControlTextarea1"  className="form-label">Password</label>
+                                <input type="text"   className="form-control " 
+                                    id="exampleFormControlTextarea1" 
+                                    style={{backgroundColor: "#CCE8DE"}}
+                                    value={password}
+                                    onChange={(event)=>setPassword(event.target.value)}/>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" className="workerSubmitEditBtn">Add Worker</button>
+                    <button type="button" className="workerSubmitEditBtn" onClick={addWorkerSubmit}>Add Worker</button>
                 </div>
             </div>
         </div>
