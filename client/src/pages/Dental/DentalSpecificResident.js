@@ -14,7 +14,7 @@ const DentalSpecificResident = () => {
     const [patientinfo, setPatientInfo] = useState([]);
     const [records, setRecords] = useState([]);
     const navigate = useNavigate();
-    var recLength = records.length;
+    //var recLength = records.length;
 
     useEffect(() => {
         patientInformation();
@@ -31,7 +31,7 @@ const DentalSpecificResident = () => {
 
     const recordsList = async () => {
         try {
-            const fetchDR = await axios.get(`/dental/${residentid}`);
+            const fetchDR = await axios.get(`/oralhealth/${residentid}`);
             setRecords(fetchDR.data.medical_records);
             console.log(fetchDR);
         } catch (error) {
@@ -48,21 +48,20 @@ const DentalSpecificResident = () => {
         window.history.back()
     }
 
-    function formatDateToWords(dateString) {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    //formatting the date
+    function formatDate(dateString) {
         const date = new Date(dateString);
-        return date.toLocaleDateString(undefined, options);
+        if (!isNaN(date.getTime())) {
+        return date.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        });
+        } else {
+        return "Invalid Date";
+        }
     }
-
-    const handleDate = (date) => {
-        const dateTimeString = date;
-        const dateTime = new Date(dateTimeString);
-        const dateString = dateTime.toISOString().split('T')[0];
-        const readableDate = formatDateToWords(dateString);
-
-        return readableDate;
-    }
-
+    
 
     return (
         <>
@@ -105,7 +104,7 @@ const DentalSpecificResident = () => {
                                                     </tr>
                                                     <tr>
                                                         <td scope="row">Birth Date:</td>
-                                                        <td>{patientinfo.birthDate}</td>
+                                                        <td>{formatDate(patientinfo.birthDate)}</td>
                                                     </tr>
                                                     <tr>
                                                         <td scope="row">Birth Place:</td>
@@ -154,7 +153,7 @@ const DentalSpecificResident = () => {
                                                                         <td></td>
                                                                         <td>{rec.service_id._id}</td>
                                                                         <td>{rec.service_id.serviceProvider}</td>
-                                                                        <td>{handleDate(rec.service_id.createdAt)}</td>
+                                                                        <td>{formatDate(rec.service_id.createdAt)}</td>
                                                                     </tr>
                                                                 )
                                                             }
@@ -190,7 +189,7 @@ const DentalSpecificResident = () => {
             </div>
 
              {/* Modal  */}
-            <AdditionDental residentid={patientinfo.id} />
+            <AdditionDental residentid={patientinfo._id} />
         </>
     )
 }

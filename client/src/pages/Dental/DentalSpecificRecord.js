@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 
+
+
 const DentalSpecificRecord = () => {
     const {residentid, recordid} = useParams();
     const [patientinfo, setPatientinfo] = useState([]);
@@ -34,6 +36,34 @@ const DentalSpecificRecord = () => {
         window.history.back()
     }
 
+    //formatting the date
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        if (!isNaN(date.getTime())) {
+        return date.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        });
+        } else {
+        return "Invalid Date";
+        }
+    }
+
+    const convertNumVal = (numValue) => {
+        switch (numValue) {
+            case 1:
+              return "Always";
+            case 2:
+              return "Often";
+            case 3:
+              return "Sometimes";
+            case 4:
+              return "Never";
+            default:
+              return "Unknown";
+          }
+    }
     return (
         <>
             <div className=''>
@@ -61,7 +91,7 @@ const DentalSpecificRecord = () => {
                                             <tbody>
                                                 <tr>
                                                     <th scope="row">Name:</th>
-                                                    <td>{patientinfo.first_name + " "+ patientinfo.midlle_name + " " + patientinfo.last_name}</td>
+                                                    <td>{patientinfo.first_name + " "+ patientinfo.middle_name + " " + patientinfo.last_name}</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Age:</th>
@@ -69,7 +99,7 @@ const DentalSpecificRecord = () => {
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Birth Date:</th>
-                                                    <td>{patientinfo.birthDate}</td>
+                                                    <td>{formatDate(patientinfo.birthDate)}</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Place of Birth:</th>
@@ -91,7 +121,7 @@ const DentalSpecificRecord = () => {
                                     <div className="row-start tb">
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">Date of Oral Examination:  </label>
-                                            {/* <span> {patient.doe} </span> */}
+                                            <span> {formatDate(oralHealthInfo.createdAt)} </span>
                                             </div>
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of Permanent Teeth Present:  </label>
@@ -101,7 +131,7 @@ const DentalSpecificRecord = () => {
                                     <div className="row-start tb">
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold" >Dental Caries:  </label>
-                                            <input className="form-check-input" type="checkbox"  disabled style={{backgroundColor:"#D3D3D3"}}/>
+                                            <input className="form-check-input" type="checkbox" checked={oralHealthInfo.dentalCaries}/>
                                             </div>
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of Permanent Sound Teeth:  </label>
@@ -111,7 +141,7 @@ const DentalSpecificRecord = () => {
                                     <div className="row-start tb">
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">Gingivitis:  </label>
-                                            <input className="form-check-input" type="checkbox"  checked/>
+                                            <input className="form-check-input" type="checkbox"  checked={oralHealthInfo.gingivitis}/>
                                             </div>
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of Decayed Teeth :  </label>
@@ -121,7 +151,7 @@ const DentalSpecificRecord = () => {
                                     <div className="row-start tb">
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">Peiodontal Disease:  </label>
-                                            <input className="form-check-input" type="checkbox"  checked/>
+                                            <input className="form-check-input" type="checkbox"  checked={oralHealthInfo.periodontalDisease}/>
                                             </div>
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of Missing Teeth :  </label>
@@ -131,7 +161,7 @@ const DentalSpecificRecord = () => {
                                     <div className="row-start tb">
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">Debris:  </label>
-                                            <input className="form-check-input" type="checkbox"  checked/>
+                                            <input className="form-check-input" type="checkbox"  checked={oralHealthInfo.debris}/>
                                             </div>
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of Filled Teeth :  </label>
@@ -141,7 +171,7 @@ const DentalSpecificRecord = () => {
                                     <div className="row-start tb">
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">Calculus:  </label>
-                                            <input className="form-check-input" type="checkbox"  disabled style={{backgroundColor:"#D3D3D3"}}/>
+                                            <input className="form-check-input" type="checkbox"  checked={oralHealthInfo.calculus}/>
                                             </div>
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of DMF Teeth:  </label>
@@ -151,7 +181,7 @@ const DentalSpecificRecord = () => {
                                     <div className="row-start tb">
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">Abnormal Growth:  </label>
-                                            <input className="form-check-input" type="checkbox"  disabled style={{backgroundColor:"#D3D3D3"}}/>
+                                            <input className="form-check-input" type="checkbox"  checked={oralHealthInfo.abnormalGrowth}/>
                                             </div>
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of Temporary Teeth Present:  </label>
@@ -161,7 +191,7 @@ const DentalSpecificRecord = () => {
                                     <div className="row-start tb">
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">Cleft Lip/Palate:  </label>
-                                            <input className="form-check-input" type="checkbox"  disabled style={{backgroundColor:"#D3D3D3"}}/>
+                                            <input className="form-check-input" type="checkbox"  checked={oralHealthInfo.cleftLip}/>
                                             </div>
                                             <div className="col-6 text-start itembox ">
                                             <label className="fw-bold ">No. of Temporary Sound Teeth :  </label>
@@ -173,42 +203,42 @@ const DentalSpecificRecord = () => {
                                             
                                             </div>
                                             <div className="col-6 text-start itembox ">
-                                            <label className="fw-bold ">No. of Teeth:  </label>
-                                            {/* <span> {patient.tot} </span> */}
+                                            <label className="fw-bold ">Total DF Teeth:  </label>
+                                            <span> {oralHealthInfo.totalDFTeeth} </span>
                                             </div>
                                     </div>
                                     <hr className="hr" />
-                                    <h3 className="text-start">Medical History</h3>
+                                    {/* <h3 className="text-start">Medical History</h3>
                                     <table className="table table-borderless tb">
                                             <tbody>
                                                 <tr>
                                                     <th scope="row "> Illness:</th>
-                                                    {/* <td>{patient.ill}</td> */}
+                                                    <td>{patient.ill}</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Allergies:</th>
-                                                    {/* <td>{patient.all}</td> */}
+                                                    <td>{patient.all}</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Hospitalization:</th>
-                                                    {/* <td>{patient.hos}</td> */}
+                                                    <td>{patient.hos}</td>
                                                 </tr>
                                             </tbody>
-                                    </table>
+                                    </table> */}
                                     <h3 className="text-start">Dietary Habits</h3>
                                     <table className="table table-borderless tb">
                                             <tbody>
                                                 <tr>
                                                     <th scope="row"> Sugar Sweetened Beverages/Food:</th>
-                                                    <td><input className="form-check-input" type="checkbox"  checked/></td>
+                                                    <td>{convertNumVal(oralHealthInfo.sugarBvrgs)}</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Frequency of Taking Alcohol:</th>
-                                                    <td>{oralHealthInfo.freq_alcohol}</td>
+                                                    <td>{convertNumVal(oralHealthInfo.freq_alcohol)}</td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Frequency of Taking Tobacco:</th>
-                                                    <td>{oralHealthInfo.freq_tobacco}</td>
+                                                    <td>{convertNumVal(oralHealthInfo.freq_tobacco)}</td>
                                                 </tr>
                                             </tbody>
                                     </table>
