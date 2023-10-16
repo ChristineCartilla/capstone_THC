@@ -64,7 +64,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/prenatal" element={<Prenatal />} />
           <Route path="/prenatal/:residentid" element={<PrenatalSpecificResident />} />
-          <Route path="/prenatal/specres/record" element={<PrenatalSpecificRecord />} />
+          <Route path="/prenatal/:residentid/:recordid" element={<PrenatalSpecificRecord />} />
           <Route path="/immunization" element={<Immunization />} />
           <Route path="/immunization/:residentid" element={<ImmunizationSpecificResident />} />
           {/* <Route path="/immunization/specres/record" element={<ImmunizationSpecificRecord />} /> */}

@@ -33,6 +33,23 @@ const HematologySpecificRecord = () => {
         })
     }
 
+    const formatAge = (dateString) => {
+        const dateOfBirth = new Date(dateString);
+
+        // Calculate the age
+        const now = new Date();
+        const age = now.getFullYear() - dateOfBirth.getFullYear();
+        const monthDiff = now.getMonth() - dateOfBirth.getMonth();
+
+        if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < dateOfBirth.getDate())) {
+            return age - 1;
+        }
+
+        return age;
+    };
+
+    
+
     const handleBack = () => {
         window.history.back()
     }
@@ -73,7 +90,7 @@ const HematologySpecificRecord = () => {
                                                 </div>
                                                 <div className="mt-4">
                                                     <label className='fw-bold'>Age: </label>
-                                                    <span> {patientinfo.age} Years Old</span>
+                                                    <span> {formatAge(patientinfo.birthDate)} Years Old</span>
                                                 </div>
                                                 <div className="mt-4">
                                                     <label className='fw-bold'>Address: </label>

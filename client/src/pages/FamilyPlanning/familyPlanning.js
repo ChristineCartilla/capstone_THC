@@ -8,6 +8,8 @@ const FamilyPlanning = () => {
     const [patient, setPatient] = useState([]);
     const navigate = useNavigate();
 
+    
+
     const handleViewExaminations = (patient) => {
         navigate(`/familyplanning/${patient._id}`,
             {

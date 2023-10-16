@@ -40,6 +40,21 @@ const HematologySpecificResident = () => {
         }
     }
 
+    const formatAge = (dateString) => {
+        const dateOfBirth = new Date(dateString);
+
+        // Calculate the age
+        const now = new Date();
+        const age = now.getFullYear() - dateOfBirth.getFullYear();
+        const monthDiff = now.getMonth() - dateOfBirth.getMonth();
+
+        if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < dateOfBirth.getDate())) {
+            return age - 1;
+        }
+
+        return age;
+    };
+
     const navigateRecord = (recordid) => {
         navigate(recordid);
     }
@@ -69,6 +84,20 @@ const HematologySpecificResident = () => {
         const serviceProvider = fetchServiceProvider.data.first_name+" "+fetchServiceProvider.data.last_name;
         setServiceProviderName(serviceProvider);
     }
+
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        if (!isNaN(date.getTime())) {
+        return date.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        });
+        } else {
+        return "Invalid Date";
+        }
+    }
+
     return (
         <>
         <div className=''>
@@ -106,11 +135,11 @@ const HematologySpecificResident = () => {
                                             <tbody>
                                                 <tr>
                                                     <td scope="row">Age:</td>
-                                                    <td>{patientinfo.age} Years Old</td>
+                                                    <td>{formatAge(patientinfo.birthDate)} Years Old</td>
                                                 </tr>
                                                 <tr>
                                                     <td scope="row">Birth Date:</td>
-                                                    <td>{patientinfo.birthDate}</td>
+                                                    <td>{formatDate(patientinfo.birthDate)}</td>
                                                 </tr>
                                                 <tr>
                                                     <td scope="row">Birth Place:</td>

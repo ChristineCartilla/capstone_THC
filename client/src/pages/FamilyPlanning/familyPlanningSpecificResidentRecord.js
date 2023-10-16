@@ -15,10 +15,11 @@ const FamilyPlanningSpecificResidentRecord = () => {
     const { residentid, recordid } = useParams();
     const [patientinfo, setPatientInfo] = useState([]);
     const [familyplanningInfo, setFamilyPlanningInfo] = useState([]);
+    const [selectedRecordId, setSelectedRecordId] = useState(null);
 
     useEffect(() => {
         patientInformation();
-        getFamilyPlanningInfo();
+        getFamilyPlanningInfo();    
     }, [])
 
     const patientInformation = async () => {
@@ -29,17 +30,36 @@ const FamilyPlanningSpecificResidentRecord = () => {
     }
 
     const getFamilyPlanningInfo = async () => {
-        await axios.get(`familyplanning/getrecord/${residentid}/${recordid}`)
+       await axios.get(`familyplanning/getrecord/${residentid}/${recordid}`)
         .then((response) => {
             setFamilyPlanningInfo(response.data.record) 
+         //  setFamilyPlanningInfo(response.data.record)
+        
         })
-        console.log(familyplanningInfo)
     }
-  
+
+    const handleRowClick = (recordid) => {
+        setSelectedRecordId(recordid);
+    };
+    
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        if (!isNaN(date.getTime())) {
+        return date.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        });
+        } else {
+        return "Invalid Date";
+        }
+    }
+
     const handleBack = () => {
         window.history.back()
     }
 
+console.log(selectedRecordId);
     return (
         <>
             <div className=''>
@@ -107,7 +127,7 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 {/* COLUMN 1 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Birth Date: </label>
-                                                    <span> {patientinfo.birthDate}</span>
+                                                    <span> {formatDate(patientinfo.birthDate)}</span>
                                                 </div>
 
                                                 {/* COLUMN 2 */}
@@ -521,29 +541,28 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 </tr>
                                             </thead>
                                             <tbody >
-                                                {/* {
-                                                    test.map((rec,idx) => (
-                                                        <tr 
-                                                            className='sp2-clickableMCRRow' 
-                                                            key={idx}
-                                                            data-bs-toggle="modal" data-bs-target="#PAssesView"
-                                                            >
-                                                            <td>{rec.test}</td>
-                                                            <td>{rec.date}</td>
-                                                        </tr>
-                                                    ))
+                                                
+                                                {
+                                                    familyplanningInfo.familyPlanningAssessment && familyplanningInfo.familyPlanningAssessment.map((rec, idx) => {
+                                                        if(rec._id !== null){
+                                                            return (
+                                                                <tr
+                                                                    className='sp2-clickableMCRRow'
+                                                                    key={idx}
+                                                                    data-bs-toggle="modal" data-bs-target="#fpAssesView"
+                                                                    onClick={() => handleRowClick(rec._id)}
+                                                                >
+                                                                    <td>{rec._id}</td>
+                                                                    <td>{rec.doctor}</td>
+                                                                    <td>{rec.date}</td>
+                                                                </tr>
+                                                            )
+                                                        }
+                                                    }) 
                                                 }
-                                             */}
 
-                                                <tr
-                                                    className='sp2-clickableMCRRow'
-                                                    data-bs-toggle="modal" data-bs-target="#fpAssesView"
-                                                >
-                                                    <td>Session Finding #1</td>
-                                                    <td>Dr. Doe</td>
-                                                    <td>June 1, 2021</td>
 
-                                                </tr>
+                                                
                                             </tbody>
                                         </table>    
                                     </div>
@@ -593,11 +612,11 @@ const FamilyPlanningSpecificResidentRecord = () => {
             </div>
 
              {/* Add Family Assessment Modal  */}
-                <AdditionFamilyPlanningAssessment residentid={patientinfo._id}/>
+                <AdditionFamilyPlanningAssessment residentid={patientinfo._id} recordid={familyplanningInfo._id}/>
                 
            {/* View Family Assessment Modal  */}
            
-                        <ViewFamilyPlanningAssessment residentid={patientinfo._id}/>
+            <ViewFamilyPlanningAssessment recordid={selectedRecordId}/>
                  
         </>
     )
