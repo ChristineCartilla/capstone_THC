@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
 import axios from 'axios';
 
@@ -7,17 +7,24 @@ const AdditionFamilyPlanningAssessment = () => {
    const [findings, setFindings] = useState("");
     const [methodAccepted, setMethodAccepted] = useState("");
 
+    useEffect(() => {
+        // Check if residentid and recordid are not null or undefined
+        if (residentid && recordid) {
+           console.log(residentid, recordid);
+        }
+    }, [residentid, recordid])
+
     const addRecSubmit = async (event) => {
         try {
-            const response = await axios.post
-            (`/familyplanning/add/assessment/${residentid}/${recordid}`, 
-            {findings, methodAccepted});
-            if(response.status === 200 ) {
+            const response = await axios.post(`/familyplanning/add/assessment/${residentid}/${recordid}`, 
+            { findings, methodAccepted });
+            if (response.status === 200) {
                 alert("Family Planning Assessment Successfully Added");
                 window.location.reload();
+                console.log(response)
             }
-        }
-        catch(err) {
+            
+        } catch (err) {
             console.log(err);
         }
     }
