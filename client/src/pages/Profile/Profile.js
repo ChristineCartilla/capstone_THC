@@ -157,7 +157,7 @@ const Profile = () => {
                   <FontAwesomeIcon icon={faArrowLeft} /> Back
                 </button>
                 <div className='d-flex flex-column mb-3'>
-                  <button type="button" class="workerEditBtn" data-bs-toggle="modal" data-bs-target="#editUserProfileModal">
+                  <button type="button" className="workerEditBtn" data-bs-toggle="modal" data-bs-target="#editUserProfileModal">
                     Edit Profile
                   </button>
                 </div>

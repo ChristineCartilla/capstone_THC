@@ -3,7 +3,6 @@ import axios from 'axios';
 
 const AdditionWorker = () => {
 
-
     const [first_name, setFirst_Name] = useState('');
     const [last_name, setLast_Name] = useState('');
     const [middle_name, setMiddle_Name] = useState('');
@@ -15,7 +14,7 @@ const AdditionWorker = () => {
     const [contactNo, setContactNo] =useState('');
     const [educAttain, setEducAttain] = useState('');
     const [occupation, setOccupation] = useState('');
-    const [user_type, setUser_Type] = useState('');
+  
 
     const [street, setStreet] = useState('');
     const [barangay, setBarangay] = useState('');
@@ -24,19 +23,17 @@ const AdditionWorker = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [phone, setPhone] =useState('');
+    
 
 
     const addWorkerSubmit = async (event) => {
         event.preventDefault()
         
-        setUser_Type(occupation);
-        setPhone(contactNo);
-    
+        
 
         try {
             const response = await axios.post('/account/worker/register', {
-                    email, phone, password, user_type,first_name, last_name, middle_name,
+                    email, phone: contactNo, password, user_type: occupation,first_name, last_name, middle_name,
                     gender, birthDate, birthPlace, educAttain, occupation, contactNo,civilStatus,
                     nationality, street, barangay, municipality, zipCode
                 },
@@ -50,8 +47,6 @@ const AdditionWorker = () => {
             console.log(error);
         }
     }
-
-
 
 
     return ( 
@@ -109,11 +104,15 @@ const AdditionWorker = () => {
                             </div>
                             <div  className="col-md-4 text-start">
                                 <label htmlFor="exampleFormControlTextarea1"  className="form-label">Civil Status</label>
-                                <input type="text"   className="form-control " 
-                                    id="exampleFormControlTextarea1" 
-                                    value={civilStatus}
-                                    style={{backgroundColor: "#CCE8DE"}}
-                                    onChange={(event)=>setCivilStatus(event.target.value)}/>
+                                <select className="form-select"  style={{backgroundColor: "#CCE8DE"}}
+                                                onChange={(event)=>setCivilStatus(event.target.value)}
+                                            >
+                                                <option value="" selected disabled style={{backgroundColor: "white"}}>Choose...</option>
+                                                <option value="Single"  style={{backgroundColor: "white"}}>Single</option>
+                                                <option value="Married"  style={{backgroundColor: "white"}}>Married</option>
+                                                <option value="Separated"  style={{backgroundColor: "white"}}>Separated</option>
+                                                <option value="Widowed"  style={{backgroundColor: "white"}}>Widowed</option>
+                                    </select>
                             </div>
                             
                         </div>
@@ -124,7 +123,7 @@ const AdditionWorker = () => {
                                     <select className="form-select"  style={{backgroundColor: "#CCE8DE"}}
                                                 onChange={(event)=>setGender(event.target.value)}
                                             >
-                                                <option value="#"  style={{backgroundColor: "white"}}>Choose...</option>
+                                                <option value="" selected disabled style={{backgroundColor: "white"}}>Choose...</option>
                                                 <option value="Male"  style={{backgroundColor: "white"}}>Male</option>
                                                 <option value="Female"  style={{backgroundColor: "white"}}>Female</option>
                                     </select>
@@ -167,7 +166,7 @@ const AdditionWorker = () => {
                                 <select className="form-select"  style={{backgroundColor: "#CCE8DE"}}
                                             onChange={(event)=>setOccupation(event.target.value)}
                                         >
-                                            <option value="#"  style={{backgroundColor: "white"}}>Choose...</option>
+                                            <option value="" selected disabled style={{backgroundColor: "white"}}>Choose...</option>
                                             <option value="BHW"  style={{backgroundColor: "white"}}>BHW</option>
                                             <option value="Doctor"  style={{backgroundColor: "white"}}>Doctor</option>
                                             <option value="Dentist"  style={{backgroundColor: "white"}}>Dentist</option>

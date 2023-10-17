@@ -109,8 +109,12 @@ router.patch("/worker/edit/:profid", async (req, res) => {
     const profId = req.params.profid;
 
     try {
-        const data = await ProfileModel.findOneAndUpdate({_id: profId, prof_status: req.body.prof_status});
-        res.json({message: "Worker Successfuly Updated"})
+        const data = await ProfileModel.findOneAndUpdate(
+            { _id: profId },
+            { prof_status: req.body.prof_status },
+            { new: true } // Ensure that the updated document is returned
+        );
+        res.json({message: "Worker Successfuly Updated", data})
     } catch (error) {
         res.json(error);
     }
