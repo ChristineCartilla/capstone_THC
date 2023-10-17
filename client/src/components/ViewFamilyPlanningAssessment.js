@@ -1,34 +1,12 @@
-import React, { useState, useEffect} from 'react'
-import { useParams } from 'react-router-dom'
-import axios from 'axios'
+import React from 'react'
 
-const ViewFamilyPlanningAssessment = ({recordid}) => {   
-    const { residentid,} = useParams();
-    const [patientinfo, setPatientInfo] = useState([]);
-    const [viewFamilyPlanningInfo , setViewFamilyPlanningInfo] = useState([]);
+const ViewFamilyPlanningAssessment = ({record}) => {   
 
-    useEffect(() => {
-        patientInformation();
-        getViewFamilyPlanningInfo();
-    }, [recordid])
-
-    const patientInformation = async () => {
-        await axios.get("/profile/"+ residentid)
-        .then((response) => {
-            setPatientInfo(response.data) 
-        })
-    }
-
-    const getViewFamilyPlanningInfo = async () => {
-        await axios.get(`/familyplanning/assessment/${recordid}`)
-        .then((response) => {
-            setViewFamilyPlanningInfo(response.data) 
-           console.log(response)
-        })
-        .catch((error) => {
-            console.error('Error fetching data:', error);
-          });
-    }
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        const date = new Date(dateString);
+        return date.toLocaleDateString(undefined, options);
+    };
 
     return (
         <div className="modal fade" id="fpAssesView" tabIndex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
@@ -46,7 +24,7 @@ const ViewFamilyPlanningAssessment = ({recordid}) => {
                                 <div className="col mx-5 mt-3 text-start">
                                     <label className='fw-bold'>Date:   </label>
                                  
-                                    <span className='fw-normal'> </span>
+                                    <span className='fw-normal'> {record? formatDate(record.createdAt) : ""}</span>
                                 </div>
                             </div>
 
@@ -54,7 +32,7 @@ const ViewFamilyPlanningAssessment = ({recordid}) => {
                                 <div className="col mx-5 mt-3 text-start">
                                     <label className='fw-bold'>Weight:</label>
                                   
-                                    <span className='fw-normal'> </span>
+                                    <span className='fw-normal'> {record? record.vitalSign.weight : ""} kg.</span>
                                 </div>
                             </div>
 
@@ -62,7 +40,7 @@ const ViewFamilyPlanningAssessment = ({recordid}) => {
                                 <div className="col mx-5 mt-3 text-start">
                                     <label className='fw-bold'>Height:   </label>
                                    
-                                    <span className='fw-normal'> </span>
+                                    <span className='fw-normal'> {record? record.vitalSign.height : ""} cm.</span>
                                 </div>
                             </div>
 
@@ -70,21 +48,21 @@ const ViewFamilyPlanningAssessment = ({recordid}) => {
                                 <div className="col mx-5 mt-3 text-start">
                                     <label className='fw-bold'>Temperature:   </label>
                                    
-                                    <span className='fw-normal'> </span>
+                                    <span className='fw-normal'> {record? record.vitalSign.temp : ""}</span>
                                 </div>
                             </div>
 
                             <div className='container fw-bold row'>
                                 <div className="col mx-5 mt-3 text-start">
                                     <label className='fw-bold'>Findings:   </label>
-                                    <span> {viewFamilyPlanningInfo?.findings || "N/A"}</span>
+                                    <span className='fw-normal'> {record? record.findings : ""}</span>
                                 </div>
                             </div>
 
                             <div className='container fw-bold row'>
                                 <div className="col mx-5 mt-3 text-start">
                                     <label className='fw-bold'>Method Accepted:   </label>
-                                    <span> {viewFamilyPlanningInfo?.methodAccepted|| "N/A"}</span>
+                                    <span className='fw-normal'> {record? record.methodAccepted : ""}</span>
                                 </div>
                             </div>
 
@@ -92,7 +70,7 @@ const ViewFamilyPlanningAssessment = ({recordid}) => {
                                 <div className="col mx-5 mt-3 text-start">
                                     <label className='fw-bold'>Servicec Provider:   </label>
                                   
-                                    <span className='fw-normal'> </span>
+                                    <span className='fw-normal'> {record? record.serviceProvider : ""}</span>
                                 </div>
                             </div>
 

@@ -15,11 +15,11 @@ const FamilyPlanningSpecificResidentRecord = () => {
     const { residentid, recordid } = useParams();
     const [patientinfo, setPatientInfo] = useState([]);
     const [familyplanningInfo, setFamilyPlanningInfo] = useState([]);
-    const [selectedRecordId, setSelectedRecordId] = useState(null);
+    const [selectedRec, setSelectedRec] = useState(null);
 
     useEffect(() => {
         patientInformation();
-        getFamilyPlanningInfo();    
+        getFamilyPlanningInfo();   
     }, [])
 
     const patientInformation = async () => {
@@ -33,13 +33,15 @@ const FamilyPlanningSpecificResidentRecord = () => {
        await axios.get(`familyplanning/getrecord/${residentid}/${recordid}`)
         .then((response) => {
             setFamilyPlanningInfo(response.data.record) 
-         //  setFamilyPlanningInfo(response.data.record)
+        //   console.log(response.data.record)
         
         })
     }
 
-    const handleRowClick = (recordid) => {
-        setSelectedRecordId(recordid);
+    const handleRowClick = async (recordid, recordVSid) => {
+        const responseVS = (await axios.get(`familyplanning/assessment/${recordid}`)).data;
+        setSelectedRec(responseVS);
+
     };
     
     function formatDate(dateString) {
@@ -58,8 +60,7 @@ const FamilyPlanningSpecificResidentRecord = () => {
     const handleBack = () => {
         window.history.back()
     }
-
-console.log(selectedRecordId);
+    
     return (
         <>
             <div className=''>
@@ -550,7 +551,7 @@ console.log(selectedRecordId);
                                                                     className='sp2-clickableMCRRow'
                                                                     key={idx}
                                                                     data-bs-toggle="modal" data-bs-target="#fpAssesView"
-                                                                    onClick={() => handleRowClick(rec._id)}
+                                                                    onClick={() => handleRowClick(rec._id, rec.vitalSign)}
                                                                 >
                                                                     <td>{rec._id}</td>
                                                                     <td>{rec.doctor}</td>
@@ -560,9 +561,6 @@ console.log(selectedRecordId);
                                                         }
                                                     }) 
                                                 }
-
-
-                                                
                                             </tbody>
                                         </table>    
                                     </div>
@@ -611,12 +609,11 @@ console.log(selectedRecordId);
                 </div>
             </div>
 
-             {/* Add Family Assessment Modal  */}
-                <AdditionFamilyPlanningAssessment residentid={patientinfo._id} recordid={familyplanningInfo._id}/>
+            {/* Add Family Assessment Modal  */}
+               <AdditionFamilyPlanningAssessment residentid={patientinfo._id} recordid={familyplanningInfo._id}/>
                 
-           {/* View Family Assessment Modal  */}
-           
-            <ViewFamilyPlanningAssessment recordid={selectedRecordId}/>
+            {/* View Family Assessment Modal  */}
+               <ViewFamilyPlanningAssessment record={selectedRec} />
                  
         </>
     )

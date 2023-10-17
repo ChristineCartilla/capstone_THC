@@ -2,11 +2,11 @@ import React from 'react'
 
 const ViewImmunizationAssessment = ({recordid, residentid, record}) => {
 
-      const formatDate = (dateString) => {
-        const options = { year: 'numeric', month: 'short', day: 'numeric' };
-        const date = new Date(dateString);
-        return date.toLocaleDateString(undefined, options);
-      };
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    const date = new Date(dateString);
+    return date.toLocaleDateString(undefined, options);
+  };
     
   return (
     <div className="modal fade" id="IAssesView" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

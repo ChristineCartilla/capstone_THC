@@ -77,10 +77,15 @@ router.post("/add/assessment/:profid/:recordid", async (req, res) => {
     try {
         const findRecord = FamilyPlanningModel.findById({_id: recordid});
         if(findRecord){
-            const latestVS = await ProfileModel.findById({_id: profid}).populate("vital_signs");
-           
+            const fetchVS = await ProfileModel
+            .findById({_id: profid})
+            .populate('vital_signs');
+
+            let listVS = fetchVS.vital_signs;
+            let latestVS = listVS[listVS.length-1].id;
+
             const assessment = new FamilyPlanningAssessmentModel(
-                { ...req.body , vitalSign: latestVS.vital_signs[0] }
+                { ...req.body , vitalSign: latestVS }
             );
             await assessment.save();
             const matHealthRec = await FamilyPlanningModel.findByIdAndUpdate(

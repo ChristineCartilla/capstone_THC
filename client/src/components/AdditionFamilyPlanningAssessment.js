@@ -16,8 +16,11 @@ const AdditionFamilyPlanningAssessment = () => {
 
     const addRecSubmit = async (event) => {
         try {
+            const userId = sessionStorage.getItem("profileId");
+            const fetchServiceProvider = await axios.get(`/profile/${userId}`);
+            const serviceProvider = fetchServiceProvider.data.first_name+" "+fetchServiceProvider.data.last_name;
             const response = await axios.post(`/familyplanning/add/assessment/${residentid}/${recordid}`, 
-            { findings, methodAccepted });
+            { findings, methodAccepted, serviceProvider });
             if (response.status === 200) {
                 alert("Family Planning Assessment Successfully Added");
                 window.location.reload();
