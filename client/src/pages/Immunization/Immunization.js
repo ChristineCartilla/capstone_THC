@@ -9,7 +9,7 @@ const Immunization = () => {
     const navigate = useNavigate();
 
     const handleViewMedHis = (patient) => {
-        navigate(`/immunization/${patient._id}`, 
+        navigate(`/immunization/specres/${patient._id}`, 
             {state:
                 {patientdata: patient}
             });

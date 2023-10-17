@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react'
 import Sidebar from '../../components/Sidebar.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons'
-import {  useNavigate, useParams } from 'react-router-dom'
+import {  useParams } from 'react-router-dom'
 import axios from 'axios'
-import AdditionImmunization from '../../components/AdditionImmunization.js'
+
 import AdditionImmunizationAssessment from '../../components/AdditionImmunizationAssessment.js'
 import ViewImmunizationAssessment from '../../components/ViewImmunizationAssessment.js'
 import AdditionVaccine from '../../components/AdditionVaccine.js'
+import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 
 import THCDefaultPatientLogo from '../../images/default_image.png'
-import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 
 const ImmunizationSpecificResident = () => {
     const { residentid, recordid} = useParams();
@@ -20,60 +20,43 @@ const ImmunizationSpecificResident = () => {
     const [fatherInfo, setFatherInfo] = useState([]);
     const [guardianInfo, setGuardianInfo] = useState([]);
     const [selectedRecordId, setSelectedRecordId] = useState(null);
-  
-   
-   
-    
+    const [selectedRec, setSelectedRec] = useState(null);
+
     useEffect(() => {
         patientInformation();
         recordsList();
-     
-       
-        
     }, [])
+    
     const patientInformation = async () => {
+        const accid = (await axios.get(`/account/fetchaccount/${residentid}`)).data;
+
         await axios.get("/profile/"+residentid)
         .then((response) => {
             setPatientInfo(response.data)
           
         })
-        await axios.get("/account/")
-        .then((response) => {
-            const accountWithMatchingProfile = response.data.find(account => 
-                account.profile.some(profile => profile._id === residentid)
-            );
+        const response = await axios.get(`/account/fetchmember/${accid}`)
+        const accountWithMatchingProfile = response.data;
             if (accountWithMatchingProfile) {
-                const childProfile = accountWithMatchingProfile.profile.find(profile => profile.relationship === "Child");
-                if (childProfile) {
-                    const motherProfile = accountWithMatchingProfile.profile.find(profile => profile.relationship === "Mother");
-                    const fatherProfile = accountWithMatchingProfile.profile.find(profile => profile.relationship === "Father");
-                    const guardianProfile = accountWithMatchingProfile.profile.find(profile => profile.relationship === "Guardian");
+                const motherProfile = accountWithMatchingProfile.profile.find(profile => profile.relationship === "Mother");
+                const fatherProfile = accountWithMatchingProfile.profile.find(profile => profile.relationship === "Father");
+                const guardianProfile = accountWithMatchingProfile.profile.find(profile => profile.relationship === "Guardian");
     
-                    setMotherInfo(motherProfile || null);
-                    setFatherInfo(fatherProfile || null);
-                    setGuardianInfo(guardianProfile || []);
-                } else {
-                    setMotherInfo(null);
-                    setFatherInfo(null);
-                    setGuardianInfo([]);
-                }
-            }      
-          
-        })
-      }
+                setMotherInfo(motherProfile || null);
+                setFatherInfo(fatherProfile || null);
+                setGuardianInfo(guardianProfile || []);
+            } else {
+                setMotherInfo(null);
+                setFatherInfo(null);
+                setGuardianInfo([]);
+            }  
+    }
+
     const recordsList = async () => {
         try {
-            const fetchMR = await axios.get(`/childhealth/${residentid}`);
-            const records = fetchMR.data.medical_records;
-            const specificRecord = records.find(record => record.reference === 'child_health_records' && record.recordStat === true);
-        
-            if (specificRecord) {
-            setChildInfo(specificRecord.service_id);
-            } else {
-            setChildInfo(null);
-            }
-        
-           
+            const fetchMR = await axios.get(`/childhealth/getrecord/${recordid}`);
+            const records = fetchMR.data;
+            setChildInfo(records)
         } catch (error) {
             console.log(error);
         }
@@ -82,6 +65,7 @@ const ImmunizationSpecificResident = () => {
     const handleBack = () => {
         window.history.back()
     }
+
     function formatDateToWords(dateString) {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         const date = new Date(dateString);
@@ -120,10 +104,12 @@ const ImmunizationSpecificResident = () => {
         return age;
     };
 
-    const handleRowClick = (recordid) => {
-        setSelectedRecordId(recordid)
+    const handleRowClick = (recordid, record) => {
+        setSelectedRecordId(recordid);
+        setSelectedRec(record);
     };
-    
+
+
     return (
         <>
             <div className=''>
@@ -142,18 +128,17 @@ const ImmunizationSpecificResident = () => {
                                     <div className='col-md-4 col-sm-12 sp2-topDiv'>
                                         <h5 className="text-start">Personal Information</h5>
                                         <div className='sp2-personalInfoDiv'>
-                                            <div class="mb-3" style={{maxWidth: "540px;"}}>
+                                            <div className="mb-3" style={{maxWidth: "540px"}}>
                                                 <div className="row g-0">
                                                     <div className="col-md-4">
                                                         <img src={THCDefaultPatientLogo} height="80px" width="80px" alt="default_image.png" style={{marginTop:5}}/>
                                                     </div>
                                                     <div className="col-md-8">
-                                                    <div style={{textAlign:"end"}}><button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#IAddition"><FontAwesomeIcon icon={faPlus} style={{ color: '#44AA92' }} /></button></div>
-                                                    <div className="card-body">
-                                                        <h5 className="card-title">{patientinfo.first_name + " "+ patientinfo.middle_name + " " + patientinfo.last_name}</h5>
-                                                        <p className="card-text">{patientinfo.gender + ", "+ patientinfo.civilStatus}</p>
-                                                        <p className="card-text"><small className="text-body-secondary">Last updated 3 mins ago</small></p>
-                                                    </div>
+                                                        <div className="card-body">
+                                                            <h5 className="card-title">{patientinfo.first_name + " "+ patientinfo.middle_name + " " + patientinfo.last_name}</h5>
+                                                            <p className="card-text">{patientinfo.gender + ", "+ patientinfo.civilStatus}</p>
+                                                            <p className="card-text"><small className="text-body-secondary">Last updated 3 mins ago</small></p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -183,122 +168,113 @@ const ImmunizationSpecificResident = () => {
                                                     
                                                 </tbody>
                                             </table>
-                                                    {
-                                                       
-                                                       motherInfo &&(
-                                                        <>          
-                                                                    <hr /> 
-                                                                    <table className="">
-                                                                    <tbody>
-                                                                    <tr>
-                                                                        <td scope="row">Mother's Name:</td>
-                                                                        <td>{motherInfo.first_name + " " + motherInfo.middle_name + " " + motherInfo.last_name}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td scope="row">Mother's Age:</td>
-                                                                        <td>{formatAge(motherInfo.birthDate)} Years Old</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td scope="row">Mother's Occupation:</td>
-                                                                        <td>{motherInfo.occupation}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td scope="row">Mother's Contact Number:</td>
-                                                                        <td>{motherInfo.contactNo}</td>
-                                                                    </tr>
-                                                                    </tbody>
-                                                                    </table>  
-                                                        </>
-                                                       )
-                                                                   
-                                                  }
-                                            
-                                                    {
-                                                       fatherInfo &&(
-                                                        <>          
-                                                                    <hr /> 
-                                            
-                                                                    <table className="">
-                                                                    <tbody>
-                                                                    <tr>
-                                                                        <td scope="row">Father's Name:</td>
-                                                                        <td>{fatherInfo.first_name + " " + fatherInfo.middle_name + " " + fatherInfo.last_name}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td scope="row">Father's Age:</td>
-                                                                        <td>{formatAge(fatherInfo.birthDate)} Years Old</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td scope="row">Father's Occupation:</td>
-                                                                        <td>{fatherInfo.occupation}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td scope="row">Father's Contact Number:</td>
-                                                                        <td>{fatherInfo.contactNo}</td>
-                                                                    </tr>
-                                                                    </tbody>
-                                                                    </table>  
-                                                        </>
-                                                       )
-                                                                   
-                                                  }
-                                                {
-                                                    childInfo &&(         
-                                                    <>
+                                            {
+                                                motherInfo &&
+                                                (<>          
                                                     <hr /> 
                                                     <table className="">
-                                                    <tbody>
-                                                    <tr>
-                                                        <td scope="row">Place of Delivery:</td>
-                                                        <td>{childInfo?.placeOfDelivery}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td scope="row">Birth Weight:</td>
-                                                        <td>{childInfo?.birthWeight} </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td scope="row">Type of Feeding:</td>
-                                                        <td>{childInfo?.typeOfFeeding}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td scope="row">Date of Newborn Screening:</td>
-                                                        <td>{formatDate(childInfo?.dateOfNewbornScreening)}</td>
-                                                    </tr>
-                                                    </tbody>
-                                                    </table> 
-                                                
-                                                </>
-                                                    )   
-                                                }
-                                                 {
-                                                    childInfo &&(         
-                                                    <>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td scope="row">Mother's Name:</td>
+                                                                <td>{motherInfo.first_name + " " + motherInfo.middle_name + " " + motherInfo.last_name}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td scope="row">Mother's Age:</td>
+                                                                <td>{formatAge(motherInfo.birthDate)} Years Old</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td scope="row">Mother's Occupation:</td>
+                                                                <td>{motherInfo.occupation}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td scope="row">Mother's Contact Number:</td>
+                                                                <td>{motherInfo.contactNo}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>  
+                                                </>)               
+                                            }
+                                    
+                                            {
+                                                fatherInfo &&
+                                                (<>          
                                                     <hr /> 
-                                                    <div class="row-start">
-                                                    <div class="col itembox ">
-                                                    <label className="fw-bold col-sm-12">Vaccine Status</label>
-                                                    <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#VacAddition"><FontAwesomeIcon icon={faPlus}  style={{ color: '#44AA92' }}/></button>
-                                                    {childInfo && childInfo.childHealthVaccine && childInfo.childHealthVaccine.map((rec, idx) => {
-                                                        if (rec._id != null) {
-                                                            return (
-                                                                <div class="d-flex" key={idx}>
-                                                                    <label className="fw-bold "> {rec.vaccine_name} :  </label> 
-                                                                    <span >  {formatDate(rec.dateGiven)} </span>  
-                                                                </div>
-                                                            );
-                                                        }
-                                                    })}
-                                              
-                                            </div>
-                                        </div>
-                                                
-                                                </>
-                                                    )   
-                                                }
+                                                    <table className="">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td scope="row">Father's Name:</td>
+                                                                <td>{fatherInfo.first_name + " " + fatherInfo.middle_name + " " + fatherInfo.last_name}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td scope="row">Father's Age:</td>
+                                                                <td>{formatAge(fatherInfo.birthDate)} Years Old</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td scope="row">Father's Occupation:</td>
+                                                                <td>{fatherInfo.occupation}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td scope="row">Father's Contact Number:</td>
+                                                                <td>{fatherInfo.contactNo}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>  
+                                                </>)
+                                                            
+                                            }
+                                            {
+                                                childInfo &&
+                                                (<>
+                                                    <hr /> 
+                                                    <table className="">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td scope="row">Place of Delivery:</td>
+                                                                <td>{childInfo?.placeOfDelivery}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td scope="row">Birth Weight:</td>
+                                                                <td>{childInfo?.birthWeight} </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td scope="row">Type of Feeding:</td>
+                                                                <td>{childInfo?.typeOfFeeding}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td scope="row">Date of Newborn Screening:</td>
+                                                                <td>{formatDate(childInfo?.dateOfNewbornScreening)}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table> 
+                                            
+                                                </>)   
+                                            }
+                                            {
+                                                childInfo &&
+                                                (<>
+                                                    <hr /> 
+                                                    <div className="row-start">
+                                                        <div className="col itembox ">
+                                                            <label className="fw-bold col-sm-12">Vaccine Status</label>
+                                                            <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#VacAddition"><FontAwesomeIcon icon={faPlus}  style={{ color: '#44AA92' }}/></button>
+                                                            {childInfo && childInfo.childHealthVaccine && childInfo.childHealthVaccine.map((rec, idx) => {
+                                                                if (rec._id != null) {
+                                                                    return (
+                                                                        <div className="d-flex" key={idx}>
+                                                                            <label className="fw-bold "> {rec.vaccine_name} :  </label> 
+                                                                            <span >  {formatDate(rec.dateGiven)} </span>  
+                                                                        </div>
+                                                                    );
+                                                                }
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                </>)   
+                                            }
                                         </div>
                                     </div>
                                     <div className='col-md-8 col-sm-12 sp2-bottomDiv'>
-                                        <div className='sp2-MCRecordsDiv'>
+                                        <div className='sp2-MCRecordsDiv my-3'>
                                             <table className="table sp2-MCRecordsTable">
                                                 <thead>
                                                     <tr>
@@ -317,25 +293,25 @@ const ImmunizationSpecificResident = () => {
                                                     </tr>
                                                     {
                                                         childInfo.childHealthAssessment && childInfo.childHealthAssessment.map((rec, idx) => {
-                                                                if (rec._id != null) {
-                                                                    return (
-                                                                        <tr
-                                                                            className='sp2-clickableMCRRow'
-                                                                            key={idx}
-                                                                            data-bs-toggle="modal" data-bs-target="#IAssesView"
-                                                                            onClick={() => handleRowClick(rec._id)}
-                                                                        >
-                                                                            <td> </td>
-                                                                            <td>{rec._id}</td>
-                                                                            <td> </td>
-                                                                            <td>{formatDate(rec.createdAt)}</td>
-                                                                        </tr>
-                                                                    );
-                                                                }
-                                                            
-                                                            })
-                                                        }
+                                                            if (rec._id != null) {
+                                                                return (
+                                                                    <tr
+                                                                        className='sp2-clickableMCRRow'
+                                                                        key={idx}
+                                                                        data-bs-toggle="modal" 
+                                                                        data-bs-target="#IAssesView"
+                                                                        onClick={() => handleRowClick(rec._id, rec)}
+                                                                    >
+                                                                        <td> </td>
+                                                                        <td>{rec._id}</td>
+                                                                        <td> </td>
+                                                                        <td>{formatDate(rec.createdAt)}</td>
+                                                                    </tr>
+                                                                );
+                                                            }
                                                         
+                                                        })
+                                                    } 
                                                 </tbody>
                                             </table>     
                                         </div>
@@ -353,17 +329,16 @@ const ImmunizationSpecificResident = () => {
                 </div>  
             </div>
 
-             {/* Modal  */}
-             {/* Add Imunization Assessment Modal  */}
-                <AdditionImmunizationAssessment residentid={patientinfo._id} recordid={childInfo._id}/>
+            {/* Modal  */}
+            
+            {/* Add Imunization Assessment Modal  */}
+              <AdditionImmunizationAssessment residentid={patientinfo._id} recordid={childInfo._id}/>
              
-             {/* Add Immunization Modal  */}
-              <AdditionImmunization residentid={patientinfo._id}/>
-               {/* Add Immunization Modal  */}
-              <ViewImmunizationAssessment residentid={patientinfo._id} recordid={selectedRecordId}/>
+            {/* Add Immunization Modal  */}
+              <ViewImmunizationAssessment residentid={patientinfo._id} recordid={selectedRecordId} record={selectedRec} /> 
 
-              <AdditionVaccine recordid={childInfo._id}/>
-                  
+            {/*  Add Tetanus Toxoid Modal  */}
+              <AdditionVaccine recordid={recordid}/>         
         </>
     )
 }
