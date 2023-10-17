@@ -48,6 +48,7 @@ import SpecificWorkers from './pages/Workers/SpecificWorkers'
 import Profile from './pages/Profile/Profile';
 import Dashboard from './pages/Dashboard/Dashboard';
 import QueueBHW from './pages/Queue/QueueBHW';
+import ImmunizationResidentPage from './pages/Immunization/ImmunizationResidentPage';
 
 axios.defaults.baseURL = 'http://localhost:8001';
 
@@ -66,8 +67,8 @@ function App() {
           <Route path="/prenatal/:residentid" element={<PrenatalSpecificResident />} />
           <Route path="/prenatal/:residentid/:recordid" element={<PrenatalSpecificRecord />} />
           <Route path="/immunization" element={<Immunization />} />
-          <Route path="/immunization/:residentid" element={<ImmunizationSpecificResident />} />
-          {/* <Route path="/immunization/specres/record" element={<ImmunizationSpecificRecord />} /> */}
+          <Route path="/immunization/specres/:residentid" element={<ImmunizationResidentPage />} />
+          <Route path="/immunization/specres/:residentid/:recordid" element={<ImmunizationSpecificResident />} />
           <Route path="/medicalcheckup" element={<MedicalCheckUp />} />
           <Route path="/medicalcheckup/:residentid" element={<MedicalCheckUpSpecificResident />} />
           <Route path="/medicalcheckup/:residentid/:recordid" element={<MedicalCheckUpSpecificRecord />} />
