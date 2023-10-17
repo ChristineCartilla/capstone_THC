@@ -16,8 +16,6 @@ const AdditionImmunization= ({residentid}) => {
     
       const addRecSubmit = async (event) => {
         event.preventDefault();
-       //console.log(residentid);
-     // console.log(isEveryFieldFilled )
         try{
           if(isEveryFieldFilled){
             const userId = sessionStorage.getItem("profileId");
@@ -71,12 +69,17 @@ const AdditionImmunization= ({residentid}) => {
         <div className="row mb-5">
             <div className="col text-start">
                 <label htmlFor="exampleFormControlTextarea1" className="form-label">Type of Feeding</label>
-                <input type="text"  className="form-control Addition_Immunization_textarea" 
-                    id="exampleFormControlTextarea1" 
-                    value={typeOfFeeding}
-                    onChange={e => settypeOfFeeding(e.target.value)}
-                    style={{backgroundColor: "#CCE8DE"}}/>
-               
+                <select 
+                  id="inputState" 
+                  className="form-select"
+                  onChange={e => settypeOfFeeding(e.target.value)}
+                  style={{backgroundColor: "#CCE8DE"}}>
+                  <option value="N/A" >Choose...</option>
+                  <option value="DBF">Direct Breastfeeding</option>
+                  <option value="P&F">Pumping and Bottle Feeding</option>
+                  <option value="FF">Formula Feeding</option>
+                  <option value="SFF">Solid Food Feeding</option>
+                </select>               
             </div>
             <div className="col text-start">
                 <label htmlFor="exampleFormControlTextarea1" className="form-label">Date Of Newborn Screening</label>
