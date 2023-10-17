@@ -146,7 +146,8 @@ router.get("/getrecord/:profid/:recid", async (req, res) => {
             const record = await FamilyPlanningModel
                 .findOne({_id: recid})
                 .populate("medicalHistory")
-                .populate("obstetricalHistory");
+                .populate("obstetricalHistory")
+                .populate("familyPlanningAssessment");
             res.json({resident, record});
         }
     } catch (error) {

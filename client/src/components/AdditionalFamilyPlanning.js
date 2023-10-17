@@ -71,15 +71,7 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                     alert("Family Planning Successfully Added");
                     window.location.reload();
                 }
-                // console.log( pe_skin, pe_conjunctiva, pe_neck, pe_breast, 
-                //     pe_abdomen, pe_extremities, pe_pelvicExam,
-                //     numGravida, numPara, numFullTerm, numOfAbortion,
-                //      numPremature, numBornAlive, numOfLivingChild, 
-                //      numOfStillBirth, numOfLargeBabies, lastMenstrualPeriod, 
-                //      typeOfLastDelivery, menstrualFlow, dysmenorrhea, 
-                //      hydatidiformMole, ectopicPregnancy, diabetes, 
-                //     nameSpouse, spouseDoB, spouseAge, spouseOccupation, 
-                //     noLivingChild, planAddChild, aveMonthIncome );
+         
             
             } catch (error) {
             console.log(error);

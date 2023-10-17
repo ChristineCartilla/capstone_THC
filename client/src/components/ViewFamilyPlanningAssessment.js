@@ -2,15 +2,15 @@ import React, { useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 
-const ViewFamilyPlanningAssessment = () => {   
-    const { residentid, recordid } = useParams();
+const ViewFamilyPlanningAssessment = ({recordid}) => {   
+    const { residentid,} = useParams();
     const [patientinfo, setPatientInfo] = useState([]);
     const [viewFamilyPlanningInfo , setViewFamilyPlanningInfo] = useState([]);
-    
+
     useEffect(() => {
         patientInformation();
         getViewFamilyPlanningInfo();
-    }, [])
+    }, [recordid])
 
     const patientInformation = async () => {
         await axios.get("/profile/"+ residentid)
@@ -23,8 +23,11 @@ const ViewFamilyPlanningAssessment = () => {
         await axios.get(`/familyplanning/assessment/${recordid}`)
         .then((response) => {
             setViewFamilyPlanningInfo(response.data) 
-            console.log(viewFamilyPlanningInfo);
+           console.log(response)
         })
+        .catch((error) => {
+            console.error('Error fetching data:', error);
+          });
     }
 
     return (

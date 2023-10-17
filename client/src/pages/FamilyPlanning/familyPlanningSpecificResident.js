@@ -62,6 +62,33 @@ const FamilyPlanningSpecificResident = () => {
         return readableDate;
     }
    
+    const formatAge = (dateString) => {
+        const dateOfBirth = new Date(dateString);
+
+        // Calculate the age
+        const now = new Date();
+        const age = now.getFullYear() - dateOfBirth.getFullYear();
+        const monthDiff = now.getMonth() - dateOfBirth.getMonth();
+
+        if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < dateOfBirth.getDate())) {
+            return age - 1;
+        }
+
+        return age;
+    };
+
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        if (!isNaN(date.getTime())) {
+        return date.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        });
+        } else {
+        return "Invalid Date";
+        }
+    }
 
     return (
         <>
@@ -100,11 +127,11 @@ const FamilyPlanningSpecificResident = () => {
                                                 <tbody>
                                                     <tr>
                                                         <td scope="row">Age:</td>
-                                                        <td>{patientinfo.age} Years Old</td>
+                                                        <td>{formatAge(patientinfo.birthDate)} Years Old</td>
                                                     </tr>
                                                     <tr>
                                                         <td scope="row">Birth Date:</td>
-                                                        <td>{patientinfo.birthDate}</td>
+                                                        <td>{formatDate(patientinfo.birthDate)}</td>
                                                     </tr>
                                                     <tr>
                                                         <td scope="row">Birth Place:</td>
