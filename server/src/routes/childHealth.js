@@ -132,11 +132,9 @@ router.get("/:profid", async (req, res) => {
     }
 })
 
-
 // FETCHING SPECIFIC RECORD WITH ASSESSMENTS AND VACINES
-router.get("/:recordid", async(req, res) => {
+router.get("/getrecord/:recordid", async(req, res) => {
     const recordid = req.params.recordid;
-
     try {
         const childRec = await ChildHealthRecordModel
             .findById({_id: recordid})
@@ -149,7 +147,7 @@ router.get("/:recordid", async(req, res) => {
 })
 
 // FETCHING SPECIFIC ASSESSMENT
-router.get("/:recordid", async(req, res) => {
+router.get("/assessment/:recordid", async(req, res) => {
     const recordid = req.params.recordid;
 
     try {
@@ -161,7 +159,7 @@ router.get("/:recordid", async(req, res) => {
 })
 
 // FETCHING SPECIFIC VACCINE
-router.get("/:recordid", async(req, res) => {
+router.get("/vaccine/:recordid", async(req, res) => {
     const recordid = req.params.recordid;
 
     try {

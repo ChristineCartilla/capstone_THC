@@ -66,6 +66,22 @@ router.get("/getrecord/:recid", async (req, res) => {
     }
 })
 
+router.get("/getlatestrec/:profid", async (req, res) => {
+    const profid = req.params.profid;
+
+    try {      
+        const fetchprofiles = await ProfileModel
+            .findById({_id: profid})
+            .populate('vital_signs');
+
+        let vitalSigns = fetchprofiles.vital_signs;
+
+        res.json(vitalSigns[vitalSigns.length-1]);
+    } catch (error) {
+        res.json(error);
+    }
+})
+
 // HARD DELETE RECORD
 router.delete("/delete/:profid/:recid", async (req, res) => {
     const profid = req.params.profid;

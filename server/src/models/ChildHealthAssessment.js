@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
 
 const ChildHealthAssessmentSchema = new mongoose.Schema({
+    weight: { type: String },
+    height: { type: String },
+    temp: { type: String },
     findings: { type: String },
     notes: { type: String },
     serviceProvider: { type: String },

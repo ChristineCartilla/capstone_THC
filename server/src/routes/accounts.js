@@ -50,7 +50,7 @@ router.get("/fetchresident", async (req, res) => {
     }
 })
 
-// GET ALL FAMILY MEMBER OF A RESIDENT/WORKER ACCOUNT
+// GETING ALL FAMILY MEMBER OF A RESIDENT/WORKER ACCOUNT
 router.get("/fetchmember/:accid", async (req, res) => {
     const accId = req.params.accid;
 
@@ -60,6 +60,27 @@ router.get("/fetchmember/:accid", async (req, res) => {
         .populate('profile');
         
         res.json(data);
+    } catch (error) {
+        res.json(error);
+    }
+})
+
+//GETTING ACCOUNT ID FROM PROVIDEC PROFILE ID
+router.get("/fetchaccount/:profid", async (req, res) => {
+    const profid = req.params.profid;
+
+    try {
+        const getAccount = await AccountModel
+        .find({})
+        .populate({
+            path: 'profile',
+            match: { _id: profid }
+        })
+        const specificAccount = getAccount.filter((acc) =>{
+            return acc.profile[0] != null;
+        })
+        res.json(specificAccount[0]._id);
+        
     } catch (error) {
         res.json(error);
     }
