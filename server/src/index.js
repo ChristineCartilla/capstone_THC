@@ -13,6 +13,7 @@ import { childHealthRouter } from './routes/childHealth.js';
 import { urinalysisRouter } from './routes/urinalysis.js';
 import { familyPlanningRouter } from './routes/familyPlanning.js';
 import { queueRouter } from './routes/queue.js';
+import { dispensingRouter } from './routes/dispensing.js';
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use("/maternalhealth", maternalHealthRouter);
 app.use("/urinalysis", urinalysisRouter);
 app.use("/familyplanning", familyPlanningRouter);
 app.use("/queue", queueRouter);
+app.use("/dispensing", dispensingRouter);
 
 mongoose.connect("mongodb+srv://20102632:thc2023@talambanhealthconnectdb.v5hhcqh.mongodb.net/TalambanHealthConnectDB?retryWrites=true&w=majority")
 .then(()=> {

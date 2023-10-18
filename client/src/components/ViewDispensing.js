@@ -1,10 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Worker_Searchbox from './Worker_Searchbox';
 import AdditionDispensing from './AdditionDispensing';
+import axios from 'axios';
 
 const ViewDispensing = () => {
+    const [dispenseList, setDispenseList] = useState([]);
+
+    useEffect(()=>{
+        fetchDispenseList();
+    },[])
+    
+    const fetchDispenseList = async () => {
+        const list = await axios.get("/dispensing/");
+        setDispenseList(list.data);
+    }
+
+    const removeDispense = async (disid) => {
+        const dispense = await axios.patch(`/dispensing/delete/${disid}`)
+        if(dispense){
+            alert("Successfully Removed Medication Dispensing Instance");
+            window.location.reload(); 
+        }
+    }
+
     return ( 
         //create the dispensing page
         <div className="dispensing container-fluid">
@@ -57,21 +77,29 @@ const ViewDispensing = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                        <tr className="px-5" >
-                                            <td>adad</td>
-                                            <td>asdas</td>
-                                            <td>asdasd</td>
-                                            <td>asdad</td>
-                                            <td>asdad</td>
-                                            <td>
-                                            <button type="button" className="dispensing_editBtn">
-                                                Edit
-                                            </button>
-                                            <button type="button" className="dispensing_remBtn">
-                                                Remove
-                                            </button>
-                                            </td>
-                                        </tr>
+                                    {
+                                        dispenseList && dispenseList.map((dispense, idx) => (
+                                            <tr className="px-5" >
+                                                <td>{dispense.dateGiven}</td>
+                                                <td>{dispense.medicationName}</td>
+                                                <td>{dispense.dosage}</td>
+                                                <td>{dispense.prescription}</td>
+                                                <td>{dispense.bhwName}</td>
+                                                <td>
+                                                    <button type="button" className="dispensing_editBtn">
+                                                        Edit
+                                                    </button>
+                                                    <button 
+                                                        type="button" 
+                                                        className="dispensing_remBtn"
+                                                        onClick={() => removeDispense(dispense._id)}>
+                                                        Remove
+                                                    </button>   
+                                                </td>
+                                            </tr>
+                                        ))
+                                    }
+                                        
                                 </tbody>
                             </table>
                         </div>
