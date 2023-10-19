@@ -1,43 +1,53 @@
-import axios, { all } from 'axios';
+import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 
-const AdditionPrenatalAssesment = ({residentid , recordid}) => {
-    //console.log(residentid)
+const AdditionPrenatalAssesment = ({residentid , recordid, vitalsId}) => {
+   console.log(vitalsId)
     const [readableDateTime, setReadableDateTime] = useState('');
     const [dateOfVisitation, setDateTime] = useState('');
     const[aog,setAog]= useState('');
-    const[fundalHeart,setfundalHeart]= useState('');
+    const[fundalHeight,setfundalHeight]= useState('');
     const[fetalHeartBeat,setfetalHeartBeat]= useState('');
     const[findings,setfindings]= useState('');
     const[nuresesNotes,setnuresesNotes]= useState('');
-   
+    const [vitalSign, setVitalSign] = useState([]);
+     
     useEffect(() => {
         getCurrentDate();
-        
+       getVitalSignsRecord();
        
       }, []);
       
-      
+    
 
       const getCurrentDate= async () => {
         const now = new Date();
         const phTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Manila"}));
-        const formattedDate = phTime.toISOString().split('T')[0];
         const isoString = phTime.toISOString(); // In ISO 8601 format
         const newReadableDateTime = phTime.toLocaleString();// In a human-readable format
         setDateTime(isoString); 
         setReadableDateTime(newReadableDateTime);
       }
-
+      
+      
+      const  getVitalSignsRecord = async () => {
+       
+        await axios.get(`/vitalsign/getrecord/${vitalsId}`)
+        .then( (response) => {
+            setVitalSign(response.data)
+           console.log(response)
+    
+        })
+        
+       }
+       
       const addRecSubmit = async (event) => {
         event.preventDefault();
-       // console.log(residentid);
-      // console.log(isEveryFieldFilled )
         try{
             const userId = sessionStorage.getItem("profileId");
             const fetchServiceProvider = await axios.get(`/profile/${userId}`);
             const serviceProvider = "Dr. "+ fetchServiceProvider.data.last_name;
-           const response = await axios.post(`maternalhealth/add/assessment/${residentid}/${recordid}`,{dateOfVisitation,aog,fundalHeart,fetalHeartBeat,findings,nuresesNotes,serviceProvider});
+           const response = await axios.post(`maternalhealth/add/assessment/${residentid}/${recordid}`,{dateOfVisitation,aog,fundalHeight,fetalHeartBeat,findings,nuresesNotes,serviceProvider});
 
                   if(response.status === 200){
                       alert("Prenatal Assessment Record Successfully Added");
@@ -67,19 +77,19 @@ const AdditionPrenatalAssesment = ({residentid , recordid}) => {
                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Gestation Age</label>
                         <input type="text"  className="form-control Addition_Prenatal_textarea" 
                             id="exampleFormControlTextarea1" 
-                            value={aog}
+                            value={aog || ''}
                             onChange={e => setAog(e.target.value)}
                             style={{backgroundColor: "#CCE8DE"}}/>
                     </div>        
                     <div className="col text-start">
                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Weight</label>
-                        <input type="text"  className="form-control Addition_Prenatal_textarea" disabled value="35"
+                        <input type="text"  className="form-control Addition_Prenatal_textarea" disabled value={vitalSign.weight || ''}
                             id="exampleFormControlTextarea1" 
                             style={{backgroundColor: "#CCE8DE"}}/>
                     </div>
                     <div className="col text-start">
                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Blood Pressure</label>
-                        <input type="text"  className="form-control Addition_Prenatal_textarea" disabled value="120/50"
+                        <input type="text"  className="form-control Addition_Prenatal_textarea" disabled value={vitalSign.bloodpressure || ''}
                             id="exampleFormControlTextarea1" 
                             style={{backgroundColor: "#CCE8DE"}}/>
                     </div>
@@ -89,8 +99,8 @@ const AdditionPrenatalAssesment = ({residentid , recordid}) => {
                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Fundal Height</label>
                         <input type="text"  className="form-control Addition_Prenatal_textarea" 
                             id="exampleFormControlTextarea1" 
-                            value={fundalHeart}
-                            onChange={e => setfundalHeart(e.target.value)}
+                            value={fundalHeight || ''}
+                            onChange={e => setfundalHeight(e.target.value)}
                             style={{backgroundColor: "#CCE8DE"}}/>
                     
                     </div>
@@ -98,7 +108,7 @@ const AdditionPrenatalAssesment = ({residentid , recordid}) => {
                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Fetal Heartbeat</label>
                         <input type="text"  className="form-control Addition_Prenatal_textarea" 
                             id="exampleFormControlTextarea1" 
-                            value={fetalHeartBeat}
+                            value={fetalHeartBeat || ''}
                             onChange={e => setfetalHeartBeat(e.target.value)}
                             style={{backgroundColor: "#CCE8DE"}}/>
                     
@@ -110,7 +120,7 @@ const AdditionPrenatalAssesment = ({residentid , recordid}) => {
                         className="form-control Addition_MedicalCheckup_textarea" 
                         id="exampleFormControlTextarea1" 
                         rows="3" 
-                        value={findings}
+                        value={findings || ''}
                         onChange={e => setfindings(e.target.value)}
                         style={{backgroundColor: "#CCE8DE"}}></textarea>
                 </div>
@@ -120,7 +130,7 @@ const AdditionPrenatalAssesment = ({residentid , recordid}) => {
                         className="form-control" 
                         id="exampleFormControlTextarea1" 
                         rows="3"
-                        value={nuresesNotes}
+                        value={nuresesNotes || ''}
                         onChange={e => setnuresesNotes(e.target.value)} 
                         style={{backgroundColor: "#CCE8DE"}}></textarea>
                 </div>

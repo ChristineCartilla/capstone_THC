@@ -5,6 +5,8 @@ import { faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons'
 import {  useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import AdditionPrenatal from '../../components/AdditionPrenatal.js'
+import AdditionVitalSigns from '../../components/AdditionVitalSigns.js'
+import ViewVitalSigns from '../../components/ViewVitalSigns.js'
 
 import THCDefaultPatientLogo from '../../images/default_image.png'
 import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
@@ -13,11 +15,14 @@ const PrenatalSpecificResident = () => {
     const { residentid } = useParams();
     const [patientinfo, setPatientInfo] = useState([]);
     const [records, setRecords] = useState([]);
+    const [vitalSignRecs, setVitalSignRecs] = useState([]);
+    const [selectedVSId, setSelectedVSId] = useState(null);
+    const [selectedVSRec, setSelectedVSRec] = useState(null);
     const navigate = useNavigate();
-    var recLength = records.length;
     
     useEffect(() => {
         patientInformation();
+        vitalSignList(); 
         recordsList();
       
         
@@ -35,6 +40,14 @@ const PrenatalSpecificResident = () => {
             const fetchPR = await axios.get(`/maternalhealth/${residentid}`);
             setRecords(fetchPR.data.medical_records);
            // console.log(fetchDR);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    const vitalSignList = async () => {
+        try {
+            const fetchVS = await axios.get(`/vitalsign/${residentid}`);
+            setVitalSignRecs(fetchVS.data.vital_signs);
         } catch (error) {
             console.log(error);
         }
@@ -69,7 +82,24 @@ const PrenatalSpecificResident = () => {
         return date.toLocaleDateString(undefined, options);
       };
       
-    
+      const formatAge = (dateString) => {
+        const dateOfBirth = new Date(dateString);
+
+        // Calculate the age
+        const now = new Date();
+        const age = now.getFullYear() - dateOfBirth.getFullYear();
+        const monthDiff = now.getMonth() - dateOfBirth.getMonth();
+
+        if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < dateOfBirth.getDate())) {
+            return age - 1;
+        }
+
+        return age;
+    };
+    const handleRowClickVS = (recordid, record) => {
+        setSelectedVSId(recordid);
+        setSelectedVSRec(record);
+    }
    
 
     return (
@@ -90,7 +120,7 @@ const PrenatalSpecificResident = () => {
                                     <div className='col-md-4 col-sm-12 sp2-topDiv'>
                                         <h5 className="text-start">Personal Information</h5>
                                         <div className='sp2-personalInfoDiv'>
-                                            <div class="mb-3" style={{maxWidth: "540px;"}}>
+                                            <div className="mb-3" style={{maxWidth: "540px"}}>
                                                 <div className="row g-0">
                                                     <div className="col-md-4">
                                                         <img src={THCDefaultPatientLogo} height="80px" width="80px" alt="default_image.png" style={{marginTop:5}}/>
@@ -109,7 +139,7 @@ const PrenatalSpecificResident = () => {
                                                 <tbody>
                                                     <tr>
                                                         <td scope="row">Age:</td>
-                                                        <td>{patientinfo.age} Years Old</td>
+                                                        <td>{formatAge(patientinfo.birthDate)} Years Old</td>
                                                     </tr>
                                                     <tr>
                                                         <td scope="row">Birth Date:</td>
@@ -139,7 +169,7 @@ const PrenatalSpecificResident = () => {
                                                         <th></th>
                                                         <th style={{width:"400px"}}>List of Prenatal Records</th>
                                                         <th></th> 
-                                                        <th style={{textAlign:"end"}}><button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#PAddition"><FontAwesomeIcon icon={faPlus}  style={{ color: '#44AA92' }}/></button></th> 
+                                                        <th style={{textAlign:"end"}}><button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#PAddition"><FontAwesomeIcon icon={faPlus}  /></button></th> 
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -182,6 +212,58 @@ const PrenatalSpecificResident = () => {
                                                 </tbody>
                                             </table>    
                                         </div>
+                                        <div className='sp2-MCRecordsDiv my-3'>
+                                            <table className="table sp2-MCRecordsTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th style={{maxWidth:"400px"}}>Vital Signs</th>
+                                                        <th></th> 
+                                                        <th style={{textAlign:"end"}}><button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#VitalSignAddition"><FontAwesomeIcon icon={faPlus}/></button></th> 
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>Record Number</td>
+                                                        <td> </td>
+                                                        <td>Date of Record</td> 
+                                                    </tr>
+                                                    {
+                                                        vitalSignRecs && vitalSignRecs.map((rec, idx) => {
+                                                            if (rec._id != null) {
+                                                                return (
+                                                                    <tr
+                                                                        className='sp2-clickableMCRRow'
+                                                                        key={idx}
+                                                                        data-bs-toggle="modal" data-bs-target="#VitalSignView"
+                                                                        onClick={() => handleRowClickVS(rec._id, rec)}
+                                                                    >
+                                                                        <td> </td>
+                                                                        <td>{rec._id}</td>
+                                                                        <td> </td>
+                                                                        <td>{formatDate(rec.createdAt)}</td>
+                                                                    </tr>
+                                                                );
+                                                            }
+                                                        
+                                                        })
+                                                    }
+                                                    {
+                                                        vitalSignRecs.length == 0 && (
+                                                            <tr className='sp2-clickableMCRRow'>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td><p >NO RECORDS FOUND</p></td>
+                                                                <td></td>
+                                                                
+                                                            </tr>
+                                                        )
+                                                    }
+                                                        
+                                                </tbody>
+                                            </table>     
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -198,6 +280,12 @@ const PrenatalSpecificResident = () => {
 
              {/* Modal  */}
              <AdditionPrenatal residentid={patientinfo._id}/>
+
+              {/* Add Vital Sign Modal  */}
+              <AdditionVitalSigns residentid={patientinfo._id}/>
+            
+            {/*View Vital Sign Modal  */}
+              <ViewVitalSigns recordid={selectedVSId} record={selectedVSRec}/>
         </>
     )
 }

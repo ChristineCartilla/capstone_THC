@@ -5,20 +5,33 @@ import React, { useState ,useEffect} from 'react'
 const ViewPrenatalAssessment = ({recordid}) => {
 
     const [assessmentinfo, setAssessmentInfo] = useState([]);
+    const [vitalsignsinfo, setVitalSignsInfo] = useState([]);
+
      useEffect(() => {
          getAssessmentDetails();
 
      }, [ recordid])
 
     const  getAssessmentDetails = async () => {
-        await axios.get(`maternalhealth/assessment/${recordid}`)
-        .then( (response) => {
-            setAssessmentInfo(response.data)
-            
-        },)
-        .catch((error) => {
+        try {
+            const response = await axios.get(`maternalhealth/assessment/${recordid}`);
+            setAssessmentInfo(response.data);
+        
+            if (response.data.vitalSign) {
+              const vitalSignCreatedAtDate = new Date(response.data.vitalSign.createdAt).toISOString().split('T')[0];
+              const assessmentCreatedAtDate = new Date(response.data.createdAt).toISOString().split('T')[0];
+          
+              if (vitalSignCreatedAtDate === assessmentCreatedAtDate) {
+                setVitalSignsInfo(response.data.vitalSign);
+              } else {
+                setVitalSignsInfo([]);
+              }
+            } else {
+              setVitalSignsInfo([]);
+            }
+          } catch (error) {
             console.error('Error fetching data:', error);
-          });
+          }
     }
       
     const formatDate = (dateString) => {
@@ -50,13 +63,13 @@ const ViewPrenatalAssessment = ({recordid}) => {
                         </div>        
                         <div className="col text-start">
                             <label htmlFor="exampleFormControlTextarea1" className="form-label">Weight</label>
-                            <input type="text"  className="form-control Addition_Prenatal_textarea" disabled value={assessmentinfo?.vitalSign?.weight}
+                            <input type="text"  className="form-control Addition_Prenatal_textarea" disabled value={vitalsignsinfo? vitalsignsinfo.weight : ""}
                                 id="exampleFormControlTextarea1" 
                                 style={{backgroundColor: "#CCE8DE"}}/>
                         </div>
                         <div className="col text-start">
                             <label htmlFor="exampleFormControlTextarea1" className="form-label">Blood Pressure</label>
-                            <input type="text"  className="form-control Addition_Prenatal_textarea" disabled value="120/28"
+                            <input type="text"  className="form-control Addition_Prenatal_textarea" disabled value={vitalsignsinfo? vitalsignsinfo.bloodpressure : ""}
                                 id="exampleFormControlTextarea1" 
                                 style={{backgroundColor: "#CCE8DE"}}/>
                         </div>
@@ -66,7 +79,7 @@ const ViewPrenatalAssessment = ({recordid}) => {
                             <label htmlFor="exampleFormControlTextarea1" className="form-label">Fundal Height</label>
                             <input type="text"  className="form-control Addition_Prenatal_textarea" 
                                 id="exampleFormControlTextarea1" 
-                                disabled value={assessmentinfo.fundalHeart}
+                                disabled value={assessmentinfo.fundalHeight}
                                 style={{backgroundColor: "#CCE8DE"}}/>
                         
                         </div>
