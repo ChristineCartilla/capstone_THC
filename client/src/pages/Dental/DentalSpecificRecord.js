@@ -72,11 +72,11 @@ const DentalSpecificRecord = () => {
                     <div className='mainLayout-left'>
                         <Sidebar />    
                     </div>
-                    <div className='container mainLayout-right p-0'>
+                    <div className='container mainLayout-right p-0 sp3-mainContainer'>
                         <div className="sp3-pageHeader container d-flex">
                             <button 
                             type="button"
-                            className="sp3-servicesBacRecskBtn align-items-center"
+                            className="sp3-servicesBacRecBtn align-items-center"
                             onClick={() => handleBack()}>
                                 <FontAwesomeIcon icon={faAngleLeft}/>
                         </button>
@@ -87,7 +87,7 @@ const DentalSpecificRecord = () => {
                                 <div className='topDiv'>
                                     <h3 className="text-start ">Personal Information</h3>
                                     <div className='sp3-personalInfoDiv'>
-                                        <table className="table table-borderless tb">
+                                        <table className="">
                                             <tbody>
                                                 <tr>
                                                     <th scope="row">Name:</th>
@@ -116,7 +116,7 @@ const DentalSpecificRecord = () => {
                                             </tbody>
                                         </table>    
                                     </div>
-                                    <hr className="hr" />
+                                    {/* <hr className="hr" /> */}
                                     <h3 className="text-start">Oral Health Condition</h3>
                                     <div className="row-start tb">
                                             <div className="col-6 text-start itembox ">
@@ -207,7 +207,7 @@ const DentalSpecificRecord = () => {
                                             <span> {oralHealthInfo.totalDFTeeth} </span>
                                             </div>
                                     </div>
-                                    <hr className="hr" />
+                                    {/* <hr className="hr" /> */}
                                     {/* <h3 className="text-start">Medical History</h3>
                                     <table className="table table-borderless tb">
                                             <tbody>
@@ -225,23 +225,26 @@ const DentalSpecificRecord = () => {
                                                 </tr>
                                             </tbody>
                                     </table> */}
+                                    
+                                </div>
+                                <div className="buttomDiv">
                                     <h3 className="text-start">Dietary Habits</h3>
-                                    <table className="table table-borderless tb">
-                                            <tbody>
-                                                <tr>
-                                                    <th scope="row"> Sugar Sweetened Beverages/Food:</th>
-                                                    <td>{convertNumVal(oralHealthInfo.sugarBvrgs)}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Frequency of Taking Alcohol:</th>
-                                                    <td>{convertNumVal(oralHealthInfo.freq_alcohol)}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Frequency of Taking Tobacco:</th>
-                                                    <td>{convertNumVal(oralHealthInfo.freq_tobacco)}</td>
-                                                </tr>
-                                            </tbody>
-                                    </table>
+                                        <table className="table tb table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row"> Sugar Sweetened Beverages/Food:</th>
+                                                        <td>{convertNumVal(oralHealthInfo.sugarBvrgs)}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Frequency of Taking Alcohol:</th>
+                                                        <td>{convertNumVal(oralHealthInfo.freq_alcohol)}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Frequency of Taking Tobacco:</th>
+                                                        <td>{convertNumVal(oralHealthInfo.freq_tobacco)}</td>
+                                                    </tr>
+                                                </tbody>
+                                        </table>
                                 </div>
                         
                             </div>

@@ -2,7 +2,6 @@ import axios from 'axios'
 import React, {useState} from 'react'
 
 const AdditionDental = ({residentid}) => {
-    const [dateGiven, setDateGiven] = useState('');
     const [dentalCaries, setDentalCaries] = useState(false);
     const [gingivitis, setGingivitis] = useState(false);
     const [periodontalDisease, setPeriodontalDisease] = useState(false);
@@ -26,18 +25,20 @@ const AdditionDental = ({residentid}) => {
     const [freq_alcohol, setFreq_Alcohol] = useState('');
     const [freq_tobacco, setFreq_Tobacco] = useState('');
 
-    
     const addRecSubmit = async (event) => {
         event.preventDefault();
         
         try {
+            const userId = sessionStorage.getItem("profileId");
+            const fetchServiceProvider = await axios.get(`/profile/${userId}`);
+            const serviceProvider = "Dr. "+ fetchServiceProvider.data.last_name;
             const response = await axios.post(`/oralhealth/add/${residentid}`,
                 {
                     dentalCaries, gingivitis, periodontalDisease, debris, calculus,
                     abnormalGrowth, cleftLip, no_permTeethPres, no_permSoundTeeth,
                     no_permDecayedTeeth, no_permMissingTeeth, no_permFilledTeeth, totalDMFTeeth,
                     no_tempTeethPres, no_tempSoundTeeth, no_tempDecayedTeeth, no_tempFilledTeeth,
-                    totalDFTeeth, sugarBvrgs, freq_alcohol, freq_tobacco
+                    totalDFTeeth, sugarBvrgs, freq_alcohol, freq_tobacco, serviceProvider
                 },
             );
                 if(response.status === 200 ) {
@@ -68,18 +69,6 @@ const AdditionDental = ({residentid}) => {
                     <div className="modal-body">
                         <form >
                             <h3 className="pre-pageHeader text-start" id="">Oral Health Condition</h3>
-                                <div className="row mb-5">
-                                    <div className="col-5 text-start">
-                                        <label htmlFor="exampleFormControlTextarea1" className="form-label">Date Given</label>
-                                        <input 
-                                            type="date"  
-                                            className="form-control" 
-                                            id="exampleFormControlTextarea1" 
-                                            style={{backgroundColor: "#CCE8DE"}}
-                                            value={dateGiven}
-                                            onChange={(event)=>setDateGiven(event.target.value)}/>
-                                    </div>
-                                </div>
                                 <h5 className="text-start" id="">A. Check (/) if present</h5>
                                 <div className="row mb-5">
                                 <div className="col text-start">
