@@ -96,7 +96,7 @@ router.post("/add/assessment/:profid/:recordid", async (req, res) => {
         if(findRecord){
             const latestVS = await ProfileModel.findById({_id: profid}).populate("vital_signs");
 
-            const assessment = new MaternalHealthAssessmentModel({...req.body, vitalSign: latestVS.vital_signs[0]});
+            const assessment = new MaternalHealthAssessmentModel({...req.body, vitalSign: latestVS.vital_signs[latestVS.vital_signs.length - 1]});
             await assessment.save();
 
             const matHealthRec = await MaternalHealthModel.findByIdAndUpdate(
@@ -201,7 +201,7 @@ router.get("/assessment/:recid", async (req, res) => {
     const recid = req.params.recid
 
     try {
-        const assessmentInstance = await MaternalHealthAssessmentModel.findById({_id: recid}).populate("vitalSign").populate("maternalHealthAssessment");
+        const assessmentInstance = await MaternalHealthAssessmentModel.findById({_id: recid}).populate("vitalSign");
         res.json(assessmentInstance)
     } catch (error) {
         res.json(error)

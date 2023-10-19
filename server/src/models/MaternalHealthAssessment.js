@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const MaternalHealthAssessmentSchema = new mongoose.Schema({
     dateOfVisitation: { type: Date },
     aog: { type: Number },
-    fundalHeart: { type: Number },
+    fundalHeight: { type: Number },
     fetalHeartBeat: { type: Number },
     findings: { type: String },
     nuresesNotes: { type: String },
