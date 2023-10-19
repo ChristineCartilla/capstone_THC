@@ -50,7 +50,7 @@ const AdditionVitalSigns = ({residentid}) => {
                                 </div>
                                 <div className="col text-start">
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label">Blood Pressure</label>
-                                    <input type="number"  className="form-control Addition_Prenatal_textarea" 
+                                    <input type="text"  className="form-control Addition_Prenatal_textarea" 
                                         id="exampleFormControlTextarea1" 
                                         value={vitalSignBP}
                                         onChange={e => setVitalSignBP(e.target.value)}

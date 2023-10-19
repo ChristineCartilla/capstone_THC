@@ -5,7 +5,7 @@ const ViewVitalSigns = ({recordid, record}) => {
     useEffect(() => {
 
     })
-
+ console.log(record)
     return (
         <div className="modal fade" id="VitalSignView" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog modal-lg">
@@ -20,14 +20,14 @@ const ViewVitalSigns = ({recordid, record}) => {
                                 <div className="col text-start">
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label">Weight</label>
                                     <input type="number"  className="form-control Addition_Prenatal_textarea" 
-                                        id="exampleFormControlTextarea1" 
+                                        id="exampleFormControlTextarea1" disabled
                                         defaultValue={record? record.weight : ""}
                                         style={{backgroundColor: "#CCE8DE"}}/>
                                 </div>
                                 <div className="col text-start">
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label">Blood Pressure</label>
-                                    <input type="number"  className="form-control Addition_Prenatal_textarea" 
-                                        id="exampleFormControlTextarea1" 
+                                    <input type="text"  className="form-control Addition_Prenatal_textarea" 
+                                        id="exampleFormControlTextarea1" disabled
                                         defaultValue={record? record.bloodpressure : ""}
                                         style={{backgroundColor: "#CCE8DE"}}/>
                                 </div>
@@ -36,14 +36,14 @@ const ViewVitalSigns = ({recordid, record}) => {
                                 <div className="col text-start">
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label">Height</label>
                                     <input type="number"  className="form-control Addition_Vital_textarea" 
-                                        id="exampleFormControlTextarea1" 
+                                        id="exampleFormControlTextarea1" disabled
                                         defaultValue={record? record.height : ""}
                                         style={{backgroundColor: "#CCE8DE"}}/>
                                 </div>
                                 <div className="col text-start">
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label">Pulse Rate</label>
                                     <input type="number"  className="form-control Addition_Vital_textarea" 
-                                        id="exampleFormControlTextarea1" 
+                                        id="exampleFormControlTextarea1" disabled
                                         defaultValue={record? record.pulseRate : ""}
                                         style={{backgroundColor: "#CCE8DE"}}/>
                                 </div>
@@ -52,7 +52,7 @@ const ViewVitalSigns = ({recordid, record}) => {
                                 <div className="col-6 text-start">
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label">Temperature</label>
                                     <input type="text"  className="form-control Addition_Vital_textarea" 
-                                        id="exampleFormControlTextarea1" 
+                                        id="exampleFormControlTextarea1" disabled
                                         defaultValue={record? record.temp : ""}
                                         style={{backgroundColor: "#CCE8DE"}}/>
                                 </div>
