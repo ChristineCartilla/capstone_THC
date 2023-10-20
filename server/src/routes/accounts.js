@@ -144,7 +144,7 @@ router.post("/login", async (req, res) => {
     let retValMsg;
 
     try {
-        const user = await AccountModel.findOne({email: loginEmail}).populate("profile");
+        const user = await AccountModel.findOne({email: loginEmail, acc_status: "Active"}).populate("profile");
         if(!user){
             retValMsg = "Account Not Found";
         } else{
