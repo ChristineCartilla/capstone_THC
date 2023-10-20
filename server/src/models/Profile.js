@@ -45,11 +45,9 @@ const ProfileSchema = new mongoose.Schema({
     },
     educAttain: {
         type: String,
-        required: true
     },
     occupation: {
         type: String,
-        required: true
     },
     contactNo: {
         type: String,
