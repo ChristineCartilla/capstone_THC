@@ -93,12 +93,30 @@ router.get("/:id", async (req, res) => {
     }
 })
 
+// GET SPECIFIC PROFILE FOR MEDICAL RECORDS
+router.get("/medicalrecords/:id", async (req, res) => {
+    const profId = req.params.id;
+    try {
+        const data = await ProfileModel
+        .findOne({_id: profId})
+        .populate({
+            path:"medical_records",
+            select: "service_id service_name createdAt",
+            match: {recordStat: true}
+        });
+        res.json(data);
+    } catch (error) {
+        res.json(error);
+    }
+})
+
 // UPDATE SPECIFIC PROFILE DETAILS
 router.patch("/updateprofile/:id", async (req, res) => {
     const profId = req.params.id;
     try {
         const data = await ProfileModel.findOneAndUpdate({_id: profId}, req.body, {new:true});
-        res.json({data, message: "Profile Successfuly Updated"});
+        const accdata = await ProfileModel.findOneAndUpdate({_id: profId}, req.body, {new:true});
+        res.json({data, accdata, message: "Profile Successfuly Updated"});
     } catch (error) {  
         res.json(error);
     }
@@ -112,9 +130,15 @@ router.patch("/worker/edit/:profid", async (req, res) => {
         const data = await ProfileModel.findOneAndUpdate(
             { _id: profId },
             { prof_status: req.body.prof_status },
-            { new: true } // Ensure that the updated document is returned
+            // Ensure that the updated document is returned
         );
-        res.json({message: "Worker Successfuly Updated", data})
+
+        const accdata = await AccountModel.findOneAndUpdate(
+            {profile: profId},
+            {acc_status: req.body.prof_status},
+        ).populate("profile")
+
+        res.json({message: "Worker Successfuly Updated", accdata})
     } catch (error) {
         res.json(error);
     }
