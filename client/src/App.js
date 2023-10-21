@@ -50,6 +50,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import QueueBHW from './pages/Queue/QueueBHW';
 import ImmunizationResidentPage from './pages/Immunization/ImmunizationResidentPage';
 
+
 axios.defaults.baseURL = 'http://localhost:8001';
 
 function App() {
