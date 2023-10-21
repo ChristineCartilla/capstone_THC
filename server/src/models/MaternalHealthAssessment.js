@@ -5,6 +5,7 @@ const MaternalHealthAssessmentSchema = new mongoose.Schema({
     aog: { type: Number },
     fundalHeight: { type: Number },
     fetalHeartBeat: { type: Number },
+    partOfFetus: { type: String },
     findings: { type: String },
     nuresesNotes: { type: String },
     serviceProvider: { type: String },
