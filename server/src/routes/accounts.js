@@ -116,7 +116,7 @@ router.post("/register", async (req, res) => {
 router.post("/worker/register", async (req, res) => {
     const age = getAge(req.body.birthDate);
     const {
-        acc_type, email, phone, password, acc_status,
+        acc_type, email, phone, acc_status,
         prof_status, relationship, user_type, first_name, last_name, middle_name, gender, birthDate, birthPlace, educAttain, occupation, contactNo, civilStatus, nationality, street, barangay, municipality, zipCode
     } = req.body;
     
@@ -129,7 +129,7 @@ router.post("/worker/register", async (req, res) => {
         await newProf.save()
 
         const profId = newProf._id;
-        const newAcc = new AccountModel({acc_type:"Worker", email, phone, password, acc_status:"Active", profile: profId});
+        const newAcc = new AccountModel({acc_type:"Worker", email, phone, password: "THC2023Talambandefaultpassword", acc_status:"Active", profile: profId});
         await newAcc.save();
 
         res.json({message: "Account Successfully Created"});
@@ -162,6 +162,25 @@ router.post("/login", async (req, res) => {
         return res.json(retValMsg);
     } catch (error) {
         res.json(error);
+    }
+})
+
+// DEFAULT PASSWORD
+router.patch("/setdefault/:profid", async (req, res) => {
+    const profid = req.params.profid;
+
+    try {
+        const accdata = await AccountModel.findOneAndUpdate(
+            {profile: profid},
+            {
+                password: "THC2023Talambandefaultpassword"
+            }
+        )
+        
+
+        res.json(accdata);
+    } catch (error) {
+        
     }
 })
 
