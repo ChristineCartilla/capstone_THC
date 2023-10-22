@@ -132,7 +132,7 @@ const SpecificWorkers = () => {
                   <FontAwesomeIcon icon={faArrowLeft} /> Back
                 </button>
                 <div className='d-flex flex-column mb-3'>
-                  <button type="button" class="workerEditBtn" onClick={handlePassClick}>
+                  <button type="button" class="workerPassDefBtn" onClick={handlePassClick}>
                     Set Password to Default
                   </button>
                   <button type="button" class="workerEditBtn" data-bs-toggle="modal" data-bs-target="#editWorkerProfileModal">
