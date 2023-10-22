@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
@@ -20,10 +20,46 @@ const EditUserProfile = () => {
     barangay: '',
     municipality: '',
     zipCode: '',
+    email: '',
+    password: '',
   });
+
+  const [zipCodeError, setZipCodeError] = useState('');
+  const [contactNoError, setContactNoError] = useState('');
+
+  useEffect(() => {
+    // Fetch the profile data and set it as the initial form data
+    if (profileId) {
+      axios.get(`/profile/${profileId}`)
+        .then((response) => {
+          // Set the birthDate field after formatting it
+          const birthDate = new Date(response.data.birthDate).toISOString().split('T')[0];
+          setFormData({ ...response.data, birthDate });
+        })
+        .catch((error) => {
+          console.error("Error fetching profile data:", error);
+        });
+    }
+  }, [profileId]);
 
   const saveProfileSubmit = async (e) => {
     e.preventDefault();
+    
+    setZipCodeError('');
+    setContactNoError('');
+
+    const zipCode = formData.zipCode;
+    const contactNo = formData.contactNo;
+
+    if (zipCode && !/^\d+$/.test(zipCode)) {
+      setZipCodeError('Zip Code must be a valid input');
+      return;
+    }
+
+    if (contactNo && !/^\d+$/.test(contactNo)) {
+      setContactNoError('Contact No must be a valid input');
+      return;
+    }
     if (profileId) {
       try {
         const updatedData = {};
@@ -137,15 +173,29 @@ const EditUserProfile = () => {
                   <label htmlFor="civilStatus" className="form-label">
                     Civil Status
                   </label>
-                  <input
-                    type="text"
+                  <select
                     name="civilStatus"
-                    className="form-control"
-                    id="civilStatus"
+                    className="form-select"
                     style={{ backgroundColor: "#CCE8DE" }}
                     value={formData.civilStatus}
                     onChange={handleChange}
-                  />
+                  >
+                    <option value="" disabled style={{ backgroundColor: "white" }}>
+                      Choose...
+                    </option>
+                    <option value="Single" style={{ backgroundColor: "white" }}>
+                      Single
+                    </option>
+                    <option value="Married" style={{ backgroundColor: "white" }}>
+                      Married
+                    </option>
+                    <option value="Separated" style={{ backgroundColor: "white" }}>
+                      Separated
+                    </option>
+                    <option value="Widowed" style={{ backgroundColor: "white" }}>
+                      Widowed
+                    </option>
+                  </select>
                 </div>
               </div>
               <div className="row mb-5">
@@ -214,6 +264,7 @@ const EditUserProfile = () => {
                       value={formData.contactNo}
                       onChange={handleChange}
                     />
+                    {contactNoError && <div className="text-danger">{contactNoError}</div>}
                   </div>
               </div>
               <div className="row mb-5">
@@ -271,6 +322,38 @@ const EditUserProfile = () => {
                     id="zipCode"
                     style={{ backgroundColor: "#CCE8DE" }}
                     value={formData.zipCode}
+                    onChange={handleChange}
+                  />
+                  {zipCodeError && <div className="text-danger">{zipCodeError}</div>}
+                </div>
+              </div>
+              <div className="row mb-5">
+              <h6 className="text-start mb-3" id="">Account Credentials</h6>
+                <div className="col-md-4 text-start">
+                  <label htmlFor="street" className="form-label">
+                    Email
+                  </label>
+                  <input
+                    type="text"
+                    name="email"
+                    className="form-control"
+                    id="email"
+                    style={{ backgroundColor: "#CCE8DE" }}
+                    value={formData.email}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="col-md-4 text-start">
+                  <label htmlFor="barangay" className="form-label">
+                    Password
+                  </label>
+                  <input
+                    type="text"
+                    name="password"
+                    className="form-control"
+                    id="password"
+                    style={{ backgroundColor: "#CCE8DE" }}
+                    value={formData.password}
                     onChange={handleChange}
                   />
                 </div>

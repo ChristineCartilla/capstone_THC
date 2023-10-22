@@ -135,6 +135,15 @@
     border-radius: 10px;
 }
 
+.workerPassDefBtn{
+    margin: 3px 100px;
+    padding: 10px 20px;
+    background-color: #71B8FA;
+    color: #FFF;
+    border: 1px solid #71B8FA;
+    border-radius: 10px;
+}
+
 .workerProfile_footer{
     height: 200px;
 }
