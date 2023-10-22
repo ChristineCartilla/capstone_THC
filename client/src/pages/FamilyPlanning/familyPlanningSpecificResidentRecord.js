@@ -33,7 +33,7 @@ const FamilyPlanningSpecificResidentRecord = () => {
        await axios.get(`familyplanning/getrecord/${residentid}/${recordid}`)
         .then((response) => {
             setFamilyPlanningInfo(response.data.record) 
-        //   console.log(response.data.record)
+          console.log(response.data.record)
         
         })
     }
@@ -89,7 +89,7 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 {/* COLUMN 1 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Name: </label>
-                                                    <span> {patientinfo.fname + " "+ patientinfo.mname + " " + patientinfo.lname} </span>
+                                                    <span> {patientinfo.first_name + " "+ patientinfo.middle_name + " " + patientinfo.last_name} </span>
                                                 </div>
 
                                                 {/* COLUMN 2 */}
@@ -108,7 +108,7 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 {/* COLUMN 1 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold text-start'>Age: </label>
-                                                    <span> {patientinfo.age} Years Old</span>
+                                                    <span> {(patientinfo.age)? patientinfo.age+" Years Old": ""} </span>
                                                 </div>
                                                 {/* COLUMN 2 */}
                                                 <div className="col-md-4">
@@ -296,13 +296,13 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 {/* COLUMN 1 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Spouse Date of Birth: </label>
-                                                    <span> {familyplanningInfo.spouseDoB}</span>
+                                                    <span> {formatDate(familyplanningInfo.spouseDoB)}</span>
                                                 </div>
                                                 {/* COLUMN 2 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>LMP: </label>
                                                     {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
-                                                        <span> {familyplanningInfo.obstetricalHistory.lastMenstrualPeriod}</span>
+                                                        <span> {formatDate(familyplanningInfo.obstetricalHistory.lastMenstrualPeriod)}</span>
                                                     ) : (
                                                         <span>Data not available</span>
                                                     )}
@@ -315,7 +315,7 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 {/* COLUMN 1 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Spouse Age: </label>
-                                                    <span> </span>
+                                                    <span> {(familyplanningInfo.spouseAge)? familyplanningInfo.spouseAge+" Years Old": "N/A"}</span>
                                                 </div>
 
                                                 {/* COLUMN 2 */}
@@ -383,17 +383,12 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 {/* COLUMN 1 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Plan to have more children: </label>
-                                                   <span> {familyplanningInfo.planAddChild}</span>
+                                                   <span> {(familyplanningInfo.planAddChild == true)? "Yes": "No"}</span>
                                                 </div>
                                                 {/* COLUMN 2 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Dysmenorrhea: </label>
-                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
-                                                        <span> {familyplanningInfo.obstetricalHistory.dysmenorrhea}</span>
-                                                    ) : (
-                                                        <span>Data not available</span>
-                                                    )}
-                                                  
+                                                    <input className="form-check-input" type="checkbox"  checked={(familyplanningInfo.obstetricalHistory && familyplanningInfo.obstetricalHistory.dysmenorrhea)? true: false} onChange={()=>{}}/>
                                                 </div>
                                                 {/* COLUMN 3 */}    
                                             </div>
@@ -407,12 +402,7 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 {/* COLUMN 2 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Hydatidiform mole: </label>
-                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
-                                                        <span> {familyplanningInfo.obstetricalHistory.hydatidiformMole}</span>
-                                                    ) : (
-                                                        <span>Data not available</span>
-                                                    )}
-                                                   
+                                                    <input className="form-check-input" type="checkbox"  checked={(familyplanningInfo.obstetricalHistory && familyplanningInfo.obstetricalHistory.hydatidiformMole)? true: false} onChange={()=>{}}/>
                                                 </div>
                                                 {/* COLUMN 3 */}
                                                 <div className="col-md-4">
@@ -436,12 +426,7 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 {/* COLUMN 2 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>History of Ectopic Pregnancy: </label>
-                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
-                                                        <span> {familyplanningInfo.obstetricalHistory.ectopicPregnancy}</span>
-                                                    ) : (
-                                                        <span>Data not available</span>
-                                                    )}
-                                                  
+                                                    <input className="form-check-input" type="checkbox"  checked={(familyplanningInfo.obstetricalHistory && familyplanningInfo.obstetricalHistory.ectopicPregnancy)? true: false} onChange={()=>{}}/>
                                                 </div>
                                                 {/* COLUMN 3 */}
                                             </div>
@@ -455,12 +440,7 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 {/* COLUMN 2 */}
                                                 <div className="col-md-4">
                                                     <label className='fw-bold'>Diabetes: </label>
-                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
-                                                        <span> {familyplanningInfo.obstetricalHistory.diabetes}</span>
-                                                    ) : (
-                                                        <span>Data not available</span>
-                                                    )}
-                                                  
+                                                    <input className="form-check-input" type="checkbox"  checked={(familyplanningInfo.obstetricalHistory && familyplanningInfo.obstetricalHistory.diabetes)? true: false} onChange={()=>{}}/>
                                                 </div>
                                                 {/* COLUMN 3 */}
                                                 <div className="col-md-4">

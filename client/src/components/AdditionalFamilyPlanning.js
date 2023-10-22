@@ -50,7 +50,6 @@ const AdditionalFamilyPlanning = ({residentid}) => {
 
     const addRecSubmit = async (event) => {
         event.preventDefault();
-
         try {
             const combinedString = checkboxValues.join(', ');
             const response = await axios.post
@@ -152,7 +151,7 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                                                     type="radio" 
                                                     name="inlineRadioOptions" 
                                                     id="inlineRadio1" 
-                                                    value={planAddChild ? "Yes" : "No"}
+                                                    value="1"
                                                     onChange={(event) => setPlanAddChild(event.target.value)}
                                                     />
                                                 <label className="form-check-label" htmlFor="inlineRadio1">Yes</label>
@@ -163,7 +162,7 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                                                     type="radio" 
                                                     name="inlineRadioOptions" 
                                                     id="inlineRadio2" 
-                                                    value="2"
+                                                    value="0"
                                                     onChange={(event) => setPlanAddChild(event.target.value)}
                                                     />
                                                 <label className="form-check-label" htmlFor="inlineRadio2">No</label>
