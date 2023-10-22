@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Sidebar from '../../components/Sidebar.js'
 import Services_Searchbox from '../../components/Services_Searchbox.js'
 import { useNavigate} from 'react-router-dom'
 import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 
+
 const Hematology = () => {
     const [patient, setPatient] = useState([]);
     const navigate = useNavigate();
+    
 
     const handleViewExaminations = (patient) => {
         navigate(`/hematology/${patient._id}`,
@@ -16,10 +18,10 @@ const Hematology = () => {
                     patientdata: patient
                 }
             });
-        // console.log(patient);
     }
 
     return(
+        <>
         <div className=''>
             <SidebarOpenBtn />
             <div className='mainLayout'>
@@ -70,7 +72,10 @@ const Hematology = () => {
                 </div>  
             </div>
         </div>
+
+    </>
     )
+
 }
 
 export default Hematology

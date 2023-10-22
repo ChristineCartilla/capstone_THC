@@ -205,22 +205,10 @@ const FamilyPlanningSpecificResident = () => {
                                                         }
                                                     })
                                                 }
-                                                    {/* {
-                                                        records.length == 0 && (
-                                                            <tr className='sp2-clickableMCRRow'
-                                                                onClick={() => handleViewRecord(patient)}
-                                                            >
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td><p >NO RECORDS FOUND</p></td>
-                                                                <td></td>
-                                                            </tr>
-                                                        )
-                                                    } */}
-                                                
                                                 </tbody>
                                             </table>    
                                         </div>
+                                        {/* Vital Signs */}
                                         <div className='sp2-MCRecordsDiv my-3'>
                                             <table className="table sp2-MCRecordsTable">
                                                 <thead>
@@ -288,15 +276,14 @@ const FamilyPlanningSpecificResident = () => {
                 </div>  
             </div>
 
-            {/* Modal  */}
-            
+            {/*Add Vital sign Modal  */}
             <AdditionalFamilyPlanning residentid={patientinfo._id}/>
 
             {/* Add Vital Sign Modal  */}
             <AdditionVitalSigns residentid={patientinfo._id}/>
             
             {/*View Vital Sign Modal  */}
-              <ViewVitalSigns recordid={selectedVSId} record={selectedVSRec}/>
+            <ViewVitalSigns recordid={selectedVSId} record={selectedVSRec}/>
                     
         </>
     )

@@ -474,49 +474,7 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                 </div>
                             </div> 
                                 
-                                {/* <div className='sp2-bottomDiv mt-5'>
-                                    <div className='sp2-bottomDivHeader d-flex justify-content-between'>
-                                        <h4 className="text-start">Vital Signs Testing</h4>     */}
-                                        {/* Button trigger modal  */}
-                                        {/* <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#PVitalAdd"><FontAwesomeIcon icon={faPlus}/></button>
-                                    </div>
-                                    <div className='sp2-MCRecordsDiv'>
-                                        <table className="table sp2-MCRecordsTable">
-                                            <thead>
-                                                <tr>
-                                                    <th>Session Finding Number</th>
-                                                    <th>Date of Assessment</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody > */}
-                                                {/* {
-                                                    test.map((rec,idx) => (
-                                                        <tr 
-                                                            className='sp2-clickableMCRRow' 
-                                                            key={idx}
-                                                            data-bs-toggle="modal" data-bs-target="#PVitalView"
-                                                            >
-                                                            <td>{rec.test}</td>
-                                                            <td>{rec.date}</td>
-                                                        </tr>
-                                                    ))
-                                                } */}
-{/* 
-                                                <tr
-                                                    className='sp2-clickableMCRRow'
-                                                    data-bs-toggle="modal" data-bs-target="#PVitalView"
-                                                >
-                                                    <td>Session Finding #1</td>
-                                                    <td>June 1, 2021</td>
-
-                                                </tr>
-
-                                            
-                                            </tbody>
-                                        </table>    
-                                    </div>
-                                </div> */}
-                                <div className='sp2-bottomDiv'>
+                                <div className='sp2-bottomDiv '>
                                     <div className='sp2-bottomDivHeader d-flex justify-content-between mt-5'>
                                         <h4 className="text-start">Family Planning Assessment</h4>    
                                         {/* Button trigger modal  */}
@@ -532,8 +490,8 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                             </span>
                                         </button>
                                     </div>
-                                    <div className='sp2-MCRecordsDiv'>
-                                        <table className="table sp2-MCRecordsTable">
+                                    <div className='sp2-MCRecordsDiv'  >
+                                        <table className="table sp2-MCRecordsTable" >
                                             <thead>
                                                 <tr>
                                                     <th>Session Finding Number</th>

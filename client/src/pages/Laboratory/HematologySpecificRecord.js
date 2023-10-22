@@ -161,56 +161,12 @@ const HematologySpecificRecord = () => {
                             </div>
                         </div> 
                             
-                            {/* <div className='sp2-bottomDiv mt-5'>
-                                <div className='sp2-bottomDivHeader d-flex justify-content-between'>
-                                    <h4 className="text-start">Vital Signs Testing</h4>     */}
-                                    {/* Button trigger modal  */}
-                                    {/* <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#PVitalAdd"><FontAwesomeIcon icon={faPlus}/></button>
-                                </div>
-                                <div className='sp2-MCRecordsDiv'>
-                                    <table className="table sp2-MCRecordsTable">
-                                        <thead>
-                                            <tr>
-                                                <th>Session Finding Number</th>
-                                                <th>Date of Assessment</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody > */}
-                                            {/* {
-                                                test.map((rec,idx) => (
-                                                    <tr 
-                                                        className='sp2-clickableMCRRow' 
-                                                        key={idx}
-                                                        data-bs-toggle="modal" data-bs-target="#PVitalView"
-                                                        >
-                                                        <td>{rec.test}</td>
-                                                        <td>{rec.date}</td>
-                                                    </tr>
-                                                ))
-                                            } */}
-
-                                            {/* <tr
-                                                className='sp2-clickableMCRRow'
-                                                data-bs-toggle="modal" data-bs-target="#PVitalView"
-                                            >
-                                                <td>Session Finding #1</td>
-                                                <td>June 1, 2021</td>
-
-                                            </tr> */}
-
-                                        
-                                        {/* </tbody> */}
-                                    {/* </table>     */}
                             </div>
                             
                         </div>
                     </div>
                     
                 </div>
-            {/* </div>   */}
-       
-        
-
 
         {/*  Add Vital Signs Testing Modal  */}
         <div className="modal fade" id="PVitalAdd" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -250,43 +206,6 @@ const HematologySpecificRecord = () => {
             </div>
         </div>
 
-         {/* Add Family Assessment Modal  */}
-        <div className="modal fade" id="fpAssesAdd" tabIndex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-            <div className="modal-dialog modal-lg">
-                <div className="modal-content">
-                <div className="modal-header">
-                    <h1 className="modal-title fs-5" id="exampleModalLabel1">Family Planning Assessment</h1>
-                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className="modal-body">
-                      {/* <AdditionFamilyPlanningAssessment/> */}
-                </div>
-                <div className="modal-footer">
-                    <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" className="sp2-addMCButton">Save</button>
-                </div>
-                </div>
-            </div>
-        </div>
-
-       {/* View Family Assessment Modal  */}
-        <div className="modal fade" id="fpAssesView" tabIndex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-            <div className="modal-dialog modal-lg">
-                <div className="modal-content">
-                <div className="modal-header">
-                    <h1 className="modal-title fs-5" id="exampleModalLabel1">Family Planning Assessment</h1>
-                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className="modal-body">
-                    {/* <ViewFamilyPlanningAssessment/> */}
-                </div>
-                {/* <div className="modal-footer">
-                    <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" className="sp2-addMCButton">Save</button>
-                </div> */}
-                </div>
-            </div>
-        </div>
     </>
     )
 }

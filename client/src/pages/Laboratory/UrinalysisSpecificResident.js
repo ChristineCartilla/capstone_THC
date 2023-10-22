@@ -7,18 +7,25 @@ import AdditionalUrinalysis from '../../components/AdditionalUrinalysis.js'
 import axios from 'axios'
 import THCDefaultPatientLogo from '../../images/default_image.png'
 import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
+import ViewVitalSigns from '../../components/ViewVitalSigns.js'
+import AdditionVitalSigns from '../../components/AdditionVitalSigns.js'
+
 
 const UrinalysisSpecificResident = () => {
     const { residentid } = useParams();
     const [patientinfo, setPatientInfo] = useState([]);
     const [records, setRecords] = useState([]);
     const [serviceProviderName, setServiceProviderName] = useState("");
+    const [selectedVSId, setSelectedVSId] = useState(null);
+    const [vitalSignRecs, setVitalSignRecs] = useState([]);
+    const [selectedVSRec, setSelectedVSRec] = useState(null);
     const navigate = useNavigate();
     
     useEffect(() => {
         patientInformation();
         recordsList();
         getServiceProvider();
+        vitalSignList();
     }, [])
 
     const patientInformation = async () => {
@@ -38,6 +45,21 @@ const UrinalysisSpecificResident = () => {
             console.log(error);
         }
     }
+
+    const vitalSignList = async () => {
+        try {
+            const fetchVS = await axios.get(`/vitalsign/${residentid}`);
+            setVitalSignRecs(fetchVS.data.vital_signs);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const handleRowClickVS = (recordid, record) => {
+        setSelectedVSId(recordid);
+        setSelectedVSRec(record);
+    }
+
 
     const navigateRecord = (recordid) => {
         navigate(recordid);
@@ -192,22 +214,63 @@ const UrinalysisSpecificResident = () => {
                                                         }
                                                     })
                                                 }
-                                                {/* {
-                                                    records.length == 0 && (
-                                                        <tr className='sp2-clickableMCRRow'
-                                                            onClick={() => navigateRecord()}
-                                                        >
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td><p >NO RECORDS FOUND</p></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    )
-                                                } */}
-                                            
                                             </tbody>
                                         </table>    
                                     </div>
+                                    
+                                    {/* Vital Signs */}
+                                    <div className='sp2-MCRecordsDiv my-3'>
+                                            <table className="table sp2-MCRecordsTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th style={{maxWidth:"400px"}}>Vital Signs</th>
+                                                        <th></th> 
+                                                        <th style={{textAlign:"end"}}><button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#VitalSignAddition"><FontAwesomeIcon icon={faPlus}/></button></th> 
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>Record Number</td>
+                                                        <td> </td>
+                                                        <td>Date of Record</td> 
+                                                    </tr>
+                                                    {
+                                                        vitalSignRecs && vitalSignRecs.map((rec, idx) => {
+                                                            if (rec._id != null) {
+                                                                return (
+                                                                    <tr
+                                                                        className='sp2-clickableMCRRow'
+                                                                        key={idx}
+                                                                        data-bs-toggle="modal" data-bs-target="#VitalSignView"
+                                                                        onClick={() => handleRowClickVS(rec._id, rec)}
+                                                                    >
+                                                                        <td> </td>
+                                                                        <td>{rec._id}</td>
+                                                                        <td> </td>
+                                                                        <td>{formatDate(rec.createdAt)}</td>
+                                                                    </tr>
+                                                                );
+                                                            }
+                                                        
+                                                        })
+                                                    }
+                                                    {
+                                                        vitalSignRecs.length == 0 && (
+                                                            <tr className='sp2-clickableMCRRow'>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td><p >NO RECORDS FOUND</p></td>
+                                                                <td></td>
+                                                                
+                                                            </tr>
+                                                        )
+                                                    }
+                                                        
+                                                </tbody>
+                                            </table>     
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -222,10 +285,14 @@ const UrinalysisSpecificResident = () => {
             </div>  
         </div>
 
-         {/* Modal  */}
-       
+         {/* Urinalysis Modal  */}
         <AdditionalUrinalysis residentid={patientinfo._id} serviceProviderName={serviceProviderName}/>
+        
+         {/* Add Vital Sign Modal  */}
+         <AdditionVitalSigns residentid={patientinfo._id}/>
             
+        {/*View Vital Sign Modal  */}
+        <ViewVitalSigns recordid={selectedVSId} record={selectedVSRec}/>
     </>
     );
 }

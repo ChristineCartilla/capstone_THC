@@ -16,14 +16,11 @@ const AdditionalHematology = ({residentid, serviceProviderName}) => {
     const [retlculocyteNumFrac, setReticulocyteNumFrac] = useState("");
     const [remarks, setRemarks] = useState("");
     const serviceProvider = serviceProviderName;
-
+  
     const addRecSubmit = async (event) => {
         event.preventDefault();
-       
+      
         try{
-                // const userId = sessionStorage.getItem("profileId");
-                // const fetchServiceProvider = await axios.get(`/profile/${userId}`);
-                // const serviceProvider = "Dr. "+ fetchServiceProvider.data.last_name;
                 const response = await axios.post
                     (`/hematology/add/${residentid}`,
                         {hematocritLevel, hemoglobinMassConc, erythrocyteNumConc, leukocyteNumConc, 
@@ -72,17 +69,17 @@ const AdditionalHematology = ({residentid, serviceProviderName}) => {
                                 <div className="col text-start">
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label">Hematocrit </label>
                                     <input 
-                                        type="text"  
+                                        type="number"  
                                         className="form-control mt-4" 
                                         id="exampleFormControlTextarea1" 
                                         style={{backgroundColor: "#CCE8DE"}}
                                         value={hematocritLevel}
-                                        onChange={e => setHematocritLevel(e.target.value)}/>   
+                                        onChange={e => setHematocritLevel(e.target.value)} />
                                 </div>
                                 <div className="col text-start">
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label">Hemoglobin Mass Concentration</label>
                                     <input 
-                                        type="text"  
+                                        type="number"  
                                         className="form-control Addition_Prenatal_textarea" 
                                         id="exampleFormControlTextarea1" 
                                         style={{backgroundColor: "#CCE8DE"}}
@@ -92,7 +89,7 @@ const AdditionalHematology = ({residentid, serviceProviderName}) => {
                                 <div className="col text-start">
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label">Erythrocyte Number Concentration</label>
                                     <input 
-                                        type="text"  
+                                        type="number"  
                                         className="form-control Addition_Prenatal_textarea" 
                                         id="exampleFormControlTextarea1" 
                                         style={{backgroundColor: "#CCE8DE"}}
@@ -102,7 +99,7 @@ const AdditionalHematology = ({residentid, serviceProviderName}) => {
                                 <div className="col text-start">
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label">Leukocyte Number Concentration</label>
                                     <input 
-                                        type="text"  
+                                        type="number"  
                                         className="form-control Addition_Prenatal_textarea" 
                                         id="exampleFormControlTextarea1" 
                                         style={{backgroundColor: "#CCE8DE"}}
@@ -115,7 +112,7 @@ const AdditionalHematology = ({residentid, serviceProviderName}) => {
                                 <div className="col text-start">
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label">Segmenter Number Fraction </label>
                                     <input 
-                                        type="text"  
+                                        type="number"  
                                         className="form-control " 
                                         id="exampleFormControlTextarea1" 
                                         style={{backgroundColor: "#CCE8DE"}}
@@ -125,7 +122,7 @@ const AdditionalHematology = ({residentid, serviceProviderName}) => {
                                 <div className="col text-start">
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label">Lymphocyte Number Fraction</label>
                                     <input 
-                                        type="text"  
+                                        type="number"  
                                         className="form-control Addition_Prenatal_textarea" 
                                         id="exampleFormControlTextarea1" 
                                         style={{backgroundColor: "#CCE8DE"}}
@@ -135,7 +132,7 @@ const AdditionalHematology = ({residentid, serviceProviderName}) => {
                                 <div className="col text-start">
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label">Monocyte Number Fraction</label>
                                     <input 
-                                        type="text"  
+                                        type="number"  
                                         className="form-control Addition_Prenatal_textarea" 
                                         id="exampleFormControlTextarea1" 
                                         style={{backgroundColor: "#CCE8DE"}}
@@ -145,7 +142,7 @@ const AdditionalHematology = ({residentid, serviceProviderName}) => {
                                 <div className="col text-start">
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label">Basophile Number Fraction</label>
                                     <input 
-                                        type="text"  
+                                        type="number"  
                                         className="form-control Addition_Prenatal_textarea" 
                                         id="exampleFormControlTextarea1" 
                                         style={{backgroundColor: "#CCE8DE"}}
@@ -159,7 +156,7 @@ const AdditionalHematology = ({residentid, serviceProviderName}) => {
                                 <div className="col text-start">
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label">Eosinophile Number Fraction </label>
                                     <input 
-                                        type="text"  
+                                        type="number"  
                                         className="form-control " 
                                         id="exampleFormControlTextarea1" 
                                         style={{backgroundColor: "#CCE8DE"}}
@@ -169,7 +166,7 @@ const AdditionalHematology = ({residentid, serviceProviderName}) => {
                                 <div className="col text-start">
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label">Stab</label>
                                     <input 
-                                        type="text"  
+                                        type="number"  
                                         className="form-control Addition_Prenatal_textarea mt-4" 
                                         id="exampleFormControlTextarea1" 
                                         style={{backgroundColor: "#CCE8DE"}}
@@ -179,7 +176,7 @@ const AdditionalHematology = ({residentid, serviceProviderName}) => {
                                 <div className="col text-start">
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label">Thrombocyte Number Concentration </label>
                                     <input 
-                                        type="text"  
+                                        type="number"  
                                         className="form-control" 
                                         id="exampleFormControlTextarea1" 
                                         style={{backgroundColor: "#CCE8DE"}}
@@ -189,7 +186,7 @@ const AdditionalHematology = ({residentid, serviceProviderName}) => {
                                 <div className="col text-start">
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label">Reticulocyte  Number Fraction</label>
                                     <input 
-                                        type="text"  
+                                        type="number"  
                                         className="form-control Addition_Prenatal_textarea" 
                                         id="exampleFormControlTextarea1" 
                                         style={{backgroundColor: "#CCE8DE"}}
@@ -209,8 +206,9 @@ const AdditionalHematology = ({residentid, serviceProviderName}) => {
                                     value={remarks}
                                     onChange={e => setRemarks(e.target.value)}></textarea>
                             </div>
-                        
+                      
                         </form>
+                        
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
