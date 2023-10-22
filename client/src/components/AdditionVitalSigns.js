@@ -46,7 +46,8 @@ const AdditionVitalSigns = ({residentid}) => {
                                         id="exampleFormControlTextarea1" 
                                         value={vitalSignWeight}
                                         onChange={e => setVitalSignWeight(e.target.value)}
-                                        style={{backgroundColor: "#CCE8DE"}}/>
+                                        style={{backgroundColor: "#CCE8DE"}}
+                                        placeholder='Kg.'/>
                                 </div>
                                 <div className="col text-start">
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label">Blood Pressure</label>
@@ -64,7 +65,8 @@ const AdditionVitalSigns = ({residentid}) => {
                                         id="exampleFormControlTextarea1" 
                                         value={vitalSignHeight}
                                         onChange={e => setVitalSignHeight(e.target.value)}
-                                        style={{backgroundColor: "#CCE8DE"}}/>
+                                        style={{backgroundColor: "#CCE8DE"}}
+                                        placeholder='cm.'/>
                                 </div>
                                 <div className="col text-start">
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label">Pulse Rate</label>
@@ -78,11 +80,12 @@ const AdditionVitalSigns = ({residentid}) => {
                             <div className="row mb-5">
                                 <div className="col-6 text-start">
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label">Temperature</label>
-                                    <input type="text"  className="form-control Addition_Vital_textarea" 
+                                    <input type="number"  className="form-control Addition_Vital_textarea" 
                                         id="exampleFormControlTextarea1" 
                                         value={vitalSignTemp}
                                         onChange={e => setVitalSignTemp(e.target.value)}
-                                        style={{backgroundColor: "#CCE8DE"}}/>
+                                        style={{backgroundColor: "#CCE8DE"}}
+                                        placeholder='celcius'/>
                                 </div>
                             </div>
                         </form>
