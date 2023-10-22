@@ -28,7 +28,6 @@ router.post("/add/:id", async (req, res) => {
     try {
         const findProfile = ProfileModel.findById({_id: profId});
         if(findProfile){
-            const age = getAge(req.body.spouseDoB);
             const obstetricalInstance = new ObstetricalHistoryModel(req.body);
             await obstetricalInstance.save();
 

@@ -2,6 +2,10 @@ import express from "express";
 import { VitalSignModel } from "../models/VItalSigns.js";
 import { ProfileModel } from "../models/Profile.js";
 
+function getBmi(kg, cm){
+    return kg/(cm*cm).toFixed(3);
+}
+
 const router = express.Router();
 
 // ADDING VITAL SIGN TO AN EXISTING PROFILE
@@ -11,7 +15,8 @@ router.post("/add/:id", async (req, res) => {
     try {
         const findProfile = await ProfileModel.findById({_id:profileId});
         if(findProfile){
-            const vitalSignInstance = new VitalSignModel(req.body);
+            const currentBMI = getBmi(req.body.weight, req.body.height);
+            const vitalSignInstance = new VitalSignModel({...req.body, bmi: currentBMI});
             await vitalSignInstance.save();
 
             const profile = await ProfileModel.findOneAndUpdate(
