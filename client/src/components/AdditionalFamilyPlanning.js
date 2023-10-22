@@ -71,8 +71,6 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                     alert("Family Planning Successfully Added");
                     window.location.reload();
                 }
-         
-            
             } catch (error) {
             console.log(error);
          }
@@ -154,7 +152,7 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                                                     type="radio" 
                                                     name="inlineRadioOptions" 
                                                     id="inlineRadio1" 
-                                                    value="1"
+                                                    value={planAddChild ? "Yes" : "No"}
                                                     onChange={(event) => setPlanAddChild(event.target.value)}
                                                     />
                                                 <label className="form-check-label" htmlFor="inlineRadio1">Yes</label>

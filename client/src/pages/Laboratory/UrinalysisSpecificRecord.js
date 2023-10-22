@@ -77,55 +77,55 @@ const UrinalysisSpecificRecord = () => {
                                                     <span> {urinalysisInfo.character} </span>
                                                 </div>
 
-                                                <div className='col mt-5 mx-4'>
-                                                    <label className='fw-bold'>Reagent Strip Used: </label>
-                                                    <span> {urinalysisInfo.reangentStrip}</span>
+                                                <div className='col mt-5 '>
+                                                    <label className='fw-bold'>REAGENT STRIP USED:  </label>
+                                                  
+                                                    <div className='col mt-4 mx-4'>
+                                                        <label className='fw-bold'>Glucose: </label>
+                                                        <span> {urinalysisInfo.glucosLevel}</span>
+                                                    </div>
+                                                    <div className='col mt-4 mx-4'>
+                                                        <label className='fw-bold'>Bilirubin: </label>
+                                                        <span> {urinalysisInfo.bilirubin}</span>
+                                                    </div>
+                                                    <div className='col mt-4 mx-4'>
+                                                        <label className='fw-bold'>Ketone: </label>
+                                                        <span> {urinalysisInfo.ketoneLevel}</span>
+                                                    </div>
+                                                    <div className='col mt-4 mx-4'>
+                                                        <label className='fw-bold'>Specific Gravity: </label>
+                                                        <span> {urinalysisInfo.specificGravity}</span>
+                                                    </div>
+                                                    <div className='col mt-4 mx-4'>
+                                                        <label className='fw-bold'>Blood: </label>
+                                                        <span> {urinalysisInfo.bloodLevel}</span>
+                                                    </div>
+                                                    <div className='col mt-4 mx-4'>
+                                                        <label className='fw-bold'>PH: </label>
+                                                        <span> {urinalysisInfo.phLevel}</span>
+                                                    </div>
+                                                    <div className='col mt-4 mx-4'>
+                                                        <label className='fw-bold'>Protein: </label>
+                                                        <span> {urinalysisInfo.proteinLevel}</span>
+                                                    </div>
+                                                    <div className='col mt-4 mx-4'>
+                                                        <label className='fw-bold'>Urobilinogen: </label>
+                                                        <span> {urinalysisInfo.urobilinogenLevel}</span>
+                                                    </div>
+                                                    <div className='col mt-4 mx-4'>
+                                                        <label className='fw-bold'>Nitrite: </label>
+                                                        <span> {urinalysisInfo.nitrate}</span>
+                                                    </div>
+                                                    <div className='col mt-4 mx-4 mb-5'>
+                                                        <label className='fw-bold'>Leukocyte: </label>
+                                                        <span> {urinalysisInfo.leukocyteLevel}</span>
+                                                    </div> 
                                                 </div>
-                                                <div className='col mt-4 mx-4'>
-                                                    <label className='fw-bold'>Glucose: </label>
-                                                    <span> {urinalysisInfo.glucosLevel}</span>
-                                                </div>
-                                                <div className='col mt-4 mx-4'>
-                                                    <label className='fw-bold'>Bilirubin: </label>
-                                                    <span> {urinalysisInfo.bilirubin}</span>
-                                                </div>
-                                                <div className='col mt-4 mx-4'>
-                                                    <label className='fw-bold'>Ketone: </label>
-                                                    <span> {urinalysisInfo.ketoneLevel}</span>
-                                                </div>
-                                                <div className='col mt-4 mx-4'>
-                                                    <label className='fw-bold'>Specific Gravity: </label>
-                                                    <span> {urinalysisInfo.specificGravity}</span>
-                                                </div>
-                                                <div className='col mt-4 mx-4'>
-                                                    <label className='fw-bold'>Blood: </label>
-                                                    <span> {urinalysisInfo.bloodLevel}</span>
-                                                </div>
-                                                <div className='col mt-4 mx-4'>
-                                                    <label className='fw-bold'>PH: </label>
-                                                    <span> {urinalysisInfo.phLevel}</span>
-                                                </div>
-                                                <div className='col mt-4 mx-4'>
-                                                    <label className='fw-bold'>Protein: </label>
-                                                    <span> {urinalysisInfo.proteinLevel}</span>
-                                                </div>
-                                                <div className='col mt-4 mx-4'>
-                                                    <label className='fw-bold'>Urobilinogen: </label>
-                                                    <span> {urinalysisInfo.urobilinogenLevel}</span>
-                                                </div>
-                                                <div className='col mt-4 mx-4'>
-                                                    <label className='fw-bold'>Nitrite: </label>
-                                                    {/* <span> {urinalysisInfo.nitrite}</span> */}
-                                                </div>
-                                                <div className='col mt-4 mx-4 mb-5'>
-                                                    <label className='fw-bold'>Leukocyte: </label>
-                                                    <span> {urinalysisInfo.leukocyteLevel}</span>
-                                                </div> 
                                             </div>
 
                                             <div className="col-md-6">
                                             <div className='col-md-6 mt-4 mx-4'>
-                                                    <label className='fw-bold'>CRYSTALS: </label>
+                                                <label className='fw-bold'>CRYSTALS: </label>
                                                     
                                                 </div>
                                                 <div className='col mt-4 mx-5'>

@@ -110,16 +110,7 @@ const AdditionalUrinalysis = ({residentid, serviceProviderName}) => {
                                 value = {character}
                                 onChange={e => setCharacter(e.target.value)}/>
                         </div>    
-                        <div className="col text-start">
-                            <label htmlFor="exampleFormControlTextarea1" className="form-label">Reagent Strip used</label>
-                            <input 
-                                type="text"  
-                                className="form-control Addition_Prenatal_textarea" 
-                                id="exampleFormControlTextarea1" 
-                                style={{backgroundColor: "#CCE8DE"}}
-                                value = {reangentStrip}
-                                onChange={e => setReagentStrip(e.target.value)}/>
-                        </div>
+                       
                         <div className="col text-start">
                             <label htmlFor="exampleFormControlTextarea1" className="form-label">Glucose</label>
                             <input 
@@ -130,9 +121,7 @@ const AdditionalUrinalysis = ({residentid, serviceProviderName}) => {
                                 value = {glucosLevel}
                                 onChange={e => setGlucosLevel(e.target.value)}/>
                         </div>
-                    </div>
 
-                    <div className="row mb-4">
                         <div className="col text-start">
                             <label htmlFor="exampleFormControlTextarea1" className="form-label">Bilirubin</label>
                             <input 
@@ -143,6 +132,10 @@ const AdditionalUrinalysis = ({residentid, serviceProviderName}) => {
                                 value = {bilirubin}
                                 onChange={e => setBilirubin(e.target.value)}/>
                         </div> 
+                    </div>
+
+                    <div className="row mb-4">
+                       
                         <div className="col text-start">
                             <label htmlFor="exampleFormControlTextarea1" className="form-label">Ketone</label>
                             <input 
@@ -173,10 +166,7 @@ const AdditionalUrinalysis = ({residentid, serviceProviderName}) => {
                                 value = {bloodLevel}
                                 onChange={e => setBloodLevel(e.target.value)}/>
                         </div>
-                    </div>
 
-                    
-                    <div className="row mb-4">
                         <div className="col text-start">
                             <label htmlFor="exampleFormControlTextarea1" className="form-label">PH Level</label>
                             <input 
@@ -187,6 +177,11 @@ const AdditionalUrinalysis = ({residentid, serviceProviderName}) => {
                                 value = {phLevel}
                                 onChange={e => setPhLevel(e.target.value)}/>
                         </div> 
+                    </div>
+
+                    
+                    <div className="row mb-4">
+                        
                         <div className="col text-start">
                             <label htmlFor="exampleFormControlTextarea1" className="form-label">Protein</label>
                             <input 
@@ -217,9 +212,7 @@ const AdditionalUrinalysis = ({residentid, serviceProviderName}) => {
                                 value = {nitrate}
                                 onChange={e => setNitrate(e.target.value)} />
                         </div>
-                    </div>
 
-                    <div className="row mb-4">
                         <div className="col text-start">
                             <label htmlFor="exampleFormControlTextarea1" className="form-label">Leukocyte</label>
                             <input 
@@ -230,14 +223,9 @@ const AdditionalUrinalysis = ({residentid, serviceProviderName}) => {
                                 value ={leukocyteLevel} 
                                 onChange={(e) => setLeukocyteLevel(e.target.value)}/>
                         </div> 
-                        <div className="col text-start">
-                        </div>    
-                        <div className="col text-start">
-                        </div>
-                        <div className="col text-start">
-                        </div>
                     </div>
 
+                 
                     <hr className="hr" />
 
                     {/* Microscopic Examination */}
