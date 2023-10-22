@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import Sidebar from '../../components/Sidebar.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
@@ -6,12 +6,39 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 
-
+import THCDefaultPatientLogo from '../../images/default_image.png'
 
 const DentalSpecificRecord = () => {
     const {residentid, recordid} = useParams();
     const [patientinfo, setPatientinfo] = useState([]);
     const [oralHealthInfo, setOralHealthInfo] = useState([]);
+
+    function getWindowDimensions() {
+        const { innerWidth: width, innerHeight: height } = window;
+        return {
+          width,
+          height
+        };
+    }
+
+    function useWindowDimensions() {
+        const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+      
+        useEffect(() => {
+          function handleResize() {
+            setWindowDimensions(getWindowDimensions());
+          }
+      
+          window.addEventListener('resize', handleResize);
+          return () => window.removeEventListener('resize', handleResize);
+        }, []);
+      
+        return windowDimensions;
+    }
+
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+    const { height, width } = useWindowDimensions();
+
 
     useEffect(()=> {
         patientInformation();
@@ -86,127 +113,100 @@ const DentalSpecificRecord = () => {
                             <div className='container'>
                                 <div className='topDiv'>
                                     <h3 className="text-start ">Personal Information</h3>
-                                    <div className='sp3-personalInfoDiv'>
-                                        <table className="">
-                                            <tbody>
-                                                <tr>
-                                                    <th scope="row">Name:</th>
-                                                    <td>{patientinfo.first_name + " "+ patientinfo.middle_name + " " + patientinfo.last_name}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Age:</th>
-                                                    <td>{patientinfo.age} Years Old</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Birth Date:</th>
-                                                    <td>{formatDate(patientinfo.birthDate)}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Place of Birth:</th>
-                                                    <td>{patientinfo.birthPlace}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Occupation:</th>
-                                                    <td>{patientinfo.occupation}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Address:</th>
-                                                    <td>{patientinfo.street + " " + patientinfo.barangay + " " + patientinfo.municipality + " " + patientinfo.zipCode}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>    
+                                    <div className={`sp3-personalInfoDiv personal-info ${
+                                        width < 1500 ?
+                                        "oral-health-mobile" : null
+                                    }`}> 
+                                        <div className="personal-info-left">
+                                            <table className="">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">Name:</th>
+                                                        <td>{patientinfo.first_name + " "+ patientinfo.middle_name + " " + patientinfo.last_name}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Age:</th>
+                                                        <td>{patientinfo.age} Years Old</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Birth Date:</th>
+                                                        <td>{formatDate(patientinfo.birthDate)}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Place of Birth:</th>
+                                                        <td>{patientinfo.birthPlace}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Occupation:</th>
+                                                        <td>{patientinfo.occupation}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Address:</th>
+                                                        <td>{patientinfo.street + " " + patientinfo.barangay + " " + patientinfo.municipality + " " + patientinfo.zipCode}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>    
+                                        </div>
+                                        <div className="personal-info-right">
+                                            <div><img src={THCDefaultPatientLogo}/></div>
+                                        </div>
                                     </div>
                                     {/* <hr className="hr" /> */}
                                     <h3 className="text-start">Oral Health Condition</h3>
-                                    <div className="row-start tb">
-                                            <div className="col-6 text-start itembox ">
-                                            <label className="fw-bold ">Date of Oral Examination:  </label>
-                                            <span> {formatDate(oralHealthInfo.createdAt)} </span>
+                                    <div className={`oral-health ${
+                                        width < 1500 ?
+                                        "oral-health-mobile" : null
+                                    }`}>
+                                        <div className="oral-health-left">
+                                            <div class="oral-health-one">
+                                                <span className="fw-bold">Date of Oral Examination:</span>
+                                                <span className="fw-bold">Dental Caries:</span>
+                                                <span className="fw-bold">Gingivitis:</span>
+                                                <span className="fw-bold">Peiodontal Disease:</span>
+                                                <span className="fw-bold">Debris:</span>
+                                                <span className="fw-bold">Calculus:</span>
+                                                <span className="fw-bold">Abnormal Growth:</span>
+                                                <span className="fw-bold">Cleft Lip/Palate:</span>
+                                                <span className="fw-bold"></span>
                                             </div>
-                                            <div className="col-6 text-start itembox ">
-                                            <label className="fw-bold ">No. of Permanent Teeth Present:  </label>
-                                            <span> {oralHealthInfo.no_permTeethPres} </span>
+                                            <div className="oral-health-two">
+                                                <span> {formatDate(oralHealthInfo.createdAt)} </span>
+                                                <span><input className="form-check-input" type="checkbox" checked={oralHealthInfo.dentalCaries}/></span>
+                                                <span><input className="form-check-input" type="checkbox"  checked={oralHealthInfo.gingivitis}/></span>
+                                                <span><input className="form-check-input" type="checkbox"  checked={oralHealthInfo.periodontalDisease}/></span>
+                                                <span><input className="form-check-input" type="checkbox"  checked={oralHealthInfo.debris}/></span>
+                                                <span><input className="form-check-input" type="checkbox"  checked={oralHealthInfo.calculus}/></span>
+                                                <span><input className="form-check-input" type="checkbox"  checked={oralHealthInfo.abnormalGrowth}/></span>
+                                                <span><input className="form-check-input" type="checkbox"  checked={oralHealthInfo.cleftLip}/></span>
+                                                <span className="fw-bold"></span>
                                             </div>
+                                        </div>
+                                        <div className="oral-health-right">
+                                            <div class="oral-health-three">
+                                                <span className="fw-bold">No. of Permanent Teeth Present:</span>
+                                                <span className="fw-bold">No. of Permanent Sound Teeth:</span>
+                                                <span className="fw-bold">No. of Decayed Teeth:</span>
+                                                <span className="fw-bold">No. of Missing Teeth:</span>
+                                                <span className="fw-bold">No. of Filled Teeth:</span>
+                                                <span className="fw-bold">No. of DMF Teeth:</span>
+                                                <span className="fw-bold">No. of Temporary Teeth Present:</span>
+                                                <span className="fw-bold">No. of Temporary Sound Teeth:</span>
+                                                <span className="fw-bold">Total DF Teeth:</span>
+                                            </div>
+                                            <div className="oral-health-four">
+                                                <span> {oralHealthInfo.no_permTeethPres} </span>
+                                                <span> {oralHealthInfo.no_permSoundTeeth} </span>
+                                                <span> {oralHealthInfo.no_permDecayedTeeth} </span>
+                                                <span> {oralHealthInfo.no_permMissingTeeth} </span>
+                                                <span> {oralHealthInfo.no_permFilledTeeth} </span>
+                                                <span> {oralHealthInfo.totalDMFTeeth} </span>
+                                                <span> {oralHealthInfo.no_tempTeethPres} </span>
+                                                <span> {oralHealthInfo.no_tempSoundTeeth} </span>
+                                                <span> {oralHealthInfo.totalDFTeeth} </span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="row-start tb">
-                                            <div className="col-6 text-start itembox ">
-                                            <label className="fw-bold" >Dental Caries:  </label>
-                                            <input className="form-check-input" type="checkbox" checked={oralHealthInfo.dentalCaries}/>
-                                            </div>
-                                            <div className="col-6 text-start itembox ">
-                                            <label className="fw-bold ">No. of Permanent Sound Teeth:  </label>
-                                            <span> {oralHealthInfo.no_permSoundTeeth} </span>
-                                            </div>
-                                    </div>
-                                    <div className="row-start tb">
-                                            <div className="col-6 text-start itembox ">
-                                            <label className="fw-bold ">Gingivitis:  </label>
-                                            <input className="form-check-input" type="checkbox"  checked={oralHealthInfo.gingivitis}/>
-                                            </div>
-                                            <div className="col-6 text-start itembox ">
-                                            <label className="fw-bold ">No. of Decayed Teeth :  </label>
-                                            <span> {oralHealthInfo.no_permDecayedTeeth} </span>
-                                            </div>
-                                    </div>
-                                    <div className="row-start tb">
-                                            <div className="col-6 text-start itembox ">
-                                            <label className="fw-bold ">Peiodontal Disease:  </label>
-                                            <input className="form-check-input" type="checkbox"  checked={oralHealthInfo.periodontalDisease}/>
-                                            </div>
-                                            <div className="col-6 text-start itembox ">
-                                            <label className="fw-bold ">No. of Missing Teeth :  </label>
-                                            <span> {oralHealthInfo.no_permMissingTeeth} </span>
-                                            </div>
-                                    </div>
-                                    <div className="row-start tb">
-                                            <div className="col-6 text-start itembox ">
-                                            <label className="fw-bold ">Debris:  </label>
-                                            <input className="form-check-input" type="checkbox"  checked={oralHealthInfo.debris}/>
-                                            </div>
-                                            <div className="col-6 text-start itembox ">
-                                            <label className="fw-bold ">No. of Filled Teeth :  </label>
-                                            <span> {oralHealthInfo.no_permFilledTeeth} </span>
-                                            </div>
-                                    </div>
-                                    <div className="row-start tb">
-                                            <div className="col-6 text-start itembox ">
-                                            <label className="fw-bold ">Calculus:  </label>
-                                            <input className="form-check-input" type="checkbox"  checked={oralHealthInfo.calculus}/>
-                                            </div>
-                                            <div className="col-6 text-start itembox ">
-                                            <label className="fw-bold ">No. of DMF Teeth:  </label>
-                                            <span> {oralHealthInfo.totalDMFTeeth} </span>
-                                            </div>
-                                    </div>
-                                    <div className="row-start tb">
-                                            <div className="col-6 text-start itembox ">
-                                            <label className="fw-bold ">Abnormal Growth:  </label>
-                                            <input className="form-check-input" type="checkbox"  checked={oralHealthInfo.abnormalGrowth}/>
-                                            </div>
-                                            <div className="col-6 text-start itembox ">
-                                            <label className="fw-bold ">No. of Temporary Teeth Present:  </label>
-                                            <span> {oralHealthInfo.no_tempTeethPres} </span>
-                                            </div>
-                                    </div>
-                                    <div className="row-start tb">
-                                            <div className="col-6 text-start itembox ">
-                                            <label className="fw-bold ">Cleft Lip/Palate:  </label>
-                                            <input className="form-check-input" type="checkbox"  checked={oralHealthInfo.cleftLip}/>
-                                            </div>
-                                            <div className="col-6 text-start itembox ">
-                                            <label className="fw-bold ">No. of Temporary Sound Teeth :  </label>
-                                            <span> {oralHealthInfo.no_tempSoundTeeth} </span>
-                                            </div>
-                                    </div>
-                                    <div className="row-start tb">
-                                            <div className="col-6 text-start itembox ">
-                                            
-                                            </div>
-                                            <div className="col-6 text-start itembox ">
-                                            <label className="fw-bold ">Total DF Teeth:  </label>
-                                            <span> {oralHealthInfo.totalDFTeeth} </span>
-                                            </div>
-                                    </div>
+
                                     {/* <hr className="hr" /> */}
                                     {/* <h3 className="text-start">Medical History</h3>
                                     <table className="table table-borderless tb">
@@ -227,26 +227,21 @@ const DentalSpecificRecord = () => {
                                     </table> */}
                                     
                                 </div>
-                                <div className="buttomDiv">
+                                <div className="bottomDiv">
                                     <h3 className="text-start">Dietary Habits</h3>
-                                        <table className="table tb table-borderless">
-                                                <tbody>
-                                                    <tr>
-                                                        <th scope="row"> Sugar Sweetened Beverages/Food:</th>
-                                                        <td>{convertNumVal(oralHealthInfo.sugarBvrgs)}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">Frequency of Taking Alcohol:</th>
-                                                        <td>{convertNumVal(oralHealthInfo.freq_alcohol)}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">Frequency of Taking Tobacco:</th>
-                                                        <td>{convertNumVal(oralHealthInfo.freq_tobacco)}</td>
-                                                    </tr>
-                                                </tbody>
-                                        </table>
+                                    <div className="dietary">
+                                        <div className="dietary-label">
+                                            <span className="fw-bold">Sugar Sweetened Beverages/Food:</span>
+                                            <span className="fw-bold">Frequency of Taking Alcohol:</span>
+                                            <span className="fw-bold">Frequency of Taking Tobacco:</span>
+                                        </div>
+                                        <div className="dietary-input">
+                                            <span>{convertNumVal(oralHealthInfo.sugarBvrgs)}</span>
+                                            <span>{convertNumVal(oralHealthInfo.freq_alcohol)}</span>
+                                            <span>{convertNumVal(oralHealthInfo.freq_tobacco)}</span>
+                                        </div>
+                                    </div>
                                 </div>
-                        
                             </div>
                         </div>
                         
