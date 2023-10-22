@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
@@ -6,11 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import EditResidentProfile from '../../components/EditResidentProfile';
 import SidebarOpenBtn from '../../components/SidebarOpenBtn';
+import { useNavigate} from 'react-router-dom'
 import axios from 'axios';
 
 const ResidentsSpecificResident = () => {
   const { profile_id } = useParams();
   const [resident, setResident] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchProf();
@@ -119,9 +120,7 @@ const ResidentsSpecificResident = () => {
                   <button type="button" class="residentEditBtn" data-bs-toggle="modal" data-bs-target="#editResidentProfileModal">
                     Edit Resident Profile
                   </button>
-                  <button type="button" class="residentViewMedHisBtn">
-                    View Medical History
-                  </button>
+                
                 </div>
               </div>
             </div>

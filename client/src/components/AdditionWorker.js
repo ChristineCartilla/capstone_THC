@@ -22,7 +22,6 @@ const AdditionWorker = () => {
     const [zipCode, setZipCode] = useState('');
 
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     
 
 
@@ -33,7 +32,7 @@ const AdditionWorker = () => {
 
         try {
             const response = await axios.post('/account/worker/register', {
-                    email, phone: contactNo, password, user_type: occupation,first_name, last_name, middle_name,
+                    email, phone: contactNo, user_type: occupation,first_name, last_name, middle_name,
                     gender, birthDate, birthPlace, educAttain, occupation, contactNo,civilStatus,
                     nationality, street, barangay, municipality, zipCode
                 },
@@ -226,14 +225,6 @@ const AdditionWorker = () => {
                                     style={{backgroundColor: "#CCE8DE"}}
                                     value={email}
                                     onChange={(event)=>setEmail(event.target.value)}/>
-                            </div>
-                            <div  className="col-md-3 text-start">
-                                <label htmlFor="exampleFormControlTextarea1"  className="form-label">Password</label>
-                                <input type="text"   className="form-control " 
-                                    id="exampleFormControlTextarea1" 
-                                    style={{backgroundColor: "#CCE8DE"}}
-                                    value={password}
-                                    onChange={(event)=>setPassword(event.target.value)}/>
                             </div>
                         </div>
                     </form>
