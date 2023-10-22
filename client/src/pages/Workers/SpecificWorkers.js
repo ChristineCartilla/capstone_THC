@@ -33,6 +33,19 @@ const SpecificWorkers = () => {
     }
   }
 
+  const handlePassClick = async () => {
+    if(workerId){
+      try {
+          const response = await axios.patch(`/account/setdefault/${workerId}`)
+          if(response.status===200){
+            alert('Password is set to default');
+            window.location.reload();
+          }
+      } catch (error) {
+          console.log(error);
+      }
+    }
+  }
 
   const handleBack = () => {
     window.history.back();
@@ -119,6 +132,9 @@ const SpecificWorkers = () => {
                   <FontAwesomeIcon icon={faArrowLeft} /> Back
                 </button>
                 <div className='d-flex flex-column mb-3'>
+                  <button type="button" class="workerEditBtn" onClick={handlePassClick}>
+                    Set Password to Default
+                  </button>
                   <button type="button" class="workerEditBtn" data-bs-toggle="modal" data-bs-target="#editWorkerProfileModal">
                     Edit Worker Profile
                   </button>
