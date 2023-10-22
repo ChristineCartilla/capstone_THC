@@ -115,7 +115,7 @@ router.patch("/updateprofile/:id", async (req, res) => {
     const profId = req.params.id;
     try {
         const data = await ProfileModel.findOneAndUpdate({_id: profId}, req.body, {new:true});
-        const accdata = await ProfileModel.findOneAndUpdate({_id: profId}, req.body, {new:true});
+        const accdata = await AccountModel.findOneAndUpdate({profile: profId}, req.body, {new:true});
         res.json({data, accdata, message: "Profile Successfuly Updated"});
     } catch (error) {  
         res.json(error);
