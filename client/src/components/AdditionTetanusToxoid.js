@@ -41,9 +41,9 @@ const AdditionTetanusToxoid = ({recordid}) => {
               alert("Successfully Added Vaccine to Existing Maternal Health Record");
               window.location.reload();
             }
-            
-
-          }
+          }else {
+            alert("Please fill in all required fields.");
+        }
           
         } catch (error){
           console.log(error)

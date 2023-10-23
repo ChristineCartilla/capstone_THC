@@ -17,14 +17,15 @@ const PrenatalSpecificRecord = () => {
     const { residentid, recordid } = useParams();
     const [patientinfo, setPatientInfo] = useState([]);
     const [prenatalInfo, setPrenatalInfo] = useState([]);
-    const [vitalsignId, setVitalSignId] = useState([]);
+    const [vitalsignRec, setVitalSignRec] = useState([]);
     const [selectedRecordId, setSelectedRecordId] = useState(null);
+ 
   
     
     useEffect(() => {
         patientInformation();
         getPrenatalDetails();
-        
+        getVitalSignsRecord();
        
     }, [])
 
@@ -39,11 +40,19 @@ const PrenatalSpecificRecord = () => {
         await axios.get(`maternalhealth/getrecord/${residentid}/${recordid}`)
         .then( (response) => {
             setPrenatalInfo(response.data.record)
-            const vitalList = response.data.resident.vital_signs
-            const lastVitalSignId = vitalList[vitalList.length - 1];
-            setVitalSignId(lastVitalSignId)
+            
         },)
     }
+
+    const  getVitalSignsRecord = async () => {
+       
+        await axios.get(`/vitalsign/getlatestrec/${residentid}`)
+        .then( (response) => {
+            setVitalSignRec(response.data)
+          console.log(response.data)
+        })
+        
+       }
 
     
 
@@ -70,12 +79,10 @@ const PrenatalSpecificRecord = () => {
       
      
     const handleRowClick = (recordid) => {
-        setSelectedRecordId(recordid);
+          setSelectedRecordId(recordid);
+      
     };
-    
-    
-
-
+     
     
     const handleBack = () => {
         window.history.back()
@@ -256,38 +263,7 @@ const PrenatalSpecificRecord = () => {
                                     </div>
                                     </div> 
                                 </div>
-                                {/* <div className='sp2-bottomDiv'>
-                                    <div className='sp2-bottomDivHeader d-flex justify-content-between'>
-                                        <h4 className="text-start">Vital Signs Testing</h4>    
-                                        
-                                        <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#PVitalAdd"><FontAwesomeIcon icon={faPlus}/></button>
-                                    </div>
-                                    <div className='sp2-MCRecordsDiv'>
-                                        <table className="table sp2-MCRecordsTable">
-                                            <thead>
-                                                <tr>
-                                                    <th>Test Number</th>
-                                                    <th>Date of Testing</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody >
-                                                {
-                                                    test.map((rec,idx) => (
-                                                        <tr 
-                                                            className='sp2-clickableMCRRow' 
-                                                            key={idx}
-                                                            data-bs-toggle="modal" data-bs-target="#PVitalView"
-                                                            >
-                                                            <td>{rec.test}</td>
-                                                            <td>{rec.date}</td>
-                                                        </tr>
-                                                    ))
-                                                }
-                                            
-                                            </tbody>
-                                        </table>    
-                                    </div>
-                                </div> */}
+                                
                                 <div className='sp2-bottomDiv'>
                                     <div className='sp2-bottomDivHeader d-flex justify-content-between'>
                                         <h4 className="text-start">Prenatal Assesment</h4>    
@@ -334,62 +310,14 @@ const PrenatalSpecificRecord = () => {
             </div>
             
             {/* Add Prenatal Assessment Modal  */}
-             <AdditionPrenatalAssesment residentid={patientinfo._id} recordid={prenatalInfo._id} vitalsId={vitalsignId} />
+          \<AdditionPrenatalAssesment residentid={patientinfo._id} recordid={prenatalInfo._id} vitalRec={vitalsignRec} />
             
             {/* View Prenatal Assessment Modal  */}
             <ViewPrenatalAssessment recordid={selectedRecordId}/>
 
             {/*  Add Tetanus Toxoid Modal  */}
              <AdditionTetanusToxoid  recordid={prenatalInfo._id}/>
-
-
-          
-
-
-            {/*  Add Vital Signs Testing Modal  */}
-            {/* <div className="modal fade" id="PVitalAdd" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-lg">
-                    <div className="modal-content">
-                    <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel">Vital Signs Form</h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                        <AdditionVitalSigns />
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" className="sp2-addMCButton">Save</button>
-                    </div>
-                    </div>
-                </div>
-            </div> */}
-            
-            {/* View Vital Signs Testing Modal  */}
-            {/* <div className="modal fade" id="PVitalView" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-lg">
-                    <div className="modal-content">
-                    <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel">View Vital Signs</h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                        <ViewVitalSigns/>
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" className="sp2-addMCButton">Save</button>
-                    </div>
-                    </div>
-                </div>
-            </div> */}
-
-            
-                    
-
-         
-           
-          
+   
                    
         </>
     )

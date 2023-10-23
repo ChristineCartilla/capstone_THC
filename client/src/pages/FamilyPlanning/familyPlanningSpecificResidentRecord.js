@@ -454,7 +454,9 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                 </div>
                             </div> 
                                 
-                                <div className='sp2-bottomDiv '>
+                              
+                                
+                                <div className='sp2-bottomDiv'>
                                     <div className='sp2-bottomDivHeader d-flex justify-content-between mt-5'>
                                         <h4 className="text-start">Family Planning Assessment</h4>    
                                         {/* Button trigger modal  */}

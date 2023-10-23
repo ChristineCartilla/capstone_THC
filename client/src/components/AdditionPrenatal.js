@@ -2,57 +2,64 @@ import axios, { all } from 'axios';
 import React, { useState } from 'react'
 
 const AdditionPrenatal= ({residentid}) => {
-    const [numGravida, setnumGravida] = useState("");
-    const [numPara, setnumPara] = useState("");
-    const [numFullterm, setnumFullterm] = useState("");
-    const [numOfAbortion, setnumOfAbortion] = useState("");
-    const [numPremature, setnumPremature] = useState("");
-    const [numOfLivingChild, setnumOfLivingChild] = useState("");
-    const [numBornAlive, setnumBornAlive] = useState("");
-    const [numOfStillBirth, setStillBirths] = useState("");
-    const [numberOfLargeBabies, setnumberOfLargeBabies] = useState("");
-    const [lastMenstrualPeriod, setlastMenstrualPeriod] = useState("");
-    const [dateOfLastDelivery, setdateOfLastDelivery] = useState("");
-    const [typeOfLastDelivery, settypeOfLastDelivery] = useState("");
-    const [menstrualFlow, setMensflow] = useState("");
+    const [numGravida, setnumGravida] = useState(null);
+    const [numPara, setnumPara] = useState(null);
+    const [numFullterm, setnumFullterm] = useState(null);
+    const [numOfAbortion, setnumOfAbortion] = useState(null);
+    const [numPremature, setnumPremature] = useState(null);
+    const [numOfLivingChild, setnumOfLivingChild] = useState(null);
+    const [numBornAlive, setnumBornAlive] = useState(null);
+    const [numOfStillBirth, setStillBirths] = useState(null);
+    const [numberOfLargeBabies, setnumberOfLargeBabies] = useState(null);
+    const [lastMenstrualPeriod, setlastMenstrualPeriod] = useState('');
+    const [dateOfLastDelivery, setdateOfLastDelivery] = useState('');
+    const [typeOfLastDelivery, settypeOfLastDelivery] = useState('');
+    const [menstrualFlow, setMensflow] = useState('');
     const [dysmenorrhea, setDysmenorrhea] = useState(false);
     const [hydatidiformMole , sethydatidiformMole] = useState(false);
     const [ectopicPregnancy, setectopicPregnancy] = useState(false);
     const [diabetes, setDiabetes] = useState(false);
-    const [illness, setIllness] = useState("");
-    const [allergy, setAllergy] = useState("");
-    const [hospitalization, setHospitalization] = useState("");
+    const [illness, setIllness] = useState('');
+    const [allergy, setAllergy] = useState('');
+    const [hospitalization, setHospitalization] = useState('');
 
-    const requiredFields = [
-        numGravida, numPara, numFullterm, numOfAbortion, numPremature, numOfLivingChild, numBornAlive,
-        numOfStillBirth, numberOfLargeBabies, lastMenstrualPeriod, dateOfLastDelivery, typeOfLastDelivery,
-        menstrualFlow, illness, allergy, hospitalization
-      ];
     
-      const isEveryFieldFilled = requiredFields.every(value => value !== "");
-
-
+    const validateInputs = () => {
+        const numberInputs = [
+            numGravida,
+            numPara,
+            numFullterm,
+            numOfAbortion,
+            numPremature,
+            numOfLivingChild,
+            numBornAlive,
+            numOfStillBirth,
+            numberOfLargeBabies
+        ];
+        console.log(numberInputs)
+        return numberInputs.every(value => value === null || (value !== "" && !isNaN(value) && value >= 0));
+    }
+    
     const addRecSubmit = async (event) => {
       event.preventDefault();
-     // console.log(residentid);
-    // console.log(isEveryFieldFilled )
       try{
-        if(isEveryFieldFilled){
-          const userId = sessionStorage.getItem("profileId");
-          const fetchServiceProvider = await axios.get(`/profile/${userId}`);
-          const attendedBy = "Dr. "+ fetchServiceProvider.data.last_name;
-         const response = await axios.post(`/maternalhealth/add/${residentid}`,{numGravida, numPara, 
-            numFullterm, numOfAbortion, numPremature, numOfLivingChild, numBornAlive,
-            numOfStillBirth, numberOfLargeBabies, lastMenstrualPeriod, dateOfLastDelivery,
-             typeOfLastDelivery,menstrualFlow, illness, allergy, hospitalization,dysmenorrhea,
-              hydatidiformMole, ectopicPregnancy, diabetes, attendedBy});
-
-         
-                if(response.status === 200){
-                    alert("Prenatal Record Successfully Added");
-                    window.location.reload();
-                  }
-         }
+         if(validateInputs()){
+                const userId = sessionStorage.getItem("profileId");
+                const fetchServiceProvider = await axios.get(`/profile/${userId}`);
+                const attendedBy = "Dr. "+ fetchServiceProvider.data.last_name;
+                const response = await axios.post(`/maternalhealth/add/${residentid}`,{numGravida, numPara, 
+                    numFullterm, numOfAbortion, numPremature, numOfLivingChild, numBornAlive,
+                    numOfStillBirth, numberOfLargeBabies, lastMenstrualPeriod, dateOfLastDelivery,
+                    typeOfLastDelivery,menstrualFlow, illness, allergy, hospitalization,dysmenorrhea,attendedBy})
+              
+                
+                        if(response.status === 200){
+                            alert("Prenatal Record Successfully Added");
+                            window.location.reload();
+                        }
+            }else{
+                alert("Invalid inputs")
+            }
         
       } catch (error){
         console.log(error)
@@ -73,90 +80,90 @@ const AdditionPrenatal= ({residentid}) => {
                 <div  className="row mb-5">
                     <div  className="col text-start">
                         <label htmlFor="exampleFormControlTextarea1"  className="form-label">Gravida</label>
-                        <input type="text"   className="form-control Addition_Prenatal_textarea" 
+                        <input type="number"   className="form-control " 
                             id="exampleFormControlTextarea1" 
-                            value={numGravida}
-                            onChange={e => setnumGravida(e.target.value)}
+                            value={numGravida !== null ? numGravida : ""}
+                            onChange={e => setnumGravida(e.target.value !== "" ? parseInt(e.target.value) : null)}
                             style={{backgroundColor: "#CCE8DE"}}/>
                     
                     </div>
                     <div  className="col text-start">
                         <label htmlFor="exampleFormControlTextarea1"  className="form-label">Para</label>
-                        <input type="text"   className="form-control Addition_Prenatal_textarea" 
+                        <input type="number"   className="form-control " 
                             id="exampleFormControlTextarea1" 
-                            value={numPara}
-                            onChange={e => setnumPara(e.target.value)}
+                            value={numPara !== null ? numPara : ""}
+                            onChange={e => setnumPara(e.target.value !== "" ? parseInt(e.target.value) : null)}
                             style={{backgroundColor: "#CCE8DE"}}/>
                     
                     </div>
                     <div  className="col text-start">
                         <label htmlFor="exampleFormControlTextarea1"  className="form-label">No. of Full Term</label>
-                        <input type="text"   className="form-control Addition_Prenatal_textarea" 
+                        <input type="number"   className="form-control " 
                             id="exampleFormControlTextarea1" 
-                            value={numFullterm}
-                            onChange={e => setnumFullterm(e.target.value)}                        
+                            value={numFullterm!== null ? numFullterm : ""}
+                            onChange={e => setnumFullterm(e.target.value !== "" ? parseInt(e.target.value) : null)}                        
                             style={{backgroundColor: "#CCE8DE"}}/>
                     
                     </div>
                     <div  className="col text-start">
                         <label htmlFor="exampleFormControlTextarea1"  className="form-label">No. of Abortion</label>
-                        <input type="text"   className="form-control Addition_Prenatal_textarea" 
+                        <input type="number"   className="form-control " 
                             id="exampleFormControlTextarea1" 
-                            value={numOfAbortion}
-                            onChange={e => setnumOfAbortion(e.target.value)}
+                            value={numOfAbortion!== null ? numOfAbortion : ""}
+                            onChange={e => setnumOfAbortion(e.target.value !== "" ? parseInt(e.target.value) : null)}
                             style={{backgroundColor: "#CCE8DE"}}/>
                     </div>
                 </div>
                 <div  className="row mb-5">
                     <div  className="col text-start">
                         <label htmlFor="exampleFormControlTextarea1"  className="form-label">No. of Premature</label>
-                        <input type="text"   className="form-control Addition_Prenatal_textarea" 
+                        <input type="number"   className="form-control " 
                             id="exampleFormControlTextarea1" 
-                            value={numPremature}
-                            onChange={e => setnumPremature(e.target.value)}
+                            value={numPremature!== null ? numPremature : ""}
+                            onChange={e => setnumPremature(e.target.value !== "" ? parseInt(e.target.value) : null)}
                             style={{backgroundColor: "#CCE8DE"}}/>
                     
                     </div>
                     <div  className="col text-start">
                         <label htmlFor="exampleFormControlTextarea1"  className="form-label">No. of Child Born Alive</label>
-                        <input type="text"   className="form-control Addition_Prenatal_textarea" 
+                        <input type="number"   className="form-control " 
                             id="exampleFormControlTextarea1" 
-                            value={numBornAlive}
-                          onChange={e => setnumBornAlive(e.target.value)}
+                            value={numBornAlive!== null ? numBornAlive : ""}
+                          onChange={e => setnumBornAlive(e.target.value !== "" ? parseInt(e.target.value) : null)}
                             style={{backgroundColor: "#CCE8DE"}}/>
                     
                     </div>
                     <div  className="col text-start">
                         <label htmlFor="exampleFormControlTextarea1"  className="form-label">No. of Living Children</label>
-                        <input type="text"   className="form-control Addition_Prenatal_textarea" 
+                        <input type="number"   className="form-control " 
                             id="exampleFormControlTextarea1" 
-                            value={numOfLivingChild}
-                            onChange={e => setnumOfLivingChild(e.target.value)}
+                            value={numOfLivingChild!== null ? numOfLivingChild : ""}
+                            onChange={e => setnumOfLivingChild(e.target.value !== "" ? parseInt(e.target.value) : null)}
                             style={{backgroundColor: "#CCE8DE"}}/>
                     
                     </div>
                     <div  className="col text-start">
                         <label htmlFor="exampleFormControlTextarea1"  className="form-label">No. of Stillbirths</label>
-                        <input type="text"   className="form-control Addition_Prenatal_textarea" 
+                        <input type="number"   className="form-control " 
                             id="exampleFormControlTextarea1" 
-                            value={numOfStillBirth}
-                            onChange={e => setStillBirths(e.target.value)}
+                            value={numOfStillBirth !== null ? numOfStillBirth : ""}
+                            onChange={e => setStillBirths(e.target.value !== "" ? parseInt(e.target.value) : null)}
                             style={{backgroundColor: "#CCE8DE"}}/>
                     </div>
                 </div>
                 <div  className="row mb-5">
                     <div  className="col text-start">
                         <label htmlFor="exampleFormControlTextarea1"  className="form-label">No. of Large Babies</label>
-                        <input type="text"   className="form-control Addition_Prenatal_textarea" 
+                        <input type="number"   className="form-control " 
                             id="exampleFormControlTextarea1" 
-                            value={numberOfLargeBabies}
-                            onChange={e => setnumberOfLargeBabies(e.target.value)}
+                            value={numberOfLargeBabies!== null ? numberOfLargeBabies : ""}
+                            onChange={e => setnumberOfLargeBabies(e.target.value !== "" ? parseInt(e.target.value) : null)}
                             style={{backgroundColor: "#CCE8DE"}}/>
                     
                     </div>
                     <div  className="col text-start">
                         <label htmlFor="exampleFormControlTextarea1"  className="form-label">Last Menstural Period</label>
-                        <input type="date"   className="form-control Addition_Prenatal_textarea" 
+                        <input type="date"   className="form-control " 
                             id="exampleFormControlTextarea1" 
                             value={lastMenstrualPeriod}
                             onChange={e => setlastMenstrualPeriod(e.target.value)}
@@ -165,7 +172,7 @@ const AdditionPrenatal= ({residentid}) => {
                     </div>
                     <div  className="col text-start">
                         <label htmlFor="exampleFormControlTextarea1"  className="form-label">Date of Last Delivery</label>
-                        <input type="date"   className="form-control Addition_Prenatal_textarea" 
+                        <input type="date"   className="form-control " 
                             id="exampleFormControlTextarea1" 
                             value={dateOfLastDelivery}
                             onChange={e => setdateOfLastDelivery(e.target.value)}

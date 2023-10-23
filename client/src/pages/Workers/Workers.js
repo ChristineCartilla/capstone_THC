@@ -48,10 +48,10 @@ const Workers = () => {
                   {workers &&
                     workers.map((worker,idx) => (
                       <tr className="px-5" key={idx} >
-                        <td>{worker.profile[0].last_name}</td>
-                        <td>{worker.profile[0].first_name}</td>
-                        <td>{worker.profile[0].occupation}</td>
-                        <td>{worker.profile[0].prof_status}</td>
+                        <td>{worker?.profile[0]?.last_name}</td>
+                        <td>{worker?.profile[0]?.first_name}</td>
+                        <td>{worker?.profile[0]?.occupation}</td>
+                        <td>{worker?.profile[0]?.prof_status}</td>
                         <td>
                           <button
                             type="button"
