@@ -5,6 +5,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate,useParams } from 'react-router-dom'
 import AdditionTetanusToxoid from '../../components/AdditionTetanusToxoid.js'
+import THCDefaultPatientLogo from '../../images/default_image.png'
 
 import AdditionPrenatalAssesment from '../../components/AdditionPrenatalAssesment.js'
 import ViewPrenatalAssessment from '../../components/ViewPrenatalAssessment.js'
@@ -19,6 +20,32 @@ const PrenatalSpecificRecord = () => {
     const [prenatalInfo, setPrenatalInfo] = useState([]);
     const [vitalsignRec, setVitalSignRec] = useState([]);
     const [selectedRecordId, setSelectedRecordId] = useState(null);
+
+    function getWindowDimensions() {
+        const { innerWidth: width, innerHeight: height } = window;
+        return {
+          width,
+          height
+        };
+    }
+
+    function useWindowDimensions() {
+        const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+      
+        useEffect(() => {
+          function handleResize() {
+            setWindowDimensions(getWindowDimensions());
+          }
+      
+          window.addEventListener('resize', handleResize);
+          return () => window.removeEventListener('resize', handleResize);
+        }, []);
+      
+        return windowDimensions;
+    }
+
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+    const { height, width } = useWindowDimensions();
  
   
     
@@ -104,147 +131,128 @@ const PrenatalSpecificRecord = () => {
                             className="sp3-servicesBacRecBtn align-items-center"
                             onClick={() => handleBack()}>
                                 <FontAwesomeIcon icon={faAngleLeft}/>
-                        </button>
+                            </button>
                             <h1 className='text-start'>Prenatal 1</h1>  
                         </div>
                         <div className='sp3-pageBody'>
                             <div className='container'>
                                 <div className='topDiv'>
                                     <h4 className="text-start">Personal Information</h4>
-                                    <div className='sp3-personalInfoDiv'>
-                                    <div className="container">
-                                        <div className="row -start">
-                                            <div className="col itembox ">
-                                            <label className="fw-bold">Name :  </label>
-                                            <span> {patientinfo.first_name + " "+ patientinfo.middle_name + " " + patientinfo.last_name} </span>
+                                    <div className={`sp3-personalInfoDiv personal-info ${
+                                        width < 1500 ?
+                                        "oral-health-mobile" : null
+                                    }`}>
+                                        <div className="personal-info-left">
+                                            <table className="">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">Name:</th>
+                                                        <td>{patientinfo.first_name + " "+ patientinfo.middle_name + " " + patientinfo.last_name}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Age:</th>
+                                                        <td>{patientinfo.age} Years Old</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Birth Date:</th>
+                                                        <td>{formatDate(patientinfo.birthDate)}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Place of Birth:</th>
+                                                        <td>{patientinfo.birthPlace}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Occupation:</th>
+                                                        <td>{patientinfo.occupation}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Address:</th>
+                                                        <td>{patientinfo.street + " " + patientinfo.barangay + " " + patientinfo.municipality + " " + patientinfo.zipCode}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>    
+                                        </div>
+                                        <div className="personal-info-right">
+                                            <div><img src={THCDefaultPatientLogo}/></div>
+                                        </div>
+                                    </div>
+                                    <h3 className="text-start">Obstetrical History</h3>
+                                    <div className={`oral-health ${
+                                        width < 1500 ?
+                                        "oral-health-mobile" : null
+                                    }`}>
+                                        <div className="oral-health-left">
+                                            <div className="oral-health-one">
+                                                <span className="fw-bold">No. of Full Term:</span>
+                                                <span className="fw-bold">No. of Abortion:</span>
+                                                <span className="fw-bold">No. of Premature:</span>
+                                                <span className="fw-bold">No. of Children Born Alive:</span>
+                                                <span className="fw-bold">No. of Living Children:</span>
+                                                <span className="fw-bold">No. of Stillbirths:</span>
+                                                <span className="fw-bold">Last Menstural Period:</span>
+                                                <span className="fw-bold">Date of Last Delivery:</span>
                                             </div>
-                                            <div className="col itembox ">
-                                            <label className="fw-bold ">Address :  </label>
-                                            <span> {patientinfo.street + " "+ patientinfo.barangay + " " + patientinfo.municipality+ " " + patientinfo.zipCode} </span>
+                                            <div className="oral-health-two">
+                                                <span>{prenatalInfo?.obstetricalHistory?.numFullterm}</span>
+                                                <span>{prenatalInfo?.obstetricalHistory?.numOfAbortion}</span>
+                                                <span>{prenatalInfo?.obstetricalHistory?.numPremature}</span>
+                                                <span>{prenatalInfo?.obstetricalHistory?.numBornAlive}</span>
+                                                <span>{prenatalInfo?.obstetricalHistory?.numOfLivingChild}</span>
+                                                <span>{prenatalInfo?.obstetricalHistory?.numOfStillBirth} </span>
+                                                <span>{formatDate(prenatalInfo?.obstetricalHistory?.lastMenstrualPeriod)}</span>
+                                                <span>{formatDate(prenatalInfo?.obstetricalHistory?.dateOfLastDelivery)}</span>
                                             </div>
                                         </div>
-                                        <div className="row -start">
-                                            <div className="col itembox ">
-                                            <label className="fw-bold">Age :  </label>
-                                            <span> {formatAge(patientinfo.birthDate)} Years Old </span>
+                                        <div className="oral-health-right">
+                                            <div className="oral-health-three">
+                                                <span className="fw-bold">Type of Last Delivery:</span>
+                                                <span className="fw-bold">Gravida:</span>
+                                                <span className="fw-bold">Para:</span>
+                                                <span className="fw-bold">Menstrual Flow:</span>
+                                                <span className="fw-bold">Diabetes:</span>
+                                                <span className="fw-bold">Hydatidiform mole:</span>
+                                                <span className="fw-bold">History of Ectopic Pregnancy:</span>
+                                                <span className="fw-bold">Dysmenorrhea:</span>
                                             </div>
-                                            <div className="col itembox ">
-                                            <label className="fw-bold">Birth Date :  </label>
-                                            <span> {formatDate(patientinfo.birthDate)} </span>
-                                            </div>
-                                            <div className="col itembox ">
-                                            <label className="fw-bold">Occupation :  </label>
-                                            <span> {patientinfo.occupation} </span>
-                                            </div>
-                                        </div>
-                                        <div className="row -start">
-                                            <div className="col itembox ">
-                                            <label className="fw-bold ">No. of Full Term:  </label>
-                                                <span> {prenatalInfo?.obstetricalHistory?.numFullterm}</span>
-                                            </div>
-                                            <div className="col itembox ">
-                                            <label className="fw-bold">No. of Abortion: </label>
-                                            <span> {prenatalInfo?.obstetricalHistory?.numOfAbortion} </span>
-                                            </div>
-                                            <div className="col itembox ">
-                                            <label className="fw-bold ">No. of Premature: </label>
-                                            <span > {prenatalInfo?.obstetricalHistory?.numPremature} </span>
+                                            <div className="oral-health-four">
+                                                <span>{prenatalInfo?.obstetricalHistory?.typeOfLastDelivery}</span>
+                                                <span>{prenatalInfo?.obstetricalHistory?.numGravida}</span>
+                                                <span>{prenatalInfo?.obstetricalHistory?.numPara}</span>
+                                                <span>{prenatalInfo?.obstetricalHistory?.menstrualFlow}</span>
+                                                <span>{prenatalInfo?.obstetricalHistory?.diabetes?'Yes' : 'No'}</span>
+                                                <span>{prenatalInfo?.obstetricalHistory?.hydatidiformMole? 'Yes' : 'No'}</span>
+                                                <span>{prenatalInfo?.obstetricalHistory?.ectopicPregnancy? 'Yes' : 'No'}</span>
+                                                <span>{prenatalInfo?.obstetricalHistory?.dysmenorrhea? 'Yes' : 'No'}</span>
                                             </div>
                                         </div>
-                                        <div className="row -start">
-                                            <div className="col itembox ">
-                                            <label className="fw-bold ">No. of Children Born Alive: </label>
-                                            <span > {prenatalInfo?.obstetricalHistory?.numBornAlive} </span>
+                                    </div>
+                                    <h3 className="text-start">Medical History</h3>
+                                    <div className={`oral-health ${
+                                        width < 1500 ?
+                                        "oral-health-mobile" : null
+                                    }`}>
+                                        <div className="oral-health-left">
+                                            <div className="oral-health-one">
+                                                <span className="fw-bold">Illness:</span>
+                                                <span className="fw-bold">Allergies:</span>
+                                                <span className="fw-bold">Previous Hospitalization:</span>
                                             </div>
-                                            <div className="col itembox ">
-                                            <label className="fw-bold">No. of Living Children: </label>
-                                            <span> {prenatalInfo?.obstetricalHistory?.numOfLivingChild} </span>
-                                            </div>
-                                            <div className="col itembox ">
-                                            <label className="fw-bold ">No. of Stillbirths: </label>
-                                            <span > {prenatalInfo?.obstetricalHistory?.numOfStillBirth} </span>
-                                            </div>
-                                        </div>
-                                        <div className="row -start">
-                                            <div className="col itembox ">
-                                            <label className="fw-bold ">Last Menstural Period: </label>
-                                            <span > {formatDate(prenatalInfo?.obstetricalHistory?.lastMenstrualPeriod)} </span>
-                                            </div>
-                                            <div className="col itembox ">
-                                            <label className="fw-bold">Date of Last Delivery: </label>
-                                            <span> {formatDate(prenatalInfo?.obstetricalHistory?.dateOfLastDelivery)} </span>
-                                            </div>
-                                            <div className="row -start">
-                                            <div className="col itembox  ">
-                                            <label className="fw-bold ">Type of Last Delivery: </label>
-                                            <span > {prenatalInfo?.obstetricalHistory?.typeOfLastDelivery} </span>
-                                            </div>              
+                                            <div className="oral-health-two">
+                                                <span>{prenatalInfo?.medicalHistory?.illness} </span>
+                                                <span>{prenatalInfo?.medicalHistory?.allergy}</span>
+                                                <span>{prenatalInfo?.medicalHistory?.hospitalization}</span>
                                             </div>
                                         </div>
-                                        <div className="row -start">
-                                            <div className="col itembox ">
-                                            <label className="fw-bold">Gravida: </label>
-                                            <span> {prenatalInfo?.obstetricalHistory?.numGravida} </span>
-                                            </div>
-                                            <div className="col itembox ">
-                                            <label className="fw-bold ">Para: </label>
-                                            <span > {prenatalInfo?.obstetricalHistory?.numPara} </span>
-                                            </div>
-                                            <div className="col itembox ">
-                                            <label className="fw-bold ">Menstrual Flow: </label>
-                                            <span > {prenatalInfo?.obstetricalHistory?.menstrualFlow}</span>
-                                            </div>  
-                                        </div>
-                                        <div className="row -start">
-                                            <div className="col itembox ">
-                                            <label className="fw-bold ">Diabetes: </label>
-                                            <span > {prenatalInfo?.obstetricalHistory?.diabetes?'Yes' : 'No'}</span>
-                                            </div>
-                                            <div className="col itembox ">
-                                            <label className="fw-bold">Hydatidiform mole: </label>
-                                            <span> {prenatalInfo?.obstetricalHistory?.hydatidiformMole? 'Yes' : 'No'} </span>
-                                            </div>
-                                            <div className="col itembox ">
-                                            <label className="fw-bold ">History of Ectopic Pregnancy: </label>
-                                            <span > {prenatalInfo?.obstetricalHistory?.ectopicPregnancy? 'Yes' : 'No'} </span>
-                                            </div>
-                                        </div>
-                                        <div className="row -start">
-                                        <div className="col itembox ">
-                                            <label className="fw-bold ">Dysmenorrhea: </label>
-                                            <span > {prenatalInfo?.obstetricalHistory?.dysmenorrhea? 'Yes' : 'No'}</span>
-                                            </div>             
-                                        </div>
-                                        
-                                        <div className="row-start">
-                                            <div className='col'>
-                                            <label className="fw-bold">Illness: </label>
-                                            <div className=''style={{textAlign: 'justify'}}>
-                                            <span> {prenatalInfo?.medicalHistory?.illness} </span>
-                                            </div>
-                                            </div>
-                                        </div> 
-                                        <div className="row-start">
-                                            <div className='col'>
-                                            <label className="fw-bold ">Allergies: </label>
-                                            <div className=''style={{textAlign: 'justify'}}>
-                                            <span > {prenatalInfo?.medicalHistory?.allergy} </span>
-                                            </div>
-                                            </div>
-                                        </div> 
-                                        <div className="row-start">
-                                            <div className='col'>
-                                            <label className="fw-bold ">Previous Hospitalization: </label>
-                                            <div className=''style={{textAlign: 'justify'}}>
-                                                <span > {prenatalInfo?.medicalHistory?.hospitalization} </span>
-                                            </div>
-                                            </div>
-                                        </div>    
-                                        <div className="row-start">
-                                            <div className="col itembox ">
-                                            <label className="fw-bold col-sm-12">Tetanus Toxoid Status</label>
+                                    </div>
+                                    <h3 className="text-start">Tetanus Toxoid Status</h3>
+                                    <div className={`oral-health ${
+                                        width < 1500 ?
+                                        "oral-health-mobile" : null
+                                    }`}>
+                                        <div className="oral-health-left">
                                             <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#TetaAddition"><FontAwesomeIcon icon={faPlus}  style={{ color: '#44AA92' }}/></button>
-                                                {
+                                            <div className="oral-health-one">
+                                            {
                                                 prenatalInfo.tetanusToxoidStatus&& prenatalInfo.tetanusToxoidStatus.map((rec, idx) => {
                                                         if (rec._id != null) {
                                                             return (
@@ -257,13 +265,11 @@ const PrenatalSpecificRecord = () => {
                                                     
                                                     })
                                                 }
-                                              
                                             </div>
                                         </div>
+                                                
                                     </div>
-                                    </div> 
                                 </div>
-                                
                                 <div className='sp2-bottomDiv'>
                                     <div className='sp2-bottomDivHeader d-flex justify-content-between'>
                                         <h4 className="text-start">Prenatal Assesment</h4>    
@@ -280,7 +286,7 @@ const PrenatalSpecificRecord = () => {
                                             </thead>
                                             <tbody >
                                             {
-                                               prenatalInfo.maternalHealthAssessment && prenatalInfo.maternalHealthAssessment.map((rec, idx) => {
+                                            prenatalInfo.maternalHealthAssessment && prenatalInfo.maternalHealthAssessment.map((rec, idx) => {
                                                     if (rec._id != null) {
                                                         return (
                                                             <tr
@@ -294,7 +300,7 @@ const PrenatalSpecificRecord = () => {
                                                             </tr>
                                                         );
                                                     }
-                                                  
+                                                
                                                 })
                                             }
                                             
@@ -310,7 +316,7 @@ const PrenatalSpecificRecord = () => {
             </div>
             
             {/* Add Prenatal Assessment Modal  */}
-          \<AdditionPrenatalAssesment residentid={patientinfo._id} recordid={prenatalInfo._id} vitalRec={vitalsignRec} />
+          <AdditionPrenatalAssesment residentid={patientinfo._id} recordid={prenatalInfo._id} vitalRec={vitalsignRec} />
             
             {/* View Prenatal Assessment Modal  */}
             <ViewPrenatalAssessment recordid={selectedRecordId}/>
