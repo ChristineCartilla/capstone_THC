@@ -89,7 +89,7 @@ const AdditionalFamilyPlanning = ({residentid}) => {
 
                                 {/* MEDICAL CHECKUP */}
                                 <div  className="row mb-5">
-                                    <div  className="col-md-3 text-start">
+                                    <div  className="col-md-4 text-start">
                                         <label htmlFor="exampleFormControlTextarea1"  className="form-label ">Name of Spouse</label>
                                         <input 
                                             type="text"   
@@ -99,7 +99,7 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                                             value={nameSpouse}
                                             onChange={(event) => setNameSpouse(event.target.value)}/>
                                     </div>
-                                    <div  className="col-md-3 text-start">
+                                    <div  className="col-md-4 text-start">
                                         <label htmlFor="exampleFormControlTextarea1"  className="form-label ">Date of Birth</label>
                                         <input 
                                             type="date"   
@@ -108,18 +108,8 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                                             style={{backgroundColor: "#CCE8DE"}}
                                             value={spouseDoB}
                                             onChange={(event) => setSpouseDoB(event.target.value)}/>
-                                    </div>
-                                    <div  className="col-md-3 text-start">
-                                        <label htmlFor="exampleFormControlTextarea1"  className="form-label ">Age</label>
-                                        <input 
-                                            type="text"   
-                                            className="form-control " 
-                                            id="exampleFormControlTextarea1" 
-                                            style={{backgroundColor: "#CCE8DE"}}
-                                            value={spouseAge}
-                                            onChange={(event) => setSpouseAge(event.target.value)}/>
-                                    </div>
-                                    <div  className="col-md-3 text-start">
+                                    </div>    
+                                    <div  className="col-md-4 text-start">
                                         <label htmlFor="exampleFormControlTextarea1"  className="form-label ">Occupation</label>
                                         <input 
                                             type="text"   
@@ -130,12 +120,11 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                                             onChange={(event) => setSpouseOccupation(event.target.value)}/>
                                     </div>
                                 </div>
-
                                 <div  className="row mb-5">
                                     <div  className="col text-start">
                                         <label htmlFor="exampleFormControlTextarea1"  className="form-label ">No. of Living Children</label>
                                         <input 
-                                            type="text"  
+                                            type="number"  
                                             className="form-control" 
                                             id="exampleFormControlTextarea1" 
                                             style={{backgroundColor: "#CCE8DE"}}
@@ -172,7 +161,7 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                                     <div  className="col text-start">
                                         <label htmlFor="exampleFormControlTextarea1"  className="form-label">Average Monthly Income</label>
                                         <input 
-                                            type="text"   
+                                            type="number"   
                                             className="form-control " 
                                             id="exampleFormControlTextarea1" 
                                             style={{backgroundColor: "#CCE8DE"}}
@@ -193,7 +182,7 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                                                 <input 
                                                     className="form-check-input" 
                                                     type="checkbox" 
-                                                    value="Severe headaches Migraine" 
+                                                    value="Migraine" 
                                                     onChange={handleCheckboxChange} 
                                                     id="flexCheckDefault"/>
                                                 <label className="form-check-label" htmlFor="flexCheckDefault">
@@ -276,7 +265,7 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                                                     <input 
                                                         className="form-check-input"
                                                          type="checkbox" 
-                                                         value="Vaginal Bleeding" 
+                                                         value="Unexplained Vaginal Bleeding" 
                                                          onChange={handleCheckboxChange}
                                                          id="flexCheckDefault"/>
                                                     <label className="form-check-label" htmlFor="flexCheckDefault">
@@ -287,7 +276,7 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                                                     <input 
                                                         className="form-check-input" 
                                                         type="checkbox" 
-                                                        value="Vaginal Discharge" 
+                                                        value="Abnormal Vaginal Discharge" 
                                                         onChange={handleCheckboxChange}
                                                         id="flexCheckDefault"/>
                                                     <label className="form-check-label" htmlFor="flexCheckDefault">
@@ -342,7 +331,7 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                                     <div  className="col text-start">
                                         <label htmlFor="exampleFormControlTextarea1"  className="form-label">Gravida</label>
                                         <input 
-                                            type="text"  
+                                            type="number"  
                                             className="form-control Addition_Prenatal_textarea" 
                                             id="exampleFormControlTextarea1" 
                                             style={{backgroundColor: "#CCE8DE"}}
@@ -353,7 +342,7 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                                     <div  className="col text-start">
                                         <label htmlFor="exampleFormControlTextarea1"  className="form-label">Para</label>
                                         <input 
-                                            type="text"   
+                                            type="number"   
                                             className="form-control Addition_Prenatal_textarea" 
                                             id="exampleFormControlTextarea1" 
                                             style={{backgroundColor: "#CCE8DE"}}
@@ -364,7 +353,7 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                                     <div  className="col text-start">
                                         <label htmlFor="exampleFormControlTextarea1"  className="form-label">No. of Full Term</label>
                                         <input 
-                                            type="text"   
+                                            type="number"   
                                             className="form-control Addition_Prenatal_textarea" 
                                             id="exampleFormControlTextarea1" 
                                             style={{backgroundColor: "#CCE8DE"}}
@@ -374,7 +363,7 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                                     <div  className="col text-start">
                                         <label htmlFor="exampleFormControlTextarea1"  className="form-label">No. of Abortions</label>
                                         <input 
-                                            type="text"  
+                                            type="number"  
                                             className="form-control Addition_Prenatal_textarea" 
                                             id="exampleFormControlTextarea1" 
                                             style={{backgroundColor: "#CCE8DE"}}
@@ -388,7 +377,7 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                                     <div  className="col text-start">
                                         <label htmlFor="exampleFormControlTextarea1"  className="form-label">No. of Premature</label>
                                         <input 
-                                            type="text"   
+                                            type="number"   
                                             className="form-control Addition_Prenatal_textarea" 
                                             id="exampleFormControlTextarea1" 
                                             style={{backgroundColor: "#CCE8DE"}}
@@ -399,7 +388,7 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                                     <div  className="col text-start">
                                         <label htmlFor="exampleFormControlTextarea1"  className="form-label">No. of Child Born Alive</label>
                                         <input 
-                                            type="text"  
+                                            type="number"  
                                             className="form-control Addition_Prenatal_textarea" 
                                             id="exampleFormControlTextarea1" 
                                             style={{backgroundColor: "#CCE8DE"}}
@@ -410,7 +399,7 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                                     <div  className="col text-start">
                                         <label htmlFor="exampleFormControlTextarea1"  className="form-label">No. of Living Children</label>
                                         <input 
-                                            type="text"   
+                                            type="number"   
                                             className="form-control Addition_Prenatal_textarea" 
                                             id="exampleFormControlTextarea1" 
                                             style={{backgroundColor: "#CCE8DE"}}
@@ -421,7 +410,7 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                                     <div  className="col text-start">
                                         <label htmlFor="exampleFormControlTextarea1"  className="form-label">No. of Stillbirths</label>
                                         <input 
-                                            type="text"   
+                                            type="number"   
                                             className="form-control Addition_Prenatal_textarea" 
                                             id="exampleFormControlTextarea1" 
                                             style={{backgroundColor: "#CCE8DE"}}
@@ -434,7 +423,7 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                                     <div  className="col text-start">
                                         <label htmlFor="exampleFormControlTextarea1"  className="form-label">No. of Large Babies</label>
                                         <input 
-                                            type="text"   
+                                            type="number"   
                                             className="form-control Addition_Prenatal_textarea" 
                                             id="exampleFormControlTextarea1" 
                                             style={{backgroundColor: "#CCE8DE"}}

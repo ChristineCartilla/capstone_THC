@@ -110,36 +110,47 @@ const AdditionalUrinalysis = ({residentid, serviceProviderName}) => {
                                 value = {character}
                                 onChange={e => setCharacter(e.target.value)}/>
                         </div>    
+
+                        <div className="col text-start">
+                            <label htmlFor="exampleFormControlTextarea1" className="form-label">Reagent Strip Used:</label>
+                            <input 
+                                type="text"  
+                                className="form-control Addition_Prenatal_textarea" 
+                                id="exampleFormControlTextarea1" 
+                                style={{backgroundColor: "#CCE8DE"}}
+                                value = {reangentStrip}
+                                onChange={e => setCharacter(e.target.value)}/>
+                        </div>    
                        
                         <div className="col text-start">
                             <label htmlFor="exampleFormControlTextarea1" className="form-label">Glucose</label>
                             <input 
-                                type="text"  
+                                type="number"  
                                 className="form-control Addition_Prenatal_textarea" 
                                 id="exampleFormControlTextarea1" 
                                 style={{backgroundColor: "#CCE8DE"}}
                                 value = {glucosLevel}
                                 onChange={e => setGlucosLevel(e.target.value)}/>
                         </div>
+                    </div>
+
+                    <div className="row mb-4">
 
                         <div className="col text-start">
                             <label htmlFor="exampleFormControlTextarea1" className="form-label">Bilirubin</label>
                             <input 
-                                type="text"  
+                                type="number"  
                                 className="form-control Addition_Prenatal_textarea" 
                                 id="exampleFormControlTextarea1" 
                                 style={{backgroundColor: "#CCE8DE"}}
                                 value = {bilirubin}
                                 onChange={e => setBilirubin(e.target.value)}/>
                         </div> 
-                    </div>
-
-                    <div className="row mb-4">
                        
                         <div className="col text-start">
                             <label htmlFor="exampleFormControlTextarea1" className="form-label">Ketone</label>
                             <input 
-                                type="text"  
+                                type="number"  
                                 className="form-control Addition_Prenatal_textarea" 
                                 id="exampleFormControlTextarea1" 
                                 style={{backgroundColor: "#CCE8DE"}}
@@ -149,7 +160,7 @@ const AdditionalUrinalysis = ({residentid, serviceProviderName}) => {
                         <div className="col text-start">
                             <label htmlFor="exampleFormControlTextarea1" className="form-label">Specific Gravity</label>
                             <input 
-                                type="text"  
+                                type="number"  
                                 className="form-control Addition_Prenatal_textarea" 
                                 id="exampleFormControlTextarea1" 
                                 style={{backgroundColor: "#CCE8DE"}}
@@ -166,26 +177,26 @@ const AdditionalUrinalysis = ({residentid, serviceProviderName}) => {
                                 value = {bloodLevel}
                                 onChange={e => setBloodLevel(e.target.value)}/>
                         </div>
-
-                        <div className="col text-start">
-                            <label htmlFor="exampleFormControlTextarea1" className="form-label">PH Level</label>
-                            <input 
-                                type="text"  
-                                className="form-control Addition_Prenatal_textarea" 
-                                id="exampleFormControlTextarea1" 
-                                style={{backgroundColor: "#CCE8DE"}}
-                                value = {phLevel}
-                                onChange={e => setPhLevel(e.target.value)}/>
-                        </div> 
                     </div>
 
                     
                     <div className="row mb-4">
                         
                         <div className="col text-start">
+                            <label htmlFor="exampleFormControlTextarea1" className="form-label">PH Level</label>
+                            <input 
+                                type="number"  
+                                className="form-control Addition_Prenatal_textarea" 
+                                id="exampleFormControlTextarea1" 
+                                style={{backgroundColor: "#CCE8DE"}}
+                                value = {phLevel}
+                                onChange={e => setPhLevel(e.target.value)}/>
+                        </div> 
+
+                        <div className="col text-start">
                             <label htmlFor="exampleFormControlTextarea1" className="form-label">Protein</label>
                             <input 
-                                type="text"  
+                                type="number"  
                                 className="form-control Addition_Prenatal_textarea" 
                                 id="exampleFormControlTextarea1" 
                                 style={{backgroundColor: "#CCE8DE"}}
@@ -195,7 +206,7 @@ const AdditionalUrinalysis = ({residentid, serviceProviderName}) => {
                         <div className="col text-start">
                             <label htmlFor="exampleFormControlTextarea1" className="form-label">Urobilinogen</label>
                             <input 
-                                type="text"  
+                                type="number"  
                                 className="form-control Addition_Prenatal_textarea" 
                                 id="exampleFormControlTextarea1" 
                                 style={{backgroundColor: "#CCE8DE"}}
@@ -205,14 +216,16 @@ const AdditionalUrinalysis = ({residentid, serviceProviderName}) => {
                         <div className="col text-start">
                             <label htmlFor="exampleFormControlTextarea1" className="form-label">Nitrate</label>
                             <input 
-                                type="text"  
+                                type="number"  
                                 className="form-control Addition_Prenatal_textarea" 
                                 id="exampleFormControlTextarea1" 
                                 style={{backgroundColor: "#CCE8DE"}}
                                 value = {nitrate}
                                 onChange={e => setNitrate(e.target.value)} />
                         </div>
+                    </div>
 
+                    <div className='row mb-4'>
                         <div className="col text-start">
                             <label htmlFor="exampleFormControlTextarea1" className="form-label">Leukocyte</label>
                             <input 
@@ -223,8 +236,10 @@ const AdditionalUrinalysis = ({residentid, serviceProviderName}) => {
                                 value ={leukocyteLevel} 
                                 onChange={(e) => setLeukocyteLevel(e.target.value)}/>
                         </div> 
+                        <div className="col text-start"></div>
+                        <div className="col text-start"></div>
+                        <div className="col text-start"></div>
                     </div>
-
                  
                     <hr className="hr" />
 

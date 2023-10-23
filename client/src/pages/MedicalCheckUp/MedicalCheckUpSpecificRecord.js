@@ -5,11 +5,14 @@ import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
+import THCDefaultPatientLogo from '../../images/default_image.png'
 
 const MedicalCheckUpSpecificRecord = () => {
     const { residentid, recordid } = useParams();
     const [patientinfo, setPatientInfo] = useState([]);
     const [medicalCheckupInfo, setMedicalCheckupInfo] = useState([]);
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+    const { height, width } = useWindowDimensions();
 
     useEffect(() => {
         patientInformation();
@@ -31,6 +34,42 @@ const MedicalCheckUpSpecificRecord = () => {
 
     const handleBack = () => {
         window.history.back()
+    }
+
+    function getWindowDimensions() {
+        const { innerWidth: width, innerHeight: height } = window;
+        return {
+          width,
+          height
+        };
+    }
+
+    function useWindowDimensions() {
+        const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+      
+        useEffect(() => {
+          function handleResize() {
+            setWindowDimensions(getWindowDimensions());
+          }
+      
+          window.addEventListener('resize', handleResize);
+          return () => window.removeEventListener('resize', handleResize);
+        }, []);
+      
+        return windowDimensions;
+    }
+
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        if (!isNaN(date.getTime())) {
+        return date.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        });
+        } else {
+        return "Invalid Date";
+        }
     }
 
     return (
@@ -55,63 +94,67 @@ const MedicalCheckUpSpecificRecord = () => {
                         <div className='sp3-pageBody'>
                             <div className='container'>
                                 <div className='topDiv'>
-                                    <div className='row'>
-                                        <div className='col-md-4 col-sm-12'>
-                                            <h4 className="text-start">Personal Information</h4>
-                                            <div className='sp3-personalInfoDiv'>
-                                                <table className="">
-                                                    <tbody>
-                                                        <tr>
-                                                            <th scope="row">Name:</th>
-                                                            <td>{patientinfo.first_name + " "+ patientinfo.middle_name + " " + patientinfo.last_name}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">Age:</th>
-                                                            <td>{patientinfo.age} Years Old</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">Birth Date:</th>
-                                                            <td>{patientinfo.birthDate}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">Occupation:</th>
-                                                            <td>{patientinfo.occupation}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">Address:</th>
-                                                            <td>{patientinfo.street + " "+ patientinfo.barangay + " " + patientinfo.municipality+ " " + patientinfo.zipCode}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>    
-                                            </div>
+                                    <h3 className="text-start ">Personal Information</h3>
+                                    <div className={`sp3-personalInfoDiv personal-info ${
+                                        width < 1500 ?
+                                        "oral-health-mobile" : null
+                                        }`}> 
+                                        <div className="personal-info-left">
+                                            <table className="">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">Name:</th>
+                                                        <td>{patientinfo.first_name + " "+ patientinfo.middle_name + " " + patientinfo.last_name}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Age:</th>
+                                                        <td>{patientinfo.age} Years Old</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Birth Date:</th>
+                                                        <td>{formatDate(patientinfo.birthDate)}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Occupation:</th>
+                                                        <td>{patientinfo.occupation}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Address:</th>
+                                                        <td>{patientinfo.street + " " + patientinfo.barangay + " " + patientinfo.municipality + " " + patientinfo.zipCode}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>    
                                         </div>
-                                        <div className='col-md-4 col-sm-12'>
-                                            <div >
-                                                <h4 className="text-start">Medical Service Provider</h4>
-                                                <h5 className='text-start px-5'>
-                                                    {medicalCheckupInfo.serviceProvider}
-                                                </h5>
-                                            </div>
+                                        <div className="personal-info-right">
+                                            <div><img src={THCDefaultPatientLogo}/></div>
                                         </div>
                                     </div>
                                     
-                                    
-                                </div>
-                                <div className='buttomDiv'>
-                                    <div>
-                                        <h4 className="text-start">Findings</h4>
-                                        <p className='text-start px-5'>
-                                            {medicalCheckupInfo.findings}
-                                        </p>
+                                    <h3 className="text-start">Findings</h3>
+                                    <div className={`oral-health ${
+                                        width < 1500 ?
+                                        "oral-health-mobile" : null
+                                        }`}>
+                                        <div className="oral-health-left">
+                                            <div class="oral-health-one">
+                                                <span>{medicalCheckupInfo.findings}</span>
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    <div>
-                                        <h4 className="text-start">Medical Prescription</h4>
-                                        <p className='text-start px-5'>
-                                            {medicalCheckupInfo.recommendation}
-                                        </p>
+                                    <h3 className="text-start">Medical Prescription</h3>
+                                    <div className={`oral-health ${
+                                        width < 1500 ?
+                                        "oral-health-mobile" : null
+                                        }`}>
+                                        <div className="oral-health-left">
+                                            <div class="oral-health-one">
+                                                <span>{medicalCheckupInfo.recommendation}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                               
                             </div>
                         </div>
                         

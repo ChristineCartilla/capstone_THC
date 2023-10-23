@@ -8,11 +8,38 @@ import AdditionVitalSigns from '../../components/AdditionVitalSigns.js'
 import ViewVitalSigns from '../../components/ViewVitalSigns.js'
 import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 import axios from 'axios'
+import THCDefaultPatientLogo from '../../images/default_image.png'
 
 const UrinalysisSpecificRecord = () => {
     const { residentid, recordid } = useParams();
     const [patientinfo, setPatientInfo] = useState([]);
     const [urinalysisInfo, setUrinalysisInfo] = useState([]);
+
+    function getWindowDimensions() {
+        const { innerWidth: width, innerHeight: height } = window;
+        return {
+          width,
+          height
+        };
+    }
+
+    function useWindowDimensions() {
+        const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+      
+        useEffect(() => {
+          function handleResize() {
+            setWindowDimensions(getWindowDimensions());
+          }
+      
+          window.addEventListener('resize', handleResize);
+          return () => window.removeEventListener('resize', handleResize);
+        }, []);
+      
+        return windowDimensions;
+    }
+
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+    const { height, width } = useWindowDimensions();
 
     useEffect(() => {
         patientInformation();
@@ -32,6 +59,19 @@ const UrinalysisSpecificRecord = () => {
             setUrinalysisInfo(response.data.record) 
             console.log(response.data)
         })
+    }
+
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        if (!isNaN(date.getTime())) {
+        return date.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        });
+        } else {
+        return "Invalid Date";
+        }
     }
   
     const handleBack = () => {
@@ -59,168 +99,174 @@ const UrinalysisSpecificRecord = () => {
                     <div className='sp3-pageBody'>
                         <div className='container'>
                             <div className='topDiv'>
-                                <h4 className="text-start">Urinalysis Info</h4>
-                                <div className='container'>
-
-                                        <div className="mt-4 row text-start ">
-                                            <div className="col-md-6">
-                                                <div className='col'>
-                                                    <label className='fw-bold'>PHYSICOCHEMICAL EXAMINATION: </label>
-                                                    
-                                                </div>
-                                                <div className='col mt-4 mx-4'>
-                                                    <label className='fw-bold'>Color: </label>
-                                                    <span> {urinalysisInfo.color} </span>
-                                                </div>
-                                                <div className='col mt-4 mx-4 '>
-                                                    <label className='fw-bold'>Character: </label>
-                                                    <span> {urinalysisInfo.character} </span>
-                                                </div>
-
-                                                <div className='col mt-5 '>
-                                                    <label className='fw-bold'>REAGENT STRIP USED:  </label>
-                                                  
-                                                    <div className='col mt-4 mx-4'>
-                                                        <label className='fw-bold'>Glucose: </label>
-                                                        <span> {urinalysisInfo.glucosLevel}</span>
-                                                    </div>
-                                                    <div className='col mt-4 mx-4'>
-                                                        <label className='fw-bold'>Bilirubin: </label>
-                                                        <span> {urinalysisInfo.bilirubin}</span>
-                                                    </div>
-                                                    <div className='col mt-4 mx-4'>
-                                                        <label className='fw-bold'>Ketone: </label>
-                                                        <span> {urinalysisInfo.ketoneLevel}</span>
-                                                    </div>
-                                                    <div className='col mt-4 mx-4'>
-                                                        <label className='fw-bold'>Specific Gravity: </label>
-                                                        <span> {urinalysisInfo.specificGravity}</span>
-                                                    </div>
-                                                    <div className='col mt-4 mx-4'>
-                                                        <label className='fw-bold'>Blood: </label>
-                                                        <span> {urinalysisInfo.bloodLevel}</span>
-                                                    </div>
-                                                    <div className='col mt-4 mx-4'>
-                                                        <label className='fw-bold'>PH: </label>
-                                                        <span> {urinalysisInfo.phLevel}</span>
-                                                    </div>
-                                                    <div className='col mt-4 mx-4'>
-                                                        <label className='fw-bold'>Protein: </label>
-                                                        <span> {urinalysisInfo.proteinLevel}</span>
-                                                    </div>
-                                                    <div className='col mt-4 mx-4'>
-                                                        <label className='fw-bold'>Urobilinogen: </label>
-                                                        <span> {urinalysisInfo.urobilinogenLevel}</span>
-                                                    </div>
-                                                    <div className='col mt-4 mx-4'>
-                                                        <label className='fw-bold'>Nitrite: </label>
-                                                        <span> {urinalysisInfo.nitrate}</span>
-                                                    </div>
-                                                    <div className='col mt-4 mx-4 mb-5'>
-                                                        <label className='fw-bold'>Leukocyte: </label>
-                                                        <span> {urinalysisInfo.leukocyteLevel}</span>
-                                                    </div> 
-                                                </div>
-                                            </div>
-
-                                            <div className="col-md-6">
-                                            <div className='col-md-6 mt-4 mx-4'>
-                                                <label className='fw-bold'>CRYSTALS: </label>
-                                                    
-                                                </div>
-                                                <div className='col mt-4 mx-5'>
-                                                    <label className='fw-bold '>Calcium Oxalates: </label>
-                                                    <span> {urinalysisInfo.calciumOxaletes}</span>
-                                                </div>
-                                                <div className='col mt-4 mx-5'>
-                                                    <label className='fw-bold'>Amorphous Urates: </label>
-                                                    <span> {urinalysisInfo.amorphousUrates}</span>
-                                                </div>
-                                                <div className='col mt-4 mx-5'>
-                                                    <label className='fw-bold'>Uric Acid: </label>
-                                                    <span> {urinalysisInfo.uricAcid}</span>
-                                                </div>
-                                                <div className='col mt-4 mx-5'>
-                                                    <label className='fw-bold'>Amorphous Phosphates: </label>
-                                                    <span> {urinalysisInfo.amorphousPhosphates}</span>
-                                                </div>
-                                                <div className='col mt-4 mx-5'>
-                                                    <label className='fw-bold'>Triple Phosphates: </label>
-                                                    <span> {urinalysisInfo.triplePhosphate}</span>
-                                                </div>
-
-                                                <div className='col mt-5 mx-4'>
-                                                    <label className='fw-bold'>MISCELLANEOUS STRUCTURES: </label>
-                                                    
-                                                </div>
-                                                <div className='col mt-4 mx-5'>
-                                                    <label className='fw-bold'>Squamous Epithelial Cells: </label>
-                                                    <span> {urinalysisInfo.squamousEpithelialCells}</span>
-                                                </div>
-                                                <div className='col mt-4 mx-5'>
-                                                    <label className='fw-bold'>Round Epithelial Cells: </label>
-                                                    <span> {urinalysisInfo.roundEpithelialCells}</span>
-                                                </div>
-                                                <div className='col mt-4 mx-5'>
-                                                    <label className='fw-bold'>Bacteria: </label>
-                                                    <span> {urinalysisInfo.bacteria}</span>
-                                                </div>
-                                                <div className='col mt-4 mx-5'>
-                                                    <label className='fw-bold'>Mucus Threads: </label>
-                                                    <span> {urinalysisInfo.mucusThreads}</span>
-                                                </div>
-                                                <div className='col mt-4 mx-5 mb-5'>
-                                                    <label className='fw-bold'>Yeast Cells: </label>
-                                                    <span> {urinalysisInfo.yeastCells}</span>
-                                                </div>
-                                                
-                                            </div>
-                                           
-                                        </div>
+                                <h3 className="text-start">Urinalysis Info</h3>
+                                <div className={`sp3-personalInfoDiv personal-info ${
+                                        width < 1500 ?
+                                        "oral-health-mobile" : null
+                                    }`}> 
+                                    <div className="personal-info-left">
+                                         <table className="">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Name:</th>
+                                                    <td>{patientinfo.first_name + " "+ patientinfo.middle_name + " " + patientinfo.last_name}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Age:</th>
+                                                    <td>{patientinfo.age} Years Old</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Birth Date:</th>
+                                                    <td>{formatDate(patientinfo.birthDate)}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Place of Birth:</th>
+                                                    <td>{patientinfo.birthPlace}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Occupation:</th>
+                                                    <td>{patientinfo.occupation}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Address:</th>
+                                                    <td>{patientinfo.street + " " + patientinfo.barangay + " " + patientinfo.municipality + " " + patientinfo.zipCode}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>    
+                                    </div>
+                                    <div className="personal-info-right">
+                                        <div><img src={THCDefaultPatientLogo}/></div>
+                                    </div>
                                 </div>
+                                <h3 className="text-start">Physicochemical Examination</h3>
+                                <div className={`oral-health ${
+                                        width < 1500 ?
+                                        "oral-health-mobile" : null
+                                    }`}>
+                                    <div className="oral-health-left">
+                                        <div className="oral-health-one">
+                                            <span className='fw-bold'>Color:</span>
+                                            <span className='fw-bold'>Character:</span>
+                                            <span className='fw-bold'>Reagent Strip Used:</span>
+                                            
+                                            <span className='fw-bold'>Ketone:</span>
+                                            <span className='fw-bold'>Specific Gravity:</span>
+                                            <span className='fw-bold'>Blood:</span>
+                                            <span></span>
+                                        </div>
+                                        <div className="oral-health-two">
+                                            <span>{urinalysisInfo.color}</span>
+                                            <span>{urinalysisInfo.character}</span>
+                                            <span>{urinalysisInfo.reagentStrip}</span>
+                                            <span>{urinalysisInfo.ketoneLevel}</span>
+                                            <span>{urinalysisInfo.specificGravity}</span>
+                                            <span>{urinalysisInfo.bloodLevel}</span>
+                                            <span></span>
+                                        </div>
+                                        <div className='oral-health-three'>
+                                            <span className='fw-bold'>Bilirubin:</span>
+                                            <span className='fw-bold'>Glucose:</span>
+                                            <span className='fw-bold'>PH:</span>
+                                            <span className='fw-bold'>Protein:</span>
+                                            <span className='fw-bold'>Urobilinogen:</span>
+                                            <span className='fw-bold'>Nitrite:</span>
+                                            <span className='fw-bold'>Leukocyte:</span>
+                                        </div>
+                                        <div className='oral-health-four'>
+                                            <span>{urinalysisInfo.bilirubin}</span>
+                                            <span>{urinalysisInfo.glucosLevel}</span>
+                                            <span>{urinalysisInfo.phLevel}</span>
+                                            <span>{urinalysisInfo.proteinLevel}</span>
+                                            <span>{urinalysisInfo.urobilinogenLevel}</span>
+                                            <span>{urinalysisInfo.nitrate}</span>
+                                            <span>{urinalysisInfo.leukocyteLevel}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                                <h3 className="text-start">Microscopic Examination</h3>
+                                <div className={`oral-health ${
+                                        width < 1500 ?
+                                        "oral-health-mobile" : null
+                                    }`}>
+                                    <div className="oral-health-left">
+                                        <div className="oral-health-one">
+                                            <span className='fw-bold'>Red Blood Cells:</span>
+                                        </div>
+                                        <div className="oral-health-two">
+                                            <span>{urinalysisInfo.redBloodCellLevel}</span> 
+                                        </div>
+                                        <div className='oral-health-three'>
+                                            <span className='fw-bold'>Pus Cells:</span>    
+                                        </div>
+                                        <div className='oral-health-four'>
+                                            <span>{urinalysisInfo.pusLevel}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h3 className="text-start">Crystals</h3>
+                                <div className={`oral-health ${
+                                        width < 1500 ?
+                                        "oral-health-mobile" : null
+                                    }`}>
+                                    <div className="oral-health-left">
+                                        <div className="oral-health-one">
+                                            <span className='fw-bold'>Calcium Oxalates:</span>
+                                            <span className='fw-bold'>Amorphous Urates:</span>
+                                            <span></span>
+                                        </div>
+                                        <div className="oral-health-two">
+                                            <span>{urinalysisInfo.calciumOxaletes}</span>
+                                            <span>{urinalysisInfo.amorphousUrates}</span>
+                                            <span></span>
+                                        </div>
+                                        <div className='oral-health-three'>
+                                            <span className='fw-bold'>Uric Acid:</span>
+                                            <span className='fw-bold'>Amorphous Phosphates:</span>
+                                            <span className='fw-bold'>Triple Phosphates:</span>
+                                        </div>
+                                        <div className='oral-health-four'>
+                                            <span>{urinalysisInfo.uricAcid}</span>
+                                            <span>{urinalysisInfo.amorphousPhosphates}</span>
+                                            <span>{urinalysisInfo.triplePhosphate}</span> 
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h3 className="text-start">Miscellaneous Structures</h3>
+                                <div className={`oral-health ${
+                                        width < 1500 ?
+                                        "oral-health-mobile" : null
+                                    }`}>
+                                    <div className="oral-health-left">
+                                        <div className="oral-health-one">
+                                            <span className='fw-bold'>Squamous Epithelial Cells:</span>
+                                            <span className='fw-bold'>Round Epithelial Cells:</span>
+                                            <span></span>
+                                        </div>
+                                        <div className="oral-health-two">
+                                            <span>{urinalysisInfo.squamousEpithelialCells}</span>
+                                            <span>{urinalysisInfo.roundEpithelialCells}</span>
+                                            <span></span>
+                                        </div>
+                                        <div className='oral-health-three'>
+                                            <span className='fw-bold'>Bacteria:</span>
+                                            <span className='fw-bold'>Mucus Threads:</span>
+                                            <span className='fw-bold'>Yeast Cells:</span>
+                                        </div>
+                                        <div className='oral-health-four'>
+                                            <span>{urinalysisInfo.bacteria}</span>
+                                            <span>{urinalysisInfo.mucusThreads}</span>
+                                            <span>{urinalysisInfo.yeastCells}</span> 
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                        
-                            {/* <div className='sp2-bottomDiv mt-5'>
-                                <div className='sp2-bottomDivHeader d-flex justify-content-between'>
-                                    <h4 className="text-start">Vital Signs Testing</h4>     */}
-                                    {/* Button trigger modal  */}
-                                    {/* <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#UVitalAdd"><FontAwesomeIcon icon={faPlus}/></button>
-                                </div> */}
-                                {/* <div className='sp2-MCRecordsDiv'>
-                                    <table className="table sp2-MCRecordsTable">
-                                        <thead>
-                                            <tr>
-                                                <th>Session Finding Number</th>
-                                                <th>Date of Assessment</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody > */}
-                                            {/* {
-                                                test.map((rec,idx) => (
-                                                    <tr 
-                                                        className='sp2-clickableMCRRow' 
-                                                        key={idx}
-                                                        data-bs-toggle="modal" data-bs-target="#PVitalView"
-                                                        >
-                                                        <td>{rec.test}</td>
-                                                        <td>{rec.date}</td>
-                                                    </tr>
-                                                ))
-                                            } */}
-
-                                            {/* <tr
-                                                className='sp2-clickableMCRRow'
-                                                data-bs-toggle="modal" data-bs-target="#UVitalView"
-                                            >
-                                                <td>Session Finding #1</td>
-                                                <td>June 1, 2021</td>
-
-                                            </tr>
-
-                                        
-                                        </tbody>
-                                    </table>    
-                                </div> */}
+                           
                             </div>
                             
                         </div>
@@ -228,44 +274,10 @@ const UrinalysisSpecificRecord = () => {
                     
                 </div>
             </div>  
-       
-        {/*  Add Vital Signs Testing Modal  */}
-        <div className="modal fade" id="UVitalAdd" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog modal-lg">
-                <div className="modal-content">
-                <div className="modal-header">
-                    <h1 className="modal-title fs-5" id="exampleModalLabel">Vital Signs Form</h1>
-                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className="modal-body">
-                    <AdditionVitalSigns />
-                </div>
-                <div className="modal-footer">
-                    <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" className="sp2-addMCButton">Save</button>
-                </div>
-                </div>
-            </div>
-        </div>
+     
         
-        {/* View Vital Signs Testing Modal  */}
-        <div className="modal fade" id="UVitalView" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog modal-lg">
-                <div className="modal-content">
-                <div className="modal-header">
-                    <h1 className="modal-title fs-5" id="exampleModalLabel">View Vital Signs</h1>
-                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className="modal-body">
-                    <ViewVitalSigns/>
-                </div>
-                <div className="modal-footer">
-                    <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" className="sp2-addMCButton">Save</button>
-                </div>
-                </div>
-            </div>
-        </div>
+       
+      
     </>
     )
 }

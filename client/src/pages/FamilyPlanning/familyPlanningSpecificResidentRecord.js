@@ -10,12 +10,38 @@ import AdditionFamilyPlanningAssessment from '../../components/AdditionFamilyPla
 import ViewFamilyPlanningAssessment from '../../components/ViewFamilyPlanningAssessment.js'
 import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 import axios from 'axios'
+import THCDefaultPatientLogo from '../../images/default_image.png'
 
 const FamilyPlanningSpecificResidentRecord = () => {
     const { residentid, recordid } = useParams();
     const [patientinfo, setPatientInfo] = useState([]);
     const [familyplanningInfo, setFamilyPlanningInfo] = useState([]);
     const [selectedRec, setSelectedRec] = useState(null);
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+    const { height, width } = useWindowDimensions();
+
+    function getWindowDimensions() {
+        const { innerWidth: width, innerHeight: height } = window;
+        return {
+          width,
+          height
+        };
+    }
+
+    function useWindowDimensions() {
+        const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+      
+        useEffect(() => {
+          function handleResize() {
+            setWindowDimensions(getWindowDimensions());
+          }
+      
+          window.addEventListener('resize', handleResize);
+          return () => window.removeEventListener('resize', handleResize);
+        }, []);
+      
+        return windowDimensions;
+    }
 
     useEffect(() => {
         patientInformation();
@@ -60,6 +86,21 @@ const FamilyPlanningSpecificResidentRecord = () => {
     const handleBack = () => {
         window.history.back()
     }
+
+    const formatAge = (dateString) => {
+        const dateOfBirth = new Date(dateString);
+
+        // Calculate the age
+        const now = new Date();
+        const age = now.getFullYear() - dateOfBirth.getFullYear();
+        const monthDiff = now.getMonth() - dateOfBirth.getMonth();
+
+        if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < dateOfBirth.getDate())) {
+            return age - 1;
+        }
+
+        return age;
+    };
     
     return (
         <>
@@ -82,382 +123,247 @@ const FamilyPlanningSpecificResidentRecord = () => {
                         <div className='sp3-pageBody'>
                             <div className='container'>
                                 <div className='topDiv'>
-                                    <h4 className="text-start">Family Planning Info</h4>
-                                    <div className='container'>
+                                    <h4 className="text-start">Personal Information</h4>
+                                    <div className={`sp3-personalInfoDiv personal-info ${
+                                        width < 1500 ?
+                                        "oral-health-mobile" : null
+                                        }`}> 
+                                        <div className="personal-info-left">
+                                            <table className="">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">Name of Spouse:</th>
+                                                        <td>{familyplanningInfo.nameSpouse}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Spouse Birth Date:</th>
+                                                        <td>{formatDate(familyplanningInfo.spouseDoB)}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Spouse Age:</th>
+                                                        <td>{formatAge(familyplanningInfo.spouseDoB)} Years Old</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Spouse Occupation:</th>
+                                                        <td>{familyplanningInfo.spouseOccupation}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">No. of Living Children:</th>
+                                                        <td>{familyplanningInfo.noLivingChild}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Plan to have more children:</th>
+                                                        <td>{(familyplanningInfo.planAddChild == true)? "Yes": "No"}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Average Monthly Income:</th>
+                                                        <td>{familyplanningInfo.aveMonthIncome}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>    
+                                        </div>
+                                        <div className="personal-info-right">
+                                            <div><img src={THCDefaultPatientLogo}/></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <h3 className="text-start">Medical Histories</h3>
+                                    <div className={`oral-health ${
+                                        width < 1500 ?
+                                        "oral-health-mobile" : null
+                                        }`}>
+                                         <div className="oral-health-left">
+                                            <span>
+                                                {familyplanningInfo && familyplanningInfo.medicalHistory ? (
+                                                    <span> {familyplanningInfo.medicalHistory.illness}</span>
+                                                        ) : (
+                                                        <span>Data not available</span>
+                                                )}
+                                            </span>
+                                         </div>
+                                    </div>
 
-                                            <div className="mt-4 row text-start">
-                                                {/* COLUMN 1 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Name: </label>
-                                                    <span> {patientinfo.first_name + " "+ patientinfo.middle_name + " " + patientinfo.last_name} </span>
-                                                </div>
-
-                                                {/* COLUMN 2 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>NUMBER OF PREGNANCIES </label>
-                                                </div>
-
-                                                {/* COLUMN 3 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Skin: </label>
-                                                    <span> {familyplanningInfo.pe_skin}</span>
-                                                </div>
+                                    <h3 className="text-start">Number of Pregnancies</h3>
+                                    <div className={`oral-health ${
+                                        width < 1500 ?
+                                        "oral-health-mobile" : null
+                                        }`}>
+                                        <div className="oral-health-left">
+                                            <div class="oral-health-one">
+                                                <span className="fw-bold">Gravida:</span>
+                                                <span className="fw-bold">Para:</span>
+                                                <span className="fw-bold">No. of Full Term:</span>
+                                                <span className="fw-bold">No. of Abortions:</span>
+                                                <span className="fw-bold">No. of Premature:</span>
+                                                <span className="fw-bold">No. of Children Born Alive:</span>
+                                                <span className="fw-bold">No. of Living Children:</span>
+                                                <span className="fw-bold">No. of Stillbirths:</span>
+                                                <span className="fw-bold"></span>
                                             </div>
-
-                                            <div className="mt-4 row text-start">
-                                                {/* COLUMN 1 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold text-start'>Age: </label>
-                                                    <span> {(patientinfo.age)? patientinfo.age+" Years Old": ""} </span>
-                                                </div>
-                                                {/* COLUMN 2 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Gravida: </label>
+                                            <div class="oral-health-two">
+                                                <span> 
                                                     {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
                                                         <span> {familyplanningInfo.obstetricalHistory.numGravida}</span>
                                                     ) : (
                                                         <span>Data not available</span>
                                                     )}
-                                                    {/* <span> {familyplanningInfo.obstetricalHistory.numGravida}</span> */}
-                                                </div>
-                                                {/* COLUMN 3 */}
-                                                
-                                            </div>
-
-                                            <div className="mt-4 row text-start">
-                                                {/* COLUMN 1 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Birth Date: </label>
-                                                    <span> {formatDate(patientinfo.birthDate)}</span>
-                                                </div>
-
-                                                {/* COLUMN 2 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Para: </label>
+                                                </span>
+                                                <span> 
                                                     {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
                                                         <span> {familyplanningInfo.obstetricalHistory.numPara}</span>
                                                     ) : (
                                                         <span>Data not available</span>
                                                     )}
-                                                </div>
-                                            </div>
-
-                                            <div className="mt-4 row text-start">
-                                                {/* COLUMN 1 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Educational Attainment: </label>
-                                                    <span> {patientinfo.educAttain}</span>
-                                                </div>
-                                                {/* COLUMN 2 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>No. of Full Term: </label>
+                                                </span>
+                                                <span> 
                                                     {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
                                                         <span> {familyplanningInfo.obstetricalHistory.numFullterm}</span>
                                                     ) : (
                                                         <span>Data not available</span>
                                                     )}
-                                                   
-                                                </div>
-                                                {/* COLUMN 3 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Extremities: </label>
-                                                    <span> {familyplanningInfo.pe_extremities}</span>
-                                                </div>
-                                            </div>
-
-                                            <div className="mt-4 row text-start">
-                                                {/* COLUMN 1 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Occupation: </label>
-                                                    <span> {patientinfo.occupation}</span>
-                                                </div>
-
-                                                {/* COLUMN 2 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>No. of Abortions: </label>
-                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
-                                                        <span> {familyplanningInfo.obstetricalHistory.numOfAbortion}</span>
-                                                    ) : (
-                                                        <span>Data not available</span>
-                                                    )}
-                                                   
-                                                </div>
-                                                {/* COLUMN 3 */}
-                                            </div>
-
-                                            <div className="mt-4 row text-start">
-                                                {/* COLUMN 1 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Address: </label>
-                                                    <span> {patientinfo.street + " "+ patientinfo.barangay + " " + patientinfo.municipality+ " " + patientinfo.zipCode}</span>
-                                                </div>
-
-                                                {/* COLUMN 2 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>No. of Premature: </label>
+                                                </span>
+                                                <span>
                                                     {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
                                                         <span> {familyplanningInfo.obstetricalHistory.numPremature}</span>
                                                     ) : (
                                                         <span>Data not available</span>
                                                     )}
-                                                    
-                                                </div>
-                                                {/* COLUMN 3 */}
-                                                
-                                            </div>
-
-                                            <div className="mt-4 row text-start">
-                                                {/* COLUMN 1 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Contact No.: </label>
-                                                    <span> {patientinfo.contactNo}</span>
-                                                </div>
-                                                {/* COLUMN 2 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>No. of Children Born Alive: </label>
+                                                </span>
+                                                <span>
                                                     {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
                                                         <span> {familyplanningInfo.obstetricalHistory.numBornAlive}</span>
                                                     ) : (
                                                         <span>Data not available</span>
                                                     )}
-                                                  
-                                                </div>
-                                                {/* COLUMN 3 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Conjunctiva: </label>
-                                                    <span> {familyplanningInfo.pe_conjunctiva}</span>
-                                                </div>
-                                            </div>
-
-                                            <div className="mt-4 row text-start">
-                                                {/* COLUMN 1 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Civil Status: </label>
-                                                    <span> {patientinfo.civilStatus}</span>
-                                                </div>
-
-                                                {/* COLUMN 2 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>No. of Living Children: </label>
+                                                </span>
+                                                <span>
                                                     {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
                                                         <span> {familyplanningInfo.obstetricalHistory.numOfLivingChild}</span>
                                                     ) : (
                                                         <span>Data not available</span>
                                                     )}
-                                                    
-                                                </div>
-                                                {/* COLUMN 3 */}
-                                            </div>
-
-                                            <div className="mt-4 row text-start">
-                                                {/* COLUMN 1 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Religion: </label>
-                                                    <span> Roman Catholic</span>
-                                                </div>
-
-                                                {/* COLUMN 2 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>No. of Stillbirths: </label>
+                                                </span>
+                                                <span>
                                                     {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
                                                         <span> {familyplanningInfo.obstetricalHistory.numOfStillBirth}</span>
                                                     ) : (
                                                         <span>Data not available</span>
                                                     )}
-                                                </div>
-                                                {/* COLUMN 3 */}
+                                                </span>
+                                                <span></span>
+                                                <span></span>
                                             </div>
-
-                                            <div className="mt-4 row text-start">
-                                                {/* COLUMN 1 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Name of Spouse: </label>
-                                                   <span> {familyplanningInfo.nameSpouse}</span>
-                                                </div>
-
-                                                {/* COLUMN 2 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>No. of Large Babies: </label>
+                                        </div>
+                                        <div className='oral-health-right'>
+                                            <div className='oral-health-three'>
+                                                <span className="fw-bold">No. of Large Babies:</span>
+                                                <span className="fw-bold">LMP:</span>
+                                                <span className="fw-bold">Date of Last Delivery:</span>
+                                                <span className="fw-bold">Type of Last Delivery:</span>
+                                                <span className="fw-bold">Menstrual Flow:</span>
+                                                <span className="fw-bold">Dysmenorrhea:</span>
+                                                <span className="fw-bold">Hydatidiform mole:</span>
+                                                <span className="fw-bold">History of Ectopic Pregnancy:</span>
+                                                <span className="fw-bold">Diabetes:</span>
+                                            </div>
+                                            <div className='oral-health-four'>
+                                                <span>
                                                     {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
                                                         <span> {familyplanningInfo.obstetricalHistory.numberOfLargeBabies}</span>
                                                     ) : (
                                                         <span>Data not available</span>
                                                     )}
-                                               
-                                                </div>
-                                                {/* COLUMN 3 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Breast: </label>
-                                                    <span> {familyplanningInfo.pe_breast}</span>
-                                                </div>
-                                            </div>
-
-                                            <div className="mt-4 row text-start">
-                                                {/* COLUMN 1 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Spouse Date of Birth: </label>
-                                                    <span> {formatDate(familyplanningInfo.spouseDoB)}</span>
-                                                </div>
-                                                {/* COLUMN 2 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>LMP: </label>
+                                                </span>
+                                                <span>
                                                     {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
                                                         <span> {formatDate(familyplanningInfo.obstetricalHistory.lastMenstrualPeriod)}</span>
                                                     ) : (
                                                         <span>Data not available</span>
                                                     )}
-                                                   
-                                                </div>
-                                                {/* COLUMN 3 */}
-                                            </div>
-
-                                            <div className="mt-4 row text-start">
-                                                {/* COLUMN 1 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Spouse Age: </label>
-                                                    <span> {(familyplanningInfo.spouseAge)? familyplanningInfo.spouseAge+" Years Old": "N/A"}</span>
-                                                </div>
-
-                                                {/* COLUMN 2 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Date of Last Delivery: </label>
+                                                </span>
+                                                <span>
                                                     {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
-                                                        <span> {familyplanningInfo.obstetricalHistory.dateOfLastDelivery}</span>
+                                                        <span> {formatDate(familyplanningInfo.obstetricalHistory.dateOfLastDelivery)}</span>
                                                     ) : (
                                                         <span>Data not available</span>
                                                     )}
-                                              
-                                                </div>
-                                                {/* COLUMN 3 */}
-                                            </div>
-
-                                            <div className="mt-4 row text-start">
-                                                {/* COLUMN 1 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Spouse Occupation: </label>
-                                                    <span> {familyplanningInfo.spouseOccupation}</span>
-                                                </div>
-                                                {/* COLUMN 2 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Type of Last Delivery: </label>
+                                                </span>
+                                                <span>
                                                     {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
                                                         <span> {familyplanningInfo.obstetricalHistory.typeOfLastDelivery}</span>
                                                     ) : (
                                                         <span>Data not available</span>
                                                     )}
-                                                   
-                                                </div>
-                                                {/* COLUMN 3 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Neck: </label>
-                                                    <span> {familyplanningInfo.pe_neck}</span>
-                                                </div>
-                                            </div>
-
-                                            <div className="mt-4 row text-start">
-                                                {/* COLUMN 1 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>No. of Living Children: </label>
-                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
-                                                        <span> {familyplanningInfo.obstetricalHistory.numOfLivingChild}</span>
-                                                    ) : (
-                                                        <span>Data not available</span>
-                                                    )}
-                                                  
-                                                </div>
-
-                                                {/* COLUMN 2 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Menstrual Flow: </label>
+                                                </span>
+                                                <span>
                                                     {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
                                                         <span> {familyplanningInfo.obstetricalHistory.menstrualFlow}</span>
                                                     ) : (
                                                         <span>Data not available</span>
                                                     )}
-                                                   
-                                                </div>
-                                                {/* COLUMN 3 */}       
-                                            </div>
-
-                                            <div className="mt-4 row text-start">
-                                                {/* COLUMN 1 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Plan to have more children: </label>
-                                                   <span> {(familyplanningInfo.planAddChild == true)? "Yes": "No"}</span>
-                                                </div>
-                                                {/* COLUMN 2 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Dysmenorrhea: </label>
+                                                </span>
+                                                <span>
                                                     <input className="form-check-input" type="checkbox"  checked={(familyplanningInfo.obstetricalHistory && familyplanningInfo.obstetricalHistory.dysmenorrhea)? true: false} onChange={()=>{}}/>
-                                                </div>
-                                                {/* COLUMN 3 */}    
-                                            </div>
-
-                                            <div className="mt-4 row text-start">
-                                                {/* COLUMN 1 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Average Monthly Income: </label>
-                                                   <span> {familyplanningInfo.aveMonthIncome}</span>
-                                                </div>
-                                                {/* COLUMN 2 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Hydatidiform mole: </label>
+                                                </span>
+                                                <span>
                                                     <input className="form-check-input" type="checkbox"  checked={(familyplanningInfo.obstetricalHistory && familyplanningInfo.obstetricalHistory.hydatidiformMole)? true: false} onChange={()=>{}}/>
-                                                </div>
-                                                {/* COLUMN 3 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Abdomen: </label>
-                                                    <span> {familyplanningInfo.pe_abdomen}</span>
-                                                </div>
-                                            </div>
-
-                                            <div className="mt-4 row text-start">
-                                                {/* COLUMN 1 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Medical History: </label>
-                                                    {familyplanningInfo && familyplanningInfo.medicalHistory ? (
-                                                        <span> {familyplanningInfo.medicalHistory.illness}</span>
-                                                    ) : (
-                                                        <span>Data not available</span>
-                                                    )}
-                                               
-                                                </div>
-
-                                                {/* COLUMN 2 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>History of Ectopic Pregnancy: </label>
+                                                </span>
+                                                <span>
                                                     <input className="form-check-input" type="checkbox"  checked={(familyplanningInfo.obstetricalHistory && familyplanningInfo.obstetricalHistory.ectopicPregnancy)? true: false} onChange={()=>{}}/>
-                                                </div>
-                                                {/* COLUMN 3 */}
-                                            </div>
-
-                                            <div className="mt-4 row text-start">
-                                                {/* COLUMN 1 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'></label>
-                                                    <span> </span>
-                                                </div>
-                                                {/* COLUMN 2 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Diabetes: </label>
+                                                </span>
+                                                <span>
                                                     <input className="form-check-input" type="checkbox"  checked={(familyplanningInfo.obstetricalHistory && familyplanningInfo.obstetricalHistory.diabetes)? true: false} onChange={()=>{}}/>
-                                                </div>
-                                                {/* COLUMN 3 */}
-                                                <div className="col-md-4">
-                                                    <label className='fw-bold'>Pelvic Examination: </label>
-                                                    <span> {familyplanningInfo.pe_pelvicExam}</span>
-                                                </div>
+                                                </span>
                                             </div>
-                                      
-                                    
+                                        </div>
                                     </div>
+                                    
+                                    <h3 className="text-start">Physical Examination</h3>
+                                    <div className={`oral-health ${
+                                        width < 1500 ?
+                                        "oral-health-mobile" : null
+                                        }`}>
+                                        <div className="oral-health-left">
+                                            <div class="oral-health-one">
+                                                <span className='fw-bold'>Skin:</span>
+                                                <span className='fw-bold'>Extremities:</span>
+                                                <span className='fw-bold'>Conjunctiva:</span>
+                                                <span></span>
+                                            </div>
+                                            <div className="oral-health-two">
+                                                <span>{familyplanningInfo.pe_skin}</span>
+                                                <span>{familyplanningInfo.pe_extremities}</span>
+                                                <span>{familyplanningInfo.pe_conjunctiva}</span>
+                                                <span></span>
+                                            </div>
+                                        </div> 
+                                        <div className="oral-health-right">
+                                            <div class="oral-health-three">
+                                                <span className='fw-bold'>Breast:</span>
+                                                <span className='fw-bold'>Neck:</span>
+                                                <span className='fw-bold'>Abdomen: </span>
+                                                <span className='fw-bold'>Pelvic Examination:</span>
+                                            </div>
+                                            <div className="oral-health-four">
+                                                <span>{familyplanningInfo.pe_breast}</span>
+                                                <span>{familyplanningInfo.pe_neck}</span>
+                                                <span>{familyplanningInfo.pe_abdomen}</span>
+                                                <span>{familyplanningInfo.pe_pelvicExam}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div> 
                                 
-                              
-                                
-                                <div className='sp2-bottomDiv'>
-                                    <div className='sp2-bottomDivHeader d-flex justify-content-between mt-5'>
+
+
+
+
+
+
+                            <div className='sp2-bottomDiv  '>
+                                    <div className='sp2-bottomDivHeader d-flex justify-content-between mt-5 '>
                                         <h4 className="text-start">Family Planning Assessment</h4>    
                                         {/* Button trigger modal  */}
                                         <button
@@ -472,9 +378,9 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                             </span>
                                         </button>
                                     </div>
-                                    <div className='sp2-MCRecordsDiv'  >
-                                        <table className="table sp2-MCRecordsTable" >
-                                            <thead>
+                                    <div className='sp2-MCRecordsDiv '  >
+                                        <table className="table sp2-MCRecordsTable " >
+                                            <thead className=''>
                                                 <tr>
                                                     <th>Session Finding Number</th>
                                                     <th>Doctor</th>
@@ -504,51 +410,14 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                             </tbody>
                                         </table>    
                                     </div>
-                                </div>
                             </div>
-                        </div>
+                         </div>
+                    </div>
                         
                     </div>
                 </div>  
 
-            {/*  Add Vital Signs Testing Modal  */}
-            <div className="modal fade" id="PVitalAdd" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-lg">
-                    <div className="modal-content">
-                    <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel">Vital Signs Form</h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                        <AdditionVitalSigns />
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" className="sp2-addMCButton">Save</button>
-                    </div>
-                    </div>
-                </div>
-            </div>
-            
-            {/* View Vital Signs Testing Modal  */}
-            <div className="modal fade" id="PVitalView" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-lg">
-                    <div className="modal-content">
-                    <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel">View Vital Signs</h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                        <ViewVitalSigns/>
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" className="sp2-addMCButton">Save</button>
-                    </div>
-                    </div>
-                </div>
-            </div>
-
+         
             {/* Add Family Assessment Modal  */}
                <AdditionFamilyPlanningAssessment residentid={patientinfo._id} recordid={familyplanningInfo._id}/>
                 

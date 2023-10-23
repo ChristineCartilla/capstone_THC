@@ -5,7 +5,6 @@ import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
-
 import THCDefaultPatientLogo from '../../images/default_image.png'
 
 const DentalSpecificRecord = () => {
@@ -207,25 +206,6 @@ const DentalSpecificRecord = () => {
                                         </div>
                                     </div>
 
-                                    {/* <hr className="hr" /> */}
-                                    {/* <h3 className="text-start">Medical History</h3>
-                                    <table className="table table-borderless tb">
-                                            <tbody>
-                                                <tr>
-                                                    <th scope="row "> Illness:</th>
-                                                    <td>{patient.ill}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Allergies:</th>
-                                                    <td>{patient.all}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">Hospitalization:</th>
-                                                    <td>{patient.hos}</td>
-                                                </tr>
-                                            </tbody>
-                                    </table> */}
-                                    
                                 </div>
                                 <div className="bottomDiv">
                                     <h3 className="text-start">Dietary Habits</h3>

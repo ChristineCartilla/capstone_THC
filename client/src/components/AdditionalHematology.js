@@ -5,7 +5,7 @@ const AdditionalHematology = ({residentid, serviceProviderName}) => {
     const [hematocritLevel, setHematocritLevel] = useState("");
     const [hemoglobinMassConc, setHemoglobinMassConc] = useState("");
     const [erythrocyteNumConc, setErythrocyteNumConc] = useState("");
-    const [leukocyteNumConc, setLeukocyteNumConc] = useState("");
+    const [LeukocyteNumConc, setLeukocyteNumConc] = useState("");
     const [SegmenterNumFract, setSegmenterNumFract] = useState("");
     const [lymphocyteNumFract, setLymphocyteNumFract] = useState("");
     const [MonocyeNumFrac, setMonocyeNumFrac] = useState("");
@@ -23,7 +23,7 @@ const AdditionalHematology = ({residentid, serviceProviderName}) => {
         try{
                 const response = await axios.post
                     (`/hematology/add/${residentid}`,
-                        {hematocritLevel, hemoglobinMassConc, erythrocyteNumConc, leukocyteNumConc, 
+                        {hematocritLevel, hemoglobinMassConc, erythrocyteNumConc, LeukocyteNumConc, 
                             SegmenterNumFract, lymphocyteNumFract, MonocyeNumFrac, EosinophileNumFract, 
                             BasophileNumFract, stab, thrombocyteNumConc, retlculocyteNumFrac, remarks, 
                             serviceProvider
@@ -103,7 +103,7 @@ const AdditionalHematology = ({residentid, serviceProviderName}) => {
                                         className="form-control Addition_Prenatal_textarea" 
                                         id="exampleFormControlTextarea1" 
                                         style={{backgroundColor: "#CCE8DE"}}
-                                        value={leukocyteNumConc}
+                                        value={LeukocyteNumConc}
                                         onChange={e => setLeukocyteNumConc(e.target.value)}/>
                                 </div>
                             </div>
