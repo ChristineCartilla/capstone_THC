@@ -25,9 +25,79 @@ const AdditionDental = ({residentid}) => {
     const [freq_alcohol, setFreq_Alcohol] = useState('');
     const [freq_tobacco, setFreq_Tobacco] = useState('');
 
+
+    const [no_permTeethPresError, setNo_PermTeethPresError] = useState('');
+    const [no_permSoundTeethError, setNo_PermSoundTeethError] = useState('');
+    const [no_permDecayedTeethError, setNo_PermDecayedTeethError] = useState ('');
+    const [no_permMissingTeethError, setNo_PermMissingTeethError] = useState ('');
+    const [no_permFilledTeethError, setNo_PermFilledTeethError] = useState('');
+    const [totalDMFTeethError, setTotalDMFTeethError] = useState('');
+    const [no_tempTeethPresError, setNo_TempTeethPresError] = useState('');
+    const [no_tempSoundTeethError, setNo_TempSoundTeethError] = useState('');
+    const [no_tempDecayedTeethError, setNo_TempDecayedTeethError] = useState('');
+    const [no_tempFilledTeethError, setNo_TempFilledTeethError] = useState('');
+    const [totalDFTeethError, setTotalDFTeethError] = useState('');
+    
+
     const addRecSubmit = async (event) => {
         event.preventDefault();
-        
+        setNo_PermTeethPresError('');
+        setNo_PermSoundTeethError('');
+        setNo_PermDecayedTeethError('');
+        setNo_PermMissingTeethError('');
+        setNo_PermFilledTeethError('');
+        setTotalDMFTeethError('');
+        setNo_TempTeethPresError('');
+        setNo_TempSoundTeethError('');
+        setNo_TempDecayedTeethError('');
+        setNo_TempFilledTeethError('');
+        setTotalDFTeethError('');
+
+        if (no_permTeethPres && !/^\d+$/.test(no_permTeethPres)) {
+            setNo_PermTeethPresError('Invalid Input');
+            return;
+        }
+        if (no_permSoundTeeth && !/^\d+$/.test(no_permSoundTeeth)) {
+            setNo_PermSoundTeethError('Invalid Input');
+            return;
+        }
+        if (no_permDecayedTeeth && !/^\d+$/.test(no_permDecayedTeeth)) {
+            setNo_PermDecayedTeethError('Invalid Input');
+            return;
+        }
+        if (no_permMissingTeeth && !/^\d+$/.test(no_permMissingTeeth)) {
+            setNo_PermMissingTeethError('Invalid Input');
+            return;
+        }
+        if (no_permFilledTeeth && !/^\d+$/.test(no_permFilledTeeth)) {
+            setNo_PermFilledTeethError('Invalid Input');
+            return;
+        }
+        if (totalDMFTeeth && !/^\d+$/.test(totalDMFTeeth)) {
+            setTotalDMFTeethError('Invalid Input');
+            return;
+        }
+        if (no_tempTeethPres && !/^\d+$/.test(no_tempTeethPres)) {
+            setNo_TempTeethPresError('Invalid Input');
+            return;
+        }
+        if (no_tempSoundTeeth && !/^\d+$/.test(no_tempSoundTeeth)) {
+            setNo_TempSoundTeethError('Invalid Input');
+            return;
+        }
+        if (no_tempDecayedTeeth && !/^\d+$/.test(no_tempDecayedTeeth)) {
+            setNo_TempDecayedTeethError('Invalid Input');
+            return;
+        }
+        if (no_tempFilledTeeth && !/^\d+$/.test(no_tempFilledTeeth)) {
+            setNo_TempFilledTeethError('Invalid Input');
+            return;
+        }
+        if (totalDFTeeth && !/^\d+$/.test(totalDFTeeth)) {
+            setTotalDFTeethError('Invalid Input');
+            return;
+        }
+
         try {
             const userId = sessionStorage.getItem("profileId");
             const fetchServiceProvider = await axios.get(`/profile/${userId}`);
@@ -165,7 +235,7 @@ const AdditionDental = ({residentid}) => {
                                             value={no_permTeethPres}
                                             style={{backgroundColor: "#CCE8DE"}}
                                             onChange={(event)=> setNo_PermTeethPres(event.target.value)}/>
-                                    
+                                        {no_permTeethPresError && <div className="text-danger">{no_permTeethPresError}</div>}
                                     </div>
                                     <div className="col text-start">
                                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Number of Perm. Sound Teeth</label>
@@ -174,6 +244,7 @@ const AdditionDental = ({residentid}) => {
                                             value={no_permSoundTeeth}
                                             style={{backgroundColor: "#CCE8DE"}}
                                             onChange={(event)=> setNo_PermSoundTeeth(event.target.value)}/>
+                                            {no_permSoundTeethError && <div className="text-danger">{no_permSoundTeethError}</div>}
                                     </div>
                                     <div className="col text-start">
                                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Number of Decayed Teeth (D)</label>
@@ -182,6 +253,7 @@ const AdditionDental = ({residentid}) => {
                                             value={no_permDecayedTeeth}
                                             style={{backgroundColor: "#CCE8DE"}}
                                             onChange={(event)=>setNo_PermDecayedTeeth(event.target.value)}/>
+                                            {no_permDecayedTeethError && <div className="text-danger">{no_permDecayedTeethError}</div>}
                                     
                                     </div>
                                     <div className="col text-start">
@@ -191,6 +263,7 @@ const AdditionDental = ({residentid}) => {
                                             value={no_permMissingTeeth}
                                             style={{backgroundColor: "#CCE8DE"}}
                                             onChange={(event)=>setNo_PermMissingTeeth(event.target.value)}/>
+                                            {no_permMissingTeethError && <div className="text-danger">{no_permMissingTeethError}</div>}
                                     </div>
                                 </div>
                                 <div className="row mb-5">
@@ -201,6 +274,7 @@ const AdditionDental = ({residentid}) => {
                                             value={no_permFilledTeeth}
                                             style={{backgroundColor: "#CCE8DE"}}
                                             onChange={(event)=>setNo_PermFilledTeeth(event.target.value)}/>
+                                            {no_permFilledTeethError && <div className="text-danger">{no_permFilledTeethError}</div>}
                                     
                                     </div>
                                     <div className="col text-start">
@@ -210,7 +284,7 @@ const AdditionDental = ({residentid}) => {
                                             value={totalDMFTeeth}
                                             style={{backgroundColor: "#CCE8DE"}}
                                             onChange={(event)=>setTotalDMFTeeth(event.target.value)}/>
-                                    
+                                            {totalDMFTeethError && <div className="text-danger">{totalDMFTeethError}</div>}
                                     </div>
                                     <div className="col text-start">
                                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Number of Temp. Teeth Present</label>
@@ -219,6 +293,7 @@ const AdditionDental = ({residentid}) => {
                                             value={no_tempTeethPres}
                                             style={{backgroundColor: "#CCE8DE"}}
                                             onChange={(event)=>setNo_TempTeethPres(event.target.value)}/>
+                                            {no_tempTeethPresError && <div className="text-danger">{no_tempTeethPresError}</div>}
                                     
                                     </div>
                                     <div className="col text-start">
@@ -228,6 +303,8 @@ const AdditionDental = ({residentid}) => {
                                             value={no_tempSoundTeeth}
                                             style={{backgroundColor: "#CCE8DE"}}
                                             onChange={(event)=>setNo_TempSoundTeeth(event.target.value)}/>
+                                            {no_tempSoundTeethError && <div className="text-danger">{no_tempSoundTeethError}</div>}
+                                            
                                     </div>
                                 </div>
                                 <div className="row mb-5">
@@ -238,6 +315,8 @@ const AdditionDental = ({residentid}) => {
                                             value={no_tempDecayedTeeth}
                                             style={{backgroundColor: "#CCE8DE"}}
                                             onChange={(event)=>setNo_TempDecayedTeeth(event.target.value)}/>
+                                            {no_tempDecayedTeethError && <div className="text-danger">{no_tempDecayedTeethError}</div>}
+                                            
                                     
                                     </div>
                                     <div className="col-3 text-start">
@@ -247,6 +326,7 @@ const AdditionDental = ({residentid}) => {
                                             value={no_tempFilledTeeth}
                                             style={{backgroundColor: "#CCE8DE"}}
                                             onChange={(event)=>setNo_TempFilledTeeth(event.target.value)}/>
+                                            {no_tempFilledTeethError && <div className="text-danger">{no_tempFilledTeethError}</div>}
                                     </div>
                                 <div className="col-3 text-start">
                                         <label htmlFor="exampleFormControlTextarea1" className="form-label"><br />Total DF Teeth </label>
@@ -255,6 +335,7 @@ const AdditionDental = ({residentid}) => {
                                             value={totalDFTeeth}
                                             style={{backgroundColor: "#CCE8DE"}}
                                             onChange={(event)=>setTotalDFTeeth(event.target.value)}/>
+                                            {totalDFTeethError && <div className="text-danger">{totalDFTeethError}</div>}
                                     
                                     </div>
                                 </div>
