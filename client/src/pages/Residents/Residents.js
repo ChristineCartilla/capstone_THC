@@ -20,10 +20,13 @@ const Residents = () => {
                     <Sidebar />    
                 </div>
                 
-                <div className='container mainLayout-right residentLayout'>
-                    <div className=''>
-                        <div className="resident_pageHeader d-flex justify-content-around">
-                            <h1>Residents</h1>  
+                <div className='container ps-5 pt-5 mainLayout-right residentLayout'>
+                    <div className='row'>
+                        <div className="resident_pageHeader d-flex col">
+                            <h1 className='ms-5 fw-bold'>Residents</h1>  
+                            
+                        </div>
+                        <div className='col d-flex justify-content-end me-5 pe-4'>
                             <Resident_Searchbox setSearchResults={setFamily} />
                         </div>
                         <div className='resident_pageBody'>

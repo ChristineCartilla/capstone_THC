@@ -24,15 +24,18 @@ const Workers = () => {
         <div className="mainLayout-left">
           <Sidebar />
         </div>
-        <div className="container mainLayout-right residentLayout">
-          <div className="">
-            <div className="worker_pageHeader d-flex justify-content-around">
-              <h1>Workers</h1>
-              <Worker_Searchbox
-                setSearchResults={setWorkers}
-              />
+        <div className="container ps-5 pt-5 mainLayout-right residentLayout">
+          <div className="row">
+            <div className="worker_pageHeader d-flex col">
+              <h1 className="ms-5 fw-bold">Workers</h1>
+              
             </div>
-            <div className="worker_addButton d-flex justify-content-start align-items-center">
+            <div className="col d-flex justify-content-end me-5 pe-4">
+              <Worker_Searchbox
+                  setSearchResults={setWorkers}
+                />
+            </div>
+            <div className="worker_addButton d-flex justify-content-end pe-5 align-items-center">
               <button type="button" data-bs-toggle="modal" data-bs-target="#AddWorker">
                 <FontAwesomeIcon icon={faPlus} />
               </button>

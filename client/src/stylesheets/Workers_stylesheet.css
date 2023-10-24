@@ -15,7 +15,7 @@
 .worker_addButton {
     text-align: left; /* Align the button to the left within its container */
     margin-top: 20px; /* Add margin to separate it from the header */
-    padding-left: 150px; /* Add left padding to create space between the button and the container edge */
+    
 }
 
 .worker_addButton button {
@@ -93,6 +93,7 @@
     border: 1px solid #8EC3B0;
     border-radius: 10px;
 }
+
 
 /* THIRD PAGE */
 /* .tableHeading h3{
