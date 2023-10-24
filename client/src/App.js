@@ -49,7 +49,7 @@ import Profile from './pages/Profile/Profile';
 import Dashboard from './pages/Dashboard/Dashboard';
 import QueueBHW from './pages/Queue/QueueBHW';
 import ImmunizationResidentPage from './pages/Immunization/ImmunizationResidentPage';
-
+import PrivateRoutes from './utils/PrivateRoutes';
 
 axios.defaults.baseURL = 'http://localhost:8001';
 
@@ -62,37 +62,39 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Registration />} />
-          <Route path="/sidebar" element={<Sidebar />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/prenatal" element={<Prenatal />} />
-          <Route path="/prenatal/:residentid" element={<PrenatalSpecificResident />} />
-          <Route path="/prenatal/:residentid/:recordid" element={<PrenatalSpecificRecord />} />
-          <Route path="/immunization" element={<Immunization />} />
-          <Route path="/immunization/specres/:residentid" element={<ImmunizationResidentPage />} />
-          <Route path="/immunization/specres/:residentid/:recordid" element={<ImmunizationSpecificResident />} />
-          <Route path="/medicalcheckup" element={<MedicalCheckUp />} />
-          <Route path="/medicalcheckup/:residentid" element={<MedicalCheckUpSpecificResident />} />
-          <Route path="/medicalcheckup/:residentid/:recordid" element={<MedicalCheckUpSpecificRecord />} />
-          <Route path="/dental" element={<Dental />} />
-          <Route path="/dental/:residentid" element={<DentalSpecificResident />} />
-          <Route path="/dental/:residentid/:recordid" element={<DentalSpecificRecord />} />
-          <Route path="/resident" element={<Residents />} />
-          <Route path="/resident/:familyid" element={<ResidentsSpecificFamily />} />
-          <Route path="/resident/:familyid/:profile_id" element={<ResidentsSpecificResident />} />
-          <Route path="/familyplanning" element={<FamilyPlanning />} />
-          <Route path="/familyplanning/:residentid" element={<FamilyPlanningSpecificResident />} />
-          <Route path="/familyplanning/:residentid/:recordid" element={<FamilyPlanningSpecificResidentRecord />} />
-          <Route path="/laboratory" element={<Laboratory />} />
-          <Route path="/hematology" element={<Hematology />} />
-          <Route path="/hematology/:residentid" element={<HematologySpecificResident />} />
-          <Route path="/hematology/:residentid/:recordid" element={<HematologySpecificRecord />} />
-          <Route path="/urinalysis" element={<Urinalysis />} />
-          <Route path="/urinalysis/:residentid" element={<UrinalysisSpecificResident />} />
-          <Route path="/urinalysis/:residentid/:recordid" element={<UrinalysisSpecificRecord />} />
-          <Route path="/queue" element={<QueueBHW />} />
-          <Route path="/workers" element={<Workers />}/>
-          <Route path="/workers/:workerId" element={<SpecificWorkers/>}/>
-          <Route path="/profile/:profileId" element={<Profile />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/sidebar" element={<Sidebar />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/prenatal" element={<Prenatal />} />
+            <Route path="/prenatal/:residentid" element={<PrenatalSpecificResident />} />
+            <Route path="/prenatal/:residentid/:recordid" element={<PrenatalSpecificRecord />} />
+            <Route path="/immunization" element={<Immunization />} />
+            <Route path="/immunization/specres/:residentid" element={<ImmunizationResidentPage />} />
+            <Route path="/immunization/specres/:residentid/:recordid" element={<ImmunizationSpecificResident />} />
+            <Route path="/medicalcheckup" element={<MedicalCheckUp />} />
+            <Route path="/medicalcheckup/:residentid" element={<MedicalCheckUpSpecificResident />} />
+            <Route path="/medicalcheckup/:residentid/:recordid" element={<MedicalCheckUpSpecificRecord />} />
+            <Route path="/dental" element={<Dental />} />
+            <Route path="/dental/:residentid" element={<DentalSpecificResident />} />
+            <Route path="/dental/:residentid/:recordid" element={<DentalSpecificRecord />} />
+            <Route path="/resident" element={<Residents />} />
+            <Route path="/resident/:familyid" element={<ResidentsSpecificFamily />} />
+            <Route path="/resident/:familyid/:profile_id" element={<ResidentsSpecificResident />} />
+            <Route path="/familyplanning" element={<FamilyPlanning />} />
+            <Route path="/familyplanning/:residentid" element={<FamilyPlanningSpecificResident />} />
+            <Route path="/familyplanning/:residentid/:recordid" element={<FamilyPlanningSpecificResidentRecord />} />
+            <Route path="/laboratory" element={<Laboratory />} />
+            <Route path="/hematology" element={<Hematology />} />
+            <Route path="/hematology/:residentid" element={<HematologySpecificResident />} />
+            <Route path="/hematology/:residentid/:recordid" element={<HematologySpecificRecord />} />
+            <Route path="/urinalysis" element={<Urinalysis />} />
+            <Route path="/urinalysis/:residentid" element={<UrinalysisSpecificResident />} />
+            <Route path="/urinalysis/:residentid/:recordid" element={<UrinalysisSpecificRecord />} />
+            <Route path="/queue" element={<QueueBHW />} />
+            <Route path="/workers" element={<Workers />}/>
+            <Route path="/workers/:workerId" element={<SpecificWorkers/>}/>
+            <Route path="/profile/:profileId" element={<Profile />} />
+          </Route>
         </Routes>
       </Router>
     </div>

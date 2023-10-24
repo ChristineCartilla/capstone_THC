@@ -38,6 +38,15 @@ const Sidebar = () => {
           })
         })
       },[]);
+
+    const logout = () => {
+        alert("Account have been logged out!");
+        sessionStorage.removeItem("accountId");
+        sessionStorage.removeItem("profileId");
+        sessionStorage.clear();
+        navigate("/")
+    }
+
     return (
         <div className="mainSideBarDiv sticky-top" style={{width: "280px", padding:"0"}}>
             <button className="btn btn-toggle d-inline-flex align-items-center justify-content-center rounded" id="sidebarCloseToggle" style={{margin: "10px 0 0 220px"}}>
@@ -77,7 +86,7 @@ const Sidebar = () => {
                         <li><a href="/medicalcheckup" className="d-inline-flex text-decoration-none rounded">Medical Check-up</a></li>
                         <li><a href="/familyplanning" className="d-inline-flex text-decoration-none rounded">Family Planning</a></li>
                         <li>
-                      <button className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed px-0" data-bs-toggle="collapse" data-bs-target="#laboratory-collapse" aria-expanded="false">
+                    <button className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed px-0" data-bs-toggle="collapse" data-bs-target="#laboratory-collapse" aria-expanded="false">
                         Laboratory
                         </button>
                             <ul className="collapse list-unstyled fw-normal pb-1 small" id="laboratory-collapse">
@@ -116,7 +125,9 @@ const Sidebar = () => {
             <div className='bottomBtn'>
                 <ul className='list-unstyled ps-0 mainSideBarDiv_list'>
                     <li className='mb-1'>
-                        <button className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed ">
+                        <button 
+                            className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed "
+                            onClick={logout}>
                             <FontAwesomeIcon icon={faRightFromBracket} style={{marginRight: "13px"}} />
                             Log Out
                         </button>  
