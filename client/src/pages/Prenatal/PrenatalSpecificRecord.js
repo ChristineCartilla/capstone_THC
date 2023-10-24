@@ -257,8 +257,8 @@ const PrenatalSpecificRecord = () => {
                                                         if (rec._id != null) {
                                                             return (
                                                                 <div className="d-flex">
-                                                                <label className="fw-bold ">{rec.vaccine_name} : </label> 
-                                                                <span > {formatDate(rec.dateGiven)} </span>  
+                                                                    <label className="fw-bold ">{rec.vaccine_name} : </label> 
+                                                                    <span>  &nbsp;&nbsp;{formatDate(rec.dateGiven)} </span>  
                                                                 </div>
                                                             );
                                                         }
