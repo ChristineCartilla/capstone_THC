@@ -14,8 +14,9 @@ const Dashboard = () => {
                     <Sidebar />
                 </div>
                 <div className="container mainLayout-right p-0">
+                <h1 className='text-white'>Barangay Talamban Health Statistics</h1>
                     <div className="dashboardHeader d-flex justify-content-left">
-                        <h1>Barangay Talamban Health Statistics</h1>
+                        {/* <h1>Barangay Talamban Health Statistics</h1> */}
                         <span></span>
                     </div>
                     <div className="dashboardBody">
