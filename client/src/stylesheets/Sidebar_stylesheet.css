@@ -64,5 +64,14 @@
 
   .mainSideBarDiv .bottomBtn{
     position: absolute;
+    
+  }
+
+ 
+
+  @media(min-height:  636px){
+    .mainSideBarDiv .bottomBtn{
+    position: fixed;
     bottom: 0;
+    }
   }

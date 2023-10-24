@@ -48,7 +48,7 @@ const Sidebar = () => {
     }
 
     return (
-        <div className="mainSideBarDiv sticky-top" style={{width: "280px", padding:"0"}}>
+        <div className="mainSideBarDiv" style={{width: "280px", padding:"0"}}>
             <button className="btn btn-toggle d-inline-flex align-items-center justify-content-center rounded" id="sidebarCloseToggle" style={{margin: "10px 0 0 220px"}}>
                 <FontAwesomeIcon icon={faBars} />
             </button>
