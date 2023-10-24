@@ -39,6 +39,16 @@ const EditUserProfile = () => {
         .catch((error) => {
           console.error("Error fetching profile data:", error);
         });
+
+      
+      
+      axios.get(`/account/fetchaccount/${profileId}`)
+        .then((response) => {
+          axios.get('/account/specaccount/'+response.data)
+          .then((response) => {
+            setFormData({...response.data, email: response.data[0].email, password: response.data[0].password });
+          })
+        })
     }
   }, [profileId]);
 
@@ -340,7 +350,8 @@ const EditUserProfile = () => {
                     id="email"
                     style={{ backgroundColor: "#CCE8DE" }}
                     value={formData.email}
-                    onChange={handleChange}
+                    onChange={()=>{}}
+                    disabled
                   />
                 </div>
                 <div className="col-md-4 text-start">
