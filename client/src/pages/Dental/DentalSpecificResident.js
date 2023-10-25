@@ -36,7 +36,7 @@ const DentalSpecificResident = () => {
         try {
             const fetchDR = await axios.get(`/oralhealth/${residentid}`);
             setRecords(fetchDR.data.medical_records);
-            console.log(fetchDR);
+            // console.log(fetchDR);
         } catch (error) {
             console.log(error);
         }
@@ -98,7 +98,7 @@ const DentalSpecificResident = () => {
                                     <div className='col-md-4 col-sm-12 sp2-topDiv'>
                                         <h5 className="text-start">Personal Information</h5>
                                         <div className='sp2-personalInfoDiv'>
-                                            <div class="mb-3" style={{maxWidth: "540px;"}}>
+                                            <div className="mb-3" style={{maxWidth: "540px"}}>
                                                 <div className="row g-0">
                                                     <div className="col-md-4">
                                                         <img src={THCDefaultPatientLogo} height="80px" width="80px" alt="default_image.png" style={{marginTop:5}}/>
@@ -200,7 +200,7 @@ const DentalSpecificResident = () => {
                                                         <th></th>
                                                         <th style={{maxWidth:"400px"}}>Vital Signs</th>
                                                         <th></th> 
-                                                        <th style={{textAlign:"end"}}><button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#VitalSignAddition"><FontAwesomeIcon icon={faPlus}/></button></th> 
+                                                        <th style={{textAlign:"end"}}></th> 
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -262,9 +262,6 @@ const DentalSpecificResident = () => {
 
              {/* Modal  */}
             <AdditionDental residentid={patientinfo._id} />
-
-            {/* Add Vital Sign Modal  */}
-            <AdditionVitalSigns residentid={patientinfo._id}/>
             
             {/*View Vital Sign Modal  */}
             <ViewVitalSigns recordid={selectedVSId} record={selectedVSRec}/>

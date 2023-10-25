@@ -115,11 +115,11 @@ const AdditionDental = ({residentid}) => {
                     alert("Dental Record Successfully Added");
                     window.location.reload();
                 }
-                console.log(dentalCaries, gingivitis, periodontalDisease, debris, calculus,
-                    abnormalGrowth, cleftLip, no_permTeethPres, no_permSoundTeeth,
-                    no_permDecayedTeeth, no_permMissingTeeth, no_permFilledTeeth, totalDMFTeeth,
-                    no_tempTeethPres, no_tempSoundTeeth, no_tempDecayedTeeth, no_tempFilledTeeth,
-                    totalDFTeeth, sugarBvrgs, freq_alcohol, freq_tobacco);
+                // console.log(dentalCaries, gingivitis, periodontalDisease, debris, calculus,
+                //     abnormalGrowth, cleftLip, no_permTeethPres, no_permSoundTeeth,
+                //     no_permDecayedTeeth, no_permMissingTeeth, no_permFilledTeeth, totalDMFTeeth,
+                //     no_tempTeethPres, no_tempSoundTeeth, no_tempDecayedTeeth, no_tempFilledTeeth,
+                //     totalDFTeeth, sugarBvrgs, freq_alcohol, freq_tobacco);
             
         } catch (error) {
             console.log(error)
@@ -149,7 +149,7 @@ const AdditionDental = ({residentid}) => {
                                             id="flexCheckDefault"
                                             checked={dentalCaries} 
                                             onChange={(event)=>setDentalCaries(event.target.checked)}/>
-                                        <label className="form-check-label" for="flexCheckDefault">
+                                        <label className="form-check-label" htmlFor="flexCheckDefault">
                                             Dental Carries
                                         </label>
                                         </div>
@@ -160,7 +160,7 @@ const AdditionDental = ({residentid}) => {
                                             checked={gingivitis}
                                             id="flexCheckDefault" 
                                             onChange={(event)=>setGingivitis(event.target.checked)}/>
-                                        <label className="form-check-label" for="flexCheckDefault">
+                                        <label className="form-check-label" htmlFor="flexCheckDefault">
                                             Gingivitis
                                         </label>
                                         </div>
@@ -171,7 +171,7 @@ const AdditionDental = ({residentid}) => {
                                             checked={periodontalDisease} 
                                             id="flexCheckDefault" 
                                             onChange={(event)=>setPeriodontalDisease(event.target.checked)}/>
-                                        <label className="form-check-label" for="flexCheckDefault">
+                                        <label className="form-check-label" htmlFor="flexCheckDefault">
                                             Periodontal Disease
                                         </label>
                                         </div>
@@ -182,7 +182,7 @@ const AdditionDental = ({residentid}) => {
                                             checked={debris}
                                             id="flexCheckDefault" 
                                             onChange={(event)=>setDebris(event.target.checked)}/>
-                                        <label className="form-check-label" for="flexCheckDefault">
+                                        <label className="form-check-label" htmlFor="flexCheckDefault">
                                             Debris
                                         </label>
                                         </div>
@@ -193,7 +193,7 @@ const AdditionDental = ({residentid}) => {
                                             checked={calculus} 
                                             id="flexCheckDefault" 
                                             onChange={(event)=>setCalculus(event.target.checked)}/>
-                                        <label className="form-check-label" for="flexCheckDefault">
+                                        <label className="form-check-label" htmlFor="flexCheckDefault">
                                             Calculus
                                         </label>
                                         </div>
@@ -209,7 +209,7 @@ const AdditionDental = ({residentid}) => {
                                             checked={abnormalGrowth} 
                                             id="flexCheckDefault" 
                                             onChange={(event)=>setAbnormalGrowth(event.target.checked)}/>
-                                        <label className="form-check-label" for="flexCheckDefault">
+                                        <label className="form-check-label" htmlFor="flexCheckDefault">
                                             Abnormal Growth
                                         </label>
                                         </div>
@@ -220,7 +220,7 @@ const AdditionDental = ({residentid}) => {
                                             checked={cleftLip} 
                                             id="flexCheckDefault" 
                                             onChange={(event)=>setCliftLip(event.target.checked)}/>
-                                        <label className="form-check-label" for="flexCheckDefault">
+                                        <label className="form-check-label" htmlFor="flexCheckDefault">
                                             Cleft Up/Palate
                                         </label>
                                         </div>

@@ -18,7 +18,6 @@ const FamilyPlanningSpecificResident = () => {
     const [vitalSignRecs, setVitalSignRecs] = useState([]);
     const [selectedVSRec, setSelectedVSRec] = useState(null);
     const navigate = useNavigate();
-    // var recLength = records.length;
 
     useEffect(() => {
         patientInformation();
@@ -30,7 +29,6 @@ const FamilyPlanningSpecificResident = () => {
         await axios.get("/profile/" + residentid)
             .then((response) => {
                 setPatientInfo(response.data)
-                // console.log(response.data);
         })
     }
 
@@ -38,7 +36,6 @@ const FamilyPlanningSpecificResident = () => {
         try {
             const fetchHR = await axios.get(`/familyplanning/${residentid}`);
             setRecords(fetchHR.data.medical_records);
-            console.log(fetchHR.data);
         } catch (error) {
             console.log(error);
         }
@@ -216,7 +213,7 @@ const FamilyPlanningSpecificResident = () => {
                                                         <th></th>
                                                         <th style={{maxWidth:"400px"}}>Vital Signs</th>
                                                         <th></th> 
-                                                        <th style={{textAlign:"end"}}><button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#VitalSignAddition"><FontAwesomeIcon icon={faPlus}/></button></th> 
+                                                        <th style={{textAlign:"end"}}></th> 
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -279,9 +276,6 @@ const FamilyPlanningSpecificResident = () => {
             {/*Add Vital sign Modal  */}
             <AdditionalFamilyPlanning residentid={patientinfo._id}/>
 
-            {/* Add Vital Sign Modal  */}
-            <AdditionVitalSigns residentid={patientinfo._id}/>
-            
             {/*View Vital Sign Modal  */}
             <ViewVitalSigns recordid={selectedVSId} record={selectedVSRec}/>
                     

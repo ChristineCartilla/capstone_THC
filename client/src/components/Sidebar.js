@@ -1,11 +1,12 @@
 import React from 'react'
 import THCLogo from '../images/THC_Logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserGroup, faBriefcaseMedical, faListOl, faRightFromBracket, faTableCellsLarge, faUserNurse, faUser, faBars } from '@fortawesome/free-solid-svg-icons'
+import { faUserGroup, faBriefcaseMedical, faListOl, faRightFromBracket, faTableCellsLarge, faUserNurse, faUser, faBars, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate, useParams } from 'react-router-dom'
 import $ from 'jquery';
 import "jquery-ui-dist/jquery-ui";
 import { useEffect } from 'react';
+import AdditionVitalSigns from './AdditionVitalSigns'
 
 const Sidebar = () => {
     const navigate = useNavigate();
@@ -80,20 +81,24 @@ const Sidebar = () => {
                     </button>
                     <div className="collapse" id="service-collapse">
                     <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small servicesUl">
+                        <li>
+                            <button type="button" className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed px-0" data-bs-toggle="modal" data-bs-target="#VitalSignAddition">Vital Sign</button>
+                        </li>
                         <li><a href="/prenatal" className="d-inline-flex text-decoration-none rounded">Prenatal</a></li>
                         <li><a href="/immunization" className="d-inline-flex text-decoration-none rounded">Immunization</a></li>
                         <li><a href="/dental" className="d-inline-flex text-decoration-none rounded">Dental</a></li>
                         <li><a href="/medicalcheckup" className="d-inline-flex text-decoration-none rounded">Medical Check-up</a></li>
                         <li><a href="/familyplanning" className="d-inline-flex text-decoration-none rounded">Family Planning</a></li>
                         <li>
-                    <button className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed px-0" data-bs-toggle="collapse" data-bs-target="#laboratory-collapse" aria-expanded="false">
-                        Laboratory
-                        </button>
+                            <button className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed px-0" data-bs-toggle="collapse" data-bs-target="#laboratory-collapse" aria-expanded="false">
+                            Laboratory
+                            </button>
                             <ul className="collapse list-unstyled fw-normal pb-1 small" id="laboratory-collapse">
                                 <li><a href="/hematology" className="d-inline-flex text-decoration-none rounded">Hematology Test</a></li>
                                 <li><a href="/urinalysis" className="d-inline-flex text-decoration-none rounded">Urinalysis Test</a></li>
                             </ul>
                         </li>
+                        
                     </ul>
                     </div>
                 </li>
@@ -135,6 +140,8 @@ const Sidebar = () => {
                 </ul>
                 
             </div>
+            {/* Add Vital Sign Modal  */}
+            <AdditionVitalSigns/>
         </div>
     )
 }

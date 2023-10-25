@@ -219,7 +219,7 @@ const PrenatalSpecificResident = () => {
                                                         <th></th>
                                                         <th style={{maxWidth:"400px"}}>Vital Signs</th>
                                                         <th></th> 
-                                                        <th style={{textAlign:"end"}}><button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#VitalSignAddition"><FontAwesomeIcon icon={faPlus}/></button></th> 
+                                                        <th style={{textAlign:"end"}}></th> 
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -280,9 +280,6 @@ const PrenatalSpecificResident = () => {
 
              {/* Modal  */}
              <AdditionPrenatal residentid={patientinfo._id}/>
-
-              {/* Add Vital Sign Modal  */}
-              <AdditionVitalSigns residentid={patientinfo._id}/>
             
             {/*View Vital Sign Modal  */}
               <ViewVitalSigns recordid={selectedVSId} record={selectedVSRec}/>

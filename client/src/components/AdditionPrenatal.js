@@ -203,7 +203,7 @@ const AdditionPrenatal= ({residentid}) => {
                         <div  className="row">
                             <div className="form-check">
                                 <input  className="form-check-input" type="checkbox" checked={dysmenorrhea} onChange={e => setDysmenorrhea(e.target.checked)}  id="flexCheckDefault "></input>
-                                <label className="form-check-label" for="flexCheckDefault">
+                                <label className="form-check-label" htmlFor="flexCheckDefault">
                                     Dysmenorrhea
                                 </label>
                             </div>
@@ -211,7 +211,7 @@ const AdditionPrenatal= ({residentid}) => {
                         <div  className="row">
                             <div className="form-check">
                                 <input  className="form-check-input" type="checkbox" checked={hydatidiformMole} onChange={e => sethydatidiformMole(e.target.checked)}  id="flexCheckDefault" ></input>
-                                <label className="form-check-label" for="flexCheckDefault">
+                                <label className="form-check-label" htmlFor="flexCheckDefault">
                                 Hydatidiform mole (within the last 12 months)
                                 </label>
                             </div>
@@ -219,7 +219,7 @@ const AdditionPrenatal= ({residentid}) => {
                         <div  className="row">
                             <div className="form-check">
                                 <input  className="form-check-input" type="checkbox" checked={ectopicPregnancy} onChange={e => setectopicPregnancy(e.target.checked)}  id="flexCheckDefault" ></input>
-                                <label className="form-check-label" for="flexCheckDefault">
+                                <label className="form-check-label" htmlFor="flexCheckDefault">
                                 History of ectopic pregnancy
                                 </label>
                             </div>
@@ -227,7 +227,7 @@ const AdditionPrenatal= ({residentid}) => {
                         <div  className="row">
                             <div className="form-check">
                                 <input  className="form-check-input" type="checkbox" checked={diabetes} onChange={e => setDiabetes(e.target.checked)}  id="flexCheckDefault" ></input>
-                                <label className="form-check-label" for="flexCheckDefault">
+                                <label className="form-check-label" htmlFor="flexCheckDefault">
                                     Diabetes
                                 </label>
                             </div>

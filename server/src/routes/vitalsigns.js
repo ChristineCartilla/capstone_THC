@@ -9,8 +9,8 @@ function getBmi(kg, cm){
 const router = express.Router();
 
 // ADDING VITAL SIGN TO AN EXISTING PROFILE
-router.post("/add/:id", async (req, res) => {
-    const profileId = req.params.id;
+router.post("/add", async (req, res) => {
+    const profileId = req.body.id
     
     try {
         const findProfile = await ProfileModel.findById({_id:profileId});

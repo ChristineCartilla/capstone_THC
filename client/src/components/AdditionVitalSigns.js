@@ -1,18 +1,36 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 
 const AdditionVitalSigns = ({residentid}) => {
+    const [residentList, setResidentList] = useState([]);
+    const [ resident, setResident ] = useState("");
+    const [ residentId, setResidentId ] = useState("");
     const [ vitalSignWeight, setVitalSignWeight ] = useState("");
     const [ vitalSignHeight, setVitalSignHeight ] = useState("");
     const [ vitalSignBP, setVitalSignBP ] = useState("");
     const [ vitalSignPR, setVitalSignPR ] = useState("");
     const [ vitalSignTemp, setVitalSignTemp ] = useState("");
 
+    useEffect(() => {
+        fetchResidents();
+    })
+
+    const fetchResidents = async () => {
+        const data = await axios.get("/profile/fetchresident");
+        setResidentList(data.data);
+    }
+
+    const onSearch = (searchTerm, searchId) => {
+        setResident(searchTerm);
+        setResidentId(searchId);
+    }
+
     const addRecSubmit = async (event) => {
         event.preventDefault();
   
         try{
-            const response = await axios.post(`/vitalsign/add/${residentid}`,{
+            const response = await axios.post(`/vitalsign/add`,{
+                id: residentId,
                 height: vitalSignHeight,
                 weight: vitalSignWeight,
                 temp: vitalSignTemp,
@@ -28,7 +46,8 @@ const AdditionVitalSigns = ({residentid}) => {
         } catch (error){
           console.log(error)
         }
-      }
+    }
+
     return (
         <div className="modal fade" id="VitalSignAddition" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog modal-lg">
@@ -39,6 +58,30 @@ const AdditionVitalSigns = ({residentid}) => {
                     </div>
                     <div className="modal-body">
                         <form >
+                            <div className="row mb-5">
+                                <div className="col-6 text-start">
+                                    <label htmlFor="exampleFormControlTextarea1" className="form-label">Patient Name</label>
+                                    <input type='hidden' value={residentId} onChange={()=>{}}/>
+                                    <input type='text' className="form-control Addition_Vital_textarea" value={resident} onChange={e => setResident(e.target.value)} style={{backgroundColor: "rgb(204, 232, 222)"}} />
+                                    <div className='dropdown Addition_Vital_textarea'>
+                                    {
+                                        residentList
+                                        .filter(item => {
+                                            const searchTerm = resident.toLowerCase();
+                                            const firstname = item.first_name.toLowerCase();
+                                            const lastname = item.last_name.toLowerCase();
+                                            return searchTerm && firstname.startsWith(searchTerm) || searchTerm && lastname.startsWith(searchTerm);
+                                        })
+                                        .map((item) => (
+                                            <div 
+                                                key={item._id}
+                                                className="dropdown-row"
+                                                onClick={() => onSearch(item.first_name+" "+item.last_name, item._id)}>{item.first_name+" "+item.last_name}</div>
+                                        ))
+                                    }
+                                    </div>
+                                </div>
+                            </div>
                             <div className="row mb-5">
                                 <div className="col text-start">
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label">Weight</label>
