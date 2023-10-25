@@ -44,6 +44,7 @@ const Sidebar = () => {
         alert("Account have been logged out!");
         sessionStorage.removeItem("accountId");
         sessionStorage.removeItem("profileId");
+        sessionStorage.removeItem("workerType");
         sessionStorage.clear();
         navigate("/")
     }

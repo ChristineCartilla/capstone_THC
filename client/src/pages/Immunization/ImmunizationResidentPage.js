@@ -177,7 +177,13 @@ const ImmunizationResidentPage = () => {
                                                         <th></th>
                                                         <th style={{maxWidth:"400px"}}>List of Immunization Records</th>
                                                         <th></th> 
-                                                        <th style={{textAlign:"end"}}><button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#IAddition"><FontAwesomeIcon icon={faPlus} /></button></th> 
+                                                        <th style={{textAlign:"end"}}>
+                                                            {
+                                                                (sessionStorage.getItem("workerType") === "Nurse")? (
+                                                                    <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#IAddition"><FontAwesomeIcon icon={faPlus} /></button>
+                                                                ): ""
+                                                            }
+                                                        </th> 
                                                     </tr>
                                                 </thead>
                                                 <tbody>

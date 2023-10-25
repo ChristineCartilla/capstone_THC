@@ -29,8 +29,8 @@ const AdditionVitalSigns = ({residentid}) => {
         event.preventDefault();
   
         try{
-            const response = await axios.post(`/vitalsign/add`,{
-                id: residentId,
+            const response = await axios.post('/vitalsign/add',{
+                resid: residentId,
                 height: vitalSignHeight,
                 weight: vitalSignWeight,
                 temp: vitalSignTemp,

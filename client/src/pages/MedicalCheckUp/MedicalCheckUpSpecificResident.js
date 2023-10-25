@@ -14,26 +14,23 @@ const MedicalCheckUpSpecificResident = () => {
     const [patientinfo, setPatientInfo] = useState([]);
     const [records, setRecords] = useState([]);
     const navigate = useNavigate();
-    var recLength = records.length;
     
     useEffect(() => {
         patientInformation();
         recordsList();
-        // console.log(residentid);
+
     }, [])
 
     const patientInformation = async () => {
         await axios.get("/profile/"+ residentid)
         .then((response) => {
             setPatientInfo(response.data)
-            console.log(response);
         })
     }
     const recordsList = async () => {
         try {
             const fetchMR = await axios.get(`/medicalcheckup/${residentid}`);
             setRecords(fetchMR.data.medical_records);
-            console.log(fetchMR);
         } catch (error) {
             console.log(error);
         }
@@ -130,7 +127,13 @@ const MedicalCheckUpSpecificResident = () => {
                                                         <th></th>
                                                         <th style={{width:"400px"}}>List of Medical Checkup Records</th>
                                                         <th></th> 
-                                                        <th style={{textAlign:"end"}}><button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#MCAddition"><FontAwesomeIcon icon={faPlus}/></button></th> 
+                                                        <th style={{textAlign:"end"}}>
+                                                            {
+                                                                (sessionStorage.getItem("workerType") === "Doctor")? (
+                                                                    <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#MCAddition"><FontAwesomeIcon icon={faPlus}/></button>                                                                
+                                                                ):""
+                                                            }
+                                                        </th> 
                                                     </tr>
                                                 </thead>
                                                 <tbody>

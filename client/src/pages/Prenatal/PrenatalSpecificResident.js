@@ -169,7 +169,13 @@ const PrenatalSpecificResident = () => {
                                                         <th></th>
                                                         <th style={{width:"400px"}}>List of Prenatal Records</th>
                                                         <th></th> 
-                                                        <th style={{textAlign:"end"}}><button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#PAddition"><FontAwesomeIcon icon={faPlus}  /></button></th> 
+                                                        <th style={{textAlign:"end"}}>
+                                                            {
+                                                                (sessionStorage.getItem("workerType") === "Midwife")? (
+                                                                    <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#PAddition"><FontAwesomeIcon icon={faPlus}  /></button>
+                                                                ): ""
+                                                            }
+                                                        </th> 
                                                     </tr>
                                                 </thead>
                                                 <tbody>

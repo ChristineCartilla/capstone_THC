@@ -17,6 +17,7 @@ const Login = () => {
             if(response.data.accountId){
                 sessionStorage.setItem("accountId", response.data.accountId);
                 sessionStorage.setItem("profileId", response.data.profileId);
+                sessionStorage.setItem("workerType", response.data.workerType);
                 navigate("/dashboard")
             } else{
                 alert(response.data);

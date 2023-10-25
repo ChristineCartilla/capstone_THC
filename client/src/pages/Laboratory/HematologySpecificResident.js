@@ -184,7 +184,13 @@ const HematologySpecificResident = () => {
                                                     <th></th>
                                                     <th style={{width:"400px"}}>List of Hematology Records</th>
                                                     <th></th>
-                                                    <th style={{textAlign:"end"}}><button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#FPAddition"><FontAwesomeIcon icon={faPlus}/></button></th> 
+                                                    <th style={{textAlign:"end"}}>
+                                                        {
+                                                            (sessionStorage.getItem("workerType") === "Medtech")? (
+                                                                <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#FPAddition"><FontAwesomeIcon icon={faPlus}/></button>
+                                                            ): ""
+                                                        }
+                                                        </th> 
                                                 </tr>
                                             </thead>
                                             <tbody>
