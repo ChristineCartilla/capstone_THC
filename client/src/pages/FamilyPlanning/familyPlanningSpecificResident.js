@@ -142,23 +142,23 @@ const FamilyPlanningSpecificResident = () => {
                                             <table className="">
                                                 <tbody>
                                                     <tr>
-                                                        <td scope="row">Age:</td>
+                                                        <td>Age:</td>
                                                         <td>{formatAge(patientinfo.birthDate)} Years Old</td>
                                                     </tr>
                                                     <tr>
-                                                        <td scope="row">Birth Date:</td>
+                                                        <td>Birth Date:</td>
                                                         <td>{formatDate(patientinfo.birthDate)}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td scope="row">Birth Place:</td>
+                                                        <td>Birth Place:</td>
                                                         <td>{patientinfo.birthPlace}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td scope="row">Occupation:</td>
+                                                        <td>Occupation:</td>
                                                         <td>{patientinfo.occupation}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td scope="row">Address:</td>
+                                                        <td>Address:</td>
                                                         <td>{patientinfo.street + " "+ patientinfo.barangay + " " + patientinfo.municipality+ " " + patientinfo.zipCode}</td>
                                                     </tr>
                                                 </tbody>

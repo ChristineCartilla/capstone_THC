@@ -96,23 +96,23 @@ const MedicalCheckUpSpecificResident = () => {
                                             <table className="">
                                                 <tbody>
                                                     <tr>
-                                                        <td scope="row">Age:</td>
+                                                        <td>Age:</td>
                                                         <td>{patientinfo.age} Years Old</td>
                                                     </tr>
                                                     <tr>
-                                                        <td scope="row">Birth Date:</td>
+                                                        <td>Birth Date:</td>
                                                         <td>{patientinfo.birthDate}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td scope="row">Birth Place:</td>
+                                                        <td>Birth Place:</td>
                                                         <td>{patientinfo.birthPlace}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td scope="row">Occupation:</td>
+                                                        <td>Occupation:</td>
                                                         <td>{patientinfo.occupation}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td scope="row">Address:</td>
+                                                        <td>Address:</td>
                                                         <td>{patientinfo.street + " "+ patientinfo.barangay + " " + patientinfo.municipality+ " " + patientinfo.zipCode}</td>
                                                     </tr>
                                                 </tbody>
@@ -145,7 +145,7 @@ const MedicalCheckUpSpecificResident = () => {
                                                     </tr>
                                                     {
                                                         records && records.map((rec,idx) => {
-                                                            if(rec.service_id != null && rec.service_id.recordStat != false){
+                                                            if(rec.service_id !== null && rec.service_id.recordStat !== false){
                                                                 return (
                                                                     <tr 
                                                                         className='sp2-clickableMCRRow' 
@@ -159,11 +159,13 @@ const MedicalCheckUpSpecificResident = () => {
                                                                         </td>
                                                                     </tr>
                                                                 )
+                                                            } else {
+                                                                return null;
                                                             }
                                                         })
                                                     }
                                                     {
-                                                        records.length == 0 && (
+                                                        records.length === 0 && (
                                                             <tr className='sp2-clickableMCRRow'>
                                                                 <td></td>
                                                                 <td></td>

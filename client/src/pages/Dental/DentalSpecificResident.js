@@ -8,7 +8,6 @@ import AdditionDental from '../../components/AdditionDental.js'
 import THCDefaultPatientLogo from '../../images/default_image.png'
 import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
 import ViewVitalSigns from '../../components/ViewVitalSigns.js'
-import AdditionVitalSigns from '../../components/AdditionVitalSigns.js'
 
 const DentalSpecificResident = () => {
     const { residentid } = useParams();
@@ -116,23 +115,23 @@ const DentalSpecificResident = () => {
                                             <table className="">
                                                 <tbody>
                                                     <tr>
-                                                        <td scope="row">Age:</td>
+                                                        <td>Age:</td>
                                                         <td>{patientinfo.age} Years Old</td>
                                                     </tr>
                                                     <tr>
-                                                        <td scope="row">Birth Date:</td>
+                                                        <td>Birth Date:</td>
                                                         <td>{formatDate(patientinfo.birthDate)}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td scope="row">Birth Place:</td>
+                                                        <td>Birth Place:</td>
                                                         <td>{patientinfo.birthPlace}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td scope="row">Occupation:</td>
+                                                        <td>Occupation:</td>
                                                         <td>{patientinfo.occupation}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td scope="row">Address:</td>
+                                                        <td>Address:</td>
                                                         <td>{patientinfo.street + " "+ patientinfo.barangay + " " + patientinfo.municipality+ " " + patientinfo.zipCode}</td>
                                                     </tr>
                                                 </tbody>
@@ -166,7 +165,7 @@ const DentalSpecificResident = () => {
                                                     </tr>
                                                     {
                                                         records && records.map((rec,idx) => {
-                                                            if(rec.service_id != null){
+                                                            if(rec.service_id !== null){
                                                                 return (
                                                                     <tr 
                                                                         className='sp2-clickableMCRRow' 
@@ -179,11 +178,13 @@ const DentalSpecificResident = () => {
                                                                         <td>{formatDate(rec.service_id.createdAt)}</td>
                                                                     </tr>
                                                                 )
+                                                            } else {
+                                                                return null;
                                                             }
                                                         })
                                                     }
                                                     {
-                                                        records.length == 0 && (
+                                                        records.length === 0 && (
                                                             <tr className='sp2-clickableMCRRow'>
                                                                 <td></td>
                                                                 <td></td>
@@ -218,7 +219,7 @@ const DentalSpecificResident = () => {
                                                     </tr>
                                                     {
                                                         vitalSignRecs && vitalSignRecs.map((rec, idx) => {
-                                                            if (rec._id != null) {
+                                                            if (rec._id !== null) {
                                                                 return (
                                                                     <tr
                                                                         className='sp2-clickableMCRRow'
@@ -232,8 +233,9 @@ const DentalSpecificResident = () => {
                                                                         <td>{formatDate(rec.createdAt)}</td>
                                                                     </tr>
                                                                 );
+                                                            } else {
+                                                                return null;
                                                             }
-                                                        
                                                         })
                                                     }
                                                     {
