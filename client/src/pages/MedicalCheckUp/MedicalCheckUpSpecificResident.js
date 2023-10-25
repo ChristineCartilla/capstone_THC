@@ -129,7 +129,7 @@ const MedicalCheckUpSpecificResident = () => {
                                                         <th></th> 
                                                         <th style={{textAlign:"end"}}>
                                                             {
-                                                                (sessionStorage.getItem("workerType") === "Doctor")? (
+                                                                (sessionStorage.getItem("workerType") === "Doctor" || sessionStorage.getItem("workerType") === "Superadmin")? (
                                                                     <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#MCAddition"><FontAwesomeIcon icon={faPlus}/></button>                                                                
                                                                 ):""
                                                             }

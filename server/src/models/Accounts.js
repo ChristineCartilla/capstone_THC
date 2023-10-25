@@ -4,7 +4,7 @@ import mongoose from "mongoose"
 const AccountSchema = new mongoose.Schema({
     acc_type: {
         type: String,
-        enum: ["Resident", "Worker"],
+        enum: ["Resident", "Worker", "Superadmin"],
         required: true
     },
     email: {

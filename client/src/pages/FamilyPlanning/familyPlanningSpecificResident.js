@@ -175,7 +175,7 @@ const FamilyPlanningSpecificResident = () => {
                                                         <th></th> 
                                                         <th style={{textAlign:"end"}}>
                                                             {
-                                                                (sessionStorage.getItem("workerType") === "Nurse")? (
+                                                                (sessionStorage.getItem("workerType") === "Nurse" || sessionStorage.getItem("workerType") === "Superadmin")? (
                                                                     <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#FPAddition"><FontAwesomeIcon icon={faPlus}/></button>
                                                                 ): ""
                                                             }
@@ -191,7 +191,7 @@ const FamilyPlanningSpecificResident = () => {
                                                     </tr>
                                                     {
                                                     records && records.map((rec,idx) => {
-                                                        if(rec.service_id != null){
+                                                        if(rec.service_id !== null){
                                                             return (
                                                                 <tr 
                                                                     className='sp2-clickableMCRRow' 
@@ -205,6 +205,8 @@ const FamilyPlanningSpecificResident = () => {
                                                                     </td>
                                                                 </tr>
                                                             )
+                                                        } else {
+                                                            return null;
                                                         }
                                                     })
                                                 }
@@ -231,7 +233,7 @@ const FamilyPlanningSpecificResident = () => {
                                                     </tr>
                                                     {
                                                         vitalSignRecs && vitalSignRecs.map((rec, idx) => {
-                                                            if (rec._id != null) {
+                                                            if (rec._id !== null) {
                                                                 return (
                                                                     <tr
                                                                         className='sp2-clickableMCRRow'
@@ -245,6 +247,8 @@ const FamilyPlanningSpecificResident = () => {
                                                                         <td>{formatDate(rec.createdAt)}</td>
                                                                     </tr>
                                                                 );
+                                                            } else {
+                                                                return null;
                                                             }
                                                         
                                                         })

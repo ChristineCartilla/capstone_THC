@@ -4,7 +4,6 @@ import bcrypt from "bcrypt";
 import { AccountModel } from "../models/Accounts.js";
 import { ProfileModel } from "../models/Profile.js";
 
-
 function getAge(date){
     const today = new Date();
     const birthDate = new Date(date);
@@ -24,6 +23,18 @@ const router = express.Router();
 router.get("/", async (req, res) => {
     try {
         const data = await AccountModel.find({}).populate("profile");
+        res.json(data);
+    } catch (error) {
+        res.json(error);
+    }
+})
+
+// GETTING SPECIFIC ACCOUNT
+router.get("/specaccount/:accid", async (req, res) => {
+    const accid = req.params.accid;
+
+    try {
+        const data = await AccountModel.find({_id:accid});
         res.json(data);
     } catch (error) {
         res.json(error);
@@ -65,7 +76,7 @@ router.get("/fetchmember/:accid", async (req, res) => {
     }
 })
 
-//GETTING ACCOUNT ID FROM PROVIDEC PROFILE ID
+//GETTING ACCOUNT ID FROM PROVIDED PROFILE ID
 router.get("/fetchaccount/:profid", async (req, res) => {
     const profid = req.params.profid;
 
@@ -148,12 +159,12 @@ router.post("/login", async (req, res) => {
         if(!user){
             retValMsg = "Account Not Found";
         } else{
-            if(user.acc_type === "Worker"){
+            if(user.acc_type === "Worker" || user.acc_type === "Superadmin"){
                 const isPasswordValid = user.password == loginPassword;
                 if(!isPasswordValid){
                     retValMsg = "Incorrect Password... Try Again";
                 } else{
-                    return res.json({accountId: user._id, profileId: user.profile[0]._id});    
+                    return res.json({accountId: user._id, profileId: user.profile[0]._id, workerType: user.profile[0].user_type});    
                 }
             } else {
                 retValMsg = "Unauthorized Account";
@@ -181,6 +192,16 @@ router.patch("/setdefault/:profid", async (req, res) => {
         res.json(accdata);
     } catch (error) {
         
+    }
+})
+
+// DELETE ALL DOCUMENTS IN A COLLECTION (MONGO DB)
+router.delete("/deleteall", async (req,res) => {
+    try {
+        await AccountModel.deleteMany({});
+        res.json("deleted all");
+    } catch (error) {
+        res.json(error)
     }
 })
 

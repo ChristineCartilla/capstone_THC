@@ -103,15 +103,16 @@ const AdditionWorker = () => {
                             </div>
                             <div  className="col-md-4 text-start">
                                 <label htmlFor="exampleFormControlTextarea1"  className="form-label">Civil Status</label>
-                                <select className="form-select"  style={{backgroundColor: "#CCE8DE"}}
-                                                onChange={(event)=>setCivilStatus(event.target.value)}
-                                            >
-                                                <option value="" selected disabled style={{backgroundColor: "white"}}>Choose...</option>
-                                                <option value="Single"  style={{backgroundColor: "white"}}>Single</option>
-                                                <option value="Married"  style={{backgroundColor: "white"}}>Married</option>
-                                                <option value="Separated"  style={{backgroundColor: "white"}}>Separated</option>
-                                                <option value="Widowed"  style={{backgroundColor: "white"}}>Widowed</option>
-                                    </select>
+                                <select 
+                                    className="form-select"  
+                                    style={{backgroundColor: "#CCE8DE"}}
+                                    onChange={(event)=>setCivilStatus(event.target.value)} >
+                                    <option value="" selected disabled style={{backgroundColor: "white"}}>Choose...</option>
+                                    <option value="Single"  style={{backgroundColor: "white"}}>Single</option>
+                                    <option value="Married"  style={{backgroundColor: "white"}}>Married</option>
+                                    <option value="Separated"  style={{backgroundColor: "white"}}>Separated</option>
+                                    <option value="Widowed"  style={{backgroundColor: "white"}}>Widowed</option>
+                                </select>
                             </div>
                             
                         </div>
@@ -161,17 +162,18 @@ const AdditionWorker = () => {
                                     onChange={(event)=>setEducAttain(event.target.value)}/>
                             </div>
                             <div  className="col-md-4 text-start">
-                                <label htmlFor="exampleFormControlTextarea1"  className="form-label">Occupation</label>
-                                <select className="form-select"  style={{backgroundColor: "#CCE8DE"}}
-                                            onChange={(event)=>setOccupation(event.target.value)}
-                                        >
-                                            <option value="" selected disabled style={{backgroundColor: "white"}}>Choose...</option>
-                                            <option value="BHW"  style={{backgroundColor: "white"}}>BHW</option>
-                                            <option value="Doctor"  style={{backgroundColor: "white"}}>Doctor</option>
-                                            <option value="Dentist"  style={{backgroundColor: "white"}}>Dentist</option>
-                                            <option value="Midwife"  style={{backgroundColor: "white"}}>Midwife</option>
-                                            <option value="Nurse"  style={{backgroundColor: "white"}}>Nurse</option>
-                                            <option value="Medical Technologist"  style={{backgroundColor: "white"}}>Medical Technologist</option>
+                                <label htmlFor="exampleFormControlTextarea1"  className="form-label">Worker Position</label>
+                                <select 
+                                    className="form-select"  
+                                    style={{backgroundColor: "#CCE8DE"}}
+                                    onChange={(event)=>setOccupation(event.target.value)} >
+                                        <option value="" selected disabled style={{backgroundColor: "white"}}>Choose...</option>
+                                        <option value="BHW"  style={{backgroundColor: "white"}}>BHW</option>
+                                        <option value="Doctor"  style={{backgroundColor: "white"}}>Doctor</option>
+                                        <option value="Dentist"  style={{backgroundColor: "white"}}>Dentist</option>
+                                        <option value="Midwife"  style={{backgroundColor: "white"}}>Midwife</option>
+                                        <option value="Nurse"  style={{backgroundColor: "white"}}>Nurse</option>
+                                        <option value="Medical Technologist"  style={{backgroundColor: "white"}}>Medical Technologist</option>
                                 </select>
                             </div>
                         </div>

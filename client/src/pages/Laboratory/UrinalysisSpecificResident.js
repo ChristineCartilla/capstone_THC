@@ -183,7 +183,7 @@ const UrinalysisSpecificResident = () => {
                                                     <th></th>
                                                     <th style={{textAlign:"end"}}>
                                                         {
-                                                            (sessionStorage.getItem("workerType") === "Medtech")? (
+                                                            (sessionStorage.getItem("workerType") === "Medtech" || sessionStorage.getItem("workerType") === "Superadmin")? (
                                                                 <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#FPAddition"><FontAwesomeIcon icon={faPlus}/></button>                                                            
                                                             ): ""
                                                         }

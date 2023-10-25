@@ -149,7 +149,7 @@ const DentalSpecificResident = () => {
                                                         <th></th> 
                                                         <th style={{textAlign:"end"}}>
                                                             {
-                                                                (sessionStorage.getItem("workerType") === "Dentist")? (
+                                                                (sessionStorage.getItem("workerType") === "Dentist" || sessionStorage.getItem("workerType") === "Superadmin")? (
                                                                     <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#DenAddition"><FontAwesomeIcon icon={faPlus}/></button>
                                                                 ): ""
                                                             }
