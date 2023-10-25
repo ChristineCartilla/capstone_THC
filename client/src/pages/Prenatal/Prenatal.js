@@ -14,6 +14,7 @@ const Prenatal = () => {
                 {patientdata: patient}
             });
     }
+    console.log(patient)
     return (
         <div className=''>
             <SidebarOpenBtn />
@@ -36,8 +37,9 @@ const Prenatal = () => {
                                         <h6>Patient Name</h6>
                                     </li>
                                     {
-                                        patient && 
-                                            patient.map((pwr, idx) => (
+                                        patient && patient
+                                           //.filter(pwr => pwr.relationship === 'Mother') 
+                                           .map((pwr, idx) => (
                                                 <li className="list-group-item d-flex justify-content-between px-5 py-3 align-middle listRecords" key={idx}>
                                                     <h6>{
                                                         pwr.first_name + " " + (pwr.middle_name).charAt(0) + ". " + pwr.last_name + " "
