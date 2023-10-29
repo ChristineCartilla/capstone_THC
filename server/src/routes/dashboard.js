@@ -173,7 +173,9 @@ router.get("/medicaldispensing", async (req,res) => {
         var totalvac=0;
         const data = await DispensingModel.aggregate([
             {
-                $match: { }  
+                $match: { 
+                    dispenseStat: true
+                }  
             },
             {
                 $group: {

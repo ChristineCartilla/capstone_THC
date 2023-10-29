@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import mongoose from 'mongoose'
+import dotenv from 'dotenv';
 
 import { accountRouter } from './routes/accounts.js';
 import { profileRouter } from './routes/profiles.js';
@@ -18,8 +19,6 @@ import { dashboardRouter } from './routes/dashboard.js';
 
 const app = express();
 
-const PORT = process.env.PORT || 8001;
-
 app.use(express.json());
 app.use(cors());
 app.use("/account", accountRouter);
@@ -35,12 +34,15 @@ app.use("/familyplanning", familyPlanningRouter);
 app.use("/queue", queueRouter);
 app.use("/dispensing", dispensingRouter);
 app.use("/dashboard", dashboardRouter);
+dotenv.config();
 
-mongoose.connect("mongodb+srv://20102632:thc2023@talambanhealthconnectdb.v5hhcqh.mongodb.net/TalambanHealthConnectDB?retryWrites=true&w=majority")
+const PORT = process.env.WEB_APP_API_PORT;
+
+mongoose.connect(process.env.MONGO_DB_CONNECTION)
 .then(()=> {
     console.log("CONNECTED TO DATABASE");
     app.listen(PORT, () => {
-        console.log("SERVER STARTED!");
+        console.log(`SERVER STARTED! RUNNING ON PORT: ${PORT}`);
     })
 })
 .catch((err) => console.log(err))
