@@ -20,13 +20,18 @@
   margin-top: 20px;
 }
 
-.queuingNav{
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  width: 1000px;
+.queueMainTab{
+  padding: 40px 20px;
+  background-color: #FFF;
+  border-radius: 20px;
+  box-shadow: 5px 5px 20px #e6e5e5;
 }
 
+.queueTabDiv{
+  height: 350px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
 
 .queuingContentHeaderBtn{
   background-color: #8EC3B0;

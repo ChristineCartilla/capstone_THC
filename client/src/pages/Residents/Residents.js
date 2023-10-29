@@ -30,7 +30,7 @@ const Residents = () => {
                             <Resident_Searchbox setSearchResults={setFamily} />
                         </div>
                         <div className='resident_pageBody'>
-                            <div className='container table-responsive'>
+                            <div className='container table-responsive ResidentFamilyTableDiv'>
                                 <table className="table ResidentFamilyTable ">
                                     <thead>
                                         <tr>

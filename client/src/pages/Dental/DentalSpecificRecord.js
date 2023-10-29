@@ -120,27 +120,27 @@ const DentalSpecificRecord = () => {
                                             <table className="">
                                                 <tbody>
                                                     <tr>
-                                                        <th scope="row">Name:</th>
+                                                        <th>Name:</th>
                                                         <td>{patientinfo.first_name + " "+ patientinfo.middle_name + " " + patientinfo.last_name}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th scope="row">Age:</th>
+                                                        <th>Age:</th>
                                                         <td>{patientinfo.age} Years Old</td>
                                                     </tr>
                                                     <tr>
-                                                        <th scope="row">Birth Date:</th>
+                                                        <th>Birth Date:</th>
                                                         <td>{formatDate(patientinfo.birthDate)}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th scope="row">Place of Birth:</th>
+                                                        <th>Place of Birth:</th>
                                                         <td>{patientinfo.birthPlace}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th scope="row">Occupation:</th>
+                                                        <th>Occupation:</th>
                                                         <td>{patientinfo.occupation}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th scope="row">Address:</th>
+                                                        <th>Address:</th>
                                                         <td>{patientinfo.street + " " + patientinfo.barangay + " " + patientinfo.municipality + " " + patientinfo.zipCode}</td>
                                                     </tr>
                                                 </tbody>
@@ -157,7 +157,7 @@ const DentalSpecificRecord = () => {
                                         "oral-health-mobile" : null
                                     }`}>
                                         <div className="oral-health-left">
-                                            <div class="oral-health-one">
+                                            <div className="oral-health-one">
                                                 <span className="fw-bold">Date of Oral Examination:</span>
                                                 <span className="fw-bold">Dental Caries:</span>
                                                 <span className="fw-bold">Gingivitis:</span>
@@ -170,18 +170,18 @@ const DentalSpecificRecord = () => {
                                             </div>
                                             <div className="oral-health-two">
                                                 <span> {formatDate(oralHealthInfo.createdAt)} </span>
-                                                <span><input className="form-check-input" type="checkbox" checked={oralHealthInfo.dentalCaries}/></span>
-                                                <span><input className="form-check-input" type="checkbox"  checked={oralHealthInfo.gingivitis}/></span>
-                                                <span><input className="form-check-input" type="checkbox"  checked={oralHealthInfo.periodontalDisease}/></span>
-                                                <span><input className="form-check-input" type="checkbox"  checked={oralHealthInfo.debris}/></span>
-                                                <span><input className="form-check-input" type="checkbox"  checked={oralHealthInfo.calculus}/></span>
-                                                <span><input className="form-check-input" type="checkbox"  checked={oralHealthInfo.abnormalGrowth}/></span>
-                                                <span><input className="form-check-input" type="checkbox"  checked={oralHealthInfo.cleftLip}/></span>
+                                                <span><input className="form-check-input" type="checkbox" checked={oralHealthInfo.dentalCaries? true: false} onChange={()=>{}}/></span>
+                                                <span><input className="form-check-input" type="checkbox"  checked={oralHealthInfo.gingivitis? true: false} onChange={()=>{}}/></span>
+                                                <span><input className="form-check-input" type="checkbox"  checked={oralHealthInfo.periodontalDisease? true: false} onChange={()=>{}}/></span>
+                                                <span><input className="form-check-input" type="checkbox"  checked={oralHealthInfo.debris? true: false} onChange={()=>{}}/></span>
+                                                <span><input className="form-check-input" type="checkbox"  checked={oralHealthInfo.calculus? true: false} onChange={()=>{}}/></span>
+                                                <span><input className="form-check-input" type="checkbox"  checked={oralHealthInfo.abnormalGrowth? true: false} onChange={()=>{}}/></span>
+                                                <span><input className="form-check-input" type="checkbox"  checked={oralHealthInfo.cleftLip? true: false} onChange={()=>{}}/></span>
                                                 <span className="fw-bold"></span>
                                             </div>
                                         </div>
                                         <div className="oral-health-right">
-                                            <div class="oral-health-three">
+                                            <div className="oral-health-three">
                                                 <span className="fw-bold">No. of Permanent Teeth Present:</span>
                                                 <span className="fw-bold">No. of Permanent Sound Teeth:</span>
                                                 <span className="fw-bold">No. of Decayed Teeth:</span>

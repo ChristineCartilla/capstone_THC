@@ -17,6 +17,13 @@
     margin-top: 100px;
 }
 
+.resident_pageBody .ResidentFamilyTableDiv{
+    max-height: 80vh;
+    min-height: 300px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
 .resident_pageBody .ResidentFamilyTable {
     border-collapse: separate;
     border-spacing: 0 20px;

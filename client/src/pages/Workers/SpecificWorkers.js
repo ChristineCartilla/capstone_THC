@@ -72,35 +72,35 @@ const SpecificWorkers = () => {
                           <table className='workerDetail_table table table-borderless text-start w-75'>
                             <tbody>
                               <tr>
-                                <th scope='row'>First Name:</th>
+                                <th>First Name:</th>
                                 <td>{worker.first_name}</td>
                               </tr>
                               <tr>
-                                <th scope='row'>Middle Name:</th>
+                                <th>Middle Name:</th>
                                 <td>{worker.middle_name}</td>
                               </tr>
                               <tr>
-                                <th scope='row'>Last Name:</th>
+                                <th>Last Name:</th>
                                 <td>{worker.last_name}</td>
                               </tr>
                               <tr>
-                                <th scope='row'>Birth Date:</th>
+                                <th>Birth Date:</th>
                                 <td>{worker.birthDate}</td>
                               </tr>
                               <tr>
-                                <th scope='row'>Civil Status:</th>
+                                <th>Civil Status:</th>
                                 <td>{worker.civilStatus}</td>
                               </tr>
                               <tr>
-                                <th scope='row'>Nationality:</th>
+                                <th>Nationality:</th>
                                 <td>{worker.nationality}</td>
                               </tr>
                               <tr>
-                                <th scope='row'>Educational Attainment:</th>
+                                <th>Educational Attainment:</th>
                                 <td>{worker.educAttain}</td>
                               </tr>
                               <tr>
-                                <th scope='row'>Occupation:</th>
+                                <th>Occupation:</th>
                                 <td>{worker.occupation}</td>
                               </tr>
                             </tbody>
@@ -110,19 +110,19 @@ const SpecificWorkers = () => {
                           <table className='workerDetail_table table table-borderless text-start w-75'>
                             <tbody>
                               <tr>
-                                <th scope='row'>Status:</th>
+                                <th>Status:</th>
                                 <td>{worker.prof_status}</td>
                               </tr>
                               <tr>
-                                <th scope='row'>Gender:</th>
+                                <th>Gender:</th>
                                 <td>{worker.gender}</td>
                               </tr>
                               <tr>
-                                <th scope='row'>Age:</th>
+                                <th>Age:</th>
                                 <td>{worker.age + ' Years Old'}</td>
                               </tr>
                               <tr>
-                                <th scope='row'>Phone Number:</th>
+                                <th>Phone Number:</th>
                                 <td>{worker.contactNo}</td>
                               </tr>
                             </tbody>
@@ -137,10 +137,10 @@ const SpecificWorkers = () => {
                           <FontAwesomeIcon icon={faArrowLeft} /> Back
                         </button>
                         <div className='d-flex flex-column mb-3'>
-                          <button type="button" class="workerPassDefBtn" onClick={handlePassClick}>
+                          <button type="button" className="workerPassDefBtn" onClick={handlePassClick}>
                             Set Password to Default
                           </button>
-                          <button type="button" class="workerEditBtn" data-bs-toggle="modal" data-bs-target="#editWorkerProfileModal">
+                          <button type="button" className="workerEditBtn" data-bs-toggle="modal" data-bs-target="#editWorkerProfileModal">
                             Edit Worker Profile
                           </button>
                         </div>

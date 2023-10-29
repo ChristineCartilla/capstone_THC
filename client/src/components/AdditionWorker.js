@@ -173,7 +173,7 @@ const AdditionWorker = () => {
                                         <option value="Dentist"  style={{backgroundColor: "white"}}>Dentist</option>
                                         <option value="Midwife"  style={{backgroundColor: "white"}}>Midwife</option>
                                         <option value="Nurse"  style={{backgroundColor: "white"}}>Nurse</option>
-                                        <option value="Medical Technologist"  style={{backgroundColor: "white"}}>Medical Technologist</option>
+                                        <option value="Medtech"  style={{backgroundColor: "white"}}>Medical Technologist</option>
                                 </select>
                             </div>
                         </div>

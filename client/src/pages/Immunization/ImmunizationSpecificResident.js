@@ -256,7 +256,11 @@ const ImmunizationSpecificResident = () => {
                                                     <div className="row-start">
                                                         <div className="col itembox ">
                                                             <label className="fw-bold col-sm-12">Vaccine Status</label>
-                                                            <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#VacAddition"><FontAwesomeIcon icon={faPlus}  style={{ color: '#44AA92' }}/></button>
+                                                            {
+                                                                (sessionStorage.getItem("workerType") === "Nurse" || sessionStorage.getItem("workerType") === "Superadmin")? (
+                                                                    <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#VacAddition"><FontAwesomeIcon icon={faPlus}  style={{ color: '#44AA92' }}/></button>
+                                                                ): ""
+                                                            }
                                                             {childInfo && childInfo.childHealthVaccine && childInfo.childHealthVaccine.map((rec, idx) => {
                                                                 if (rec._id != null) {
                                                                     return (

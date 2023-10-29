@@ -7,7 +7,6 @@ const AdditionMedicalCheckup = ({residentid}) => {
 
   const addRecSubmit = async (event) => {
     event.preventDefault();
-    console.log(residentid);
     try{
       if(findings != "" && recommendation != ""){
         const userId = sessionStorage.getItem("profileId");

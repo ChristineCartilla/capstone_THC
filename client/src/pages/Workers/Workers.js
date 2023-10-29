@@ -3,7 +3,6 @@ import Sidebar from "../../components/Sidebar";
 import Worker_Searchbox from "../../components/Worker_Searchbox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AdditionWorker from "../../components/AdditionWorker";
 import SidebarOpenBtn from '../../components/SidebarOpenBtn'
@@ -41,7 +40,7 @@ const Workers = () => {
               </button>
             </div>
             <div className="worker_pageBody">
-              <div className="container table-responsive">
+              <div className="container table-responsive workersTableDiv">
                 <table className="table WorkerTable">
                   <thead>
                     <tr>

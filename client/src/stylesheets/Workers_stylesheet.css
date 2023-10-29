@@ -28,6 +28,12 @@
     font-size: 30px;
 }
 
+.worker_pageBody .workersTableDiv{
+    max-height: 80vh;
+    min-height: 300px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
 
 .worker_pageBody .WorkerTable {
     border-collapse: separate;

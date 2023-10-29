@@ -247,7 +247,11 @@ const PrenatalSpecificRecord = () => {
                                         "oral-health-mobile" : null
                                     }`}>
                                         <div className="oral-health-left">
-                                            <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#TetaAddition"><FontAwesomeIcon icon={faPlus}  style={{ color: '#44AA92' }}/></button>
+                                            {
+                                                (sessionStorage.getItem("workerType") === "Midwife" || sessionStorage.getItem("workerType") === "Superadmin")? (
+                                                    <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#TetaAddition"><FontAwesomeIcon icon={faPlus}  style={{ color: '#44AA92' }}/></button>
+                                                ): ""
+                                            }
                                             <div className="oral-health-one">
                                             {
                                                 prenatalInfo.tetanusToxoidStatus&& prenatalInfo.tetanusToxoidStatus.map((rec, idx) => {
@@ -271,7 +275,11 @@ const PrenatalSpecificRecord = () => {
                                     <div className='sp2-bottomDivHeader d-flex justify-content-between'>
                                         <h4 className="text-start">Prenatal Assesment</h4>    
                                         {/* Button trigger modal  */}
-                                        <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#PAssesAdd"><FontAwesomeIcon icon={faPlus}  style={{ color: '#44AA92' }} /></button>
+                                        {
+                                            (sessionStorage.getItem("workerType") === "Midwife" || sessionStorage.getItem("workerType") === "Superadmin")? (
+                                                <button type="button" className="sp2-addMedRecBtn" data-bs-toggle="modal" data-bs-target="#PAssesAdd"><FontAwesomeIcon icon={faPlus}  style={{ color: '#44AA92' }} /></button>
+                                            ): ""
+                                        }
                                     </div>
                                     <div className='sp2-MCRecordsDiv'>
                                         <table className="table sp2-MCRecordsTable">

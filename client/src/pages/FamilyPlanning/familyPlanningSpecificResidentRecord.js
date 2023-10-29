@@ -213,7 +213,7 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 </span>
                                                 <span> 
                                                     {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
-                                                        <span> {familyplanningInfo.obstetricalHistory.numOfFullterm}</span>
+                                                        <span> {familyplanningInfo.obstetricalHistory.numFullterm}</span>
                                                     ) : (
                                                         <span>Data not available</span>
                                                     )}
@@ -327,7 +327,7 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                         "oral-health-mobile" : null
                                         }`}>
                                         <div className="oral-health-left">
-                                            <div class="oral-health-one">
+                                            <div className="oral-health-one">
                                                 <span className='fw-bold'>Skin:</span>
                                                 <span className='fw-bold'>Extremities:</span>
                                                 <span className='fw-bold'>Conjunctiva:</span>
@@ -341,7 +341,7 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                             </div>
                                         </div> 
                                         <div className="oral-health-right">
-                                            <div class="oral-health-three">
+                                            <div className="oral-health-three">
                                                 <span className='fw-bold'>Breast:</span>
                                                 <span className='fw-bold'>Neck:</span>
                                                 <span className='fw-bold'>Abdomen: </span>
@@ -363,24 +363,28 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                 <div className='sp2-bottomDivHeader d-flex justify-content-between mt-5 '>
                                     <h4 className="text-start">Family Planning Assessment</h4>    
                                     {/* Button trigger modal  */}
-                                    <button
-                                        type="button"
-                                        className="sp2-addMedRecBtn"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#fpAssesAdd"
-                                        style={{ color: '#8EC3B0' }}
-                                        >
-                                        <span>
-                                            <FontAwesomeIcon icon={faPlus} />
-                                        </span>
-                                    </button>
+                                    {
+                                        (sessionStorage.getItem("workerType") === "Nurse" || sessionStorage.getItem("workerType") === "Superadmin")? (
+                                            <button
+                                                type="button"
+                                                className="sp2-addMedRecBtn"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#fpAssesAdd"
+                                                style={{ color: '#8EC3B0' }}
+                                                >
+                                                <span>
+                                                    <FontAwesomeIcon icon={faPlus} />
+                                                </span>
+                                            </button>
+                                        ): ""
+                                    }
                                 </div>
                                 <div className='sp2-MCRecordsDiv '  >
                                     <table className="table sp2-MCRecordsTable " >
                                         <thead className=''>
                                             <tr>
                                                 <th>Session Finding Number</th>
-                                                <th>Doctor</th>
+                                                <th>Service Provider</th>
                                                 <th>Date of Testing</th>
                                             </tr>
                                         </thead>

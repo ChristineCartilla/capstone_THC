@@ -10,9 +10,9 @@ const AdditionFamilyPlanningAssessment = () => {
 
     useEffect(() => {
         // Check if residentid and recordid are not null or undefined
-        if (residentid && recordid) {
-           console.log(residentid, recordid);
-        }
+        // if (residentid && recordid) {
+        //    console.log(residentid, recordid);
+        // }
     }, [residentid, recordid])
 
     const addRecSubmit = async (event) => {

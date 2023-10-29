@@ -10,6 +10,7 @@ import THCDefaultPatientLogo from '../../images/default_image.png'
 const Profile = () => {
   const profileID = sessionStorage.getItem("profileId"); 
   const [profileData, setProfileData] = useState({});
+  const [accountData, setAccountData] = useState({});
 
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
@@ -39,6 +40,7 @@ const Profile = () => {
 
   useEffect(() => {
     profileInformation();
+    accountInformation();
   }, [profileID]);
 
   const profileInformation = async () => {
@@ -59,6 +61,18 @@ const Profile = () => {
           console.error("Error fetching profile data:", error);
         });
     }
+  }
+
+  const accountInformation = async () => {
+    const accId = sessionStorage.getItem("accountId");
+
+    axios.get(`/account/specaccount/${accId}`)
+    .then((response) => {
+      setAccountData(response.data[0]);
+    })
+    .catch((error) => {
+      console.error("Error fetching account data:", error);
+    });
   }
 
   function formatDate(dateString) {
@@ -119,60 +133,60 @@ const Profile = () => {
                       <table className="">
                         <tbody>
                           <tr>
-                            <th scope="row">Name:</th>
+                            <th>Name:</th>
                             <td>{profileData.first_name + " "+ profileData.middle_name + " " + profileData.last_name}</td>
                           </tr> 
                           <tr>
-                            <th scope="row">Birth Date:</th>
-                            <td>{formatDate(profileData.birthDate)}</td>
+                            <th>Birth Date:</th>
+                            <td>{formatDate(profileData.birthDate?profileData.birthDate: "N/A")}</td>
                           </tr>
                           <tr>
-                            <th scope="row">Age:</th>
-                            <td>{formatAge(profileData.birthDate)} Years Old</td>
+                            <th>Age:</th>
+                            <td>{formatAge(profileData.birthDate?profileData.birthDate + "  Years Old": "N/A")}</td>
                           </tr>
                           <tr>
-                            <th scope="row">Place of Birth:</th>
-                            <td>{profileData.birthPlace}</td>
+                            <th>Place of Birth:</th>
+                            <td>{profileData.birthPlace?profileData.birthPlace: "N/A"}</td>
                           </tr>
                           <tr>
-                            <th scope='row'>Gender:</th>
-                            <td>{profileData.gender}</td>
+                            <th>Gender:</th>
+                            <td>{profileData.gender?profileData.gender: "N/A"}</td>
                           </tr>
                           <tr>
-                            <th scope="row">Address:</th>
+                            <th>Address:</th>
                             <td>{profileData.street + " " + profileData.barangay + " " + profileData.municipality + " " + profileData.zipCode}</td>
                           </tr>
                           <tr>
-                            <th scope='row'>Occupation:</th>
-                            <td>{profileData.occupation}</td>
+                            <th>Occupation:</th>
+                            <td>{profileData.occupation?profileData.occupation: "N/A"}</td>
                           </tr>
                           <tr>
-                            <th scope='row'>Educational Attainment:</th>
-                            <td>{profileData.educAttain}</td>
+                            <th>Educational Attainment:</th>
+                            <td>{profileData.educAttain?profileData.educAttain: "N/A"}</td>
                           </tr>      
                           <tr>
-                            <th scope='row'>Contact No.:</th>
-                            <td>{profileData.contactNo}</td>
+                            <th>Contact No.:</th>
+                            <td>{profileData.contactNo?profileData.contactNo: "N/A"}</td>
                           </tr>
                           <tr>
-                            <th scope='row'>Email Address:</th>
-                            <td>{profileData.email}</td>
+                            <th>Email Address:</th>
+                            <td>{accountData.email? accountData.email: "N/A"}</td>
                           </tr>
                           <tr>
-                            <th scope='row'>Nationality:</th>
-                            <td>{profileData.nationality}</td>
+                            <th>Nationality:</th>
+                            <td>{profileData.nationality?profileData.nationality: "N/A"}</td>
                           </tr>
                           <tr>
-                            <th scope='row'>Civil Status:</th>
-                            <td>{profileData.civilStatus}</td>
+                            <th>Civil Status:</th>
+                            <td>{profileData.civilStatus? profileData.civilStatus: "N/A"}</td>
                           </tr>
                           <tr>
-                            <th scope='row'>PhilHealth No.:</th>
-                            <td>{profileData.philHealthNo}</td>
+                            <th>PhilHealth No.:</th>
+                            <td>{profileData.philHealthNo? profileData.philHealthNo: "N/A"}</td>
                           </tr>
                           <tr>
-                            <th scope='row'>User Type:</th>
-                            <td>{profileData.user_type}</td>
+                            <th>User Type:</th>
+                            <td>{profileData.user_type? profileData.user_type: "N/A"}</td>
                           </tr>
                         </tbody>
                       </table>

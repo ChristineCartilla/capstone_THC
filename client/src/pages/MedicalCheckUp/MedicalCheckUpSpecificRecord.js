@@ -148,16 +148,14 @@ const MedicalCheckUpSpecificRecord = () => {
                                         "oral-health-mobile" : null
                                         }`}>
                                         <div className="oral-health-left">
-                                            <div class="oral-health-one">
+                                            <div className="oral-health-one">
                                                 <span>{medicalCheckupInfo.recommendation}</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                               
                             </div>
                         </div>
-                        
                     </div>
                 </div>  
             </div>

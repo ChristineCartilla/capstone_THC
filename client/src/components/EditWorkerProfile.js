@@ -7,7 +7,6 @@ const EditWorkerProfile = () => {
     const { workerId } = useParams();
     const [prof_status, setProf_Status] = useState('');
 
-    console.log(workerId)
     const saveWorkerSubmit = async (e) =>{
         e.preventDefault();
         if (workerId) {
@@ -44,11 +43,10 @@ const EditWorkerProfile = () => {
                             <div className="col-sm-10">
                                 <select className="form-select"  style={{backgroundColor: "#CCE8DE"}}
                                     onChange={(e) => {
-                                        console.log('Selected value:', e.target.value);
                                         setProf_Status(e.target.value);
                                       }}
                                 >
-                                    <option value=""  selected disabled style={{backgroundColor: "white"}}>Choose...</option>
+                                    <option value="#" disabled style={{backgroundColor: "white"}}>Choose...</option>
                                     <option value="Active"  style={{backgroundColor: "white"}}>Active</option>
                                     <option value="Inactive"  style={{backgroundColor: "white"}}>Inactive</option>
                                 </select>

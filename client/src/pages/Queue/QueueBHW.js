@@ -113,25 +113,56 @@ const QueueBHW = () => {
                         </div>
                     </div>
                     
-                    <div className="my-5">
+                    <div className="my-5 queueMainTab">
                         <nav className="mx-2 d-flex justify-content-between">
                             <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                                <button className="nav-link active" id="nav-doctor-tab" data-bs-toggle="tab" data-bs-target="#nav-doctor" type="button" role="tab" aria-controls="nav-doctor" aria-selected="true">Doctor</button>
-                                <button className="nav-link" id="nav-dentist-tab" data-bs-toggle="tab" data-bs-target="#nav-dentist" type="button" role="tab" aria-controls="nav-dentist" aria-selected="false">Dentist</button>
-                                <button className="nav-link" id="nav-medtech-tab" data-bs-toggle="tab" data-bs-target="#nav-medtech" type="button" role="tab" aria-controls="nav-medtech" aria-selected="false">Medical Technologist</button>
-                                <button className="nav-link" id="nav-midWife-tab" data-bs-toggle="tab" data-bs-target="#nav-midWife" type="button" role="tab" aria-controls="nav-midWife" aria-selected="false">Midwife</button>
-                                <button className="nav-link" id="nav-nurse-tab" data-bs-toggle="tab" data-bs-target="#nav-nurse" type="button" role="tab" aria-controls="nav-nurse" aria-selected="false">Nurse</button>                            
+                                {
+                                    (sessionStorage.getItem("workerType") === "Doctor" || sessionStorage.getItem("workerType") === "Superadmin")? (
+                                        <button className="nav-link" id="nav-doctor-tab" data-bs-toggle="tab" data-bs-target="#nav-doctor" type="button" role="tab" aria-controls="nav-doctor" aria-selected="true">Doctor</button>
+                                    ): ""
+                                }
+                                {
+                                    (sessionStorage.getItem("workerType") === "Dentist" || sessionStorage.getItem("workerType") === "Superadmin")? (
+                                        <button className="nav-link" id="nav-dentist-tab" data-bs-toggle="tab" data-bs-target="#nav-dentist" type="button" role="tab" aria-controls="nav-dentist" aria-selected="false">Dentist</button>
+                                    ): ""
+                                }
+                                {
+                                    (sessionStorage.getItem("workerType") === "Doctor" || sessionStorage.getItem("workerType") === "Superadmin")? (
+                                        <button className="nav-link" id="nav-doctor-tab" data-bs-toggle="tab" data-bs-target="#nav-doctor" type="button" role="tab" aria-controls="nav-doctor" aria-selected="true">Doctor</button>
+                                    ): ""
+                                }
+                                {
+                                    (sessionStorage.getItem("workerType") === "Medtech" || sessionStorage.getItem("workerType") === "Superadmin")? (
+                                        <button className="nav-link" id="nav-medtech-tab" data-bs-toggle="tab" data-bs-target="#nav-medtech" type="button" role="tab" aria-controls="nav-medtech" aria-selected="false">Medical Technologist</button>
+                                    ): ""
+                                }
+                                {
+                                    (sessionStorage.getItem("workerType") === "Midwife" || sessionStorage.getItem("workerType") === "Superadmin")? (
+                                        <button className="nav-link" id="nav-midWife-tab" data-bs-toggle="tab" data-bs-target="#nav-midWife" type="button" role="tab" aria-controls="nav-midWife" aria-selected="false">Midwife</button>
+                                    ): ""
+                                }
+                                {
+                                    (sessionStorage.getItem("workerType") === "Nurse" || sessionStorage.getItem("workerType") === "Superadmin")? (
+                                        <button className="nav-link" id="nav-nurse-tab" data-bs-toggle="tab" data-bs-target="#nav-nurse" type="button" role="tab" aria-controls="nav-nurse" aria-selected="false">Nurse</button>
+                                    ): ""
+                                }
+                                                    
                             </div>
-                            <button
-                                className="queuingContentHeaderBtn "
-                                type="button"
-                                data-bs-toggle="modal"
-                                data-bs-target="#AddQueue">
-                                <FontAwesomeIcon icon={faPlus} /> <span>ADD QUEUE</span>
-                            </button> 
+                            {
+                                (sessionStorage.getItem("workerType") === "BHW" || sessionStorage.getItem("workerType") === "Superadmin")? (
+                                    <button
+                                        className="queuingContentHeaderBtn "
+                                        type="button"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#AddQueue">
+                                        <FontAwesomeIcon icon={faPlus} /> <span>ADD QUEUE</span>
+                                    </button> 
+                                ): ""
+                            }
+                            
                         </nav>
-                        <div className="tab-content" id="nav-tabContent">
-                            <div className="tab-pane fade show active" id="nav-doctor" role="tabpanel" aria-labelledby="nav-doctor-tab" tabIndex="0">
+                        <div className="tab-content queueTabDiv" id="nav-tabContent">
+                            <div className="tab-pane fade " id="nav-doctor" role="tabpanel" aria-labelledby="nav-doctor-tab" tabIndex="0">
                                 <div className="container table-responsive">
                                     <table className="queueTable table">
                                         <thead>
@@ -291,6 +322,8 @@ const QueueBHW = () => {
                                     </table>
                                 </div>
                             </div>
+                            <div id="noActiveTab"><span className="text-secondary">Choose Service Provider to View Queue List</span></div>
+                            
                         </div>              
                     </div>
                 </div>

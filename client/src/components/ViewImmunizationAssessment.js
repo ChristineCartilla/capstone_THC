@@ -37,7 +37,7 @@ const ViewImmunizationAssessment = ({recordid, residentid, record}) => {
                           className="form-control Addition_Immunization_textarea" 
                           id="exampleFormControlTextarea1" 
                           disabled 
-                          value={record? record.weight : ""}
+                          value={record? record.weight+ " kg." : "N/A"}
                           onChange={() => {""}}
                           style={{backgroundColor: "#CCE8DE"}}/>
                     </div>        
@@ -48,7 +48,7 @@ const ViewImmunizationAssessment = ({recordid, residentid, record}) => {
                           className="form-control Addition_Immunization_textarea" 
                           id="exampleFormControlTextarea1" 
                           disabled 
-                          value={record? record.height : ""}
+                          value={record? record.height+ " cm." : "N/A"}
                           onChange={() => {}}
                           style={{backgroundColor: "#CCE8DE"}}/>
                     </div>
@@ -59,7 +59,7 @@ const ViewImmunizationAssessment = ({recordid, residentid, record}) => {
                           className="form-control Addition_Immunization_textarea" 
                           id="exampleFormControlTextarea1" 
                           disabled 
-                          value={record? record.temp : ""}
+                          value={record? record.temp+ " ℃" : "N/A"}
                           onChange={() => {}}
                           style={{backgroundColor: "#CCE8DE"}}/>
                     </div>

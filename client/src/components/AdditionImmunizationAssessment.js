@@ -78,7 +78,7 @@ const AdditionImmunizationAssessment = ({residentid , recordid}) => {
                                         type="text"  
                                         className="form-control Addition_Immunization_textarea" 
                                         id="exampleFormControlTextarea1"  
-                                        defaultValue={vitalSign.weight}
+                                        defaultValue={vitalSign.weight+ " kg."}
                                         style={{backgroundColor: "#CCE8DE"}} disabled/>
                                 </div>        
                                 <div className="col text-start">
@@ -87,7 +87,7 @@ const AdditionImmunizationAssessment = ({residentid , recordid}) => {
                                         type="text"  
                                         className="form-control Addition_Immunization_textarea" 
                                         id="exampleFormControlTextarea1" 
-                                        defaultValue={vitalSign.height}
+                                        defaultValue={vitalSign.height+ " cm."}
                                         style={{backgroundColor: "#CCE8DE"}} disabled/>
                                 </div>
                                 <div className="col text-start">
@@ -96,7 +96,7 @@ const AdditionImmunizationAssessment = ({residentid , recordid}) => {
                                         type="text"  
                                         className="form-control Addition_Immunization_textarea" 
                                         id="exampleFormControlTextarea1"  
-                                        defaultValue={vitalSign.temp}
+                                        defaultValue={vitalSign.temp+ " ℃"}
                                         style={{backgroundColor: "#CCE8DE"}} disabled/>
                                 </div>
                             </div>
