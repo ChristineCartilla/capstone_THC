@@ -322,7 +322,7 @@ const QueueBHW = () => {
                                     </table>
                                 </div>
                             </div>
-                            <div id="noActiveTab"><span className="text-secondary">Choose Service Provider to View Queue List</span></div>
+                            <div id="noActiveTab"><span className="text-secondary" style={{fontSize:"12px"}}>Choose Service Provider to View Specific Queue List</span></div>
                             
                         </div>              
                     </div>
