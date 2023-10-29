@@ -4,8 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { useParams } from 'react-router-dom'
-import AdditionVitalSigns from '../../components/AdditionVitalSigns.js'
-import ViewVitalSigns from '../../components/ViewVitalSigns.js'
 import AdditionFamilyPlanningAssessment from '../../components/AdditionFamilyPlanningAssessment.js'
 import ViewFamilyPlanningAssessment from '../../components/ViewFamilyPlanningAssessment.js'
 import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
@@ -59,8 +57,6 @@ const FamilyPlanningSpecificResidentRecord = () => {
        await axios.get(`familyplanning/getrecord/${residentid}/${recordid}`)
         .then((response) => {
             setFamilyPlanningInfo(response.data.record) 
-          console.log(response.data.record)
-        
         })
     }
 
@@ -132,31 +128,31 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                             <table className="">
                                                 <tbody>
                                                     <tr>
-                                                        <th scope="row">Name of Spouse:</th>
+                                                        <th>Name of Spouse:</th>
                                                         <td>{familyplanningInfo.nameSpouse}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th scope="row">Spouse Birth Date:</th>
+                                                        <th>Spouse Birth Date:</th>
                                                         <td>{formatDate(familyplanningInfo.spouseDoB)}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th scope="row">Spouse Age:</th>
+                                                        <th>Spouse Age:</th>
                                                         <td>{formatAge(familyplanningInfo.spouseDoB)} Years Old</td>
                                                     </tr>
                                                     <tr>
-                                                        <th scope="row">Spouse Occupation:</th>
+                                                        <th>Spouse Occupation:</th>
                                                         <td>{familyplanningInfo.spouseOccupation}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th scope="row">No. of Living Children:</th>
+                                                        <th>No. of Living Children:</th>
                                                         <td>{familyplanningInfo.noLivingChild}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th scope="row">Plan to have more children:</th>
+                                                        <th>Plan to have more children:</th>
                                                         <td>{(familyplanningInfo.planAddChild == true)? "Yes": "No"}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th scope="row">Average Monthly Income:</th>
+                                                        <th>Average Monthly Income:</th>
                                                         <td>{familyplanningInfo.aveMonthIncome}</td>
                                                     </tr>
                                                 </tbody>
@@ -189,7 +185,7 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                         "oral-health-mobile" : null
                                         }`}>
                                         <div className="oral-health-left">
-                                            <div class="oral-health-one">
+                                            <div className="oral-health-one">
                                                 <span className="fw-bold">Gravida:</span>
                                                 <span className="fw-bold">Para:</span>
                                                 <span className="fw-bold">No. of Full Term:</span>
@@ -200,7 +196,7 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 <span className="fw-bold">No. of Stillbirths:</span>
                                                 <span className="fw-bold"></span>
                                             </div>
-                                            <div class="oral-health-two">
+                                            <div className="oral-health-two">
                                                 <span> 
                                                     {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
                                                         <span> {familyplanningInfo.obstetricalHistory.numGravida}</span>
@@ -217,7 +213,14 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                 </span>
                                                 <span> 
                                                     {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
-                                                        <span> {familyplanningInfo.obstetricalHistory.numFullterm}</span>
+                                                        <span> {familyplanningInfo.obstetricalHistory.numOfFullterm}</span>
+                                                    ) : (
+                                                        <span>Data not available</span>
+                                                    )}
+                                                </span>
+                                                <span> 
+                                                    {familyplanningInfo && familyplanningInfo.obstetricalHistory ? (
+                                                        <span> {familyplanningInfo.obstetricalHistory.numOfAbortion}</span>
                                                     ) : (
                                                         <span>Data not available</span>
                                                     )}
@@ -356,60 +359,56 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                 </div>
                             </div> 
                                 
-
-
-
-
-
-
                             <div className='sp2-bottomDiv  '>
-                                    <div className='sp2-bottomDivHeader d-flex justify-content-between mt-5 '>
-                                        <h4 className="text-start">Family Planning Assessment</h4>    
-                                        {/* Button trigger modal  */}
-                                        <button
-                                            type="button"
-                                            className="sp2-addMedRecBtn"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#fpAssesAdd"
-                                            style={{ color: '#8EC3B0' }}
-                                            >
-                                            <span>
-                                                <FontAwesomeIcon icon={faPlus} />
-                                            </span>
-                                        </button>
-                                    </div>
-                                    <div className='sp2-MCRecordsDiv '  >
-                                        <table className="table sp2-MCRecordsTable " >
-                                            <thead className=''>
-                                                <tr>
-                                                    <th>Session Finding Number</th>
-                                                    <th>Doctor</th>
-                                                    <th>Date of Testing</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody >
-                                                
-                                                {
-                                                    familyplanningInfo.familyPlanningAssessment && familyplanningInfo.familyPlanningAssessment.map((rec, idx) => {
-                                                        if(rec._id !== null){
-                                                            return (
-                                                                <tr
-                                                                    className='sp2-clickableMCRRow'
-                                                                    key={idx}
-                                                                    data-bs-toggle="modal" data-bs-target="#fpAssesView"
-                                                                    onClick={() => handleRowClick(rec._id, rec.vitalSign)}
-                                                                >
-                                                                    <td>{rec._id}</td>
-                                                                    <td>{rec.doctor}</td>
-                                                                    <td>{rec.date}</td>
-                                                                </tr>
-                                                            )
-                                                        }
-                                                    }) 
-                                                }
-                                            </tbody>
-                                        </table>    
-                                    </div>
+                                <div className='sp2-bottomDivHeader d-flex justify-content-between mt-5 '>
+                                    <h4 className="text-start">Family Planning Assessment</h4>    
+                                    {/* Button trigger modal  */}
+                                    <button
+                                        type="button"
+                                        className="sp2-addMedRecBtn"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#fpAssesAdd"
+                                        style={{ color: '#8EC3B0' }}
+                                        >
+                                        <span>
+                                            <FontAwesomeIcon icon={faPlus} />
+                                        </span>
+                                    </button>
+                                </div>
+                                <div className='sp2-MCRecordsDiv '  >
+                                    <table className="table sp2-MCRecordsTable " >
+                                        <thead className=''>
+                                            <tr>
+                                                <th>Session Finding Number</th>
+                                                <th>Doctor</th>
+                                                <th>Date of Testing</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody >
+                                            
+                                            {
+                                                familyplanningInfo.familyPlanningAssessment && familyplanningInfo.familyPlanningAssessment.map((rec, idx) => {
+                                                    if(rec._id !== null){
+                                                        return (
+                                                            <tr
+                                                                className='sp2-clickableMCRRow'
+                                                                key={idx}
+                                                                data-bs-toggle="modal" data-bs-target="#fpAssesView"
+                                                                onClick={() => handleRowClick(rec._id, rec.vitalSign)}
+                                                            >
+                                                                <td>{rec._id}</td>
+                                                                <td>{rec.serviceProvider}</td>
+                                                                <td>{formatDate(rec.createdAt)}</td>
+                                                            </tr>
+                                                        )
+                                                    } else {
+                                                        return null;
+                                                    }
+                                                }) 
+                                            }
+                                        </tbody>
+                                    </table>    
+                                </div>
                             </div>
                          </div>
                     </div>

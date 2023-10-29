@@ -69,11 +69,16 @@ const ViewFamilyPlanningAssessment = ({record}) => {
                             <div className='container fw-bold row'>
                                 <div className="col mx-5 mt-3 text-start">
                                     <label className='fw-bold'>Service Provider:   </label>
-                                  
                                     <span className='fw-normal'> {record? record.serviceProvider : ""}</span>
                                 </div>
                             </div>
 
+                            <div className='container fw-bold row'>
+                                <div className="col mx-5 mt-3 text-start">
+                                    <label className='fw-bold'>Date of Follow Up Visit:   </label>
+                                    <span className='fw-normal'> {record? record.dateOfFollowUpVisit : ""}</span>
+                                </div>
+                            </div>
                         </div>
                     </div> 
                 </div>

@@ -22,12 +22,25 @@ const Dashboard = () => {
     const [normalweight, setNormalWeight] = useState("");
     const [overweight, setOverWeight] = useState("");
     const [obese, setObese] = useState("");
+    const [allPrenatal, setAllPrenatal] = useState("");
+    const [newAddedPrenatal, setNewAddedPrenatal] = useState("");
+    const [todayPrenatalAssessment, setTodayPrenatalAssessment] = useState("");
+    const [allImmunization, setAllImmunization] = useState("");
+    const [newAddedImmunization, setNewAddedImmunization] = useState("");
+    const [todayImmunizationAssessment, setTodayImmunizationAssessment] = useState("");
+    const [methodPills, setMethodPills] = useState(0);
+    const [methodDMPA, setMethodDMPA] = useState(0);
+    const [methodImplant, setMethodImplant] = useState(0);
+    const [methodUID, setMethodUID] = useState(0);
 
     useEffect(() => {
         getResidentRecords();
         getVaccine();
         getWeightClassification();
-    })
+        getPrenatalRecords();
+        getImmunizationRecords();
+        getFPMethodAccepted();
+    },[])
 
     const getResidentRecords = async () => {
         const babiesPercentage = await axios.get("/dashboard/age/percentage/babies");
@@ -71,6 +84,43 @@ const Dashboard = () => {
 
         const obese = await axios.get("/dashboard/bmi/count/obese/month");
         setObese(obese.data);
+    }
+
+    const getPrenatalRecords = async () => {
+        const prenatal1 = await axios.get("/dashboard/medicalrec/count/prenatal");
+        setAllPrenatal(prenatal1.data);
+
+        const prenatal2 = await axios.get("/dashboard/medicalrec/count/prenatal/month");
+        setNewAddedPrenatal(prenatal2.data);
+
+        const prenatal3 = await axios.get("/dashboard/medicalrec/count/prenatal/assessment/today");
+        setTodayPrenatalAssessment(prenatal3.data);
+    }
+
+    const getImmunizationRecords = async () => {
+        const immunization1 = await axios.get("/dashboard/medicalrec/count/immunization");
+        setAllImmunization(immunization1.data);
+
+        const immunization2 = await axios.get("/dashboard/medicalrec/count/immunization/month");
+        setNewAddedImmunization(immunization2.data);
+
+        const immunization3 = await axios.get("/dashboard/medicalrec/count/immunization/assessment/today");
+        setTodayImmunizationAssessment(immunization3.data);
+    }
+
+    const getFPMethodAccepted = async () => {
+        const data = (await axios.get("/dashboard/medicalrec/count/familyplanning/month")).data;
+        data.map((method)=>{
+            if(method._id === "Pills"){
+                setMethodPills(method.count);
+            } else if (method._id === "depot-medroxyprogesterone acetate(DMPA)"){
+                setMethodDMPA(method.count);
+            } else if ( method._id === "Implant") {
+                setMethodImplant(method.count);
+            } else {
+                setMethodUID(method.count);
+            }
+        })
     }
 
     return ( 
@@ -184,8 +234,8 @@ const Dashboard = () => {
                                 </div>
                             </div>
                             <div className="row" style={{marginTop: "20px"}}>
-                                <div className='content1 col-sm-12 col-md-4 my-2'>
-                                    <div className="dashboardBody_container2">
+                                <div className='content1 col-sm-12 col-md-4 my-2' >
+                                    <div className="dashboardBody_container2" style={{minHeight: "264px"}}>
                                         <div className="dashboardBody_container2_body">
                                             <div className="row">
                                                 <div className="col">
@@ -212,8 +262,8 @@ const Dashboard = () => {
                                         </div> 
                                     </div>
                                 </div>
-                                <div className='content2 col-sm-12 col-md-8 my-2'>
-                                    <div className="dashboardBody_container3">
+                                <div className='content2 col-sm-12 col-md-8 my-2' >
+                                    <div className="dashboardBody_container3" style={{height: "264px" }}>
                                         <div className="dashboardBody_container3_body">
                                             <div className="row">
                                                 <div className="col-lg-12">
@@ -223,7 +273,7 @@ const Dashboard = () => {
                                                             <div className="hr"></div>
                                                         </div>
                                                         <div className="card-body d-flex justify-content-evenly">
-                                                            <div className="row">
+                                                            <div className="row py-3">
                                                                 <div className="col-sm-3">
                                                                     <h5 className="card-title">{underweight>=0?underweight: "N/A"} <br /> UnderWeight</h5>
                                                                     <p className="card-text">Count For The Past Month</p>
@@ -254,303 +304,123 @@ const Dashboard = () => {
                                 <div className="col">
                                     <div className="dashboardBody_container4">
                                         <div className="col d-flex justify-content-evenly">
-                                            <div className="card">
-                                                <div className='cardheader'><h5>PRENATAL</h5></div>
-                                                <div className="card-body">
-                                                    <div className="cardcontent d-flex justify-content-evenly">
-                                                        {/*this will contain three rows of data*/}
-                                                        <div className="containercontent">
-                                                            <div className="row p-1">
-                                                                <div className="col">
-                                                                    <h5 className="card-title">10.2 weeks</h5>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <h5 className="card-text"> Average gestational age at first visit</h5>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row p-1">
-                                                                <div className="col">
-                                                                    <h5 className="card-title"> 25 cm</h5>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <h5 className="card-text">Average fundal height measurements throughout pregnancy</h5>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row p-1">
-                                                                <div className="col">
-                                                                    <h5 className="card-title">140 bpm</h5>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <h5 className="card-text">Average fetal heart rate</h5>
+                                            <div className='row'>
+                                                <div className='col-sm-12 col-md-4 my-2'>
+                                                    <div className="card m-0">
+                                                        <div className='cardheader'><h5>PRENATAL</h5></div>
+                                                        <div className="card-body">
+                                                            <div className="cardcontent d-flex justify-content-evenly">
+                                                                {/*this will contain three rows of data*/}
+                                                                <div className="containercontent">
+                                                                    <div className="row py-2">
+                                                                        <div className="col-3">
+                                                                            <h5 className="card-title">{allPrenatal}</h5>
+                                                                        </div>
+                                                                        <div className="col-9">
+                                                                            <h5 className="card-text text-start">Total Prenatal Records In The Health Center.</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="row py-2">
+                                                                        <div className="col-3">
+                                                                            <h5 className="card-title">{newAddedPrenatal}</h5>
+                                                                        </div>
+                                                                        <div className="col-9">
+                                                                            <h5 className="card-text text-start">Number Of Recently Added Prenatal Records Within The Last Month.</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="row py-2">
+                                                                        <div className="col-3">
+                                                                            <h5 className="card-title">{todayPrenatalAssessment}</h5>
+                                                                        </div>
+                                                                        <div className="col-9">
+                                                                            <h5 className="card-text text-start">Number Of Prenatal Assessment Administered Today.</h5>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                            
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="card">
-                                                <div className='cardheader'><h5>IMMUNIZATION</h5></div>
-                                                <div className="card-body">
-                                                    <div className="cardcontent d-flex justify-content-evenly">
-                                                        {/*this will contain three rows of data*/}
-                                                        <div className="containercontent">
-                                                            <div className="row p-1">
-                                                                <div className="col">
-                                                                    <h5 className="card-title">10.2 weeks</h5>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <h5 className="card-text"> Average gestational age at first visit</h5>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row p-1">
-                                                                <div className="col">
-                                                                    <h5 className="card-title"> 25 cm</h5>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <h5 className="card-text">Average fundal height measurements throughout pregnancy</h5>
+                                                <div className='col-sm-12 col-md-4 my-2'>
+                                                    <div className="card m-0">
+                                                        <div className='cardheader'><h5>IMMUNIZATION</h5></div>
+                                                        <div className="card-body">
+                                                            <div className="cardcontent d-flex justify-content-evenly">
+                                                                {/*this will contain three rows of data*/}
+                                                                <div className="containercontent">
+                                                                    <div className="row py-2">
+                                                                        <div className="col-3">
+                                                                            <h5 className="card-title">{allImmunization}</h5>
+                                                                        </div>
+                                                                        <div className="col-9">
+                                                                            <h5 className="card-text text-start">Total Immunization Records In The Health Center.</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="row py-2">
+                                                                        <div className="col-3">
+                                                                            <h5 className="card-title">{newAddedImmunization}</h5>
+                                                                        </div>
+                                                                        <div className="col-9">
+                                                                            <h5 className="card-text text-start">Number Of Recently Added Immunization Records Within The Last Month.</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="row py-2">
+                                                                        <div className="col-3">
+                                                                            <h5 className="card-title">{todayImmunizationAssessment}</h5>
+                                                                        </div>
+                                                                        <div className="col-9">
+                                                                            <h5 className="card-text text-start">Number Of Immunization Assessment Administered Today.</h5>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                            
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="card">
-                                                <div className='cardheader'><h5>FAMILY PLANNING</h5></div>
-                                                <div className="card-body">
-                                                    <div className="cardcontent d-flex justify-content-evenly">
-                                                        {/*this will contain three rows of data*/}
-                                                        <div className="containercontent">
-                                                            <div className="row p-1">
-                                                                <div className="col">
-                                                                    <h5 className="card-title">10.2 weeks</h5>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <h5 className="card-text"> Average gestational age at first visit</h5>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row p-1">
-                                                                <div className="col">
-                                                                    <h5 className="card-title"> 25 cm</h5>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <h5 className="card-text">Average fundal height measurements throughout pregnancy</h5>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row p-1">
-                                                                <div className="col">
-                                                                    <h5 className="card-title">140 bpm</h5>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <h5 className="card-text">Average fetal heart rate</h5>
+                                                <div className='col-sm-12 col-md-4 my-2'>
+                                                    <div className="card m-0">
+                                                        <div className='cardheader'>
+                                                            <h5>FAMILY PLANNING</h5>
+                                                            
+                                                        </div>
+                                                        <div className="card-body">
+                                                            <div className="cardcontent d-flex justify-content-evenly">
+                                                                {/*this will contain three rows of data*/}
+                                                                <div className="containercontent">
+                                                                    <div className="row py-4">
+                                                                        <div className="col-12">
+                                                                            <h5 className="card-text">Method Accepted Within A Month</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="row py-2">
+                                                                        <div className="col-sm-6 d-flex justify-content-center">
+                                                                            <h3 className="fw-bold">{methodPills} </h3>
+                                                                            <h6 className="mx-1"> Residents Took Pills</h6>
+                                                                        </div>
+                                                                        <div className="col-sm-6 d-flex justify-content-center">
+                                                                            <h3 className="fw-bold">{methodDMPA} </h3>
+                                                                            <h6 className="mx-1"> Residents Took DMPA</h6>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="row py-2">
+                                                                        <div className="col-sm-6 d-flex justify-content-center">
+                                                                            <h3 className="fw-bold">{methodImplant} </h3>
+                                                                            <h6 className="mx-1"> Residents Took Implant</h6>
+                                                                        </div>
+                                                                        <div className="col-sm-6 d-flex justify-content-center">
+                                                                            <h3 className="fw-bold">{methodUID} </h3>
+                                                                            <h6 className="mx-1"> Residents Took UID</h6>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                            
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div> 
-                            <div className="row">
-                                <div className="col">
-                                    <div className="dashboardBody_container5">
-                                        <div className="col d-flex justify-content-evenly">
-                                            <div className="card">
-                                                <div className='cardheader'><h5>DENTAL</h5></div>
-                                                <div className="card-body">
-                                                    <div className="cardcontent d-flex justify-content-evenly">
-                                                        {/*this will contain three rows of data*/}
-                                                        <div className="containercontent">
-                                                            <div className="row p-1">
-                                                                <div className="col">
-                                                                    <h5 className="card-title">300</h5>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <h5 className="card-text">Number of cleaning procedure done</h5>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row p-1">
-                                                                <div className="col">
-                                                                    <h5 className="card-title">100</h5>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <h5 className="card-text">Number of extraction procedure done</h5>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row p-1">
-                                                                <div className="col">
-                                                                    <h5 className="card-title">2.5</h5>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <h5 className="card-text">Average decayed, missing, or filled tooth</h5>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                            
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="card">
-                                                <div className='cardheader'><h5>MEDICAL CHECKUP</h5></div>
-                                                <div className="card-body">
-                                                    <div className="cardcontent d-flex justify-content-evenly">
-                                                        {/*this will contain three rows of data*/}
-                                                        <div className="containercontent">
-                                                            <div className="row p-1">
-                                                                <div className="col">
-                                                                    <h5 className="card-title">300</h5>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <h5 className="card-text"> Number of medical check-ups conducted</h5>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row p-1">
-                                                                <div className="col">
-                                                                    <h5 className="card-title">20 %</h5>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <h5 className="card-text">Patients were diagnosed with hypertension</h5>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row p-1">
-                                                                <div className="col">
-                                                                    <h5 className="card-title">10 %</h5>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <h5 className="card-text">Patients were diagnosed with food allergies</h5>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                            
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="card">
-                                                <div className="card-body">
-                                                    <div className="cardcontent d-flex justify-content-evenly">
-                                                        {/*this will contain three rows of data*/}
-                                                        <div className="containercontent">
-                                                            <div className="row p-1">
-                                                                <div className="col">
-                                                                    <h5 className="card-title"> 8 %</h5>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <h5 className="card-text"> Patients were diagnosed with asthma</h5>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row p-1">
-                                                                <div className="col">
-                                                                    <h5 className="card-title"> 8 %</h5>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <h5 className="card-text">Patients were diagnosed with skin infections</h5>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row p-1">
-                                                                <div className="col">
-                                                                    <h5 className="card-title"> 7 %</h5>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <h5 className="card-text">Patients were diagnosed with diarrhea</h5>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row p-1">
-                                                                <div className="col">
-                                                                    <h5 className="card-title"> 25 %</h5>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <h5 className="card-text">Patients were referred to other institutions</h5>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                            
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>    
-                            </div>
-                            <div className="row">
-                                <div className="col">
-                                    <div className="dashboardBody_container6">
-                                        <div className="col d-flex justify-content-evenly">
-                                            <div className="card">
-                                                <div className='cardheader'><h5>HEMATOLOGY</h5></div>
-                                                <div className="card-body">
-                                                    <div className="cardcontent d-flex justify-content-evenly">
-                                                        {/*this will contain three rows of data*/}
-                                                        <div className="containercontent">
-                                                            <div className="row p-1">
-                                                                <div className="col">
-                                                                    <h5 className="card-title">150</h5>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <h5 className="card-text">Number of hematology tests performed</h5>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row p-1">
-                                                                <div className="col">
-                                                                    <h5 className="card-title"> 5 %</h5>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <h5 className="card-text">Patients had anemia</h5>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row p-1">
-                                                                <div className="col">
-                                                                    <h5 className="card-title">2 %</h5>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <h5 className="card-text">Patients had leukocytosis</h5>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                            
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="card">
-                                                <div className='cardheader'><h5>URINALYSIS</h5></div>
-                                                <div className="card-body">
-                                                    <div className="cardcontent d-flex justify-content-evenly">
-                                                        {/*this will contain three rows of data*/}
-                                                        <div className="containercontent">
-                                                            <div className="row p-1">
-                                                                <div className="col">
-                                                                    <h5 className="card-title">200</h5>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <h5 className="card-text">Number of urinalysis tests conducted</h5>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row p-1">
-                                                                <div className="col">
-                                                                    <h5 className="card-title">6</h5>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <h5 className="card-text">Average pH value</h5>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row p-1">
-                                                                <div className="col">
-                                                                    <h5 className="card-title">8 %</h5>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <h5 className="card-text">Patients tested positive for urinary tract infection</h5>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>    
                             </div> 
                             <ViewDispensing />
                         </div>

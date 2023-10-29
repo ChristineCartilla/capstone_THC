@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import Worker_Searchbox from './Worker_Searchbox';
 import AdditionDispensing from './AdditionDispensing';
 import axios from 'axios';
 
 const ViewDispensing = () => {
     const [dispenseList, setDispenseList] = useState([]);
+    const [dispenseTop, setDispenseTop] = useState([]);
 
     useEffect(()=>{
         fetchDispenseList();
+        getDispenseTop();
     },[])
     
     const fetchDispenseList = async () => {
@@ -25,31 +26,39 @@ const ViewDispensing = () => {
         }
     }
 
+    const getDispenseTop = async () => {
+        const data = await axios.get("/dashboard/medicaldispensing");
+        setDispenseTop(data.data);
+    }
+
     return ( 
         //create the dispensing page
         <div className="dispensing container-fluid">
             <div className="row">
                 <div className="dispensingHeadercont col p-0">
-                    <div className="dispensing_pageHeader d-flex justify-content-center">
-                        <h3>MEDICATION DISPENSING</h3>
+                    <div className='d-flex justify-content-between '>
+                        <div className="dispensing_pageHeader px-5 py-2">
+                            <h3>MEDICATION DISPENSING</h3>
+                        </div>
+                        <div className="dispensing_addButton d-flex justify-content-end align-items-center">
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#AddDispensing">
+                            <   FontAwesomeIcon icon={faPlus} />
+                            </button>
+                        </div>
                     </div>
-                    <div className="dispensing_addButton d-flex justify-content-end align-items-center">
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#AddDispensing">
-                        <   FontAwesomeIcon icon={faPlus} />
-                        </button>
-                    </div>
+                    <hr className='py-3 w-75 mx-auto' style={{color:"#FFF"}} />
                     <div className="dispensing_medInfo d-flex justify-content-evenly">
                         <div className="col-3">
-                            <h4 className="title">Ibuprofen</h4>
+                            <h4 className="title">{dispenseTop.medication}</h4>
                             <p className='text'>Most Prescribed Medicine</p>
                         </div>
                         <div className="col-3">
-                            <h4 className="title">30%</h4>
-                            <p className='text'>prescriptions were for pain reliever medications</p>
+                            <h4 className="title">{dispenseTop.percentage+"%"}</h4>
+                            <p className='text'>Percentage of {dispenseTop.medication} From all Dispensed Medications</p>
                         </div>
                         <div className="col-3">
-                            <h4 className="title">70%</h4>
-                            <p className='text'>prescriptions were for pain tablet formulations</p>
+                            <h4 className="title">{dispenseTop.count}</h4>
+                            <p className='text'>Occurrences of the medication being administered to patients.</p>
                         </div>
                     </div>
                 </div>
@@ -57,14 +66,14 @@ const ViewDispensing = () => {
             <div className="row">
                 <div className="dispensingSearchcont col p-0">
                     <div className="dispensing_Searchbox d-flex justify-content-end">
-                        <Worker_Searchbox/>  
+                     
                     </div>
                 </div>
             </div>
             <div className="row">
                 <div className="dispensingBodycont col p-0">
                     <div className="dispensing_pageBody">
-                        <div className="container table-responsive">
+                        <div className="container table-responsive dispensingTableDiv">
                             <table className="dispensingTable table">
                                 <thead>
                                     <tr>
@@ -79,16 +88,13 @@ const ViewDispensing = () => {
                                 <tbody>
                                     {
                                         dispenseList && dispenseList.map((dispense, idx) => (
-                                            <tr className="px-5" >
+                                            <tr className="px-5" key={dispense._id}>
                                                 <td>{dispense.dateGiven}</td>
                                                 <td>{dispense.medicationName}</td>
                                                 <td>{dispense.dosage}</td>
                                                 <td>{dispense.prescription}</td>
                                                 <td>{dispense.bhwName}</td>
                                                 <td>
-                                                    <button type="button" className="dispensing_editBtn">
-                                                        Edit
-                                                    </button>
                                                     <button 
                                                         type="button" 
                                                         className="dispensing_remBtn"

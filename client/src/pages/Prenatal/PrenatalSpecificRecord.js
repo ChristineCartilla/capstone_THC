@@ -71,15 +71,12 @@ const PrenatalSpecificRecord = () => {
         },)
     }
 
-    const  getVitalSignsRecord = async () => {
-       
+    const getVitalSignsRecord = async () => {
         await axios.get(`/vitalsign/getlatestrec/${residentid}`)
         .then( (response) => {
             setVitalSignRec(response.data)
-          console.log(response.data)
-        })
-        
-       }
+        }) 
+    }
 
     
 

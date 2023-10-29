@@ -17,12 +17,14 @@ const FamilyPlanningSpecificResident = () => {
     const [selectedVSId, setSelectedVSId] = useState(null);
     const [vitalSignRecs, setVitalSignRecs] = useState([]);
     const [selectedVSRec, setSelectedVSRec] = useState(null);
+    const [vitalsignRec, setVitalSignRec] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
         patientInformation();
         recordsList();
-        vitalSignList();    
+        vitalSignList();   
+        getVitalSignsRecord(); 
     }, [])
 
     const patientInformation = async () => {
@@ -49,6 +51,14 @@ const FamilyPlanningSpecificResident = () => {
             console.log(error);
         }
     }
+
+    const getVitalSignsRecord = async () => {
+        await axios.get(`/vitalsign/getlatestrec/${residentid}`)
+        .then( (response) => {
+            setVitalSignRec(response.data)
+
+        })
+       }
 
     const navigateRecord = (recordid) => {
         navigate(recordid);
@@ -186,7 +196,7 @@ const FamilyPlanningSpecificResident = () => {
                                                     <tr>
                                                         <td></td>
                                                         <td>Record Number</td>
-                                                        <td>Doctor</td>
+                                                        <td></td>
                                                         <td>Date of Record</td> 
                                                     </tr>
                                                     {
@@ -200,8 +210,9 @@ const FamilyPlanningSpecificResident = () => {
                                                                 >
                                                                     <td></td>
                                                                     <td>{rec.service_id._id}</td>
-                                                                    <td>{rec.service_id.serviceProvider}</td>
-                                                                    <td>{handleDate(rec.service_id.createdAt)}
+                                                                    <td></td>
+                                                                    <td>
+                                                                        {handleDate(rec.service_id.createdAt)}
                                                                     </td>
                                                                 </tr>
                                                             )
@@ -284,7 +295,7 @@ const FamilyPlanningSpecificResident = () => {
             </div>
 
             {/*Add Vital sign Modal  */}
-            <AdditionalFamilyPlanning residentid={patientinfo._id}/>
+            <AdditionalFamilyPlanning residentid={patientinfo._id} vitalRec={vitalsignRec}/>
 
             {/*View Vital Sign Modal  */}
             <ViewVitalSigns recordid={selectedVSId} record={selectedVSRec}/>

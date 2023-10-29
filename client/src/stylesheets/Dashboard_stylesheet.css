@@ -308,10 +308,15 @@
     margin-right: 40px;
     margin-left: 20px;
 }
-
+.dispensingTableDiv{
+    max-height: 300px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
 .dispensing_pageBody .dispensingTable {
     border-collapse: separate;
     border-spacing: 0 20px;
+
 }
 
 .dispensing_pageBody .dispensingTable tr th{

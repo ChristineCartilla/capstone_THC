@@ -24,6 +24,13 @@
     
 }
 
+.sp1-pageBody .list-group{
+    max-height: 60vh;
+    min-height: 300px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
 .sp1-pageBody .list-group .listHeader{
     padding: 10px 0;
     background-color: #44AA92;

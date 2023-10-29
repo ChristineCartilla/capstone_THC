@@ -63,8 +63,7 @@ const AdditionPrenatalAssesment = ({residentid , recordid, vitalRec}) => {
         try{
             const userId = sessionStorage.getItem("profileId");
             const fetchServiceProvider = await axios.get(`/profile/${userId}`);
-            const serviceProvider = "Dr. "+ fetchServiceProvider.data.last_name;
-           
+            const serviceProvider = fetchServiceProvider.data.first_name+ " " +fetchServiceProvider.data.last_name;
             const response = await axios.post(`maternalhealth/add/assessment/${residentid}/${recordid}`,{dateOfVisitation,aog,fundalHeight,fetalHeartBeat,partOfFetus,findings,nuresesNotes,serviceProvider});
 
                   if(response.status === 200){
@@ -101,7 +100,7 @@ const AdditionPrenatalAssesment = ({residentid , recordid, vitalRec}) => {
                     </div>        
                     <div className="col text-start">
                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Weight </label>
-                        <input type="text"  className="form-control " disabled value={isToday(vitalRec.createdAt) ? vitalRec?.weight: "N/A"}
+                        <input type="text"  className="form-control " disabled value={isToday(vitalRec.createdAt) ? vitalRec?.weight+" kg.": "N/A"}
                             id="exampleFormControlTextarea1" 
                             style={{backgroundColor: "#CCE8DE"}}/>
                     </div>

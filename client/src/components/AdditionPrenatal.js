@@ -2,15 +2,15 @@ import axios, { all } from 'axios';
 import React, { useState } from 'react'
 
 const AdditionPrenatal= ({residentid}) => {
-    const [numGravida, setnumGravida] = useState(null);
-    const [numPara, setnumPara] = useState(null);
-    const [numFullterm, setnumFullterm] = useState(null);
-    const [numOfAbortion, setnumOfAbortion] = useState(null);
-    const [numPremature, setnumPremature] = useState(null);
-    const [numOfLivingChild, setnumOfLivingChild] = useState(null);
-    const [numBornAlive, setnumBornAlive] = useState(null);
-    const [numOfStillBirth, setStillBirths] = useState(null);
-    const [numberOfLargeBabies, setnumberOfLargeBabies] = useState(null);
+    const [numGravida, setnumGravida] = useState('');
+    const [numPara, setnumPara] = useState('');
+    const [numFullterm, setnumFullterm] = useState('');
+    const [numOfAbortion, setnumOfAbortion] = useState('');
+    const [numPremature, setnumPremature] = useState('');
+    const [numOfLivingChild, setnumOfLivingChild] = useState('');
+    const [numBornAlive, setnumBornAlive] = useState('');
+    const [numOfStillBirth, setStillBirths] = useState('');
+    const [numberOfLargeBabies, setnumberOfLargeBabies] = useState('');
     const [lastMenstrualPeriod, setlastMenstrualPeriod] = useState('');
     const [dateOfLastDelivery, setdateOfLastDelivery] = useState('');
     const [typeOfLastDelivery, settypeOfLastDelivery] = useState('');
@@ -46,7 +46,7 @@ const AdditionPrenatal= ({residentid}) => {
          if(validateInputs()){
                 const userId = sessionStorage.getItem("profileId");
                 const fetchServiceProvider = await axios.get(`/profile/${userId}`);
-                const attendedBy = "Dr. "+ fetchServiceProvider.data.last_name;
+                const attendedBy = fetchServiceProvider.data.first_name+ " " +fetchServiceProvider.data.last_name;
                 const response = await axios.post(`/maternalhealth/add/${residentid}`,{numGravida, numPara, 
                     numFullterm, numOfAbortion, numPremature, numOfLivingChild, numBornAlive,
                     numOfStillBirth, numberOfLargeBabies, lastMenstrualPeriod, dateOfLastDelivery,
@@ -83,7 +83,7 @@ const AdditionPrenatal= ({residentid}) => {
                         <input type="number"   className="form-control " 
                             id="exampleFormControlTextarea1" 
                             value={numGravida !== null ? numGravida : ""}
-                            onChange={e => setnumGravida(e.target.value !== "" ? parseInt(e.target.value) : null)}
+                            onChange={e => setnumGravida(e.target.value !== "" ? parseInt(e.target.value) : "")}
                             style={{backgroundColor: "#CCE8DE"}}/>
                     
                     </div>
@@ -92,7 +92,7 @@ const AdditionPrenatal= ({residentid}) => {
                         <input type="number"   className="form-control " 
                             id="exampleFormControlTextarea1" 
                             value={numPara !== null ? numPara : ""}
-                            onChange={e => setnumPara(e.target.value !== "" ? parseInt(e.target.value) : null)}
+                            onChange={e => setnumPara(e.target.value !== "" ? parseInt(e.target.value) : "")}
                             style={{backgroundColor: "#CCE8DE"}}/>
                     
                     </div>
@@ -101,7 +101,7 @@ const AdditionPrenatal= ({residentid}) => {
                         <input type="number"   className="form-control " 
                             id="exampleFormControlTextarea1" 
                             value={numFullterm!== null ? numFullterm : ""}
-                            onChange={e => setnumFullterm(e.target.value !== "" ? parseInt(e.target.value) : null)}                        
+                            onChange={e => setnumFullterm(e.target.value !== "" ? parseInt(e.target.value) : "")}                        
                             style={{backgroundColor: "#CCE8DE"}}/>
                     
                     </div>
@@ -110,7 +110,7 @@ const AdditionPrenatal= ({residentid}) => {
                         <input type="number"   className="form-control " 
                             id="exampleFormControlTextarea1" 
                             value={numOfAbortion!== null ? numOfAbortion : ""}
-                            onChange={e => setnumOfAbortion(e.target.value !== "" ? parseInt(e.target.value) : null)}
+                            onChange={e => setnumOfAbortion(e.target.value !== "" ? parseInt(e.target.value) : "")}
                             style={{backgroundColor: "#CCE8DE"}}/>
                     </div>
                 </div>
@@ -120,7 +120,7 @@ const AdditionPrenatal= ({residentid}) => {
                         <input type="number"   className="form-control " 
                             id="exampleFormControlTextarea1" 
                             value={numPremature!== null ? numPremature : ""}
-                            onChange={e => setnumPremature(e.target.value !== "" ? parseInt(e.target.value) : null)}
+                            onChange={e => setnumPremature(e.target.value !== "" ? parseInt(e.target.value) : "")}
                             style={{backgroundColor: "#CCE8DE"}}/>
                     
                     </div>
@@ -129,7 +129,7 @@ const AdditionPrenatal= ({residentid}) => {
                         <input type="number"   className="form-control " 
                             id="exampleFormControlTextarea1" 
                             value={numBornAlive!== null ? numBornAlive : ""}
-                          onChange={e => setnumBornAlive(e.target.value !== "" ? parseInt(e.target.value) : null)}
+                          onChange={e => setnumBornAlive(e.target.value !== "" ? parseInt(e.target.value) : "")}
                             style={{backgroundColor: "#CCE8DE"}}/>
                     
                     </div>
@@ -138,7 +138,7 @@ const AdditionPrenatal= ({residentid}) => {
                         <input type="number"   className="form-control " 
                             id="exampleFormControlTextarea1" 
                             value={numOfLivingChild!== null ? numOfLivingChild : ""}
-                            onChange={e => setnumOfLivingChild(e.target.value !== "" ? parseInt(e.target.value) : null)}
+                            onChange={e => setnumOfLivingChild(e.target.value !== "" ? parseInt(e.target.value) : "")}
                             style={{backgroundColor: "#CCE8DE"}}/>
                     
                     </div>
@@ -147,7 +147,7 @@ const AdditionPrenatal= ({residentid}) => {
                         <input type="number"   className="form-control " 
                             id="exampleFormControlTextarea1" 
                             value={numOfStillBirth !== null ? numOfStillBirth : ""}
-                            onChange={e => setStillBirths(e.target.value !== "" ? parseInt(e.target.value) : null)}
+                            onChange={e => setStillBirths(e.target.value !== "" ? parseInt(e.target.value) : "")}
                             style={{backgroundColor: "#CCE8DE"}}/>
                     </div>
                 </div>
@@ -157,7 +157,7 @@ const AdditionPrenatal= ({residentid}) => {
                         <input type="number"   className="form-control " 
                             id="exampleFormControlTextarea1" 
                             value={numberOfLargeBabies!== null ? numberOfLargeBabies : ""}
-                            onChange={e => setnumberOfLargeBabies(e.target.value !== "" ? parseInt(e.target.value) : null)}
+                            onChange={e => setnumberOfLargeBabies(e.target.value !== "" ? parseInt(e.target.value) : "")}
                             style={{backgroundColor: "#CCE8DE"}}/>
                     
                     </div>

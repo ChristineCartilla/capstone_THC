@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const AdditionalFamilyPlanning = ({residentid}) => {
+const AdditionalFamilyPlanning = ({residentid, vitalRec}) => {
     const [checked, setChecked] = useState(false);
     const [pe_skin, setPe_skin] = useState('');
     const [pe_conjunctiva, setPe_conjunctiva] = useState('');
@@ -12,13 +12,13 @@ const AdditionalFamilyPlanning = ({residentid}) => {
     const [pe_pelvicExam, setPe_pelvicExam] = useState('');
     const [numGravida, setNumGravida] = useState('');
     const [numPara, setNumPara] = useState('');
-    const [numFullTerm, setNumFullTerm] = useState('');
+    const [numFullterm, setNumFullterm] = useState('');
     const [numOfAbortion, setNumOfAbortion] = useState('');
     const [numPremature, setNumPremature] = useState('');
     const [numBornAlive, setNumBornAlive] = useState('');
     const [numOfLivingChild, setNumOfLivingChild] = useState('');
     const [numOfStillBirth, setNumOfStillBirth] = useState('');
-    const [numOfLargeBabies, setNumOfLargeBabies] = useState('');
+    const [numberOfLargeBabies, setNumberOfLargeBabies] = useState('');
     const [lastMenstrualPeriod, setLastMenstrualPeriod] = useState('');
     const [dateOfLastDelivery, setDateOfLastDelivery] = useState('');
     const [typeOfLastDelivery, setTypeOfLastDelivery] = useState('');
@@ -57,13 +57,13 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                 {
                     pe_skin, pe_conjunctiva, pe_neck, pe_breast, 
                     pe_abdomen, pe_extremities, pe_pelvicExam,
-                    numGravida, numPara, numFullTerm, numOfAbortion,
-                     numPremature, numBornAlive, numOfLivingChild, 
-                     numOfStillBirth, numOfLargeBabies, lastMenstrualPeriod, 
-                     typeOfLastDelivery, menstrualFlow, dysmenorrhea, 
-                     hydatidiformMole, ectopicPregnancy, diabetes, illness:combinedString,
-                     nameSpouse, spouseDoB, spouseAge, spouseOccupation, 
-                     noLivingChild, planAddChild, aveMonthIncome 
+                    numGravida, numPara, numFullterm, numOfAbortion,
+                    numPremature, numBornAlive, numOfLivingChild, 
+                    numOfStillBirth, numberOfLargeBabies, lastMenstrualPeriod, 
+                    typeOfLastDelivery, menstrualFlow, dysmenorrhea, 
+                    hydatidiformMole, ectopicPregnancy, diabetes, illness:combinedString,
+                    nameSpouse, spouseDoB, spouseAge, spouseOccupation, 
+                    noLivingChild, planAddChild, aveMonthIncome 
                 },
             );
                 if(response.status === 200 ) {
@@ -357,8 +357,8 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                                             className="form-control Addition_Prenatal_textarea" 
                                             id="exampleFormControlTextarea1" 
                                             style={{backgroundColor: "#CCE8DE"}}
-                                            onChange={(event) => setNumFullTerm(event.target.value)}
-                                            value={numFullTerm}/>
+                                            onChange={(event) => setNumFullterm(event.target.value)}
+                                            value={numFullterm}/>
                                     </div>
                                     <div  className="col text-start">
                                         <label htmlFor="exampleFormControlTextarea1"  className="form-label">No. of Abortions</label>
@@ -427,8 +427,8 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                                             className="form-control Addition_Prenatal_textarea" 
                                             id="exampleFormControlTextarea1" 
                                             style={{backgroundColor: "#CCE8DE"}}
-                                            onChange={(event) => setNumOfLargeBabies(event.target.value)}
-                                            value={numOfLargeBabies}
+                                            onChange={(event) => setNumberOfLargeBabies(event.target.value)}
+                                            value={numberOfLargeBabies}
                                         />
                                     </div>
                                     <div  className="col text-start">
@@ -545,26 +545,38 @@ const AdditionalFamilyPlanning = ({residentid}) => {
                             <div  className="row mb-5">
                                 <div  className="col text-start">
                                     <label htmlFor="exampleFormControlTextarea1"  className="form-label">Weight</label>
-                                    <input type="text"   className="form-control Addition_Prenatal_textarea" 
+                                    <input 
+                                        type="text"   
+                                        className="form-control Addition_Prenatal_textarea" 
                                         id="exampleFormControlTextarea1" 
+                                        disabled value={vitalRec.weight?vitalRec.weight+ " kg.": "N/A"}
                                         style={{backgroundColor: "#CCE8DE"}}/>
                                 </div>
                                 <div  className="col text-start">
                                     <label htmlFor="exampleFormControlTextarea1"  className="form-label">Height</label>
-                                    <input type="text"   className="form-control Addition_Prenatal_textarea" 
+                                    <input 
+                                        type="text"   
+                                        className="form-control Addition_Prenatal_textarea" 
                                         id="exampleFormControlTextarea1" 
+                                        disabled value={vitalRec.height?vitalRec.height+" cm.": "N/A"}
                                         style={{backgroundColor: "#CCE8DE"}}/>
                                 </div>
                                 <div  className="col text-start">
                                     <label htmlFor="exampleFormControlTextarea1"  className="form-label">Blood Pressure</label>
-                                    <input type="text"   className="form-control Addition_Prenatal_textarea" 
+                                    <input 
+                                        type="text"   
+                                        className="form-control Addition_Prenatal_textarea" 
                                         id="exampleFormControlTextarea1" 
+                                        disabled value={vitalRec.bloodpressure?vitalRec.bloodpressure: "N/A"}
                                         style={{backgroundColor: "#CCE8DE"}}/>
                                 </div>
                                 <div  className="col text-start">
                                     <label htmlFor="exampleFormControlTextarea1"  className="form-label">Pulse Rate</label>
-                                    <input type="text"   className="form-control Addition_Prenatal_textarea" 
+                                    <input 
+                                        type="text"   
+                                        className="form-control Addition_Prenatal_textarea" 
                                         id="exampleFormControlTextarea1" 
+                                        disabled value={vitalRec.pulseRate?vitalRec.pulseRate: "N/A"}
                                         style={{backgroundColor: "#CCE8DE"}}/>
                                 </div>
                             </div>

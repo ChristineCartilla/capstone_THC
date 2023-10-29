@@ -34,7 +34,7 @@ router.post("/add/:id", async (req, res) => {
             const medicalHistoryInstance = new MedicalHistoryModel(req.body);
             await medicalHistoryInstance.save();
 
-            const serviceInstance = new FamilyPlanningModel({...req.body, spouseAge:age});
+            const serviceInstance = new FamilyPlanningModel({...req.body, spouseAge: getAge(req.body.spouseDoB)});
             await serviceInstance.save();
             await FamilyPlanningModel.findOneAndUpdate(
                 { _id: serviceInstance._id },
