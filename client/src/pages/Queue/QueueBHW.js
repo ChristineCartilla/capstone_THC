@@ -127,11 +127,6 @@ const QueueBHW = () => {
                                     ): ""
                                 }
                                 {
-                                    (sessionStorage.getItem("workerType") === "Doctor" || sessionStorage.getItem("workerType") === "Superadmin")? (
-                                        <button className="nav-link" id="nav-doctor-tab" data-bs-toggle="tab" data-bs-target="#nav-doctor" type="button" role="tab" aria-controls="nav-doctor" aria-selected="true">Doctor</button>
-                                    ): ""
-                                }
-                                {
                                     (sessionStorage.getItem("workerType") === "Medtech" || sessionStorage.getItem("workerType") === "Superadmin")? (
                                         <button className="nav-link" id="nav-medtech-tab" data-bs-toggle="tab" data-bs-target="#nav-medtech" type="button" role="tab" aria-controls="nav-medtech" aria-selected="false">Medical Technologist</button>
                                     ): ""
@@ -190,6 +185,19 @@ const QueueBHW = () => {
                                                     </td>
                                                 </tr>
                                             ))}
+                                            {
+                                                (doctorQueue.length == 0)?
+                                                    (
+                                                        <tr>
+                                                            <td></td> 
+                                                            <td></td>    
+                                                            <td>NO WAITING RESIDENT</td>    
+                                                            <td></td>    
+                                                            <td></td>       
+                                                        </tr>
+                                                    ):""
+                                                
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
@@ -222,6 +230,19 @@ const QueueBHW = () => {
                                                     </td>
                                                 </tr>
                                             ))}
+                                            {
+                                                (dentistQueue.length == 0)?
+                                                    (
+                                                        <tr>
+                                                            <td></td> 
+                                                            <td></td>    
+                                                            <td>NO WAITING RESIDENT</td>    
+                                                            <td></td>    
+                                                            <td></td>       
+                                                        </tr>
+                                                    ):""
+                                                
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
@@ -254,6 +275,19 @@ const QueueBHW = () => {
                                                     </td>
                                                 </tr>
                                             ))}
+                                            {
+                                                (medTechQueue.length == 0)?
+                                                    (
+                                                        <tr>
+                                                            <td></td> 
+                                                            <td></td>    
+                                                            <td>NO WAITING RESIDENT</td>    
+                                                            <td></td>    
+                                                            <td></td>       
+                                                        </tr>
+                                                    ):""
+                                                
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
@@ -286,6 +320,19 @@ const QueueBHW = () => {
                                                     </td>
                                                 </tr>
                                             ))}
+                                            {
+                                                (midWifeQueue.length == 0)?
+                                                    (
+                                                        <tr>
+                                                            <td></td> 
+                                                            <td></td>    
+                                                            <td>NO WAITING RESIDENT</td>    
+                                                            <td></td>    
+                                                            <td></td>       
+                                                        </tr>
+                                                    ):""
+                                                
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
@@ -318,6 +365,19 @@ const QueueBHW = () => {
                                                     </td>
                                                 </tr>
                                             ))}
+                                            {
+                                                (nurseQueue.length == 0)?
+                                                    (
+                                                        <tr>
+                                                            <td></td> 
+                                                            <td></td>    
+                                                            <td>NO WAITING RESIDENT</td>    
+                                                            <td></td>    
+                                                            <td></td>       
+                                                        </tr>
+                                                    ):""
+                                                
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
