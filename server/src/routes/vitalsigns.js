@@ -3,7 +3,7 @@ import { VitalSignModel } from "../models/VItalSigns.js";
 import { ProfileModel } from "../models/Profile.js";
 
 function getBmi(kg, cm){
-    return kg/(cm*cm).toFixed(3);
+    return (kg/((cm/100)*(cm/100))).toFixed(3);
 }
 
 const router = express.Router();
@@ -15,29 +15,31 @@ router.post("/add", async (req, res) => {
         const findProfile = await ProfileModel.findById({_id: req.body.resid});
         if(findProfile){
             const currentBMI = getBmi(req.body.weight, req.body.height);
-            const vitalSignInstance = new VitalSignModel({
-                height: req.body.height,
-                weight: req.body.weight,
-                temp: req.body.temp,
-                pulseRate: req.body.pulseRate,
-                bmi: currentBMI,
-                bloodpressure: req.body.bloodpressure
-            });
-            await vitalSignInstance.save();
 
-            const profile = await ProfileModel.findOneAndUpdate(
-                { _id: req.body.resid },
-                {
-                    $push: { vital_signs: vitalSignInstance._id }
-                }
-            )
-            if(profile){
-                return res.json("Vital Sign Successfully Added");
-            } else {
-                return res.json("Error Occurred when adding to Profile");
-            }
+            // const vitalSignInstance = new VitalSignModel({
+            //     height: req.body.height,
+            //     weight: req.body.weight,
+            //     temp: req.body.temp,
+            //     pulseRate: req.body.pulseRate,
+            //     bmi: currentBMI,
+            //     bloodpressure: req.body.bloodpressure
+            // });
+            // await vitalSignInstance.save();
+
+            // const profile = await ProfileModel.findOneAndUpdate(
+            //     { _id: req.body.resid },
+            //     {
+            //         $push: { vital_signs: vitalSignInstance._id }
+            //     }
+            // )
+            // if(profile){
+            //     return res.json("Vital Sign Successfully Added");
+            // } else {
+            //     return res.json("Error Occurred when adding to Profile");
+            // }
+            console.log(currentBMI)
         }
-        return res.json("Cannot Add Vital Sign, Profile Not Found");
+        // return res.json("Cannot Add Vital Sign, Profile Not Found");
     } catch (error) {
         console.log(error);
     }
