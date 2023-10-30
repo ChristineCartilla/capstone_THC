@@ -29,7 +29,7 @@
 }
 
 .worker_pageBody .workersTableDiv{
-    max-height: 80vh;
+    max-height: 60vh;
     min-height: 300px;
     overflow: hidden;
     overflow-y: scroll;

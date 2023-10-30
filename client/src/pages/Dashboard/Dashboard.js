@@ -394,21 +394,21 @@ const Dashboard = () => {
                                                                     </div>
                                                                     <div className="row py-2">
                                                                         <div className="col-sm-6 d-flex justify-content-center">
-                                                                            <h3 className="fw-bold">{methodPills} </h3>
+                                                                            <h3>{methodPills} </h3>
                                                                             <h6 className="mx-1"> Residents Took Pills</h6>
                                                                         </div>
                                                                         <div className="col-sm-6 d-flex justify-content-center">
-                                                                            <h3 className="fw-bold">{methodDMPA} </h3>
+                                                                            <h3>{methodDMPA} </h3>
                                                                             <h6 className="mx-1"> Residents Took DMPA</h6>
                                                                         </div>
                                                                     </div>
                                                                     <div className="row py-2">
                                                                         <div className="col-sm-6 d-flex justify-content-center">
-                                                                            <h3 className="fw-bold">{methodImplant} </h3>
+                                                                            <h3>{methodImplant} </h3>
                                                                             <h6 className="mx-1"> Residents Took Implant</h6>
                                                                         </div>
                                                                         <div className="col-sm-6 d-flex justify-content-center">
-                                                                            <h3 className="fw-bold">{methodUID} </h3>
+                                                                            <h3>{methodUID} </h3>
                                                                             <h6 className="mx-1"> Residents Took UID</h6>
                                                                         </div>
                                                                     </div>
