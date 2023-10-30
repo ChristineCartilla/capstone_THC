@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-
+import toast from 'react-hot-toast'
 
 const AdditionalUrinalysis = ({residentid, serviceProviderName}) => {
     const [color, setColor] = useState('');
@@ -48,8 +48,10 @@ const AdditionalUrinalysis = ({residentid, serviceProviderName}) => {
                     }
                 );
                 if(response.status === 200){
-                    alert("Urinalysis Successfully Added");
-                    window.location.reload();
+                    toast.success("Urinalysis Successfully Added");
+                    setTimeout(() => {
+                        window.location.reload();
+                      }, 500);
                 }
         } catch (error){
             console.log(error)

@@ -1,7 +1,7 @@
 import React, { useState} from 'react'
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-
+import toast from 'react-hot-toast'
 
 const EditWorkerProfile = () => {
     const { workerId } = useParams();
@@ -12,15 +12,20 @@ const EditWorkerProfile = () => {
         if (workerId) {
             
             try {
-                const response = await axios.patch(`/profile/worker/edit/${workerId}`,{
-                    prof_status
-                });
-
-                if(response.status===200){
-                    alert("Worker Status Updated");
-                    window.location.reload();
+                if(!(prof_status === "#")){
+                    const response = await axios.patch(`/profile/worker/edit/${workerId}`,{
+                        prof_status
+                    });
+    
+                    if(response.status===200){
+                        toast.success("Worker Status Updated");
+                        setTimeout(() => {
+                            window.location.reload();
+                          }, 500);
+                    }
+                } else{
+                    toast.error("Incorrect Status... Try Again");
                 }
-                
             } catch (error) {
                 console.log(error)
             }
@@ -46,7 +51,7 @@ const EditWorkerProfile = () => {
                                         setProf_Status(e.target.value);
                                       }}
                                 >
-                                    <option value="#" disabled style={{backgroundColor: "white"}}>Choose...</option>
+                                    <option value="#"  style={{backgroundColor: "white"}}>Choose...</option>
                                     <option value="Active"  style={{backgroundColor: "white"}}>Active</option>
                                     <option value="Inactive"  style={{backgroundColor: "white"}}>Inactive</option>
                                 </select>

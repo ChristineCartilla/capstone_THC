@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import Auth_doctor from '../images/Auth_doctor.png'
 import THCLogo from '../images/THC_Logo.png'
 import axios from 'axios'
+import toast from 'react-hot-toast'
 
 const Login = () => {
     const [loginEmail, setLoginEmail] = useState("");
@@ -18,9 +19,10 @@ const Login = () => {
                 sessionStorage.setItem("accountId", response.data.accountId);
                 sessionStorage.setItem("profileId", response.data.profileId);
                 sessionStorage.setItem("workerType", response.data.workerType);
+                toast.success("Successfully Logged In");
                 navigate("/dashboard")
             } else{
-                alert(response.data);
+                toast.error(response.data)
             }
         } catch (error) {   
             console.log(error);

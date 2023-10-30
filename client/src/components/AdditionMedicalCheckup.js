@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 
 const AdditionMedicalCheckup = ({residentid}) => {
   const [findings, setFindings] = useState("");
@@ -15,8 +16,10 @@ const AdditionMedicalCheckup = ({residentid}) => {
         const response = await axios.post(`/medicalcheckup/add/${residentid}`,{findings, recommendation, serviceProvider});
 
         if(response.status === 200){
-          alert("Medical Checkup Successfully Added");
-          window.location.reload();
+          toast.success("Medical Checkup Successfully Added");
+          setTimeout(() => {
+            window.location.reload();
+          }, 700);
         }
       }
       

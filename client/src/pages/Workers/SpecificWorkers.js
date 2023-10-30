@@ -2,11 +2,12 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import toast from 'react-hot-toast'
 import Sidebar from '../../components/Sidebar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import EditWorkerProfile from '../../components/EditWorkerProfile';
-import axios from 'axios';
 import SidebarOpenBtn from '../../components/SidebarOpenBtn';
 
 const SpecificWorkers = () => {
@@ -39,8 +40,10 @@ const SpecificWorkers = () => {
       try {
           const response = await axios.patch(`/account/setdefault/${workerId}`)
           if(response.status===200){
-            alert('Password is set to default');
-            window.location.reload();
+            toast.success('Password is set to default');
+            setTimeout(() => {
+              window.location.reload();
+            }, 500);
           }
       } catch (error) {
           console.log(error);

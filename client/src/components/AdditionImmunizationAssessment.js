@@ -1,5 +1,6 @@
-import axios, { all } from 'axios';
+import axios from 'axios';
 import React, { useState, useEffect } from 'react'
+import toast from 'react-hot-toast'
 
 const AdditionImmunizationAssessment = ({residentid , recordid}) => {
     const [readableDateTime, setReadableDateTime] = useState("");
@@ -44,8 +45,10 @@ const AdditionImmunizationAssessment = ({residentid , recordid}) => {
             });
 
                 if(response.status === 200){
-                    alert("Immunization Assessment Record Successfully Added");
-                    window.location.reload();
+                    toast.success("Immunization Assessment Record Successfully Added");
+                    setTimeout(() => {
+                        window.location.reload();
+                      }, 700);
                 }
         }catch (error){
             console.log(error)
@@ -78,7 +81,8 @@ const AdditionImmunizationAssessment = ({residentid , recordid}) => {
                                         type="text"  
                                         className="form-control Addition_Immunization_textarea" 
                                         id="exampleFormControlTextarea1"  
-                                        defaultValue={vitalSign.weight+ " kg."}
+                                        value={vitalSign.weight+ " kg."}
+                                        onChange={()=>{}}
                                         style={{backgroundColor: "#CCE8DE"}} disabled/>
                                 </div>        
                                 <div className="col text-start">
@@ -87,7 +91,8 @@ const AdditionImmunizationAssessment = ({residentid , recordid}) => {
                                         type="text"  
                                         className="form-control Addition_Immunization_textarea" 
                                         id="exampleFormControlTextarea1" 
-                                        defaultValue={vitalSign.height+ " cm."}
+                                        value={vitalSign.height+ " cm."}
+                                        onChange={()=>{}}
                                         style={{backgroundColor: "#CCE8DE"}} disabled/>
                                 </div>
                                 <div className="col text-start">
@@ -96,7 +101,8 @@ const AdditionImmunizationAssessment = ({residentid , recordid}) => {
                                         type="text"  
                                         className="form-control Addition_Immunization_textarea" 
                                         id="exampleFormControlTextarea1"  
-                                        defaultValue={vitalSign.temp+ " ℃"}
+                                        value={vitalSign.temp+ " ℃"}
+                                        onChange={()=>{}}
                                         style={{backgroundColor: "#CCE8DE"}} disabled/>
                                 </div>
                             </div>

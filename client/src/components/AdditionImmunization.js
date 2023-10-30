@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React , { useState } from 'react'
+import toast from 'react-hot-toast'
 
 const AdditionImmunization= ({residentid}) => {
     const [birthWeight, setbirthWeight] = useState("");
@@ -25,8 +26,10 @@ const AdditionImmunization= ({residentid}) => {
             const response = await axios.post(`/childhealth/add/${residentid}`,{birthWeight, placeOfDelivery, typeOfFeeding, dateOfNewbornScreening, serviceProvider});
            
             if(response.status === 200){
-              alert("Immunization Record Successfully Added");
-              window.location.reload();
+              toast.success("Immunization Record Successfully Added");
+              setTimeout(() => {
+                window.location.reload();
+              }, 500);
             }
 
           }
@@ -51,6 +54,7 @@ const AdditionImmunization= ({residentid}) => {
                 <label htmlFor="exampleFormControlTextarea1" className="form-label">Birth Weight</label>
                 <input type="text"  className="form-control Addition_Immunization_textarea" 
                     id="exampleFormControlTextarea1" 
+                    placeholder='Kg.'
                     value={birthWeight}
                     onChange={e => setbirthWeight(e.target.value)}
                     style={{backgroundColor: "#CCE8DE"}}/>

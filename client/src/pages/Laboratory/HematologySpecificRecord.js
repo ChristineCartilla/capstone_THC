@@ -161,12 +161,12 @@ const HematologySpecificRecord = () => {
                                                 <span className="fw-bold">Lymphocyte Number Fraction:</span>
                                             </div>
                                             <div className='oral-health-two'>
-                                                <span> {hematologyInfo.hematocritLevel}</span>
-                                                <span> {hematologyInfo.hemoglobinMassConc}</span>
-                                                <span> {hematologyInfo.erythrocyteNumConc}</span>
-                                                <span> {hematologyInfo.LeukocyteNumConc}</span>
-                                                <span> {hematologyInfo.SegmenterNumFract}</span>
-                                                <span> {hematologyInfo.lymphocyteNumFract}</span>
+                                                <span> {(hematologyInfo.hematocritLevel)?hematologyInfo.hematocritLevel: "N/A"}</span>
+                                                <span> {(hematologyInfo.hemoglobinMassConc)?hematologyInfo.hemoglobinMassConc: "N/A"}</span>
+                                                <span> {(hematologyInfo.erythrocyteNumConc)?hematologyInfo.erythrocyteNumConc: "N/A"}</span>
+                                                <span> {(hematologyInfo.LeukocyteNumConc)?hematologyInfo.LeukocyteNumConc: "N/A"}</span>
+                                                <span> {(hematologyInfo.SegmenterNumFract)?hematologyInfo.SegmenterNumFract: "N/A"}</span>
+                                                <span> {(hematologyInfo.lymphocyteNumFract)?hematologyInfo.lymphocyteNumFract: "N/A"}</span>
                                             </div>
                                         </div>
                                         <div className='oral-health-right'>
@@ -179,12 +179,12 @@ const HematologySpecificRecord = () => {
                                                 <span className="fw-bold">Reticulocyte Number Fraction:</span>
                                             </div>
                                             <div className="oral-health-four">
-                                                <span> {hematologyInfo.MonocyeNumFrac}</span>
-                                                <span> {hematologyInfo.EosinophileNumFract}</span>
-                                                <span> {hematologyInfo.BasophileNumFract}</span>
-                                                <span> {hematologyInfo.stab}</span>
-                                                <span> {hematologyInfo.thrombocyteNumConc}</span>
-                                                <span> {hematologyInfo.retlculocyteNumFrac}</span>
+                                                <span> {(hematologyInfo.MonocyeNumFrac)?hematologyInfo.MonocyeNumFrac: "N/A"}</span>
+                                                <span> {(hematologyInfo.EosinophileNumFract)?hematologyInfo.EosinophileNumFract: "N/A"}</span>
+                                                <span> {(hematologyInfo.BasophileNumFract)?hematologyInfo.BasophileNumFract: "N/A"}</span>
+                                                <span> {(hematologyInfo.stab)?hematologyInfo.stab: "N/A"}</span>
+                                                <span> {(hematologyInfo.thrombocyteNumConc)?hematologyInfo.thrombocyteNumConc: "N/A"}</span>
+                                                <span> {(hematologyInfo.retlculocyteNumFrac)?hematologyInfo.retlculocyteNumFrac: "N/A"}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -193,7 +193,6 @@ const HematologySpecificRecord = () => {
                             </div> 
                             
                             <div className="bottomDiv">
-                                <h3 className="text-start">Dietary Habits</h3>
                                 <div className="dietary">
                                     <div className="dietary-label">
                                         <span className="fw-bold">Remarks:</span>
@@ -209,11 +208,6 @@ const HematologySpecificRecord = () => {
                     </div>
                 </div>  
             </div>
-
-       
-        
-       
-       
         </div>
         </div>
     </>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import toast from 'react-hot-toast'
 
 const AdditionalFamilyPlanning = ({residentid, vitalRec}) => {
     const [checked, setChecked] = useState(false);
@@ -67,7 +68,7 @@ const AdditionalFamilyPlanning = ({residentid, vitalRec}) => {
                 },
             );
                 if(response.status === 200 ) {
-                    alert("Family Planning Successfully Added");
+                    toast.success("Family Planning Successfully Added");
                     window.location.reload();
                 }
             } catch (error) {

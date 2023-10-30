@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast'
 
 const AdditionDispensing = () => {
     const [givenDate, setGivenDate] = useState("");
@@ -25,8 +26,13 @@ const AdditionDispensing = () => {
                 {dateGiven: givenDate, medicationName, dosage, bhwName, prescription}
             )
             if(addDespense.status === 200){
-                alert("Dispensing of Medication Successfully Added");
-                window.location.reload();
+                if(givenDate && medicationName && dosage && bhwName && prescription){
+                    toast.success("Dispensing of Medication Successfully Added");
+                    window.location.reload();
+                } else {
+                    toast.error("Incomplete Information for Dispensing Medication, Try Again...");
+                }
+                
             }
         } catch (error) {
             console.log(error)

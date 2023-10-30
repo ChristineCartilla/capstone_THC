@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import axios from 'axios';
+import toast from 'react-hot-toast'
 
 const AdditionWorker = () => {
 
@@ -14,34 +15,34 @@ const AdditionWorker = () => {
     const [contactNo, setContactNo] =useState('');
     const [educAttain, setEducAttain] = useState('');
     const [occupation, setOccupation] = useState('');
-  
-
     const [street, setStreet] = useState('');
     const [barangay, setBarangay] = useState('');
     const [municipality, setMunicipality] = useState('');
     const [zipCode, setZipCode] = useState('');
-
     const [email, setEmail] = useState('');
-    
-
 
     const addWorkerSubmit = async (event) => {
         event.preventDefault()
-        
-        
-
         try {
-            const response = await axios.post('/account/worker/register', {
-                    email, phone: contactNo, user_type: occupation,first_name, last_name, middle_name,
-                    gender, birthDate, birthPlace, educAttain, occupation, contactNo,civilStatus,
-                    nationality, street, barangay, municipality, zipCode
-                },
-            ); 
-
-            if(response.status === 200){
-                alert("Added New Worker Successfully");
-                window.location.reload();
+            if(email, contactNo, occupation, first_name, last_name, middle_name, gender, birthDate, birthPlace,
+                educAttain, occupation, contactNo, civilStatus, nationality, street, barangay, municipality, zipCode){
+                    const response = await axios.post('/account/worker/register', {
+                        email, phone: contactNo, user_type: occupation,first_name, last_name, middle_name,
+                        gender, birthDate, birthPlace, educAttain, occupation, contactNo,civilStatus,
+                        nationality, street, barangay, municipality, zipCode
+                    },
+                ); 
+    
+                if(response.status === 200){
+                    toast.success("Added New Worker Successfully");
+                    setTimeout(() => {
+                        window.location.reload();
+                      }, 500);
+                }
+            }else{
+                toast.error("Complete Input Fields");
             }
+            
         } catch (error) {
             console.log(error);
         }

@@ -1,12 +1,13 @@
 import React from 'react'
 import THCLogo from '../images/THC_Logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserGroup, faBriefcaseMedical, faListOl, faRightFromBracket, faTableCellsLarge, faUserNurse, faUser, faBars, faPlus } from '@fortawesome/free-solid-svg-icons'
-import { useNavigate, useParams } from 'react-router-dom'
+import { faUserGroup, faBriefcaseMedical, faListOl, faRightFromBracket, faTableCellsLarge, faUserNurse, faUser, faBars } from '@fortawesome/free-solid-svg-icons'
+import { useNavigate } from 'react-router-dom'
 import $ from 'jquery';
 import "jquery-ui-dist/jquery-ui";
 import { useEffect } from 'react';
 import AdditionVitalSigns from './AdditionVitalSigns'
+import toast from 'react-hot-toast'
 
 const Sidebar = () => {
     const navigate = useNavigate();
@@ -41,7 +42,7 @@ const Sidebar = () => {
       },[]);
 
     const logout = () => {
-        alert("Account have been logged out!");
+        toast.success("Account have been logged out!");
         sessionStorage.removeItem("accountId");
         sessionStorage.removeItem("profileId");
         sessionStorage.removeItem("workerType");

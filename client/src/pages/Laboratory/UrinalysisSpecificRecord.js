@@ -1,13 +1,10 @@
 import React, { useEffect, useState} from 'react'
+import axios from 'axios'
 import Sidebar from '../../components/Sidebar.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { useParams } from 'react-router-dom'
-import AdditionVitalSigns from '../../components/AdditionVitalSigns.js'
-import ViewVitalSigns from '../../components/ViewVitalSigns.js'
 import SidebarOpenBtn from '../../components/SidebarOpenBtn.js'
-import axios from 'axios'
 import THCDefaultPatientLogo from '../../images/default_image.png'
 
 const UrinalysisSpecificRecord = () => {
@@ -57,7 +54,6 @@ const UrinalysisSpecificRecord = () => {
         await axios.get(`urinalysis/getrecord/${residentid}/${recordid}`)
         .then((response) => {
             setUrinalysisInfo(response.data.record) 
-            console.log(response.data)
         })
     }
 
@@ -155,12 +151,12 @@ const UrinalysisSpecificRecord = () => {
                                             <span></span>
                                         </div>
                                         <div className="oral-health-two">
-                                            <span>{urinalysisInfo.color}</span>
-                                            <span>{urinalysisInfo.character}</span>
-                                            <span>{urinalysisInfo.reagentStrip}</span>
-                                            <span>{urinalysisInfo.ketoneLevel}</span>
-                                            <span>{urinalysisInfo.specificGravity}</span>
-                                            <span>{urinalysisInfo.bloodLevel}</span>
+                                            <span>{(urinalysisInfo.color)? urinalysisInfo.color: "N/A"}</span>
+                                            <span>{(urinalysisInfo.character)? urinalysisInfo.character: "N/A"}</span>
+                                            <span>{(urinalysisInfo.reagentStrip)? urinalysisInfo.reagentStrip: "N/A"}</span>
+                                            <span>{(urinalysisInfo.ketoneLevel)? urinalysisInfo.ketoneLevel: "N/A"}</span>
+                                            <span>{(urinalysisInfo.specificGravity)? urinalysisInfo.specificGravity: "N/A"}</span>
+                                            <span>{(urinalysisInfo.bloodLevel)? urinalysisInfo.bloodLevel: "N/A"}</span>
                                             <span></span>
                                         </div>
                                         <div className='oral-health-three'>
@@ -173,13 +169,13 @@ const UrinalysisSpecificRecord = () => {
                                             <span className='fw-bold'>Leukocyte:</span>
                                         </div>
                                         <div className='oral-health-four'>
-                                            <span>{urinalysisInfo.bilirubin}</span>
-                                            <span>{urinalysisInfo.glucosLevel}</span>
-                                            <span>{urinalysisInfo.phLevel}</span>
-                                            <span>{urinalysisInfo.proteinLevel}</span>
-                                            <span>{urinalysisInfo.urobilinogenLevel}</span>
-                                            <span>{urinalysisInfo.nitrate}</span>
-                                            <span>{urinalysisInfo.leukocyteLevel}</span>
+                                            <span>{(urinalysisInfo.bilirubin)? urinalysisInfo.bilirubin: "N/A"}</span>
+                                            <span>{(urinalysisInfo.glucosLevel)? urinalysisInfo.glucosLevel: "N/A"}</span>
+                                            <span>{(urinalysisInfo.phLevel)? urinalysisInfo.phLevel: "N/A"}</span>
+                                            <span>{(urinalysisInfo.proteinLevel)? urinalysisInfo.proteinLevel: "N/A"}</span>
+                                            <span>{(urinalysisInfo.urobilinogenLevel)? urinalysisInfo.urobilinogenLevel: "N/A"}</span>
+                                            <span>{(urinalysisInfo.nitrate)? urinalysisInfo.nitrate: "N/A"}</span>
+                                            <span>{(urinalysisInfo.leukocyteLevel)? urinalysisInfo.leukocyteLevel: "N/A"}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -195,13 +191,13 @@ const UrinalysisSpecificRecord = () => {
                                             <span className='fw-bold'>Red Blood Cells:</span>
                                         </div>
                                         <div className="oral-health-two">
-                                            <span>{urinalysisInfo.redBloodCellLevel}</span> 
+                                            <span>{(urinalysisInfo.redBloodCellLevel)?urinalysisInfo.redBloodCellLevel: "N/A"}</span> 
                                         </div>
                                         <div className='oral-health-three'>
                                             <span className='fw-bold'>Pus Cells:</span>    
                                         </div>
                                         <div className='oral-health-four'>
-                                            <span>{urinalysisInfo.pusLevel}</span>
+                                            <span>{(urinalysisInfo.pusLevel)?urinalysisInfo.pusLevel: "N/A"}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -218,8 +214,8 @@ const UrinalysisSpecificRecord = () => {
                                             <span></span>
                                         </div>
                                         <div className="oral-health-two">
-                                            <span>{urinalysisInfo.calciumOxaletes}</span>
-                                            <span>{urinalysisInfo.amorphousUrates}</span>
+                                            <span>{(urinalysisInfo.calciumOxaletes)?urinalysisInfo.calciumOxaletes: "N/A"}</span>
+                                            <span>{(urinalysisInfo.amorphousUrates)?urinalysisInfo.amorphousUrates: "N/A"}</span>
                                             <span></span>
                                         </div>
                                         <div className='oral-health-three'>
@@ -228,9 +224,9 @@ const UrinalysisSpecificRecord = () => {
                                             <span className='fw-bold'>Triple Phosphates:</span>
                                         </div>
                                         <div className='oral-health-four'>
-                                            <span>{urinalysisInfo.uricAcid}</span>
-                                            <span>{urinalysisInfo.amorphousPhosphates}</span>
-                                            <span>{urinalysisInfo.triplePhosphate}</span> 
+                                            <span>{(urinalysisInfo.uricAcid)?urinalysisInfo.uricAcid: "N/A"}</span>
+                                            <span>{(urinalysisInfo.amorphousPhosphates)?urinalysisInfo.amorphousPhosphates: "N/A"}</span>
+                                            <span>{(urinalysisInfo.triplePhosphate)?urinalysisInfo.triplePhosphate: "N/A"}</span> 
                                         </div>
                                     </div>
                                 </div>
@@ -247,8 +243,8 @@ const UrinalysisSpecificRecord = () => {
                                             <span></span>
                                         </div>
                                         <div className="oral-health-two">
-                                            <span>{urinalysisInfo.squamousEpithelialCells}</span>
-                                            <span>{urinalysisInfo.roundEpithelialCells}</span>
+                                            <span>{(urinalysisInfo.squamousEpithelialCells)?urinalysisInfo.squamousEpithelialCells: "N/A"}</span>
+                                            <span>{(urinalysisInfo.roundEpithelialCells)?urinalysisInfo.roundEpithelialCells: "N/A"}</span>
                                             <span></span>
                                         </div>
                                         <div className='oral-health-three'>
@@ -257,9 +253,9 @@ const UrinalysisSpecificRecord = () => {
                                             <span className='fw-bold'>Yeast Cells:</span>
                                         </div>
                                         <div className='oral-health-four'>
-                                            <span>{urinalysisInfo.bacteria}</span>
-                                            <span>{urinalysisInfo.mucusThreads}</span>
-                                            <span>{urinalysisInfo.yeastCells}</span> 
+                                            <span>{(urinalysisInfo.bacteria)?urinalysisInfo.bacteria: "N/A"}</span>
+                                            <span>{(urinalysisInfo.mucusThreads)?urinalysisInfo.mucusThreads: "N/A"}</span>
+                                            <span>{(urinalysisInfo.yeastCells)?urinalysisInfo.yeastCells: "N/A"}</span> 
                                         </div>
                                     </div>
                                 </div>

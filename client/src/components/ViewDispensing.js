@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import AdditionDispensing from './AdditionDispensing';
 import axios from 'axios';
+import toast from 'react-hot-toast'
 
 const ViewDispensing = () => {
     const [dispenseList, setDispenseList] = useState([]);
@@ -21,8 +22,10 @@ const ViewDispensing = () => {
     const removeDispense = async (disid) => {
         const dispense = await axios.patch(`/dispensing/delete/${disid}`)
         if(dispense){
-            alert("Successfully Removed Medication Dispensing Instance");
-            window.location.reload(); 
+            toast.success("Successfully Removed Medication Dispensing Instance");
+            setTimeout(() => {
+            window.location.reload();
+            }, 1500);
         }
     }
 

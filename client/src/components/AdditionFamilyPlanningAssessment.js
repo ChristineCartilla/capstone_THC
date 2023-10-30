@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
 import axios from 'axios';
+import toast from 'react-hot-toast'
 
 const AdditionFamilyPlanningAssessment = () => {
     const { residentid, recordid } = useParams();
@@ -23,8 +24,10 @@ const AdditionFamilyPlanningAssessment = () => {
             const response = await axios.post(`/familyplanning/add/assessment/${residentid}/${recordid}`, 
             { findings, methodAccepted, serviceProvider, dateOfFollowUpVisit });
             if (response.status === 200) {
-                alert("Family Planning Assessment Successfully Added");
-                window.location.reload();
+                toast.success("Family Planning Assessment Successfully Added");
+                setTimeout(() => {
+                    window.location.reload();
+                  }, 500);
             }
             
         } catch (err) {

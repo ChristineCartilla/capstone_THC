@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import toast from 'react-hot-toast'
 
 const EditUserProfile = () => {
   const { profileId } = useParams();
@@ -80,8 +81,10 @@ const EditUserProfile = () => {
         }
         const response = await axios.patch(`/profile/updateprofile/${profileId}`, updatedData);
         if (response.status === 200) {
-          alert('Profile Updated Successfully');
-          window.location.reload();
+          toast.success('Profile Updated Successfully');
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
         }
       } catch (error) {
         console.log(error);

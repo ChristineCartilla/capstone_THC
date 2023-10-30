@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import axios from 'axios';
 import "jquery-ui-dist/jquery-ui";
+import {Toaster} from 'react-hot-toast'
 
 import './stylesheets/App.css';
 import './stylesheets/Login_stylesheet.css';
@@ -57,7 +58,34 @@ function App() {
 
   return (
     <div className="App ">
-      
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+        gutter={24}
+        containerStyle={{
+          textAlign: 'start',
+          top: 20,
+          left: 20,
+          bottom: 20,
+          right: 20,
+        }}
+        toastOptions={{
+          success: {
+            style: {
+              paddingLeft: '20px',
+              borderLeft: '5px solid #8EC3B0',
+              boxShadow: '2px 2px 5px #8EC3B0',
+            },
+          },
+          error: {
+            style: {
+              paddingLeft: '20px',
+              borderLeft: '5px solid #EC3B14',
+              boxShadow: '2px 2px 5px #EC3B14',
+            },
+          },
+        }}
+      />
       <Router>
         <Routes>
           <Route path="/" element={<Login />} />

@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 
 const AdditionalHematology = ({residentid, serviceProviderName}) => {
     const [hematocritLevel, setHematocritLevel] = useState("");
@@ -30,8 +31,10 @@ const AdditionalHematology = ({residentid, serviceProviderName}) => {
                         }
                     );
             if(response.status === 200){
-                alert("Hematology Successfully Added");
-                window.location.reload();
+                toast.success("Hematology Successfully Added");
+                setTimeout(() => {
+                    window.location.reload();
+                  }, 500);
             }
         } catch (error){
             console.log(error)

@@ -235,9 +235,9 @@ const PrenatalSpecificRecord = () => {
                                                 <span className="fw-bold">Previous Hospitalization:</span>
                                             </div>
                                             <div className="oral-health-two">
-                                                <span>{prenatalInfo?.medicalHistory?.illness} </span>
-                                                <span>{prenatalInfo?.medicalHistory?.allergy}</span>
-                                                <span>{prenatalInfo?.medicalHistory?.hospitalization}</span>
+                                                <span>{prenatalInfo?.medicalHistory?.illness? prenatalInfo.medicalHistory.illness: "N/A"} </span>
+                                                <span>{prenatalInfo?.medicalHistory?.allergy? prenatalInfo.medicalHistory.allergy: "N/A"}</span>
+                                                <span>{prenatalInfo?.medicalHistory?.hospitalization? prenatalInfo.medicalHistory.hospitalization: "N/A"}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -257,7 +257,7 @@ const PrenatalSpecificRecord = () => {
                                                 prenatalInfo.tetanusToxoidStatus&& prenatalInfo.tetanusToxoidStatus.map((rec, idx) => {
                                                         if (rec._id != null) {
                                                             return (
-                                                                <div className="d-flex">
+                                                                <div className="d-flex" key={rec._id}>
                                                                     <label className="fw-bold ">{rec.vaccine_name} : </label> 
                                                                     <span>  &nbsp;&nbsp;{formatDate(rec.dateGiven)} </span>  
                                                                 </div>

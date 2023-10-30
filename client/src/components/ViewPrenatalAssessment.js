@@ -95,7 +95,8 @@ const ViewPrenatalAssessment = ({recordid}) => {
                             <label htmlFor="exampleFormControlTextarea1" className="form-label">Presenting Part of Fetus</label>
                             <input type="text"  className="form-control Addition_Prenatal_textarea" 
                                 id="exampleFormControlTextarea1" 
-                            disabled value="Left Mento Anterior"
+                                disabled 
+                                value={assessmentinfo.partOfFetus}
                                 style={{backgroundColor: "#CCE8DE"}}/>
                         
                         </div>

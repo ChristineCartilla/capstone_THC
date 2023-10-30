@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import toast from 'react-hot-toast'
 
 const AdditionVitalSigns = ({residentid}) => {
     const [residentList, setResidentList] = useState([]);
@@ -39,7 +40,7 @@ const AdditionVitalSigns = ({residentid}) => {
             })
 
             if(response.status === 200){
-                alert("Vital Sign Successfully Added");
+                toast.success("Vital Sign Successfully Added");
                 window.location.reload();
             }
           

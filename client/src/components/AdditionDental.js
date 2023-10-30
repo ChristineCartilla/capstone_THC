@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, {useState} from 'react'
+import toast from 'react-hot-toast'
 
 const AdditionDental = ({residentid}) => {
     const [dentalCaries, setDentalCaries] = useState(false);
@@ -112,8 +113,10 @@ const AdditionDental = ({residentid}) => {
                 },
             );
                 if(response.status === 200 ) {
-                    alert("Dental Record Successfully Added");
-                    window.location.reload();
+                    toast.success("Dental Record Successfully Added");
+                    setTimeout(() => {
+                        window.location.reload();
+                      }, 700);
                 }
                 // console.log(dentalCaries, gingivitis, periodontalDisease, debris, calculus,
                 //     abnormalGrowth, cleftLip, no_permTeethPres, no_permSoundTeeth,

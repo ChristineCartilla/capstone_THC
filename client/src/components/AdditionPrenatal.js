@@ -1,5 +1,6 @@
-import axios, { all } from 'axios';
+import axios from 'axios';
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 
 const AdditionPrenatal= ({residentid}) => {
     const [numGravida, setnumGravida] = useState('');
@@ -54,11 +55,11 @@ const AdditionPrenatal= ({residentid}) => {
               
                 
                         if(response.status === 200){
-                            alert("Prenatal Record Successfully Added");
+                            toast.success("Prenatal Record Successfully Added");
                             window.location.reload();
                         }
             }else{
-                alert("Invalid inputs")
+                toast.error("Invalid inputs")
             }
         
       } catch (error){

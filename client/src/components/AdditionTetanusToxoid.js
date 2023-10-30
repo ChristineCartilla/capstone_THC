@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React , { useState,useEffect } from 'react'
+import toast from 'react-hot-toast'
 
 const AdditionTetanusToxoid = ({recordid}) => {
     const [vaccine_name,setVaccine]= useState("");
@@ -38,11 +39,13 @@ const AdditionTetanusToxoid = ({recordid}) => {
             const response = await axios.post(`maternalhealth/add/tetanustoxoid/${recordid}`,{vaccine_name, dateGiven, attendedBy});
            
             if(response.status === 200){
-              alert("Successfully Added Vaccine to Existing Maternal Health Record");
-              window.location.reload();
+              toast.success("Successfully Added Vaccine to Existing Maternal Health Record");
+              setTimeout(() => {
+                window.location.reload();
+              }, 500);
             }
           }else {
-            alert("Please fill in all required fields.");
+            toast.success("Please fill in all required fields.");
         }
           
         } catch (error){

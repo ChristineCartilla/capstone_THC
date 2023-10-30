@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Worker_Searchbox from "./Worker_Searchbox";
-import Resident_Searchbox from "./Resident_Searchbox";
 import axios from "axios";
+import toast from 'react-hot-toast'
 
 const AdditionQueue = () => {
     const [residentList, setResidentList] = useState([]);
@@ -29,14 +28,16 @@ const AdditionQueue = () => {
 
     const addQueue = async () => {
         if(queueServiceName == ""){
-            alert("Select Service");
+            toast.error("Cannot Add Queue... Select Service");
         } else {
             const addQueueData = await axios.post(`/queue/addqueue/${queueResId}`,{service_name: queueServiceName});
             if(addQueueData.status === 200){
-                alert("Resident Successfully Added to Queue");
-                window.location.reload()
+                toast.success("Resident Successfully Added to Queue");
+                setTimeout(() => {
+                    window.location.reload();
+                  }, 500);
             } else {
-                alert("Error Occurred When Adding to Queue");
+                toast.error("Error Occurred When Adding to Queue");
             }
         }
     }

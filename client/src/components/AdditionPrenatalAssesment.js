@@ -1,13 +1,14 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
+import toast from 'react-hot-toast'
 
 const AdditionPrenatalAssesment = ({residentid , recordid, vitalRec}) => {
 
     const [readableDateTime, setReadableDateTime] = useState('');
     const [dateOfVisitation, setDateTime] = useState('');
-    const[aog,setAog]= useState(null);
-    const[fundalHeight,setfundalHeight]= useState(null);
-    const[fetalHeartBeat,setfetalHeartBeat]= useState(null);
+    const[aog,setAog]= useState('');
+    const[fundalHeight,setfundalHeight]= useState('');
+    const[fetalHeartBeat,setfetalHeartBeat]= useState('');
     const[findings,setfindings]= useState('');
     const[nuresesNotes,setnuresesNotes]= useState('');
     const[partOfFetus,setpartOfFetus]= useState('');
@@ -57,7 +58,7 @@ const AdditionPrenatalAssesment = ({residentid , recordid, vitalRec}) => {
       const addRecSubmit = async (event) => {
         event.preventDefault();
         if (!validateInputs()) {
-            alert("Please enter valid positive numbers.");
+          toast.error("Please enter valid positive numbers.");
             return;
           }
         try{
@@ -67,9 +68,9 @@ const AdditionPrenatalAssesment = ({residentid , recordid, vitalRec}) => {
             const response = await axios.post(`maternalhealth/add/assessment/${residentid}/${recordid}`,{dateOfVisitation,aog,fundalHeight,fetalHeartBeat,partOfFetus,findings,nuresesNotes,serviceProvider});
 
                   if(response.status === 200){
-                      alert("Prenatal Assessment Record Successfully Added");
-                      window.location.reload();
-                    }
+                    toast.success("Prenatal Assessment Record Successfully Added");
+                    window.location.reload();
+                  }
            }catch (error){
           console.log(error)
         }
@@ -94,7 +95,7 @@ const AdditionPrenatalAssesment = ({residentid , recordid, vitalRec}) => {
                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Gestation Age <span style={{ fontStyle: "italic" }}>(weeks)</span> </label>
                         <input type="number"   className="form-control " 
                             id="exampleFormControlTextarea1" 
-                            value={aog || null}
+                            value={aog || ''}
                             onChange={e => setAog(e.target.value)}
                             style={{backgroundColor: "#CCE8DE"}}/>
                     </div>        
@@ -116,7 +117,7 @@ const AdditionPrenatalAssesment = ({residentid , recordid, vitalRec}) => {
                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Fundal Height</label>
                         <input type="number"  className="form-control " 
                             id="exampleFormControlTextarea1" 
-                            value={fundalHeight || null}
+                            value={fundalHeight || ''}
                             onChange={e => setfundalHeight(e.target.value)}
                             style={{backgroundColor: "#CCE8DE"}}/>
                     
@@ -125,7 +126,7 @@ const AdditionPrenatalAssesment = ({residentid , recordid, vitalRec}) => {
                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Fetal Heartbeat</label>
                         <input type="number"  className="form-control " 
                             id="exampleFormControlTextarea1" 
-                            value={fetalHeartBeat || null}
+                            value={fetalHeartBeat || ''}
                             onChange={e => setfetalHeartBeat(e.target.value)}
                             style={{backgroundColor: "#CCE8DE"}}/>
                     
