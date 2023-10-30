@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+
 
 const EditUserProfile = () => {
   const { profileId } = useParams();
-
+  const [visible, setVisibility] = useState(false);
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
@@ -361,15 +364,23 @@ const EditUserProfile = () => {
                   <label htmlFor="barangay" className="form-label">
                     Password
                   </label>
-                  <input
-                    type="text"
-                    name="password"
-                    className="form-control"
-                    id="password"
-                    style={{ backgroundColor: "#CCE8DE" }}
-                    value={formData.password}
-                    onChange={handleChange}
-                  />
+                  <div class="input-group has-validation">
+                  <span class="input-group-text" id="inputGroupPrepend" style={{cursor:"pointer", background: "#CCE8DE"}}>
+                      <FontAwesomeIcon 
+                          icon={ visible ? faEyeSlash: faEye} 
+                          onClick={() => setVisibility(visibility => !visibility)}
+                      />
+                    </span>
+                    <input
+                      type={visible ? "text" : "password"}
+                      name="password"
+                      className="form-control"
+                      id="password"
+                      style={{ backgroundColor: "#CCE8DE"}}
+                      value={formData.password}
+                      onChange={handleChange}
+                    />
+                  </div>
                 </div>
               </div>
             </form>
