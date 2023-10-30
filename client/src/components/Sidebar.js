@@ -83,9 +83,11 @@ const Sidebar = () => {
                     </button>
                     <div className="collapse" id="service-collapse">
                     <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small servicesUl">
-                        <li>
-                            <button type="button" className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed px-0" data-bs-toggle="modal" data-bs-target="#VitalSignAddition">Vital Sign</button>
-                        </li>
+                        {
+                            (sessionStorage.getItem("workerType") === "Dentist" || sessionStorage.getItem("workerType") === "Superadmin")? (
+                                <li><button type="button" className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed px-0" data-bs-toggle="modal" data-bs-target="#VitalSignAddition">Vital Sign</button></li>
+                            ): ""
+                        }
                         <li><a href="/prenatal" className="d-inline-flex text-decoration-none rounded">Prenatal</a></li>
                         <li><a href="/immunization" className="d-inline-flex text-decoration-none rounded">Immunization</a></li>
                         <li><a href="/dental" className="d-inline-flex text-decoration-none rounded">Dental</a></li>
