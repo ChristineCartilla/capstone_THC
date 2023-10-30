@@ -365,7 +365,7 @@ const EditUserProfile = () => {
                     Password
                   </label>
                   <div class="input-group has-validation">
-                  <span class="input-group-text" id="inputGroupPrepend" style={{cursor:"pointer", background: "#CCE8DE"}}>
+                    <span class="input-group-text" id="inputGroupPrepend" style={{cursor:"pointer"}}>
                       <FontAwesomeIcon 
                           icon={ visible ? faEyeSlash: faEye} 
                           onClick={() => setVisibility(visibility => !visibility)}
