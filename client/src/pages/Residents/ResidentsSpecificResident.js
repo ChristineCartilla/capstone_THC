@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import EditResidentProfile from '../../components/EditResidentProfile';
 import SidebarOpenBtn from '../../components/SidebarOpenBtn';
 import { useNavigate} from 'react-router-dom'

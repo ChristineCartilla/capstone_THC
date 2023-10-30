@@ -1,6 +1,7 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import CryptoJS from 'crypto-js';
 import { AccountModel } from "../models/Accounts.js";
 import { ProfileModel } from "../models/Profile.js";
 
@@ -15,6 +16,19 @@ function getAge(date){
     }
 
     return age;  
+}
+
+function encryptCRPYTO(passwordPlainText){
+    var secretKey = "THC2023CAPSTONEproject"
+    var ciphertext = CryptoJS.AES.encrypt(passwordPlainText, secretKey).toString();
+    return ciphertext;
+}
+
+function decryptCRPYTO(ciphertext){
+    var secretKey = "THC2023CAPSTONEproject"
+    var bytes  = CryptoJS.AES.decrypt(ciphertext, secretKey);
+    var originalText = bytes.toString(CryptoJS.enc.Utf8);
+    return originalText;
 }
 
 const router = express.Router();
@@ -35,7 +49,9 @@ router.get("/specaccount/:accid", async (req, res) => {
 
     try {
         const data = await AccountModel.find({_id:accid});
-        res.json(data);
+        const decryptPassword = decryptCRPYTO(data[0].password);
+        // res.json({a:data[0].password, b:decryptPassword})
+        res.json([{ ...data[0]._doc, password: decryptPassword }]);
     } catch (error) {
         res.json(error);
     }
@@ -160,7 +176,7 @@ router.post("/login", async (req, res) => {
             retValMsg = "Account Not Found";
         } else{
             if(user.acc_type === "Worker" || user.acc_type === "Superadmin"){
-                const isPasswordValid = user.password == loginPassword;
+                const isPasswordValid = decryptCRPYTO(user.password) == loginPassword;
                 if(!isPasswordValid){
                     retValMsg = "Incorrect Password... Try Again";
                 } else{
@@ -184,7 +200,7 @@ router.patch("/setdefault/:profid", async (req, res) => {
         const accdata = await AccountModel.findOneAndUpdate(
             {profile: profid},
             {
-                password: "THC2023Talambandefaultpassword"
+                password: encryptCRPYTO("THC2023Talambandefaultpassword")
             }
         )
         
@@ -205,4 +221,15 @@ router.delete("/deleteall", async (req,res) => {
     }
 })
 
+// ENCRYPTION TESTING
+router.get("/encrypt", async (req, res) => {
+    var key = 'THC2023CAPSTONE2023';
+    var plaintext = 'AAVe/UG1eMzisQZKHh6Dorc+6GQOUY45qgdhRuRM8Ijw';
+    var buffer = Buffer.from(plaintext);
+    
+    // var encryptedPlainText = aes256.encrypt(key, plaintext);
+    var decryptedPlainText = aes256.decrypt(key, plaintext);
+
+    res.json({decryptedPlainText})
+})
 export { router as accountRouter };

@@ -85,18 +85,18 @@ const AdditionVitalSigns = ({residentid}) => {
                             </div>
                             <div className="row mb-5">
                                 <div className="col text-start">
-                                    <label htmlFor="exampleFormControlTextarea1" className="form-label">Weight</label>
+                                    <label htmlFor="exampleFormControlTextarea2" className="form-label">Weight</label>
                                     <input type="number"  className="form-control Addition_Prenatal_textarea" 
-                                        id="exampleFormControlTextarea1" 
+                                        id="exampleFormControlTextarea2" 
                                         value={vitalSignWeight}
                                         onChange={e => setVitalSignWeight(e.target.value)}
                                         style={{backgroundColor: "#CCE8DE"}}
                                         placeholder='Kg.'/>
                                 </div>
                                 <div className="col text-start">
-                                    <label htmlFor="exampleFormControlTextarea1" className="form-label">Blood Pressure</label>
+                                    <label htmlFor="exampleFormControlTextarea3" className="form-label">Blood Pressure</label>
                                     <input type="text"  className="form-control Addition_Prenatal_textarea" 
-                                        id="exampleFormControlTextarea1" 
+                                        id="exampleFormControlTextarea3" 
                                         value={vitalSignBP}
                                         onChange={e => setVitalSignBP(e.target.value)}
                                         style={{backgroundColor: "#CCE8DE"}}/>
@@ -104,18 +104,18 @@ const AdditionVitalSigns = ({residentid}) => {
                             </div>
                             <div className="row mb-5">
                                 <div className="col text-start">
-                                    <label htmlFor="exampleFormControlTextarea1" className="form-label">Height</label>
+                                    <label htmlFor="exampleFormControlTextarea4" className="form-label">Height</label>
                                     <input type="number"  className="form-control Addition_Vital_textarea" 
-                                        id="exampleFormControlTextarea1" 
+                                        id="exampleFormControlTextarea4" 
                                         value={vitalSignHeight}
                                         onChange={e => setVitalSignHeight(e.target.value)}
                                         style={{backgroundColor: "#CCE8DE"}}
                                         placeholder='cm.'/>
                                 </div>
                                 <div className="col text-start">
-                                    <label htmlFor="exampleFormControlTextarea1" className="form-label">Pulse Rate</label>
+                                    <label htmlFor="exampleFormControlTextarea5" className="form-label">Pulse Rate</label>
                                     <input type="number"  className="form-control Addition_Vital_textarea" 
-                                        id="exampleFormControlTextarea1" 
+                                        id="exampleFormControlTextarea5" 
                                         value={vitalSignPR}
                                         onChange={e => setVitalSignPR(e.target.value)}
                                         style={{backgroundColor: "#CCE8DE"}}/>
@@ -123,9 +123,9 @@ const AdditionVitalSigns = ({residentid}) => {
                             </div>
                             <div className="row mb-5">
                                 <div className="col-6 text-start">
-                                    <label htmlFor="exampleFormControlTextarea1" className="form-label">Temperature</label>
+                                    <label htmlFor="exampleFormControlTextarea6" className="form-label">Temperature</label>
                                     <input type="number"  className="form-control Addition_Vital_textarea" 
-                                        id="exampleFormControlTextarea1" 
+                                        id="exampleFormControlTextarea6" 
                                         value={vitalSignTemp}
                                         onChange={e => setVitalSignTemp(e.target.value)}
                                         style={{backgroundColor: "#CCE8DE"}}

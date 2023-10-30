@@ -44,8 +44,6 @@ const EditUserProfile = () => {
           console.error("Error fetching profile data:", error);
         });
 
-      
-      
       axios.get(`/account/fetchaccount/${profileId}`)
         .then((response) => {
           axios.get('/account/specaccount/'+response.data)
@@ -364,8 +362,8 @@ const EditUserProfile = () => {
                   <label htmlFor="barangay" className="form-label">
                     Password
                   </label>
-                  <div class="input-group has-validation">
-                    <span class="input-group-text" id="inputGroupPrepend" style={{cursor:"pointer"}}>
+                  <div className="input-group has-validation">
+                    <span className="input-group-text" id="inputGroupPrepend" style={{cursor:"pointer"}}>
                       <FontAwesomeIcon 
                           icon={ visible ? faEyeSlash: faEye} 
                           onClick={() => setVisibility(visibility => !visibility)}

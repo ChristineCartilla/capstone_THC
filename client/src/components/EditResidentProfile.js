@@ -2,7 +2,7 @@ import React from 'react'
 
 const EditResidentProfile = () => {
   return (
-    <div className="modal fade" id="editResidentProfileModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div className="modal fade" id="editResidentProfileModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog">
             <div className="modal-content">
             <div className="modal-header">
@@ -15,7 +15,7 @@ const EditResidentProfile = () => {
                     <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Email</label>
                     <div className="col-sm-10">
                         <select className="form-select w-50" id="autoSizingSelect">
-                            <option selected disabled>Choose...</option>
+                            <option value="#" disabled>Choose...</option>
                             <option value="1">Active</option>
                             <option value="2">UnActive</option>
                         </select>

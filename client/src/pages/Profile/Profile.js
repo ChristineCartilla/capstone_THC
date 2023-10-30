@@ -69,6 +69,7 @@ const Profile = () => {
     axios.get(`/account/specaccount/${accId}`)
     .then((response) => {
       setAccountData(response.data[0]);
+      console.log(response.data);
     })
     .catch((error) => {
       console.error("Error fetching account data:", error);
@@ -138,11 +139,11 @@ const Profile = () => {
                           </tr> 
                           <tr>
                             <th>Birth Date:</th>
-                            <td>{formatDate(profileData.birthDate?profileData.birthDate: "N/A")}</td>
+                            <td>{profileData.birthDate?formatDate(profileData.birthDate): "N/A"}</td>
                           </tr>
                           <tr>
                             <th>Age:</th>
-                            <td>{formatAge(profileData.birthDate?profileData.birthDate + "  Years Old": "N/A")}</td>
+                            <td>{profileData.age?profileData.age+ "  Years Old": "N/A"}</td>
                           </tr>
                           <tr>
                             <th>Place of Birth:</th>
