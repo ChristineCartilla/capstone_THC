@@ -16,28 +16,27 @@ router.post("/add", async (req, res) => {
         if(findProfile){
             const currentBMI = getBmi(req.body.weight, req.body.height);
 
-            // const vitalSignInstance = new VitalSignModel({
-            //     height: req.body.height,
-            //     weight: req.body.weight,
-            //     temp: req.body.temp,
-            //     pulseRate: req.body.pulseRate,
-            //     bmi: currentBMI,
-            //     bloodpressure: req.body.bloodpressure
-            // });
-            // await vitalSignInstance.save();
+            const vitalSignInstance = new VitalSignModel({
+                height: req.body.height,
+                weight: req.body.weight,
+                temp: req.body.temp,
+                pulseRate: req.body.pulseRate,
+                bmi: currentBMI,
+                bloodpressure: req.body.bloodpressure
+            });
+            await vitalSignInstance.save();
 
-            // const profile = await ProfileModel.findOneAndUpdate(
-            //     { _id: req.body.resid },
-            //     {
-            //         $push: { vital_signs: vitalSignInstance._id }
-            //     }
-            // )
-            // if(profile){
-            //     return res.json("Vital Sign Successfully Added");
-            // } else {
-            //     return res.json("Error Occurred when adding to Profile");
-            // }
-            console.log(currentBMI)
+            const profile = await ProfileModel.findOneAndUpdate(
+                { _id: req.body.resid },
+                {
+                    $push: { vital_signs: vitalSignInstance._id }
+                }
+            )
+            if(profile){
+                return res.json("Vital Sign Successfully Added");
+            } else {
+                return res.json("Error Occurred when adding to Profile");
+            }
         }
         // return res.json("Cannot Add Vital Sign, Profile Not Found");
     } catch (error) {
