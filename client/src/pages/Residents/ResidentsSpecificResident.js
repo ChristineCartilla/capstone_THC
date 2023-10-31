@@ -6,6 +6,9 @@ import SidebarOpenBtn from '../../components/SidebarOpenBtn';
 import { useNavigate} from 'react-router-dom'
 import axios from 'axios';
 import THCDefaultPatientLogo from '../../images/default_image.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import toast from 'react-hot-toast'
 
 const ResidentsSpecificResident = () => {
   const { profile_id } = useParams();
@@ -78,6 +81,21 @@ const ResidentsSpecificResident = () => {
 
   const handleBack = () => {
     window.history.back()
+}
+const handlePassClick = async () => {
+  if(profile_id){
+    try {
+        const response = await axios.patch(`/account/setdefault/${profile_id}`)
+        if(response.status===200){
+          toast.success('Password is set to default');
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+  }
 }
 
   return (
@@ -158,10 +176,26 @@ const ResidentsSpecificResident = () => {
                     
               </div>
             </div>
+            <div className='workerProfile_footer d-flex justify-content-between'>
+              <button
+               type='button'
+               className='workerBackBtn float-start'
+               onClick={handleBack}>
+               <FontAwesomeIcon icon={faArrowLeft} /> Back
+              </button>
+              <div className='d-flex flex-column mb-3'>
+              <button type="button" className="workerPassDefBtn" onClick={handlePassClick}>
+                            Set Password to Default
+              </button>
+              <button type="button" className="workerEditBtn" data-bs-toggle="modal" data-bs-target="#editResidentProfileModal">
+                            Edit Resident Profile
+              </button>
+            </div>
+            </div>
           </div>
         </div>
       </div>
-      <EditResidentProfile />
+      <EditResidentProfile residentId={profile_id}/>
     </div>
     
   )
