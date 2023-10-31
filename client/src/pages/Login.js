@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Auth_doctor from '../images/Auth_doctor.png'
 import THCLogo from '../images/THC_Logo.png'
@@ -9,6 +9,14 @@ const Login = () => {
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
     const navigate = useNavigate();
+
+    useEffect(()=> {
+        profstatus();
+    })
+
+    const profstatus = async () => {
+        axios.patch("/profile/profstatus/checker");
+    }
 
     const loginSubmit = async (event) => {
         event.preventDefault();
