@@ -183,6 +183,31 @@ router.patch("/resident/disapprove/:profid", async (req, res) => {
     }
 })
 
+router.patch("/profstatus/checker", async (req, res) => {
+
+    try {
+        const profileData = await ProfileModel.find({});
+        profileData.map( async (profile) => {
+            const today = new Date();
+            const yearDifference = today.getFullYear() - profile.updatedAt.getFullYear();
+
+            if(yearDifference >= 5){
+                await ProfileModel.findByIdAndUpdate(
+                    {_id: profile._id}, 
+                    {
+                        prof_status: "Inactive"
+                    }
+                )
+            }
+            console.log({yearDifference})
+        })
+        
+        res.json(profileData);
+    } catch (error) {
+        res.json(error);
+    }
+})
+
 // HARD DELETE PROFILE
 router.delete("/deleteprofile/:id/:accid", async (req, res) => {
     const accId = req.params.accid
