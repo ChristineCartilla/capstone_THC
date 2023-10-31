@@ -69,7 +69,7 @@ const Profile = () => {
     axios.get(`/account/specaccount/${accId}`)
     .then((response) => {
       setAccountData(response.data[0]);
-      console.log(response.data);
+      // console.log(response.data);
     })
     .catch((error) => {
       console.error("Error fetching account data:", error);
