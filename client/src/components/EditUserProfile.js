@@ -1,32 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import toast from 'react-hot-toast'
+import toast from 'react-hot-toast';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
-
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 const EditUserProfile = () => {
   const { profileId } = useParams();
   const [visible, setVisibility] = useState(false);
-  const [formData, setFormData] = useState({
-    first_name: '',
-    last_name: '',
-    middle_name: '',
-    birthDate: '',
-    birthPlace: '',
-    civilStatus: '',
-    gender: '',
-    nationality: '',
-    educAttain: '',
-    contactNo: '',
-    street: '',
-    barangay: '',
-    municipality: '',
-    zipCode: '',
-    email: '',
-    password: '',
-  });
+
+  // Separate states for each form field
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [middleName, setMiddleName] = useState('');
+  const [birthDate, setBirthDate] = useState('');
+  const [birthPlace, setBirthPlace] = useState('');
+  const [civilStatus, setCivilStatus] = useState('');
+  const [gender, setGender] = useState('');
+  const [nationality, setNationality] = useState('');
+  const [educAttain, setEducAttain] = useState('');
+  const [contactNo, setContactNo] = useState('');
+  const [street, setStreet] = useState('');
+  const [barangay, setBarangay] = useState('');
+  const [municipality, setMunicipality] = useState('');
+  const [zipCode, setZipCode] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const [zipCodeError, setZipCodeError] = useState('');
   const [contactNoError, setContactNoError] = useState('');
@@ -37,8 +36,21 @@ const EditUserProfile = () => {
       axios.get(`/profile/${profileId}`)
         .then((response) => {
           // Set the birthDate field after formatting it
-          const birthDate = new Date(response.data.birthDate).toISOString().split('T')[0];
-          setFormData({ ...response.data, birthDate });
+          const formattedBirthDate = new Date(response.data.birthDate).toISOString().split('T')[0];
+          setFirstName(response.data.first_name);
+          setLastName(response.data.last_name);
+          setMiddleName(response.data.middle_name);
+          setBirthDate(formattedBirthDate);
+          setBirthPlace(response.data.birthPlace);
+          setCivilStatus(response.data.civilStatus);
+          setGender(response.data.gender);
+          setNationality(response.data.nationality);
+          setEducAttain(response.data.educAttain);
+          setContactNo(response.data.contactNo);
+          setStreet(response.data.street);
+          setBarangay(response.data.barangay);
+          setMunicipality(response.data.municipality);
+          setZipCode(response.data.zipCode);
         })
         .catch((error) => {
           console.error("Error fetching profile data:", error);
@@ -46,40 +58,45 @@ const EditUserProfile = () => {
 
       axios.get(`/account/fetchaccount/${profileId}`)
         .then((response) => {
-          axios.get('/account/specaccount/'+response.data)
-          .then((response) => {
-            setFormData({...response.data, email: response.data[0].email, password: response.data[0].password });
-          })
-        })
+          axios.get('/account/specaccount/' + response.data)
+            .then((response) => {
+              setEmail(response.data[0].email);
+              setPassword(response.data[0].password);
+            });
+        });
     }
   }, [profileId]);
 
   const saveProfileSubmit = async (e) => {
     e.preventDefault();
-    
+
     setZipCodeError('');
     setContactNoError('');
 
-    const zipCode = formData.zipCode;
-    const contactNo = formData.contactNo;
+    // Validate zipCode and contactNo here
 
-    if (zipCode && !/^\d+$/.test(zipCode)) {
-      setZipCodeError('Zip Code must be a valid input');
-      return;
-    }
-
-    if (contactNo && !/^\d+$/.test(contactNo)) {
-      setContactNoError('Contact No must be a valid input');
-      return;
-    }
     if (profileId) {
       try {
-        const updatedData = {};
-        for (const key in formData) {
-          if (formData[key]) {
-            updatedData[key] = formData[key];
-          }
-        }
+        // Prepare the updatedData object here
+        const updatedData = {
+          first_name: firstName,
+          last_name: lastName,
+          middle_name: middleName,
+          birthDate: birthDate,
+          birthPlace: birthPlace,
+          civilStatus: civilStatus,
+          gender: gender,
+          nationality: nationality,
+          educAttain: educAttain,
+          contactNo: contactNo,
+          street: street,
+          barangay: barangay,
+          municipality: municipality,
+          zipCode: zipCode,
+          email: email,
+          password: password,
+        };
+
         const response = await axios.patch(`/profile/updateprofile/${profileId}`, updatedData);
         if (response.status === 200) {
           toast.success('Profile Updated Successfully');
@@ -95,8 +112,59 @@ const EditUserProfile = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    // Update the corresponding state based on the name
+    switch (name) {
+      case 'first_name':
+        setFirstName(value);
+        break;
+      case 'last_name':
+        setLastName(value);
+        break;
+      case 'middle_name':
+        setMiddleName(value);
+        break;
+      case 'birthDate':
+        setBirthDate(value);
+        break;
+      case 'birthPlace':
+        setBirthPlace(value);
+        break;
+      case 'civilStatus':
+        setCivilStatus(value);
+        break;
+      case 'gender':
+        setGender(value);
+        break;
+      case 'nationality':
+        setNationality(value);
+        break;
+      case 'educAttain':
+        setEducAttain(value);
+        break;
+      case 'contactNo':
+        setContactNo(value);
+        break;
+      case 'street':
+        setStreet(value);
+        break;
+      case 'barangay':
+        setBarangay(value);
+        break;
+      case 'municipality':
+        setMunicipality(value);
+        break;
+      case 'zipCode':
+        setZipCode(value);
+        break;
+      case 'password':
+        setPassword(value);
+        break;
+      // handle other cases if needed
+      default:
+        break;
+    }
   };
+
 
   return (
     <div className="modal fade" id="editUserProfileModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -121,7 +189,7 @@ const EditUserProfile = () => {
                     className="form-control"
                     id="first_name"
                     style={{ backgroundColor: "#CCE8DE" }}
-                    value={formData.first_name}
+                    value={firstName}
                     onChange={handleChange}
                   />
                 </div>
@@ -135,7 +203,7 @@ const EditUserProfile = () => {
                     className="form-control"
                     id="last_name"
                     style={{ backgroundColor: "#CCE8DE" }}
-                    value={formData.last_name}
+                    value={lastName}
                     onChange={handleChange}
                   />
                 </div>
@@ -149,7 +217,7 @@ const EditUserProfile = () => {
                     className="form-control"
                     id="middle_name"
                     style={{ backgroundColor: "#CCE8DE" }}
-                    value={formData.middle_name}
+                    value={middleName}
                     onChange={handleChange}
                   />
                 </div>
@@ -165,7 +233,7 @@ const EditUserProfile = () => {
                     className="form-control"
                     id="birthDate"
                     style={{ backgroundColor: "#CCE8DE" }}
-                    value={formData.birthDate}
+                    value={birthDate}
                     onChange={handleChange}
                   />
                 </div>
@@ -179,7 +247,7 @@ const EditUserProfile = () => {
                     className="form-control"
                     id="birthPlace"
                     style={{ backgroundColor: "#CCE8DE" }}
-                    value={formData.birthPlace}
+                    value={birthPlace}
                     onChange={handleChange}
                   />
                 </div>
@@ -191,7 +259,7 @@ const EditUserProfile = () => {
                     name="civilStatus"
                     className="form-select"
                     style={{ backgroundColor: "#CCE8DE" }}
-                    value={formData.civilStatus}
+                    value={civilStatus}
                     onChange={handleChange}
                   >
                     <option value="" disabled style={{ backgroundColor: "white" }}>
@@ -221,7 +289,7 @@ const EditUserProfile = () => {
                     name="gender"
                     className="form-select"
                     style={{ backgroundColor: "#CCE8DE" }}
-                    value={formData.gender}
+                    value={gender}
                     onChange={handleChange}
                   >
                     <option value="" disabled style={{ backgroundColor: "white" }}>
@@ -245,7 +313,7 @@ const EditUserProfile = () => {
                     className="form-control"
                     id="nationality"
                     style={{ backgroundColor: "#CCE8DE" }}
-                    value={formData.nationality}
+                    value={nationality}
                     onChange={handleChange}
                   />
                 </div>
@@ -259,30 +327,32 @@ const EditUserProfile = () => {
                     className="form-control"
                     id="educAttain"
                     style={{ backgroundColor: "#CCE8DE" }}
-                    value={formData.educAttain}
+                    value={educAttain}
                     onChange={handleChange}
                   />
                 </div>
               </div>
               <div className="row mb-5">
                 <div className="col-md-4 text-start">
-                    <label htmlFor="educAttain" className="form-label">
-                      Contact No.
-                    </label>
-                    <input
-                      type="text"
-                      name="contactNo"
-                      className="form-control"
-                      id="contactNo"
-                      style={{ backgroundColor: "#CCE8DE" }}
-                      value={formData.contactNo}
-                      onChange={handleChange}
-                    />
-                    {contactNoError && <div className="text-danger">{contactNoError}</div>}
-                  </div>
+                  <label htmlFor="contactNo" className="form-label">
+                    Contact No.
+                  </label>
+                  <input
+                    type="text"
+                    name="contactNo"
+                    className="form-control"
+                    id="contactNo"
+                    style={{ backgroundColor: "#CCE8DE" }}
+                    value={contactNo}
+                    onChange={handleChange}
+                  />
+                  {contactNoError && <div className="text-danger">{contactNoError}</div>}
+                </div>
               </div>
               <div className="row mb-5">
-              <h6 className="text-start mb-3" id="">Current Address</h6>
+                <h6 className="text-start mb-3" id="">
+                  Current Address
+                </h6>
                 <div className="col-md-4 text-start">
                   <label htmlFor="street" className="form-label">
                     Street
@@ -293,7 +363,7 @@ const EditUserProfile = () => {
                     className="form-control"
                     id="street"
                     style={{ backgroundColor: "#CCE8DE" }}
-                    value={formData.street}
+                    value={street}
                     onChange={handleChange}
                   />
                 </div>
@@ -307,7 +377,7 @@ const EditUserProfile = () => {
                     className="form-control"
                     id="barangay"
                     style={{ backgroundColor: "#CCE8DE" }}
-                    value={formData.barangay}
+                    value={barangay}
                     onChange={handleChange}
                   />
                 </div>
@@ -321,7 +391,7 @@ const EditUserProfile = () => {
                     className="form-control"
                     id="municipality"
                     style={{ backgroundColor: "#CCE8DE" }}
-                    value={formData.municipality}
+                    value={municipality}
                     onChange={handleChange}
                   />
                 </div>
@@ -335,16 +405,18 @@ const EditUserProfile = () => {
                     className="form-control"
                     id="zipCode"
                     style={{ backgroundColor: "#CCE8DE" }}
-                    value={formData.zipCode}
+                    value={zipCode}
                     onChange={handleChange}
                   />
                   {zipCodeError && <div className="text-danger">{zipCodeError}</div>}
                 </div>
               </div>
               <div className="row mb-5">
-              <h6 className="text-start mb-3" id="">Account Credentials</h6>
+                <h6 className="text-start mb-3" id="">
+                  Account Credentials
+                </h6>
                 <div className="col-md-4 text-start">
-                  <label htmlFor="street" className="form-label">
+                  <label htmlFor="email" className="form-label">
                     Email
                   </label>
                   <input
@@ -353,20 +425,19 @@ const EditUserProfile = () => {
                     className="form-control"
                     id="email"
                     style={{ backgroundColor: "#CCE8DE" }}
-                    value={formData.email}
-                    onChange={()=>{}}
+                    value={email}
                     disabled
                   />
                 </div>
                 <div className="col-md-4 text-start">
-                  <label htmlFor="barangay" className="form-label">
+                  <label htmlFor="password" className="form-label">
                     Password
                   </label>
                   <div className="input-group has-validation">
-                    <span className="input-group-text" id="inputGroupPrepend" style={{cursor:"pointer"}}>
-                      <FontAwesomeIcon 
-                          icon={ visible ? faEyeSlash: faEye} 
-                          onClick={() => setVisibility(visibility => !visibility)}
+                    <span className="input-group-text" id="inputGroupPrepend" style={{ cursor: "pointer" }}>
+                      <FontAwesomeIcon
+                        icon={visible ? faEyeSlash : faEye}
+                        onClick={() => setVisibility((visibility) => !visibility)}
                       />
                     </span>
                     <input
@@ -374,8 +445,8 @@ const EditUserProfile = () => {
                       name="password"
                       className="form-control"
                       id="password"
-                      style={{ backgroundColor: "#CCE8DE"}}
-                      value={formData.password}
+                      style={{ backgroundColor: "#CCE8DE" }}
+                      value={password}
                       onChange={handleChange}
                     />
                   </div>
@@ -398,5 +469,3 @@ const EditUserProfile = () => {
 };
 
 export default EditUserProfile;
-
-
