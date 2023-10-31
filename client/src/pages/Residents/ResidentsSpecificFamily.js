@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import axios from 'axios'
+import toast from 'react-hot-toast'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import Sidebar from '../../components/Sidebar'
 import SidebarOpenBtn from '../../components/SidebarOpenBtn'
-import axios from 'axios'
+
 
 
 const ResidentsSpecificFamily = () => {
@@ -38,7 +40,7 @@ const ResidentsSpecificFamily = () => {
         try {
             const approveRes = await axios.patch(`/profile/resident/approve/${id}`);
             if(approveRes.status === 200){
-                alert("Resident Profile Successfully Activated")
+                toast.success("Resident Profile Successfully Activated")
                 window.location.reload();
             }
         } catch (error) {
@@ -50,7 +52,7 @@ const ResidentsSpecificFamily = () => {
         try {
             const approveRes = await axios.patch(`/profile/resident/disapprove/${id}`);
             if(approveRes.status === 200){
-                alert("Resident Profile Rejected")
+                toast.success("Resident Profile Rejected")
                 window.location.reload();
             }
         } catch (error) {

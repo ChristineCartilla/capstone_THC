@@ -1,12 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import Sidebar from '../../components/Sidebar'
 import Resident_Searchbox from '../../components/Resident_Searchbox'
 import { useNavigate } from 'react-router-dom'
 import SidebarOpenBtn from '../../components/SidebarOpenBtn'
 
+
 const Residents = () => {
     const [family, setFamily] = useState([]);
     const navigate = useNavigate();
+    
+    useEffect(() => {
+        accStatus();
+    },[])
+
+    const accStatus = async () =>{
+        axios.patch("/account/accountactivation");
+    }
 
     const handleViewFam = (famId) => {
         navigate(`/resident/${famId}`);

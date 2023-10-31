@@ -211,6 +211,35 @@ router.patch("/setdefault/:profid", async (req, res) => {
     }
 })
 
+// SETTING ACCOUNT TO ACTIVE WHEN THERE IS A PROFILE THAT IS ACTIVE
+router.patch("/accountactivation", async (req, res) => {
+    try {
+        const dataList = await AccountModel
+            .find({})
+            .populate("profile", "prof_status last_name")
+
+        dataList.map(async(account) => {
+            let accstatus = false;
+
+            account.profile.map((prof) => {
+                if(prof.prof_status === "Active"){
+                    accstatus = true;
+                }
+            })
+            
+            await AccountModel.findByIdAndUpdate(
+                {_id: account._id},
+                {
+                    acc_status: (accstatus)? "Active": "Pending"
+                }
+            )
+        })
+        res.json(dataList);
+    } catch (error) {
+        res.json(error);
+    }
+})
+
 // DELETE ALL DOCUMENTS IN A COLLECTION (MONGO DB)
 router.delete("/deleteall", async (req,res) => {
     try {
