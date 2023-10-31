@@ -6,7 +6,6 @@ import toast from 'react-hot-toast'
 const EditResidentProfile = ({residentId}) => {
     
     const [prof_status, setProf_Status] = useState('');
- console.log(residentId)
     const saveResidentSubmit = async (e) =>{
         e.preventDefault();
         if (residentId) {
@@ -16,7 +15,6 @@ const EditResidentProfile = ({residentId}) => {
                     const response = await axios.patch(`/profile/resident/edit/${residentId}`,{
                         prof_status
                     });
-                    console.log(prof_status)
                     if(response.status===200){
                         toast.success("Resident Status Updated");
                         setTimeout(() => {
