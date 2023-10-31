@@ -159,6 +159,23 @@ router.patch("/worker/edit/:profid", async (req, res) => {
     }
 })
 
+// UPDATE SPECIFIC RESIDENT STATUS
+router.patch("/resident/edit/:profid", async (req, res) => {
+    const profId = req.params.profid;
+
+    try {
+        const data = await ProfileModel.findOneAndUpdate(
+            { _id: profId },
+            { prof_status: req.body.prof_status },
+            // Ensure that the updated document is returned
+        );
+
+        res.json({message: "Resident Successfuly Updated", data})
+    } catch (error) {
+        res.json(error);
+    }
+})
+
 // UPDATE SPECIFIC RESIDENT STATUS: APPROVE
 router.patch("/resident/approve/:profid", async (req, res) => {
     const profid = req.params.profid
