@@ -200,6 +200,7 @@ router.patch("/resident/disapprove/:profid", async (req, res) => {
     }
 })
 
+// AUTOMATICALLY INACTIVE PROFILE WHEN NOT USED FOR MORE THAN 5 YEARS
 router.patch("/profstatus/checker", async (req, res) => {
 
     try {
