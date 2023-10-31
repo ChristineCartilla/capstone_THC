@@ -216,10 +216,9 @@ router.patch("/profstatus/checker", async (req, res) => {
                     }
                 )
             }
-            console.log({yearDifference})
         })
         
-        res.json(profileData);
+        res.json("Successfully Check all Profile Activation");
     } catch (error) {
         res.json(error);
     }
