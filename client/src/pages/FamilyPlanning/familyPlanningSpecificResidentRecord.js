@@ -400,7 +400,7 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                                 data-bs-toggle="modal" data-bs-target="#fpAssesView"
                                                                 onClick={() => handleRowClick(rec._id, rec.vitalSign)}
                                                             >
-                                                                <td>{rec._id}</td>
+                                                                <td>{rec._id.slice(-6)}</td>
                                                                 <td>{rec.serviceProvider}</td>
                                                                 <td>{formatDate(rec.createdAt)}</td>
                                                             </tr>
