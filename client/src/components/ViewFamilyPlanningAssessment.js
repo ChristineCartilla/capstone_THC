@@ -19,7 +19,7 @@ const ViewFamilyPlanningAssessment = ({record}) => {
                     <div className="modal-body">
                         <div className='container mb-4'>
                             <div className='container fw-bold row'>
-                            <h5 style={{color: "#8EC3B0"}} className='text-start '>Session Finding {record._id.slice(-6)}</h5>
+                            <h5 style={{color: "#8EC3B0"}} className='text-start '>Session Finding {record._id?record._id.slice(-6): ""}</h5>
 
                                 <div className="col mx-5 mt-3 text-start">
                                     <label className='fw-bold'>Date:   </label>
