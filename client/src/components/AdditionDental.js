@@ -233,7 +233,7 @@ const AdditionDental = ({residentid}) => {
                                 <div className="row mb-5">
                                 <div className="col text-start">
                                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Number of Perm. Teeth Present</label>
-                                        <input type="text"  className="form-control Addition_Dental_textarea" 
+                                        <input type="number"  className="form-control Addition_Dental_textarea" 
                                             id="exampleFormControlTextarea1" 
                                             value={no_permTeethPres}
                                             style={{backgroundColor: "#CCE8DE"}}
@@ -242,7 +242,7 @@ const AdditionDental = ({residentid}) => {
                                     </div>
                                     <div className="col text-start">
                                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Number of Perm. Sound Teeth</label>
-                                        <input type="text"  className="form-control Addition_Dental_textarea" 
+                                        <input type="number"  className="form-control Addition_Dental_textarea" 
                                             id="exampleFormControlTextarea1" 
                                             value={no_permSoundTeeth}
                                             style={{backgroundColor: "#CCE8DE"}}
@@ -251,7 +251,7 @@ const AdditionDental = ({residentid}) => {
                                     </div>
                                     <div className="col text-start">
                                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Number of Decayed Teeth (D)</label>
-                                        <input type="text"  className="form-control Addition_Dental_textarea" 
+                                        <input type="number"  className="form-control Addition_Dental_textarea" 
                                             id="exampleFormControlTextarea1" 
                                             value={no_permDecayedTeeth}
                                             style={{backgroundColor: "#CCE8DE"}}
@@ -261,7 +261,7 @@ const AdditionDental = ({residentid}) => {
                                     </div>
                                     <div className="col text-start">
                                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Number of Missing Teeth (M) </label>
-                                        <input type="text"  className="form-control Addition_Dental_textarea" 
+                                        <input type="number"  className="form-control Addition_Dental_textarea" 
                                             id="exampleFormControlTextarea1" 
                                             value={no_permMissingTeeth}
                                             style={{backgroundColor: "#CCE8DE"}}
@@ -272,7 +272,7 @@ const AdditionDental = ({residentid}) => {
                                 <div className="row mb-5">
                                 <div className="col text-start">
                                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Number of Filled Teeth (F)</label>
-                                        <input type="text"  className="form-control Addition_Dental_textarea" 
+                                        <input type="number"  className="form-control Addition_Dental_textarea" 
                                             id="exampleFormControlTextarea1" 
                                             value={no_permFilledTeeth}
                                             style={{backgroundColor: "#CCE8DE"}}
@@ -282,7 +282,7 @@ const AdditionDental = ({residentid}) => {
                                     </div>
                                     <div className="col text-start">
                                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Total Decay-Missing-Filled Teeth</label>
-                                        <input type="text"  className="form-control Addition_Dental_textarea" 
+                                        <input type="number"  className="form-control Addition_Dental_textarea" 
                                             id="exampleFormControlTextarea1" 
                                             value={totalDMFTeeth}
                                             style={{backgroundColor: "#CCE8DE"}}
@@ -291,7 +291,7 @@ const AdditionDental = ({residentid}) => {
                                     </div>
                                     <div className="col text-start">
                                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Number of Temp. Teeth Present</label>
-                                        <input type="text"  className="form-control Addition_Dental_textarea" 
+                                        <input type="number"  className="form-control Addition_Dental_textarea" 
                                             id="exampleFormControlTextarea1" 
                                             value={no_tempTeethPres}
                                             style={{backgroundColor: "#CCE8DE"}}
@@ -301,7 +301,7 @@ const AdditionDental = ({residentid}) => {
                                     </div>
                                     <div className="col text-start">
                                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Number of Temp. Sound Teeth</label>
-                                        <input type="text"  className="form-control Addition_Dental_textarea" 
+                                        <input type="number"  className="form-control Addition_Dental_textarea" 
                                             id="exampleFormControlTextarea1" 
                                             value={no_tempSoundTeeth}
                                             style={{backgroundColor: "#CCE8DE"}}
@@ -313,7 +313,7 @@ const AdditionDental = ({residentid}) => {
                                 <div className="row mb-5">
                                 <div className="col-3 text-start">
                                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Number of Temp. Decayed Teeth</label>
-                                        <input type="text"  className="form-control Addition_Dental_textarea" 
+                                        <input type="number"  className="form-control Addition_Dental_textarea" 
                                             id="exampleFormControlTextarea1" 
                                             value={no_tempDecayedTeeth}
                                             style={{backgroundColor: "#CCE8DE"}}
@@ -324,7 +324,7 @@ const AdditionDental = ({residentid}) => {
                                     </div>
                                     <div className="col-3 text-start">
                                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Number of Temp. Filled Teeth</label>
-                                        <input type="text"  className="form-control Addition_Dental_textarea" 
+                                        <input type="number"  className="form-control Addition_Dental_textarea" 
                                             id="exampleFormControlTextarea1" 
                                             value={no_tempFilledTeeth}
                                             style={{backgroundColor: "#CCE8DE"}}
@@ -333,7 +333,7 @@ const AdditionDental = ({residentid}) => {
                                     </div>
                                 <div className="col-3 text-start">
                                         <label htmlFor="exampleFormControlTextarea1" className="form-label"><br />Total DF Teeth </label>
-                                        <input type="text"  className="form-control Addition_Dental_textarea" 
+                                        <input type="number"  className="form-control Addition_Dental_textarea" 
                                             id="exampleFormControlTextarea1" 
                                             value={totalDFTeeth}
                                             style={{backgroundColor: "#CCE8DE"}}

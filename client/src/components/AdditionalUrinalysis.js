@@ -121,7 +121,7 @@ const AdditionalUrinalysis = ({residentid, serviceProviderName}) => {
                                 id="exampleFormControlTextarea1" 
                                 style={{backgroundColor: "#CCE8DE"}}
                                 value = {reangentStrip}
-                                onChange={e => setCharacter(e.target.value)}/>
+                                onChange={e => setReagentStrip(e.target.value)}/>
                         </div>    
                        
                         <div className="col text-start">
