@@ -109,7 +109,7 @@ const HematologySpecificRecord = () => {
                         onClick={() => handleBack()}>
                             <FontAwesomeIcon icon={faAngleLeft}/>
                     </button>
-                        <h1 className='text-start'>Hematology 1</h1>  
+                        <h1 className='text-start'>Hematology {hematologyInfo._id? hematologyInfo._id.slice(-6): ""}</h1>  
                     </div>
                     <div className='sp3-pageBody'>
                         <div className='container'>

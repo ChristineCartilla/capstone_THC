@@ -50,18 +50,20 @@ const ViewDispensing = () => {
                         </div>
                     </div>
                     <hr className='py-3 w-75 mx-auto' style={{color:"#FFF"}} />
-                    <div className="dispensing_medInfo d-flex justify-content-evenly">
-                        <div className="col-3">
-                            <h4 className="title">{dispenseTop.medication}</h4>
-                            <p className='text'>Most Prescribed Medicine</p>
-                        </div>
-                        <div className="col-3">
-                            <h4 className="title">{dispenseTop.percentage+"%"}</h4>
-                            <p className='text'>Percentage of {dispenseTop.medication} From all Dispensed Medications</p>
-                        </div>
-                        <div className="col-3">
-                            <h4 className="title">{dispenseTop.count}</h4>
-                            <p className='text'>Occurrences of the medication being administered to patients.</p>
+                    <div className="dispensing_medInfo ">
+                        <div className='row d-flex justify-content-evenly'>
+                            <div className="col-sm-12 col-md-3">
+                                <h4 className="title">{dispenseTop.medication? dispenseTop.medication : "N/A"}</h4>
+                                <p className='text'>Most Prescribed Medicine</p>
+                            </div>
+                            <div className="col-sm-12 col-md-3">
+                                <h4 className="title">{dispenseTop.percentage? dispenseTop.percentage+"%" : "N/A"}</h4>
+                                <p className='text'>Percentage of {dispenseTop.medication} From all Dispensed Medications</p>
+                            </div>
+                            <div className="col-sm-12 col-md-3">
+                                <h4 className="title" >{dispenseTop.count? dispenseTop.count : "N/A"}</h4>
+                                <p className='text'>Occurrences of the medication being administered to patients.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -95,7 +97,7 @@ const ViewDispensing = () => {
                                                 <td>{dispense.dateGiven}</td>
                                                 <td>{dispense.medicationName}</td>
                                                 <td>{dispense.dosage}</td>
-                                                <td>{dispense.prescription}</td>
+                                                <td style={{width: "100px", fontSize: "1rem"}}><p>{dispense.prescription}</p></td>
                                                 <td>{dispense.bhwName}</td>
                                                 <td>
                                                     <button 

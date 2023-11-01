@@ -89,7 +89,7 @@ const MedicalCheckUpSpecificRecord = () => {
                                 <FontAwesomeIcon icon={faAngleLeft}/>
                         </button>
                             {/* ILISANAN: SPECIFIC RECORD NUMBER */}
-                            <h1 className='text-start'>Medical Checkup 1</h1>  
+                            <h1 className='text-start'>Medical Checkup {medicalCheckupInfo._id?medicalCheckupInfo._id.slice(-6):""}</h1>  
                         </div>
                         <div className='sp3-pageBody'>
                             <div className='container'>

@@ -114,7 +114,7 @@ const FamilyPlanningSpecificResidentRecord = () => {
                             onClick={() => handleBack()}>
                                 <FontAwesomeIcon icon={faAngleLeft}/>
                         </button>
-                            <h1 className='text-start'>Family Planning 1</h1>  
+                            <h1 className='text-start'>Family Planning {familyplanningInfo._id?familyplanningInfo._id.slice(-6):""}</h1>  
                         </div>
                         <div className='sp3-pageBody'>
                             <div className='container'>
@@ -383,7 +383,7 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                     <table className="table sp2-MCRecordsTable " >
                                         <thead className=''>
                                             <tr>
-                                                <th>Session Finding Number</th>
+                                                <th>Session Finding Number Code</th>
                                                 <th>Service Provider</th>
                                                 <th>Date of Testing</th>
                                             </tr>
@@ -400,7 +400,7 @@ const FamilyPlanningSpecificResidentRecord = () => {
                                                                 data-bs-toggle="modal" data-bs-target="#fpAssesView"
                                                                 onClick={() => handleRowClick(rec._id, rec.vitalSign)}
                                                             >
-                                                                <td>{rec._id}</td>
+                                                                <td>{rec._id.slice(-6)}</td>
                                                                 <td>{rec.serviceProvider}</td>
                                                                 <td>{formatDate(rec.createdAt)}</td>
                                                             </tr>

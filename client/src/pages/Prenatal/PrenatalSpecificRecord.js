@@ -129,7 +129,7 @@ const PrenatalSpecificRecord = () => {
                             onClick={() => handleBack()}>
                                 <FontAwesomeIcon icon={faAngleLeft}/>
                             </button>
-                            <h1 className='text-start'>Prenatal 1</h1>  
+                            <h1 className='text-start'>Prenatal {(prenatalInfo._id)? prenatalInfo._id.slice(-6): ""}</h1>  
                         </div>
                         <div className='sp3-pageBody'>
                             <div className='container'>

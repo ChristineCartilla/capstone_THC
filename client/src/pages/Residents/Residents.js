@@ -54,7 +54,7 @@ const Residents = () => {
                                         {
                                             family && family.map((fam,idx) => (
                                                 <tr className='px-5' key={idx}>
-                                                    <td>{"FAMLY"+fam._id+"THC"}</td>
+                                                    <td>{"FAMLYTHC_"+fam._id.slice(-6)}</td>
                                                     <td className='text-start'>{fam.profile[0].last_name}</td>
                                                     <td>{fam.acc_status}</td>
                                                     <td>

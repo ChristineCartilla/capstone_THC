@@ -291,7 +291,7 @@ const ImmunizationSpecificResident = () => {
                                                 <tbody>
                                                     <tr>
                                                         <td></td>
-                                                        <td>Record Number</td>
+                                                        <td>Record Number Code</td>
                                                         <td> </td>
                                                         <td>Date of Record</td> 
                                                     </tr>
@@ -307,7 +307,7 @@ const ImmunizationSpecificResident = () => {
                                                                         onClick={() => handleRowClick(rec._id, rec)}
                                                                     >
                                                                         <td> </td>
-                                                                        <td>{rec._id}</td>
+                                                                        <td>{rec._id.slice(-6)}</td>
                                                                         <td> </td>
                                                                         <td>{formatDate(rec.createdAt)}</td>
                                                                     </tr>
