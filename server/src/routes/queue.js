@@ -1,6 +1,4 @@
 import express from "express";
-import { AccountModel } from "../models/Accounts.js";
-import { ProfileModel } from "../models/Profile.js";
 import { QueueModel } from "../models/Queue.js";
 
 

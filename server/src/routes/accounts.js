@@ -1,6 +1,5 @@
 import express from "express";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
 import CryptoJS from 'crypto-js';
 import { AccountModel } from "../models/Accounts.js";
 import { ProfileModel } from "../models/Profile.js";
@@ -19,13 +18,13 @@ function getAge(date){
 }
 
 function encryptCRPYTO(passwordPlainText){
-    var secretKey = "THC2023CAPSTONEproject"
+    var secretKey = process.env.SECRET_KEY;
     var ciphertext = CryptoJS.AES.encrypt(passwordPlainText, secretKey).toString();
     return ciphertext;
 }
 
 function decryptCRPYTO(ciphertext){
-    var secretKey = "THC2023CAPSTONEproject"
+    var secretKey = process.env.SECRET_KEY;
     var bytes  = CryptoJS.AES.decrypt(ciphertext, secretKey);
     var originalText = bytes.toString(CryptoJS.enc.Utf8);
     return originalText;
