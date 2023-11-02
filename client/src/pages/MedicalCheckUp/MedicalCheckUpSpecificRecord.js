@@ -135,11 +135,11 @@ const MedicalCheckUpSpecificRecord = () => {
                                         width < 1500 ?
                                         "oral-health-mobile" : null
                                         }`}>
-                                        <div className="oral-health-left">
-                                            <div class="oral-health-one">
+                                        
+                                            <div class="medcheckfind">
                                                 <span>{medicalCheckupInfo.findings}</span>
                                             </div>
-                                        </div>
+                                    
                                     </div>
 
                                     <h3 className="text-start">Medical Prescription</h3>
@@ -147,11 +147,11 @@ const MedicalCheckUpSpecificRecord = () => {
                                         width < 1500 ?
                                         "oral-health-mobile" : null
                                         }`}>
-                                        <div className="oral-health-left">
-                                            <div className="oral-health-one">
+                                        
+                                            <div className="medcheckfind">
                                                 <span>{medicalCheckupInfo.recommendation}</span>
                                             </div>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>

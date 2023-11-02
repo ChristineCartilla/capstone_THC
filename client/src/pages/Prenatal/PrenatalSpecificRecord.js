@@ -234,11 +234,11 @@ const PrenatalSpecificRecord = () => {
                                                 <span className="fw-bold">Allergies:</span>
                                                 <span className="fw-bold">Previous Hospitalization:</span>
                                             </div>
-                                            <div className="oral-health-two">
+                                        </div>
+                                        <div className="medhistory">
                                                 <span>{prenatalInfo?.medicalHistory?.illness? prenatalInfo.medicalHistory.illness: "N/A"} </span>
                                                 <span>{prenatalInfo?.medicalHistory?.allergy? prenatalInfo.medicalHistory.allergy: "N/A"}</span>
                                                 <span>{prenatalInfo?.medicalHistory?.hospitalization? prenatalInfo.medicalHistory.hospitalization: "N/A"}</span>
-                                            </div>
                                         </div>
                                     </div>
                                     <h3 className="text-start">Tetanus Toxoid Status</h3>

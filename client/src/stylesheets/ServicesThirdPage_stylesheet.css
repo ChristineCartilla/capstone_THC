@@ -98,6 +98,23 @@
     width: 12rem;
 }
 
+.medhistory span{
+    display: flex;
+    border-bottom: solid 1px;
+    border-color: #c9c9c9;
+    height: 3.3rem;
+    align-items: center;
+    padding: 1rem;
+}
+
+.medcheckfind span{
+    display: flex;
+    border-bottom: solid 1px;
+    border-color: #c9c9c9;
+    align-items: center;
+    padding: 1rem;
+}
+
 .rowColumn {
     display: flex   
 }
