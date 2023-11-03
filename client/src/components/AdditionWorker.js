@@ -108,7 +108,7 @@ const AdditionWorker = () => {
                                     className="form-select"  
                                     style={{backgroundColor: "#CCE8DE"}}
                                     onChange={(event)=>setCivilStatus(event.target.value)} >
-                                    <option value="#" disabled style={{backgroundColor: "white"}}>Choose...</option>
+                                    <option value="#" style={{backgroundColor: "white"}}>Choose...</option>
                                     <option value="Single"  style={{backgroundColor: "white"}}>Single</option>
                                     <option value="Married"  style={{backgroundColor: "white"}}>Married</option>
                                     <option value="Separated"  style={{backgroundColor: "white"}}>Separated</option>
@@ -124,7 +124,7 @@ const AdditionWorker = () => {
                                     <select className="form-select"  style={{backgroundColor: "#CCE8DE"}}
                                                 onChange={(event)=>setGender(event.target.value)}
                                             >
-                                                <option value="#" disabled style={{backgroundColor: "white"}}>Choose...</option>
+                                                <option value="#" style={{backgroundColor: "white"}}>Choose...</option>
                                                 <option value="Male"  style={{backgroundColor: "white"}}>Male</option>
                                                 <option value="Female"  style={{backgroundColor: "white"}}>Female</option>
                                     </select>
