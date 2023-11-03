@@ -67,7 +67,6 @@ const Login = () => {
                         <div className="d-grid gap-2 w-50 m-auto">
                             <button type="submit" className="btn btn-lg">Login</button>
                         </div>
-                        <p className='link'>Don't have an account? <Link to='/register' className='linkText'>Sign up</Link></p>
                     </form>
                 </div>
             </div>

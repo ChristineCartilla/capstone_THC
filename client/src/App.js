@@ -52,7 +52,7 @@ import QueueBHW from './pages/Queue/QueueBHW';
 import ImmunizationResidentPage from './pages/Immunization/ImmunizationResidentPage';
 import PrivateRoutes from './utils/PrivateRoutes';
 
-axios.defaults.baseURL = 'http://localhost:8001';
+axios.defaults.baseURL = 'https://keen-bouman.108-61-201-27.plesk.page/';
 
 function App() {
 
